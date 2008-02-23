@@ -9,19 +9,19 @@ from agents.fare import Fare, FareFactory
 from agents.taxi import Taxi
 from agents.agent import Agent
 
-config = ConfigParser.SafeConfigParser()
-config.read(os.path.join('agents', 'defaults.ini'))
-config.read(os.path.join('agents', 'overrides.ini'))
+config=ConfigParser.SafeConfigParser()
+config.read(os.path.join('agents','defaults.ini'))
+config.read(os.path.join('agents','overrides.ini'))
 
 # dev and runtime config values
-TRACING = config.getboolean('dev', 'tracing')
-NUM_TAXIS = config.getint('runtime', 'numTaxis')
-NUM_FARES = config.getint('runtime', 'numFares')
-NP = config.get('runtime', 'negotiationProtocol')
-SIMTIME = config.getint('runtime', 'simulationTime')
-SIMTYPE = config.get('runtime', 'simType')
-USE_GUI = config.getboolean('runtime', 'useGUI')
-SEED = config.getint('runtime', 'randomSeed')
+TRACING=config.getboolean('dev','tracing')
+NUM_TAXIS=config.getint('runtime','numTaxis')
+NUM_FARES=config.getint('runtime','numFares')
+NP=config.get('runtime','negotiationProtocol')
+SIMTIME=config.getint('runtime','simulationTime')
+SIMTYPE=config.get('runtime','simType')
+USE_GUI=config.getboolean('runtime','useGUI')
+SEED=config.getint('runtime','randomSeed')
 
 if TRACING:
     from SimPy.SimulationTrace import *
