@@ -67,8 +67,13 @@ TIGER_SANDBOX=config.get('dataprep','tigerSandbox')
 # dev config values
 DEBUG=config.getboolean('dev','debug')
 
-# other settings
-IMAGES_DIR=os.path.join('graphs','images')
+if TIGER_SANDBOX=='None': # it's a config string, not the None value 
+    print "Please specify where to store generated files by setting"
+    print "tigerSandbox in graphs\\overrides.ini"
+    sys.exit(0)
+
+DATA_DIR=os.path.join(TIGER_SANDBOX,'data')
+IMAGES_DIR=os.path.join(TIGER_SANDBOX,'images')
 
 
 class G(object):
@@ -399,7 +404,7 @@ class UserInput(object):
             G.dbName='tgr'+G.stateCountyCode+'.db'	
 	    # Assemble the uri for SQLAlchemy.  Looks like
 	    # sqlite:///tgr53033.db.
-	    G.sqlPath=TIGER_SANDBOX+'/'+G.stateAbbr+'/TGR'+ \
+	    G.sqlPath=DATA_DIR+'/'+G.stateAbbr+'/TGR'+ \
 			    G.stateCountyCode+'/sql/'
             if DEBUG:
                 print 'G.sqlPath: %s'%G.sqlPath
@@ -511,7 +516,7 @@ files that are not used by the graphs programs.'''
                 G.stateCountyCode=G.stateCode+G.countyCode
                 zipFileName='TGR%s.ZIP' % (G.stateCountyCode)
                 zipFileUrl=FIPS_ZIPFILE_ROOT+G.stateAbbr+r'/'+zipFileName
-                G.srcPath=os.path.normpath(os.path.join(TIGER_SANDBOX,
+                G.srcPath=os.path.normpath(os.path.join(DATA_DIR,
                         G.stateAbbr,'TGR'+G.stateCountyCode,'src'))
 		if DEBUG:
 		    print '[DEBUG] G.srcPath: %s' % G.srcPath
@@ -556,7 +561,7 @@ temporary location.'''
         print "\n====[ ProcessFipsFiles ]===="
 
         # should look like G.srcPath
-        G.rawPath=os.path.normpath(os.path.join(TIGER_SANDBOX,G.stateAbbr,
+        G.rawPath=os.path.normpath(os.path.join(DATA_DIR,G.stateAbbr,
                 'TGR'+G.stateCountyCode,'raw'))
         if not os.path.exists(G.rawPath):
             print "Creating %s" % G.rawPath
@@ -627,7 +632,7 @@ a SQL database.'''
         print "\n====[ RunMungers ]===="
 
         # should look like G.srcPath
-	G.mungedPath=os.path.normpath(os.path.join(TIGER_SANDBOX,G.stateAbbr,
+	G.mungedPath=os.path.normpath(os.path.join(DATA_DIR,G.stateAbbr,
 		'TGR'+G.stateCountyCode,'munged'))
 
         if not os.path.exists(G.mungedPath):
@@ -1148,7 +1153,12 @@ class MakeGraph(object):
 			node_color='c')
         networkx.draw_networkx_edges(self.G,self.G.pos,width=0.3,
 			edge_color='r')
-        pngname="graph_TGR%s_ZIP%s.png" % (G.stateCountyCode, G.zipCode)
+        # Don't get cute here.  Just give me a file name.
+	if G.zipCode is None:
+            pngname="graph_TGR%s.png" % G.stateCountyCode
+	else:
+            pngname="graph_TGR%s_ZIP%s.png" % (G.stateCountyCode, G.zipCode)
+
 	# TODO Where to write the file to?  It's going to the working dir
 	# right now.
 	if not os.path.exists(IMAGES_DIR):
