@@ -10,3 +10,10 @@ syntax:glob
 # Can also switch to regexp syntax
 syntax: regexp
 ^\.pc/
+\.RT1m?$
+\.RT2m?$
+generated\/data
+generated\/images
+#\.TGR.....\.db$
+#\.TGR.....\.png$
+#\.TGR.....\.ZIP$
