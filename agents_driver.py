@@ -9,6 +9,9 @@ from agents.fare import Fare, FareFactory
 from agents.taxi import Taxi
 from agents.agent import Agent
 
+# TEST
+import graphs.tigerutils
+
 config=ConfigParser.SafeConfigParser()
 config.read(os.path.join('agents','defaults.ini'))
 config.read(os.path.join('agents','overrides.ini'))
@@ -62,7 +65,7 @@ def model():
 
     # Create Fares prior to starting the simulation.  Now a TK.
     for j in range(1,NUM_FARES):
-        # TODO Put this in place later.  Grep for "Fare Fare" to see what it's
+        # TODO Put this in place later.  grep for "Fare Fare" to see what it's
         # doing.  It may in fact point to other problems with my strategy.
         #f=Fare(name='Fare-' + `j`)
 #        fname = 'Fare-%s' % j
