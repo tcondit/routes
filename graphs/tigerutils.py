@@ -401,7 +401,7 @@ class UserInput(object):
                 print '[DEBUG] G.dbUri: %s' % G.dbUri
 
     def __SQLiteUri(self):
-            G.dbName='tgr'+G.stateCountyCode+'.db'	
+            G.dbName='TGR'+G.stateCountyCode+'.db'	
 	    # Assemble the uri for SQLAlchemy.  Looks like
 	    # sqlite:///tgr53033.db.
 	    G.sqlPath=DATA_DIR+'/'+G.stateAbbr+'/TGR'+ \
@@ -1155,9 +1155,9 @@ class MakeGraph(object):
 			edge_color='r')
         # Don't get cute here.  Just give me a file name.
 	if G.zipCode is None:
-            pngname="graph_TGR%s.png" % G.stateCountyCode
+            pngname="TGR%s.png" % G.stateCountyCode
 	else:
-            pngname="graph_TGR%s_ZIP%s.png" % (G.stateCountyCode, G.zipCode)
+            pngname="TGR%s_ZIP%s.png" % (G.stateCountyCode, G.zipCode)
 
 	# TODO Where to write the file to?  It's going to the working dir
 	# right now.
