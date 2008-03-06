@@ -1018,18 +1018,8 @@ class QueryDatabase(object):
 
     def __init__(self):
         print "\n====[ QueryDatabase ]===="
-
-#        self.conn=G.engine.connect()
-	# this is cute, but I don't need it.  I'm going to use
-	# sqlalchemy.select
         self.session=G.Session()
-#	self.q=self.session.query(RecordType1)
-	# DEBUG
-#	count=0
-#	for rt in self.q:
-#            count+=1
-#            print count, rt.frlat
-        print "record count:", self.getRecordCount()
+#        print "record count:", self.getRecordCount()
 
     def getRecordCount(self):
         '''TODO'''
@@ -1136,6 +1126,7 @@ entire county.'''
         '''Fetch a SQLAlchemy ResultProxy for a random point on the graph.'''
         randomRow=random.randint(1,self.getRecordCount())
 	r=self.session.execute(select([
+		G.tiger01_Table.c.id,
 		G.tiger01_Table.c.tlid,
 		G.tiger01_Table.c.frlong,
 		G.tiger01_Table.c.frlat,
@@ -1146,7 +1137,12 @@ entire county.'''
 #            return row
 	# This thing returns a tuple with an int and four Decimal objects
 	# (which I don't know what the f--k to do with).
-        return r['tlid'],r['frlong'],r['frlat'],r['tolong'],r['tolat']
+	#
+	# Late note: maybe it's not so bad
+        # >>> print decimal.Decimal("-150.330257")
+        # -150.330257
+	# 
+        return r['id'],r['tlid'],r['frlong'],r['frlat'],r['tolong'],r['tolat']
 
 class MakeGraph(object):
     def __init__(self):
