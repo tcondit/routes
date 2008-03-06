@@ -37,9 +37,12 @@ def run():
     query=tigerutils.QueryDatabase()
     query.chooseGraphArea()
 
-    # [TODO] plot the chosen area
-    mg=tigerutils.MakeGraph()
-    mg.makeGraph()
+    # TESTING
+    print 'The point is',query.getPoint()
+
+#    # [TODO] plot the chosen area
+#    mg=tigerutils.MakeGraph()
+#    mg.makeGraph()
 
 if __name__ == '__main__':
     run()

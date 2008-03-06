@@ -1023,12 +1023,25 @@ class QueryDatabase(object):
 	# this is cute, but I don't need it.  I'm going to use
 	# sqlalchemy.select
         self.session=G.Session()
-	self.q=self.session.query(RecordType1)
+#	self.q=self.session.query(RecordType1)
 	# DEBUG
 #	count=0
 #	for rt in self.q:
 #            count+=1
 #            print count, rt.frlat
+        print "record count:", self.getRecordCount()
+
+    def getRecordCount(self):
+        '''TODO'''
+	try:
+            return G.recordCount
+        except: # AttributeError
+            rp=self.session.execute(select([G.tiger01_Table.c.id]))
+	    tmp=[]
+	    for result in rp:
+                tmp.append(result)
+	    G.recordCount = len(tmp)
+            return G.recordCount
 
     def getZipCodes(self):
         '''Collect the list of ZIP codes in this county.'''
@@ -1109,6 +1122,31 @@ entire county.'''
 			    [(frlong,frlat),(tolong,tolat)]
         return tuptotup
 
+    # Here's an example in sqlite3
+    #
+    # C:\Source\hg\unified\generated\data\AK\TGR02068\sql>sqlite3 TGR02068.db
+    # sqlite> SELECT id, frlong, frlat, tolong, tolat FROM tiger_01 ORDER BY random() LIMIT 1;
+    # 438|-149.987164|64.144821|-150.002351|64.131662
+    # sqlite> SELECT id, frlong, frlat, tolong, tolat FROM tiger_01 ORDER BY random() LIMIT 1;
+    # 2164|-148.808454|63.56553|-148.811602|63.564018
+    # sqlite>
+    #
+    # NOTE: this method is similar to agents.Agent mkcoords()
+    def getPoint(self):
+        '''Fetch a SQLAlchemy ResultProxy for a random point on the graph.'''
+        randomRow=random.randint(1,self.getRecordCount())
+	r=self.session.execute(select([
+		G.tiger01_Table.c.tlid,
+		G.tiger01_Table.c.frlong,
+		G.tiger01_Table.c.frlat,
+		G.tiger01_Table.c.tolong,
+		G.tiger01_Table.c.tolat
+		],G.tiger01_Table.c.id==randomRow)).fetchone()
+#	for row in result:
+#            return row
+	# This thing returns a tuple with an int and four Decimal objects
+	# (which I don't know what the f--k to do with).
+        return r['tlid'],r['frlong'],r['frlat'],r['tolong'],r['tolat']
 
 class MakeGraph(object):
     def __init__(self):
