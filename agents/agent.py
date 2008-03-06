@@ -43,6 +43,8 @@ class Agent(Process):
 
     # TODO this might belong in its own class, so we can choose a coordinate
     # system (grid or graph) at config time.
+    #
+    # Late note: a TK for either grid or graph might be the better choice.
     def mkcoords(self, lo=GRID_MIN, hi=GRID_MAX, length=2):
         '''Generates two-tuples representing locations'''
         tmp = []
