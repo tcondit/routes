@@ -12,7 +12,8 @@ class Grid(Area):
         '''DOCSTRING'''
 	pass
 
-    # set_location?  This and get_location are not very Pythonic.
+    # set_location?  This and get_location are not very Pythonic.  Maybe find
+    # a Python for Java programmers guide?
     def update_location(self):
         '''DOCSTRING'''
 	# Since Area is a separate class, I'm not sure how this method will
