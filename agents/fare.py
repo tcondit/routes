@@ -34,7 +34,8 @@ class Fare(Agent):
         # fareBeingDriven.doneSignal.signal(self.name) in the Taxi's
         # cooperate() method.)
         self.doneSignal = SimEvent()
-        self.loc['dest'] = self.mkcoords()
+        #self.loc['dest'] = self.mkcoords()
+        self.loc['dest'] = self.map.get_location()
         # This list is used with the Taxi's compete() method.  All Taxis that
         # are competing for this Fare get dropped here temporarily.
         self.competeQ = []

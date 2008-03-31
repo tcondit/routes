@@ -1,7 +1,9 @@
 #!/usr/bin/env python
 '''DOCSTRING'''
 
-# agents\Grid is polymorphic with graphs\Graph 
+# agents/Grid is polymorphic with graphs/Graph 
+
+#from area import Area
 import ConfigParser
 import os.path
 import random
@@ -13,8 +15,6 @@ config.read(os.path.join('agents', 'overrides.ini'))
 # runtime config values
 GRID_MIN = config.getint('runtime', 'gridMin')
 GRID_MAX = config.getint('runtime', 'gridMax')
-
-#from area import Area
 
 #class Grid(Area):
 class Grid(object):
@@ -31,12 +31,12 @@ class Grid(object):
             tmp.append(random.randint(lo, hi))
 	return tuple(tmp)
 
-
     # set_location?  This and get_location are not very Pythonic.  Maybe find
     # a Python for Java programmers guide?
     def update_location(self):
         '''
-Update the Taxi's current position.
+Update the Agent's current position.  Normally applies to Taxis, but Fares can
+use it too.
 
 This method is normally only called from Taxi.compete(), after a Taxi has been
 interrupted while en'route to a Fare.  The interruption means that another
@@ -52,6 +52,11 @@ NOTE: This method works under the assumption that the Taxi travels 1 unit of
 the grid for each tick of the simulation's clock.  This may eventually become
 a configuration setting, but it's low priority.
         '''
+	# I'm putting this into Grid and Graph, but it may belong in Taxi.
+	# The problem with putting it there is it means the Taxi needs to
+	# know which map type it's using, which is exactly what I'm trying to
+	# avoid.
+
 #        print '%s self.loc:' % self.name, self.loc
         assert(self.loc['curr'])
         assert(self.loc['dest'])
@@ -69,30 +74,26 @@ a configuration setting, but it's low priority.
         '''Return a single (x,y) coordinate point'''
 	pass
 
-    def get_distance(dest, currentLocation=None):
-#    (self, here, there):
+    def get_distance(self, here, there):
         '''
 Given a pair of coordinates, return the distance between them (float).
 
 Returns the straight-line distance between the points if hypotenuse is
 True (default).  Otherwise, returns the driving distance.
         '''
-	pass
+        # CAUTION: the compete methods do not use taxi_loc, so this is a hazard.
+#        curr = currentLocation or taxi_loc
+#        if not curr:
+#            print 'What am I supposed to do with an empty current location tuple??'
+#            print 'dest:', dest, 'curr:', curr
+#            stopSimulation()
+#            print 'more stubby!'
 
-def getdistance(dest, currentLocation=None):
-    # CAUTION: the compete methods do not use taxi_loc, so this is a hazard.
-    curr = currentLocation or taxi_loc
-    if not curr:
-        print 'What am I supposed to do with an empty current location tuple??'
-        print 'dest:', dest, 'curr:', curr
-        stopSimulation()
-        print 'more stubby!'
-
-    DC = config.get('runtime', 'distanceCalculation')
-    if DC == 'straightLine':    # use the hypotenuse
-        return math.hypot((curr[0]-dest[0]), (curr[1]-dest[1]))
-    elif DC == 'drivingDistance':
-        return abs(curr[0]-dest[0]) + abs(curr[1]-dest[1])
+        DC = config.get('runtime', 'distanceCalculation')
+        if DC == 'straightLine':    # use the hypotenuse
+            return math.hypot((curr[0]-dest[0]), (curr[1]-dest[1]))
+        elif DC == 'drivingDistance':
+            return abs(curr[0]-dest[0]) + abs(curr[1]-dest[1])
 
 if __name__=='__main__':
     g=Grid()

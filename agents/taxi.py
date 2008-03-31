@@ -88,7 +88,7 @@ Contrast with the compete() method.
                 fareBeingDriven=self.got[0]
 
                 # Drive to Fare
-                drive_dist = getdistance(fareBeingDriven.loc['curr'])
+                drive_dist = getdistance(fareBeingDriven.loc['curr'], taxi_loc)
                 if DEBUG:
                     print '%.4f Taxi %s driving to Fare %s' % (now(), self.name,
                             fareBeingDriven.name)
@@ -556,7 +556,7 @@ negotiation protocols.
         if buffer == Agent.waitingFares.theBuffer: print 'the buffers are equal'
         if buffer is Agent.waitingFares.theBuffer: print 'the buffers are the same'
     for fare in buffer:
-        d = getdistance(fare.loc['curr'])
+        d = getdistance(fare.loc['curr'], taxi_loc)
         if DEBUG:
             print 'Distance from Taxi to Fare %s: %.4f' % (fare.name, d)
         tmp.append((fare, d))
@@ -620,7 +620,7 @@ negotiation protocols.
         return
     for fare in buffer:
         TIQ = (now() - fare.ts['mkreq'])
-        d = getdistance(fare.loc['curr'])
+        d = getdistance(fare.loc['curr'], taxi_loc)
         # TODO [eventually] put the weight and scoring routines into a config
         # file.  Major TK.
         weight = SIMTIME - TIQ
@@ -704,7 +704,7 @@ flies") if hypotenuse is True, (the default).  Otherwise, returns the
 driving distance.
     '''
     # CAUTION: the compete methods do not use taxi_loc, so this is a hazard.
-    curr = currentLocation or taxi_loc
+    curr = currentLocation #or taxi_loc
     if not curr:
         print 'What am I supposed to do with an empty current location tuple??'
         print 'dest:', dest, 'curr:', curr
