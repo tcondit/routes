@@ -1,12 +1,17 @@
 #!/usr/bin/env python
 '''DOCSTRING'''
 
-from area import Area
+# graphs\Graph is polymorphic with agents\Grid
+import ConfigParser
 
-class Graph(Area):
+#from area import Area
+
+#class Graph(Area):
+class Graph(object):
     '''DOCSTRING'''
     def __init__(self):
-        Area.__init__(self)
+        pass
+#        Area.__init__(self)
 
     def get_location(self):
         '''DOCSTRING'''
