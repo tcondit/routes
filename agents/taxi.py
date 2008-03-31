@@ -2,7 +2,7 @@
 '''DOCSTRING'''
 
 import math
-from operator import itemgetter # this does not work with Python 2.3
+from operator import itemgetter # itemgegger is new in Python 2.4
 from random import randint, seed, choice
 from agent import Agent
 import ConfigParser
