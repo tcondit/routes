@@ -34,6 +34,13 @@ class Agent(Process):
 #    waitingFares = Store(capacity=STORECAP, initialBuffered=waiting,
 #            monitored=True, monitorType=Monitor)
 
+    # This is a class attribute so that the SimPy filter functions
+    # closestfare_cooperate and mixedmode_cooperate in Taxi.py can use them
+    if MAP_TYPE=='grid':
+        map=Grid()
+    elif MAP_TYPE=='graph':
+        map=Graph()
+
     def __init__(self, name):
         Process.__init__(self, name)
 	if MAP_TYPE=='grid':

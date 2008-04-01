@@ -44,9 +44,9 @@ Taxi (the one doing the interrupting) got to the Fare first, and this Taxi
 needs to figure out where he is, so he can set his loc['curr'], and compete
 for the next Fare.
 
-Implementation detail: to keep things simple in the grid, I am just putting
-the Taxi near the halfway point between their former current location and
-their destination.
+Implementation detail: to keep things simple in the grid, I am currently
+putting the Taxi near the halfway point between their starting and ending
+locations.
 
 NOTE: This method works under the assumption that the Taxi travels 1 unit of
 the grid for each tick of the simulation's clock.  This may eventually become
@@ -56,6 +56,15 @@ a configuration setting, but it's low priority.
 	# The problem with putting it there is it means the Taxi needs to
 	# know which map type it's using, which is exactly what I'm trying to
 	# avoid.
+	#
+	#
+	# Since Area is a separate class, I'm not sure how this method will
+	# work yet.  The idea is simple enough: an Agent is travelling from
+	# one place to another, and for some reason needs to calculate their
+	# current location.
+	#
+	# Inputs include at least starting point and travel time; maybe also
+	# ending point and travelling speed.
 
 #        print '%s self.loc:' % self.name, self.loc
         assert(self.loc['curr'])
@@ -74,7 +83,7 @@ a configuration setting, but it's low priority.
         '''Return a single (x,y) coordinate point'''
 	pass
 
-    def get_distance(self, here, there):
+    def get_distance(self, curr, dest):
         '''
 Given a pair of coordinates, return the distance between them (float).
 

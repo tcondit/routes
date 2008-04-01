@@ -16,7 +16,11 @@ TRACING = config.getboolean('dev', 'tracing')
 # runtime config values
 MEAN_FARE_GENERATION_RATE = config.getint('runtime', 'meanFareGenerationRate')
 
-numFaresCreated = 0     # why is this out here?
+# This is here because it appears that without the global variable, when the
+# fare count reaches storeCapacity (STORE_CAP in Agent.py), the count resets
+# to 0, rather than continuing to increment.  That doesn't account for why it
+# behaves this way, but it seems to be acting similarly to a class variable.
+numFaresCreated = 0
 
 if TRACING:
     from SimPy.SimulationTrace import *
@@ -80,3 +84,4 @@ if __name__ == '__main__':
     # TODO try FareFactory too
     f = Fare('Filip')
     f.run()
+
