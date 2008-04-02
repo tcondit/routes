@@ -211,12 +211,18 @@ Contrast with the cooperate() method.
 
                 self.loc['dest'] = targetFare.loc['curr']
                 #drive_dist = getdistance(self.loc['dest'], self.loc['curr'])
+
+		# DEBUG
+#		assert self.loc['curr']
+#		assert self.loc['dest']
                 drive_dist = self.map.get_distance(self.loc['dest'], self.loc['curr'])
 
 # @@ Found this line in an old printout that may be "newer" than this code.
 #                self.headingForFare = now()
+                self.headingForFare=now()
 
                 # Drive to Fare, try to get there first
+#		drive_start_time=now()
                 yield hold, self, drive_dist
 
                 # If interrupted, another Taxi beat me to the Fare.
@@ -224,8 +230,11 @@ Contrast with the cooperate() method.
                     if DEBUG:
                         print '.. Taxi %s was interrupted by' % self.name,
                         print self.interruptCause.name, 'at %.4f' % now()
+		    print 
                     self.interruptReset()
-                    self.updateLocation()
+                    self.loc['curr']=Agent.map.update_location(self.loc['curr'],
+                                    self.loc['dest'], now()-self.headingForFare)
+#		    self.updateLocation()
 
                 # Not interrupted, so I win!  Take the Fare from
                 # waitingFares.theBuffer, and interrupt the Taxis who lost out
@@ -292,6 +301,7 @@ Contrast with the cooperate() method.
 
 # @@ Found this line in an old printout that may be "newer" than this code.
 #                       self.interrupt(competitor)
+                        self.interrupt(competingTaxi)
 
 # @@ Found this line in an old printout that may be "newer" than this code.
 #                    self.loc = targetFare.loc
@@ -329,35 +339,35 @@ Contrast with the cooperate() method.
                 yield hold, self, 2
 
 
-    def updateLocation(self):
-        '''
-Update the Taxi's current position.
-
-This method is normally only called from compete(), after a Taxi has been
-interrupted while en'route to a Fare.  The interruption means that another
-Taxi (the one doing the interrupting) got to the Fare first, and this Taxi
-needs to figure out where he is, so he can set his loc['curr'], and compete
-for the next Fare.
-
-Implementation detail: to keep things simple, I am just putting the Taxi near
-the halfway point between their former current location and their destination.
-
-NOTE: This method works under the assumption that the Taxi travels 1 unit of
-the grid for each tick of the simulation's clock.  This may eventually become
-a configuration setting, but it's low priority.
-        '''
-#        print '%s self.loc:' % self.name, self.loc
-        assert(self.loc['curr'])
-        assert(self.loc['dest'])
-
-        curr_tmp = {}
-        curr_tmp['x'] = ((self.loc['curr'][0] + self.loc['dest'][0])/2)
-        curr_tmp['y'] = ((self.loc['curr'][1] + self.loc['dest'][1])/2)
-
-        self.loc['curr'] = (curr_tmp['x'], curr_tmp['y'])
-        self.loc['dest'] = ()
-        curr_tmp.clear()
-        return
+#    def updateLocation(self):
+#        '''
+#Update the Taxi's current position.
+#
+#This method is normally only called from compete(), after a Taxi has been
+#interrupted while en'route to a Fare.  The interruption means that another
+#Taxi (the one doing the interrupting) got to the Fare first, and this Taxi
+#needs to figure out where he is, so he can set his loc['curr'], and compete
+#for the next Fare.
+#
+#Implementation detail: to keep things simple, I am just putting the Taxi near
+#the halfway point between their former current location and their destination.
+#
+#NOTE: This method works under the assumption that the Taxi travels 1 unit of
+#the grid for each tick of the simulation's clock.  This may eventually become
+#a configuration setting, but it's low priority.
+#        '''
+##        print '%s self.loc:' % self.name, self.loc
+#        assert(self.loc['curr'])
+#        assert(self.loc['dest'])
+#
+#        curr_tmp = {}
+#        curr_tmp['x'] = ((self.loc['curr'][0] + self.loc['dest'][0])/2)
+#        curr_tmp['y'] = ((self.loc['curr'][1] + self.loc['dest'][1])/2)
+#
+#        self.loc['curr'] = (curr_tmp['x'], curr_tmp['y'])
+#        self.loc['dest'] = ()
+#        curr_tmp.clear()
+#        return
 
 
     def closestfare_compete(self, not_a_magic_buffer=None):

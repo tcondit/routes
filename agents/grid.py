@@ -31,53 +31,45 @@ class Grid(object):
             tmp.append(random.randint(lo, hi))
 	return tuple(tmp)
 
-    # set_location?  This and get_location are not very Pythonic.  Maybe find
-    # a Python for Java programmers guide?
-    def update_location(self):
+    def update_location(self, start_loc, end_loc, time_delta):
         '''
-Update the Agent's current position.  Normally applies to Taxis, but Fares can
-use it too.
+Update an Agent's current position.
 
-This method is normally only called from Taxi.compete(), after a Taxi has been
+This method is usually called from Taxi.compete(), after a Taxi has been
 interrupted while en'route to a Fare.  The interruption means that another
 Taxi (the one doing the interrupting) got to the Fare first, and this Taxi
 needs to figure out where he is, so he can set his loc['curr'], and compete
 for the next Fare.
-
-Implementation detail: to keep things simple in the grid, I am currently
-putting the Taxi near the halfway point between their starting and ending
-locations.
-
-NOTE: This method works under the assumption that the Taxi travels 1 unit of
-the grid for each tick of the simulation's clock.  This may eventually become
-a configuration setting, but it's low priority.
         '''
-	# I'm putting this into Grid and Graph, but it may belong in Taxi.
-	# The problem with putting it there is it means the Taxi needs to
-	# know which map type it's using, which is exactly what I'm trying to
-	# avoid.
-	#
-	#
-	# Since Area is a separate class, I'm not sure how this method will
-	# work yet.  The idea is simple enough: an Agent is travelling from
-	# one place to another, and for some reason needs to calculate their
-	# current location.
-	#
-	# Inputs include at least starting point and travel time; maybe also
-	# ending point and travelling speed.
 
 #        print '%s self.loc:' % self.name, self.loc
-        assert(self.loc['curr'])
-        assert(self.loc['dest'])
+#        assert(self.loc['curr'])
+#        assert(self.loc['dest'])
 
-        curr_tmp = {}
-        curr_tmp['x'] = ((self.loc['curr'][0] + self.loc['dest'][0])/2)
-        curr_tmp['y'] = ((self.loc['curr'][1] + self.loc['dest'][1])/2)
+        print '[DEBUG] start_loc:', start_loc
+        print '[DEBUG] end_loc:', end_loc
+	print '[DEBUG] time_delta:', time_delta
+	print '[DEBUG] abs(end_loc[0]-start_loc[0]):', abs(end_loc[0]-start_loc[0])
+	print '[DEBUG] abs(end_loc[1]-start_loc[1]):', abs(end_loc[1]-start_loc[1])
 
-        self.loc['curr'] = (curr_tmp['x'], curr_tmp['y'])
-        self.loc['dest'] = ()
-        curr_tmp.clear()
-        return
+	# Find the location of the Agent, given the data above: start (7,132),
+	# end (129,180), diff (122,48), delta (104).  I'm thinking maybe
+	# something like a ratio of (diff[0]+diff[1])/delta, but what good is
+	# that?
+	#
+	# The only difficulty is figuring out how far to move in the
+	# x-direction, and how far to move in the y-direction.  And even that
+	# shouldn't be too hard.
+	return
+
+#        curr_tmp = {}
+#        curr_tmp['x'] = ((self.loc['curr'][0] + self.loc['dest'][0])/2)
+#        curr_tmp['y'] = ((self.loc['curr'][1] + self.loc['dest'][1])/2)
+#
+#        self.loc['curr'] = (curr_tmp['x'], curr_tmp['y'])
+#        self.loc['dest'] = ()
+#        curr_tmp.clear()
+#        return
 
     def get_point(self):
         '''Return a single (x,y) coordinate point'''
