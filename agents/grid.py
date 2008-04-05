@@ -5,6 +5,7 @@
 
 #from area import Area
 import ConfigParser
+import math
 import os.path
 import random
 
@@ -79,18 +80,21 @@ for the next Fare.
 
         return (int(ax+xdelta),int(ay+ydelta))
 
-    def get_distance(self, curr, dest):
+    def get_distance(self, point_a, point_b):
         '''
 Given a pair of coordinates, return the distance between them.
 
 The calculation is set in the configuration option distanceCalculation.
 Options are straight-line distance between the points, or driving distance.
         '''
-        DC = config.get('runtime', 'distanceCalculation')
-        if DC == 'straightLine':    # use the hypotenuse
-            return math.hypot((curr[0]-dest[0]), (curr[1]-dest[1]))
-        elif DC == 'drivingDistance':
-            return abs(curr[0]-dest[0]) + abs(curr[1]-dest[1])
+        DC=config.get('runtime', 'distanceCalculation')
+        if DC=='straightLine':    # use the hypotenuse
+            dist=math.hypot((point_a[0]-point_b[0]), (point_a[1]-point_b[1]))
+	    print 'dist: ', dist
+	    return dist
+#            return math.hypot((point_a[0]-point_b[0]), (point_a[1]-point_b[1]))
+        elif DC=='drivingDistance':
+            return abs(point_a[0]-point_b[0])+abs(point_a[1]-point_b[1])
         else:
             return None # error
 
