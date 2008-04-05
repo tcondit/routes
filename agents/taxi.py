@@ -42,7 +42,8 @@ class Taxi(Agent):
     '''DOCSTRING'''
     def __init__(self, name, np): # negotiation protocol
         Agent.__init__(self, name)
-        self.np = np
+        self.np=np
+	self.lostFares=[]
         print '%.4f Taxi %s activated' % (self.ts['activation'], self.name)
         print '.. Taxi %s location: %s' % (self.name, self.loc)
 
@@ -212,7 +213,21 @@ Contrast with the cooperate() method.
 
                 # Add myself to the Fare's competeQ IFF I'm not already in
                 # there.
-                if self not in targetFare.competeQ:
+		#
+		# Late note: Taxis are adding themselves back into the same
+		# queues AFTER being interrupted and removed from them.  I
+		# need to track which Fare the Taxi was just removed from, and
+		# not allow them to be added back in.
+		#
+		# Late note: it appears that while this is a good start, it's
+		# not good enough.  I think instead of this, what I need to do
+		# is maintain a lostFares list for each Taxi, and once the
+		# Taxi has lost the Fare, it's identifier is appended
+		# permanently.  Then the Taxi can query this list here in
+		# place of the transient self.lostFare variable.
+                if self not in targetFare.competeQ and \
+				not targetFare in self.lostFares:
+                    print "got here"
                     if DEBUG:
                         print ".. %.4f %s adding self to Fare %s's targetFare.competeQ" % (now(),
                                 self.name, targetFare.name)
@@ -241,6 +256,47 @@ Contrast with the cooperate() method.
                         print self.interruptCause.name, 'at %.4f' % now()
 		    print 
                     self.interruptReset()
+
+		    # NEW TESTING -- add if DEBUG: if this works
+                    print ".. %.4f %s removing self from Fare %s's targetFare.competeQ" % (now(),
+                                self.name, targetFare.name)
+		    try:
+                        targetFare.competeQ.remove(self)
+                    except ValueError:
+                        print "Taxi not found in %s's competeQ!" % targetFare.name
+                        continue
+
+
+# This is stupid.  (1) Taxi chooses a Fare based on distance.  (2) Taxi adds
+# itself to the Fare's competeQ.  (3) All competing Taxis yield for
+# drive_dist.  (4) The winner interrupts everyone else.  (5) The winner is
+# okay.  The losers (ie, those who were interrupted) remove themselves from
+# the Fare's competeQ, and add the Fare to their lostFares queue (by the way,
+# a better name would be lostFaresQ).  The losers then ... what?
+#
+# What they should do at that point is go find another Fare to compete for.
+# Is that not what's happening?
+#
+#                    # TESTING!!
+#		    if self not in targetFare.competeQ and \
+#				    not targetFare in self.lostFares:
+#                        print "got here [TEMP DEBUG]"
+#                        if DEBUG:
+#                            print ".. %.4f %s adding self to Fare %s's targetFare.competeQ" % (now(),
+#                                self.name, targetFare.name)
+#                        targetFare.competeQ.append(self)
+
+
+		    # These are the Fares whose queue we just removed
+		    # ourselves from, since some other Taxi got there first
+		    # and interrupted us.  Add this Fare to the list to ensure
+		    # that we don't ever rejoin that queue.
+		    self.lostFares.append(targetFare)
+		    print ".. %.4f %s lostFares list:" % (now(), self.name),
+		    for fare in self.lostFares:
+                         print fare.name,
+                    print
+
 #		assert self.loc['curr']
 #		assert self.loc['dest']
                     self.loc['curr']=Agent.map.update_location(self.loc['curr'],
@@ -274,7 +330,7 @@ Contrast with the cooperate() method.
                     yield get, self, Agent.waitingFares, 1
 
                     if DEBUG:
-                        print '.. (pre) contents of targetFare.competeQ:',
+                        print "..  (pre) contents of %s's competeQ:" % targetFare.name,
                         for competitor in targetFare.competeQ:
                             print competitor.name,
                         print
@@ -324,8 +380,8 @@ Contrast with the cooperate() method.
 			#     TIP: Turn on DEBUG in overrides.ini to see the
 			#     contents of the targetFare.competeQ for each
 			#     Fare.
-                        print '%.4f %s is interrupting %s' % (now(), self.name,
-                                competingTaxi.name)
+                        print '%.4f %s is interrupting %s [Fare %s]' % (now(), self.name,
+                                competingTaxi.name, targetFare.name)
 
 			# YOU WERE INTERRUPTED.  TAKE YOUR ASS OUT OF THE
 			# targetFare.competeQ!!!
@@ -333,8 +389,11 @@ Contrast with the cooperate() method.
 # @@ Found this line in an old printout that may be "newer" than this code.
                         self.interrupt(competingTaxi)
 
+
+                    # how the f*** am I going to get the other Taxis out of
+		    # targetFare.competeQ?
                     if DEBUG:
-                        print '.. (post) contents of targetFare.competeQ:',
+                        print ".. (post) contents of %s's competeQ:" % targetFare.name,
                         for competitor in targetFare.competeQ:
                             print competitor.name,
                         print

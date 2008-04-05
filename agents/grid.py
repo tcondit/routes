@@ -24,14 +24,16 @@ class Grid(object):
         pass
 #        Area.__init__(self)
 
+
     def get_location(self, lo=GRID_MIN, hi=GRID_MAX, length=2):
 	'''Generates two-tuples representing locations'''
-	# the former mkcoords from Agent class - this needs a more descriptive
-	# name
+	# the former mkcoords from Agent class; it needs a more descriptive
+	# name; something like mkcoords... :)
 	tmp = []
 	for i in range(length):
             tmp.append(random.randint(lo, hi))
 	return tuple(tmp)
+
 
     def update_location(self, point_a, point_b, time_delta):
         '''
@@ -80,6 +82,7 @@ for the next Fare.
 
         return (int(ax+xdelta),int(ay+ydelta))
 
+
     def get_distance(self, point_a, point_b):
         '''
 Given a pair of coordinates, return the distance between them.
@@ -97,6 +100,7 @@ Options are straight-line distance between the points, or driving distance.
             return abs(point_a[0]-point_b[0])+abs(point_a[1]-point_b[1])
         else:
             return None # error
+
 
     # maybe this one should not be publicly available - I don't think Grid
     # even needs it, so Graph should use it internally only
