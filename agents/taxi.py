@@ -84,14 +84,18 @@ Contrast with the compete() method.
                     assert len(self.got) == 1
                 print '%.4f Taxi %s chose Fare' % (now(), self.name), [x.name for x in self.got]
 
-# Found this line in an old printout that may be "newer" than this code.
+# Found this line in an old printout that may be "newer" than this code.  It's
+# redundant in the unified project.
+#                print 'taxi_loc before', taxi_loc
+#                print 'setting old printout code ...'
 #                taxi_loc = self.loc['curr']
+#                print 'taxi_loc after', taxi_loc
 
                 fareBeingDriven=self.got[0]
 
                 # Drive to Fare
                 #drive_dist = getdistance(fareBeingDriven.loc['curr'], taxi_loc)
-                drive_dist = self.map.get_distance(fareBeingDriven.loc['curr'], taxi_loc)
+                drive_dist=self.map.get_distance(fareBeingDriven.loc['curr'], taxi_loc)
                 if DEBUG:
                     print '%.4f Taxi %s driving to Fare %s' % (now(), self.name,
                             fareBeingDriven.name)
@@ -104,7 +108,6 @@ Contrast with the compete() method.
                             fareBeingDriven.name)
 
                 # Drive to Fare's destination
-                #drive_dist = getdistance(self.loc['dest'], self.loc['curr'])
                 drive_dist = self.map.get_distance(self.loc['dest'], self.loc['curr'])
                 if DEBUG:
                     print "%.4f Taxi %s driving to Fare %s's destination" % (now(), self.name,
@@ -212,13 +215,12 @@ Contrast with the cooperate() method.
                 self.loc['dest'] = targetFare.loc['curr']
                 #drive_dist = getdistance(self.loc['dest'], self.loc['curr'])
 
-		# DEBUG
+#		# DEBUG
 #		assert self.loc['curr']
 #		assert self.loc['dest']
-                drive_dist = self.map.get_distance(self.loc['dest'], self.loc['curr'])
+                drive_dist=self.map.get_distance(self.loc['dest'], self.loc['curr'])
 
 # @@ Found this line in an old printout that may be "newer" than this code.
-#                self.headingForFare = now()
                 self.headingForFare=now()
 
                 # Drive to Fare, try to get there first
@@ -232,9 +234,27 @@ Contrast with the cooperate() method.
                         print self.interruptCause.name, 'at %.4f' % now()
 		    print 
                     self.interruptReset()
+#		assert self.loc['curr']
+#		assert self.loc['dest']
                     self.loc['curr']=Agent.map.update_location(self.loc['curr'],
                                     self.loc['dest'], now()-self.headingForFare)
-#		    self.updateLocation()
+
+		    # special case: if Agent.map.update_location() returns
+		    # (-1,-1), that means that this Taxi reached the Fare at
+		    # the same time as another Taxi did, but that one
+		    # interrupted this one first for whatever reason.  So this
+		    # Taxi's current location is its destination, and its
+		    # destination is reset.
+		    if self.loc['curr']==(-1,-1):
+                        # ugly little hack to try and avoid some racy
+			# conditions (heh).  Too bad it doesn't fix anything
+                        self.loc['curr']=(self.loc['dest'])
+#			self.loc['curr']=(self.loc['dest'][0]+randint(-2,2),
+#					  self.loc['dest'][1]+randint(-2,2))
+
+                    # In either case, the Taxi's destination needs to be
+		    # reset.
+		    self.loc['dest']=()
 
                 # Not interrupted, so I win!  Take the Fare from
                 # waitingFares.theBuffer, and interrupt the Taxis who lost out
@@ -300,11 +320,14 @@ Contrast with the cooperate() method.
                                 competingTaxi.name)
 
 # @@ Found this line in an old printout that may be "newer" than this code.
-#                       self.interrupt(competitor)
                         self.interrupt(competingTaxi)
 
 # @@ Found this line in an old printout that may be "newer" than this code.
+# Setting this one breaks the code.
+#                    print 'self.loc BEFORE', self.loc
+#		    print 'setting self.loc ...'
 #                    self.loc = targetFare.loc
+#                    print 'self.loc AFTER', self.loc
 
                     # Drive to Fare's destination
 
@@ -553,7 +576,7 @@ queue, and all others have to renege out.
         return result
 
 
-#    def closestfare_cooperate(buffer):
+#    def closestfare_cooperate(self, buffer):
 #        '''
 #Filter: return the Fare that is geographically closest to the calling Taxi.
 #

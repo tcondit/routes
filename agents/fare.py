@@ -16,10 +16,11 @@ TRACING = config.getboolean('dev', 'tracing')
 # runtime config values
 MEAN_FARE_GENERATION_RATE = config.getint('runtime', 'meanFareGenerationRate')
 
-# This is here because it appears that without the global variable, when the
-# fare count reaches storeCapacity (STORE_CAP in Agent.py), the count resets
-# to 0, rather than continuing to increment.  That doesn't account for why it
-# behaves this way, but it seems to be acting similarly to a class variable.
+# This is out here because it looks like without if I don't use a global
+# variable, when the fare count reaches storeCapacity (STORE_CAP in agent.py),
+# the count resets to 0, rather than continuing to increment.  That doesn't
+# account for why the fare count behaves this way, but it seems to be acting
+# like a class variable.
 numFaresCreated = 0
 
 if TRACING:

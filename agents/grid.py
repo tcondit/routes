@@ -42,9 +42,12 @@ Taxi (the one doing the interrupting) got to the Fare first, and this Taxi
 needs to figure out where he is, so he can set his loc['curr'], and compete
 for the next Fare.
         '''
-        # It's not likely to happen very often, but there could be a tie in one or
-        # both tuples.  It doesn't matter though, since the x (or y) diff just
-        # goes to zero in that case.
+	# It doesn't happen very often, but sometimes two Taxis reach a Fare
+	# at the same time.  In other words, both xdiff and ydiff are 0!  This
+	# causes ZeroDivisionErrors.  But since one of them has already been
+	# interrupted (which is why it's here), it is simple enough to
+	# straighten out.
+
         ax=point_a[0]
         ay=point_a[1]
         bx=point_b[0]
@@ -52,6 +55,19 @@ for the next Fare.
 
         xdiff=abs(ax-bx)
         ydiff=abs(ay-by)
+
+	# DEBUG -- if both xdiff and ydiff are 0, then some other Taxi got to
+	# the Fare just before this one did.  (Keep in mind, update_location()
+	# is only called when the Taxi has been interrupted.)  So this Taxi
+	# loses the Fare, and its locations are as follows:
+	#
+	# self.loc['curr']=self.loc['dest']
+	# self.loc['dest']=()
+	#
+	if xdiff+ydiff==0:
+            print 'This Taxi tied with another one but was interrupted!'
+	    return (-1,-1)
+
         multiplier=(time_delta*1.0)/(xdiff+ydiff)
 
         xdelta=round(multiplier*xdiff)

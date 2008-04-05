@@ -48,7 +48,6 @@ class Agent(Process):
         elif MAP_TYPE=='graph':
 	    self.map=Graph()
         self.loc = {}
-        #self.loc['curr'] = self.mkcoords()
         self.loc['curr'] = self.map.get_location()
         self.loc['dest'] = ()
         self.ts = {}    # timestamps
