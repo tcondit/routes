@@ -43,7 +43,11 @@ class Taxi(Agent):
     def __init__(self, name, np): # negotiation protocol
         Agent.__init__(self, name)
         self.np=np
-	self.lostFares=[]
+
+	# Once a Fare is lost, we can no longer compete for it.  The flip side
+	# is that this queue is complementary to the targetFare.competeQ, so
+	# maybe it should be called the non- or noCompeteQ.  
+	self.lostFaresQ=[]
         print '%.4f Taxi %s activated' % (self.ts['activation'], self.name)
         print '.. Taxi %s location: %s' % (self.name, self.loc)
 
@@ -211,6 +215,11 @@ Contrast with the cooperate() method.
                     assert(self.loc['curr'] == my_curr_pre)
                     assert(self.loc['dest'] == my_dest_pre)
 
+
+                # TESTING - where do the Taxis go to calculate which Fare they
+		# are going to compete for?  That's what needs fixed.
+#		if targetFare in self.lostFaresQ:
+
                 # Add myself to the Fare's competeQ IFF I'm not already in
                 # there.
 		#
@@ -221,13 +230,15 @@ Contrast with the cooperate() method.
 		#
 		# Late note: it appears that while this is a good start, it's
 		# not good enough.  I think instead of this, what I need to do
-		# is maintain a lostFares list for each Taxi, and once the
-		# Taxi has lost the Fare, it's identifier is appended
-		# permanently.  Then the Taxi can query this list here in
-		# place of the transient self.lostFare variable.
+		# is maintain a lostFaresQ for each Taxi, and once the Taxi
+		# has lost the Fare, it's identifier is appended permanently.
+		# Then the Taxi can query this list here in place of the
+		# transient self.lostFare variable.
+#                if self not in targetFare.competeQ and \
+#				not targetFare in self.lostFaresQ:
                 if self not in targetFare.competeQ and \
-				not targetFare in self.lostFares:
-                    print "got here"
+				not targetFare.pickedUp:
+#                    print "got here"
                     if DEBUG:
                         print ".. %.4f %s adding self to Fare %s's targetFare.competeQ" % (now(),
                                 self.name, targetFare.name)
@@ -271,15 +282,15 @@ Contrast with the cooperate() method.
 # itself to the Fare's competeQ.  (3) All competing Taxis yield for
 # drive_dist.  (4) The winner interrupts everyone else.  (5) The winner is
 # okay.  The losers (ie, those who were interrupted) remove themselves from
-# the Fare's competeQ, and add the Fare to their lostFares queue (by the way,
-# a better name would be lostFaresQ).  The losers then ... what?
+# the Fare's competeQ, and add the Fare to their lostFaresQ.  The losers then
+# ... what?
 #
 # What they should do at that point is go find another Fare to compete for.
 # Is that not what's happening?
 #
 #                    # TESTING!!
 #		    if self not in targetFare.competeQ and \
-#				    not targetFare in self.lostFares:
+#				    not targetFare in self.lostFaresQ:
 #                        print "got here [TEMP DEBUG]"
 #                        if DEBUG:
 #                            print ".. %.4f %s adding self to Fare %s's targetFare.competeQ" % (now(),
@@ -291,11 +302,16 @@ Contrast with the cooperate() method.
 		    # ourselves from, since some other Taxi got there first
 		    # and interrupted us.  Add this Fare to the list to ensure
 		    # that we don't ever rejoin that queue.
-		    self.lostFares.append(targetFare)
-		    print ".. %.4f %s lostFares list:" % (now(), self.name),
-		    for fare in self.lostFares:
+		    self.lostFaresQ.append(targetFare)
+		    print ".. %.4f %s lostFaresQ:" % (now(), self.name),
+		    for fare in self.lostFaresQ:
                          print fare.name,
                     print
+
+                    if targetFare.pickedUp:
+                        print "Taxi %s's Fare (%s) has already been picked up" % \
+					    (self.name, targetFare.name)
+                        continue
 
 #		assert self.loc['curr']
 #		assert self.loc['dest']
@@ -327,6 +343,10 @@ Contrast with the cooperate() method.
                     # Pick up Fare
                     print '%.4f %s arrives to pick up Fare %s' % (now(), self.name,
                             targetFare.name)
+
+		    # TESTING
+		    targetFare.pickedUp=True
+
                     yield get, self, Agent.waitingFares, 1
 
                     if DEBUG:
@@ -385,6 +405,15 @@ Contrast with the cooperate() method.
 
 			# YOU WERE INTERRUPTED.  TAKE YOUR ASS OUT OF THE
 			# targetFare.competeQ!!!
+
+		        # NEW TESTING -- add if DEBUG: if this works
+                        print ".. %.4f %s removing self from Fare %s's targetFare.competeQ" % \
+				    (now(), self.name, targetFare.name)
+		        try:
+                            targetFare.competeQ.remove(self)
+                        except ValueError:
+                            print "Taxi not found in %s's competeQ!" % targetFare.name
+                            continue
 
 # @@ Found this line in an old printout that may be "newer" than this code.
                         self.interrupt(competingTaxi)
@@ -514,8 +543,23 @@ negotiation protocols.
 #            d = getdistance(fare.loc['curr'], self.loc['curr'])
             d=self.map.get_distance(fare.loc['curr'], self.loc['curr'])
             if DEBUG:
-                print 'Distance from %s to fare %s: %.4f' % (self.name, fare.name, d)
+                print 'Distance from %s to Fare %s: %.4f' % (self.name, fare.name, d)
+
+            # TESTING - this seems like it's heading in the right direction as
+	    # a solution to the problem of post-interrupted Taxis turning
+	    # right around and fetching the Fares after they were interrupted
+	    # by another Taxi.  But it's not working quite right, and I'm now
+	    # thinking that the Fares themselves need to store a tombstone
+	    # that marks them as ineligible.
+	    #
+#	    if fare not in self.lostFaresQ:
+#                tmp.append((fare, d))
+
+            if fare.pickedUp:
+                print "Dog will hunt! Fare %s" % fare.name
+#                continue
             tmp.append((fare, d))
+
         tmp2=sorted(tmp, key=itemgetter(1))
         result=map(itemgetter(0), tmp2)[0]
         # Critical difference between the competition and cooperative
@@ -577,7 +621,7 @@ queue, and all others have to renege out.
                         % (now(), fare.name, broadcastRange, TIQ, taxiRange*GRID_MAX, d, weight, score)
 
         # start of mixedmode_compete()
-        tmp = []
+        tmp=[]
         if not not_a_magic_buffer:
             not_a_magic_buffer = Agent.waitingFares.theBuffer
         VERBOSE = config.getboolean('runtime', 'verbose')
@@ -586,9 +630,9 @@ queue, and all others have to renege out.
             print 'Buffer is empty!'
             return
         for fare in not_a_magic_buffer:
-            TIQ = (now() - fare.ts['mkreq'])
+            TIQ=(now()-fare.ts['mkreq'])
 #            d = getdistance(fare.loc['curr'], self.loc['curr'])
-            d = self.map.get_distance(fare.loc['curr'], self.loc['curr'])
+            d=self.map.get_distance(fare.loc['curr'], self.loc['curr'])
 
             # TODO [eventually] put the weight and scoring routines into a
             # config file.  Major TK.
@@ -602,7 +646,7 @@ queue, and all others have to renege out.
             # If Fare has been in the queue long enough for a Global
             # broadcast, calculate score and append to list for further
             # consideration.
-            if TAXI_RANGE_MID < f_time_ratio <= TAXI_RANGE_HI:
+            if TAXI_RANGE_MID<f_time_ratio<=TAXI_RANGE_HI:
                 broadcastRange = 'GLOBAL'
                 if VERBOSE: __printFareDetails(TAXI_RANGE_HI)
                 print '.. Pushing (Fare %s, score %.4f) onto list' % (fare.name, score)
@@ -691,8 +735,10 @@ negotiation protocols.
         print 'Buffer is empty!'
         return
     if DEBUG:
-        if buffer == Agent.waitingFares.theBuffer: print 'the buffers are equal'
-        if buffer is Agent.waitingFares.theBuffer: print 'the buffers are the same'
+        if buffer == Agent.waitingFares.theBuffer:
+            print 'the buffers are equal'
+        if buffer is Agent.waitingFares.theBuffer:
+            print 'the buffers are the same'
     for fare in buffer:
         #d = getdistance(fare.loc['curr'], taxi_loc)
         d = Agent.map.get_distance(fare.loc['curr'], taxi_loc)
@@ -758,9 +804,9 @@ negotiation protocols.
         print 'Buffer is empty!'
         return
     for fare in buffer:
-        TIQ = (now() - fare.ts['mkreq'])
+        TIQ=(now()-fare.ts['mkreq'])
         #d = getdistance(fare.loc['curr'], taxi_loc)
-        d = Agent.map.get_distance(fare.loc['curr'], taxi_loc)
+        d=Agent.map.get_distance(fare.loc['curr'], taxi_loc)
         # TODO [eventually] put the weight and scoring routines into a config
         # file.  Major TK.
         weight = SIMTIME - TIQ
