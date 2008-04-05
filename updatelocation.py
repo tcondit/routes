@@ -14,14 +14,14 @@ def update_location(point_a, point_b, time_delta):
     ay=point_a[1]
     bx=point_b[0]
     by=point_b[1]
+
     xdiff=abs(ax-bx)
     ydiff=abs(ay-by)
-
     multiplier=(time_delta*1.0)/(xdiff+ydiff)
-    print 'mult: %.4f' % multiplier
+    print '[DEBUG] mult: %.4f' % multiplier
+
     xdelta=round(multiplier*xdiff)
     ydelta=round(multiplier*ydiff)
-
     if ax>bx:
         xdelta=-xdelta
     if ay>by:
@@ -30,10 +30,10 @@ def update_location(point_a, point_b, time_delta):
     return (int(ax+xdelta),int(ay+ydelta))
 
 if __name__=='__main__':
-    print update_location((90,90),(10,10),40)	# hand-calc'd results here
-    print update_location((80,90),(10,10),40)	# 
-    print update_location((80,80),(10,20),60)	# 
+    print update_location((90,90),(10,10),40)	# (70,70)
+    print update_location((80,90),(10,10),40)	# (60,70)
+    print update_location((80,80),(10,20),60)	# (48,52)
 
-    print update_location((10,90),(90,10),40)	# 
-    print update_location((80,10),(10,70),40)	# 
-    print update_location((30,80),(60,20),20)	# 
+    print update_location((10,90),(90,10),40)	# (30,70)
+    print update_location((80,10),(10,70),40)	# (58,28)
+    print update_location((30,80),(60,20),20)	# (37,67)

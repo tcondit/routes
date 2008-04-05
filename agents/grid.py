@@ -25,13 +25,14 @@ class Grid(object):
 
     def get_location(self, lo=GRID_MIN, hi=GRID_MAX, length=2):
 	'''Generates two-tuples representing locations'''
-	# the former mkcoords from Agent class
+	# the former mkcoords from Agent class - this needs a more descriptive
+	# name
 	tmp = []
 	for i in range(length):
             tmp.append(random.randint(lo, hi))
 	return tuple(tmp)
 
-    def update_location(self, start_loc, end_loc, time_delta):
+    def update_location(self, point_a, point_b, time_delta):
         '''
 Update an Agent's current position.
 
@@ -41,60 +42,47 @@ Taxi (the one doing the interrupting) got to the Fare first, and this Taxi
 needs to figure out where he is, so he can set his loc['curr'], and compete
 for the next Fare.
         '''
+        # It's not likely to happen very often, but there could be a tie in one or
+        # both tuples.  It doesn't matter though, since the x (or y) diff just
+        # goes to zero in that case.
+        ax=point_a[0]
+        ay=point_a[1]
+        bx=point_b[0]
+        by=point_b[1]
 
-#        print '%s self.loc:' % self.name, self.loc
-#        assert(self.loc['curr'])
-#        assert(self.loc['dest'])
+        xdiff=abs(ax-bx)
+        ydiff=abs(ay-by)
+        multiplier=(time_delta*1.0)/(xdiff+ydiff)
 
-        print '[DEBUG] start_loc:', start_loc
-        print '[DEBUG] end_loc:', end_loc
-	print '[DEBUG] time_delta:', time_delta
-	print '[DEBUG] abs(end_loc[0]-start_loc[0]):', abs(end_loc[0]-start_loc[0])
-	print '[DEBUG] abs(end_loc[1]-start_loc[1]):', abs(end_loc[1]-start_loc[1])
+        xdelta=round(multiplier*xdiff)
+        ydelta=round(multiplier*ydiff)
+        if ax>bx:
+            xdelta=-xdelta
+        if ay>by:
+            ydelta=-ydelta
 
-	# Find the location of the Agent, given the data above: start (7,132),
-	# end (129,180), diff (122,48), delta (104).  I'm thinking maybe
-	# something like a ratio of (diff[0]+diff[1])/delta, but what good is
-	# that?
-	#
-	# The only difficulty is figuring out how far to move in the
-	# x-direction, and how far to move in the y-direction.  And even that
-	# shouldn't be too hard.
-	return
-
-#        curr_tmp = {}
-#        curr_tmp['x'] = ((self.loc['curr'][0] + self.loc['dest'][0])/2)
-#        curr_tmp['y'] = ((self.loc['curr'][1] + self.loc['dest'][1])/2)
-#
-#        self.loc['curr'] = (curr_tmp['x'], curr_tmp['y'])
-#        self.loc['dest'] = ()
-#        curr_tmp.clear()
-#        return
-
-    def get_point(self):
-        '''Return a single (x,y) coordinate point'''
-	pass
+        return (int(ax+xdelta),int(ay+ydelta))
 
     def get_distance(self, curr, dest):
         '''
-Given a pair of coordinates, return the distance between them (float).
+Given a pair of coordinates, return the distance between them.
 
-Returns the straight-line distance between the points if hypotenuse is
-True (default).  Otherwise, returns the driving distance.
+The calculation is set in the configuration option distanceCalculation.
+Options are straight-line distance between the points, or driving distance.
         '''
-        # CAUTION: the compete methods do not use taxi_loc, so this is a hazard.
-#        curr = currentLocation or taxi_loc
-#        if not curr:
-#            print 'What am I supposed to do with an empty current location tuple??'
-#            print 'dest:', dest, 'curr:', curr
-#            stopSimulation()
-#            print 'more stubby!'
-
         DC = config.get('runtime', 'distanceCalculation')
         if DC == 'straightLine':    # use the hypotenuse
             return math.hypot((curr[0]-dest[0]), (curr[1]-dest[1]))
         elif DC == 'drivingDistance':
             return abs(curr[0]-dest[0]) + abs(curr[1]-dest[1])
+        else:
+            return None # error
+
+    # maybe this one should not be publicly available - I don't think Grid
+    # even needs it, so Graph should use it internally only
+    def get_point(self):
+        '''Return a single (x,y) coordinate point'''
+	pass
 
 if __name__=='__main__':
     g=Grid()
