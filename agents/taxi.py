@@ -173,28 +173,29 @@ may get the Fare, even though others are already competing for that Fare.
 
 Contrast with the cooperate() method.
         '''
-
-	# The problem MAY be that the interrupted Taxis are not removing
-	# themselves from the competeQ...
-
+        global taxi_loc
         while True:
+#            print 'current list of waitingFares', [x.name for x in self.waitingFares.theBuffer]
             if len(Agent.waitingFares.theBuffer) > 0:
                 if DEBUG:
                     my_curr_pre = self.loc['curr']
                     my_dest_pre = self.loc['dest']
 
                 # Choose a Fare
-                if self.np == 'FIFO':
-                    targetFare = Agent.waitingFares.theBuffer[0]
-                elif self.np == 'closestfare':
+                if self.np=='FIFO':
+                    targetFare=Agent.waitingFares.theBuffer[0]
+                elif self.np=='closestfare':
                     numAgents=len(Agent.waitingFares.theBuffer)
-                    targetFare = self.closestfare_compete()
+		    # set a global variable here to use in closestfare_compete
+		    taxi_loc=self.loc['curr']
+#                    targetFare=self.closestfare_compete()
+                    targetFare=closestfare_compete(Agent.waitingFares.theBuffer)
                     if DEBUG:
                         assert(numAgents==len(Agent.waitingFares.theBuffer))
                         print '%s targetFare closestfare %s' % (self.name, targetFare.name)
-                elif self.np == 'mixedmode':
+                elif self.np=='mixedmode':
                     numAgents=len(Agent.waitingFares.theBuffer)
-                    targetFare = self.mixedmode_compete()
+                    targetFare=self.mixedmode_compete()
                     if DEBUG:
                         assert(numAgents==len(Agent.waitingFares.theBuffer))
                     if targetFare:
@@ -211,53 +212,28 @@ Contrast with the cooperate() method.
                         continue
 		# End choose a Fare
 
+
+                # When we get to this point, we've got a Fare.  If the NP is
+		# closestfare_compete, it's a Fare that was not already picked
+		# up.
+
                 if DEBUG:
                     assert(self.loc['curr'] == my_curr_pre)
                     assert(self.loc['dest'] == my_dest_pre)
 
-
-                # TESTING - where do the Taxis go to calculate which Fare they
-		# are going to compete for?  That's what needs fixed.
-#		if targetFare in self.lostFaresQ:
-
-                # Add myself to the Fare's competeQ IFF I'm not already in
-                # there.
-		#
-		# Late note: Taxis are adding themselves back into the same
-		# queues AFTER being interrupted and removed from them.  I
-		# need to track which Fare the Taxi was just removed from, and
-		# not allow them to be added back in.
-		#
-		# Late note: it appears that while this is a good start, it's
-		# not good enough.  I think instead of this, what I need to do
-		# is maintain a lostFaresQ for each Taxi, and once the Taxi
-		# has lost the Fare, it's identifier is appended permanently.
-		# Then the Taxi can query this list here in place of the
-		# transient self.lostFare variable.
-#                if self not in targetFare.competeQ and \
-#				not targetFare in self.lostFaresQ:
-                if self not in targetFare.competeQ and \
-				not targetFare.pickedUp:
-#                    print "got here"
-                    if DEBUG:
-                        print ".. %.4f %s adding self to Fare %s's targetFare.competeQ" % (now(),
-                                self.name, targetFare.name)
+		if self not in targetFare.competeQ:
+#                    assert not targetFare.pickedUp
                     targetFare.competeQ.append(self)
+                    if DEBUG:
+                        print ".. %.4f %s adding self to Fare %s's targetFare.competeQ" % \
+					(now(), self.name, targetFare.name)
 
-                # Q: Should I always update the destination here?
+                # 
                 self.loc['dest'] = targetFare.loc['curr']
-
-#		# DEBUG
-#		assert self.loc['curr']
-#		assert self.loc['dest']
-#                drive_dist = getdistance(self.loc['dest'], self.loc['curr'])
                 drive_dist=self.map.get_distance(self.loc['dest'], self.loc['curr'])
-
-# @@ Found this line in an old printout that may be "newer" than this code.
-                self.headingForFare=now()
+                self.driving_to_Fare=now()
 
                 # Drive to Fare, try to get there first
-#		drive_start_time=now()
                 yield hold, self, drive_dist
 
                 # If interrupted, another Taxi beat me to the Fare.
@@ -265,159 +241,25 @@ Contrast with the cooperate() method.
                     if DEBUG:
                         print '.. Taxi %s was interrupted by' % self.name,
                         print self.interruptCause.name, 'at %.4f' % now()
-		    print 
+		        print 
                     self.interruptReset()
 
-		    # NEW TESTING -- add if DEBUG: if this works
-                    print ".. %.4f %s removing self from Fare %s's targetFare.competeQ" % (now(),
-                                self.name, targetFare.name)
-		    try:
-                        targetFare.competeQ.remove(self)
-                    except ValueError:
-                        print "Taxi not found in %s's competeQ!" % targetFare.name
-                        continue
-
-
-# This is stupid.  (1) Taxi chooses a Fare based on distance.  (2) Taxi adds
-# itself to the Fare's competeQ.  (3) All competing Taxis yield for
-# drive_dist.  (4) The winner interrupts everyone else.  (5) The winner is
-# okay.  The losers (ie, those who were interrupted) remove themselves from
-# the Fare's competeQ, and add the Fare to their lostFaresQ.  The losers then
-# ... what?
-#
-# What they should do at that point is go find another Fare to compete for.
-# Is that not what's happening?
-#
-#                    # TESTING!!
-#		    if self not in targetFare.competeQ and \
-#				    not targetFare in self.lostFaresQ:
-#                        print "got here [TEMP DEBUG]"
-#                        if DEBUG:
-#                            print ".. %.4f %s adding self to Fare %s's targetFare.competeQ" % (now(),
-#                                self.name, targetFare.name)
-#                        targetFare.competeQ.append(self)
-
-
-		    # These are the Fares whose queue we just removed
-		    # ourselves from, since some other Taxi got there first
-		    # and interrupted us.  Add this Fare to the list to ensure
-		    # that we don't ever rejoin that queue.
-		    self.lostFaresQ.append(targetFare)
-		    print ".. %.4f %s lostFaresQ:" % (now(), self.name),
-		    for fare in self.lostFaresQ:
-                         print fare.name,
-                    print
-
-                    if targetFare.pickedUp:
-                        print "Taxi %s's Fare (%s) has already been picked up" % \
-					    (self.name, targetFare.name)
-                        continue
-
-#		assert self.loc['curr']
-#		assert self.loc['dest']
-                    self.loc['curr']=Agent.map.update_location(self.loc['curr'],
-                                    self.loc['dest'], now()-self.headingForFare)
-#                    self.updateLocation()
-
-		    # special case: if Agent.map.update_location() returns
-		    # (-1,-1), that means that this Taxi reached the Fare at
-		    # the same time as another Taxi did, but that one
-		    # interrupted this one first for whatever reason.  So this
-		    # Taxi's current location is its destination, and its
-		    # destination is reset.
-		    if self.loc['curr']==(-1,-1):
-                        self.loc['curr']=(self.loc['dest'])
-                        # ugly little hack to try and avoid some racy
-			# conditions (heh).  Too bad it doesn't fix anything
-#			self.loc['curr']=(self.loc['dest'][0]+randint(-2,2),
-#					  self.loc['dest'][1]+randint(-2,2))
-
-                    # In either case, the Taxi's destination needs to be
-		    # reset.
-		    self.loc['dest']=()
-
-                # Not interrupted, so I win!  Take the Fare from
-                # waitingFares.theBuffer, and interrupt the Taxis who lost out
-                # on this one.
-		elif not self.interrupted():
-                    # Pick up Fare
-                    print '%.4f %s arrives to pick up Fare %s' % (now(), self.name,
-                            targetFare.name)
-
-		    # TESTING
-		    targetFare.pickedUp=True
-
-                    yield get, self, Agent.waitingFares, 1
-
                     if DEBUG:
+                        if targetFare.pickedUp:
+                            print ".. %s.pickedUp" % targetFare.name
                         print "..  (pre) contents of %s's competeQ:" % targetFare.name,
                         for competitor in targetFare.competeQ:
                             print competitor.name,
                         print
 
-                    for competingTaxi in targetFare.competeQ:
-                        # IMPORTANT: Do not interrupt self!  It's a tough bug
-                        # to track down.
-                        if self.name==competingTaxi.name:
-                            continue
-
-			# A KeyError repros consistently when running
-			# driverdriver.py on compete/closestfare.  
-			#
-			# 20.0000 Yellow-0 is interrupting Yellow-4
-			#
-			# but Yellow-4 is not in the queue (it seems).  He's
-			# picked up a Fare:
-			#
-			# 8.0000 Yellow-4 arrives to pick up Fare 96
-			#
-			# So why was he not removed from targetFare.competeQ??
-			#
-			# LATE NOTE: This is totally stuffed.  There are a
-			# couple things about this that are suspicious:
-			#
-			# (1) Yellow-0 is interrupting Yellow-4 at time
-			#     20.0000, but (and this isn't shown, but it's in
-			#     the runtime output) the shortest distance is 21:
-			#
-			# C:\Source\hg\agents\package>python driver.py | grep Yellow-4
-			# 0.0000 Taxi Yellow-4 activated
-			# .. Taxi Yellow-4 location: {'dest': (), 'curr': (89, 63)}
-			# Distance from Yellow-4 to fare -1: 52.0000
-			# Distance from Yellow-4 to fare -2: 21.0000
-			# ...
-			#
-			# (2) Why in hell is Yellow-4 picking up Fare 96 at
-			#     time 8.0000???  There are only 5 fares in
-			#     existence at that time.  It's numFares, and it's
-			#     set to 5 in defaults.ini.  The fare should not
-			#     exist at this time in the simulation!
-			#
-			# (3) This bug seems to have slipped away.  I cannot
-			#     reproduce it at the moment.  So I'll note it and
-			#     move on.
-			#
-			#     TIP: Turn on DEBUG in overrides.ini to see the
-			#     contents of the targetFare.competeQ for each
-			#     Fare.
-                        print '%.4f %s is interrupting %s [Fare %s]' % (now(), self.name,
-                                competingTaxi.name, targetFare.name)
-
-			# YOU WERE INTERRUPTED.  TAKE YOUR ASS OUT OF THE
-			# targetFare.competeQ!!!
-
-		        # NEW TESTING -- add if DEBUG: if this works
-                        print ".. %.4f %s removing self from Fare %s's targetFare.competeQ" % \
+		    # NEW TESTING -- add if DEBUG: if this works
+                    print ".. %.4f %s removing self from Fare %s's targetFare.competeQ" % \
 				    (now(), self.name, targetFare.name)
-		        try:
-                            targetFare.competeQ.remove(self)
-                        except ValueError:
-                            print "Taxi not found in %s's competeQ!" % targetFare.name
-                            continue
-
-# @@ Found this line in an old printout that may be "newer" than this code.
-                        self.interrupt(competingTaxi)
-
+		    try:
+                        targetFare.competeQ.remove(self)
+                    except ValueError:
+                        print "Taxi not found in %s's competeQ!" % targetFare.name
+                        continue
 
                     # how the f*** am I going to get the other Taxis out of
 		    # targetFare.competeQ?
@@ -427,24 +269,62 @@ Contrast with the cooperate() method.
                             print competitor.name,
                         print
 
-# @@ Found this line in an old printout that may be "newer" than this code.
-# Setting this one breaks the code.
-#                    print 'self.loc BEFORE', self.loc
-#		    print 'setting self.loc ...'
-#                    self.loc = targetFare.loc
-#                    print 'self.loc AFTER', self.loc
+                    # check if the Fare has been picked up since we yielded
+		    # for the drive over
+                    if targetFare.pickedUp:
+                        print "Taxi %s's Fare (%s) has already been picked up" % \
+					    (self.name, targetFare.name)
+                    self.loc['curr']=Agent.map.update_location(self.loc['curr'],
+                                    self.loc['dest'], now()-self.driving_to_Fare)
+		    self.loc['dest']=()
 
-                    # Drive to Fare's destination
 
-# @@ This line is different in the old printout
-#                    drive_dist = getdistance(self.loc['dest'], self.loc['curr'])
+		# Not interrupted, so I win!  Take the Fare from
+		# waitingFares.theBuffer, and interrupt the Taxis who lost out
+		# on this one.
+		elif not self.interrupted():
+                    # Pick up Fare
+                    print '%.4f %s arrives to pick up Fare %s' % (now(), self.name,
+                            targetFare.name)
 
-#                    drive_dist = getdistance(self.loc['curr'], targetFare.loc['dest'])
+		    # This is a super-important step.  This is where the Fare
+		    # is removed from the SimPy Store (Agent.waitingFares).
+		    #
+		    # Late note: not only is it super-important, it's
+		    # ultra-fucked.  This call to yield get just pops the
+		    # first Fare off the queue, which is not necessarily the
+		    # one I want to give up.  No no no no!  The one I want to
+		    # give up is the one that comes from calling
+		    # closestfare_compete for fuck's sake!  How did I miss
+		    # this for so long?
+#                    yield get, self, Agent.waitingFares, 1
 
-#                    print '[DEBUG] calling get_distance ...'
+                    # This is the dumbest thing ever.  It's a function that
+		    # takes targetFare as input parameter, and returns the
+		    # same targetFare.  The sole purpose of it is to have a
+		    # filter function to use with the SimPy Store.
+#		    print "get_my_fare(targetFare): " % get_my_fare([targetFare])
+
+                    yield get, self, Agent.waitingFares, closestfare_compete
+#                    yield get, self, Agent.waitingFares, get_my_fare
+#		    print "self.got:", self.got
+                    print 'current list of waitingFares', [x.name for x in self.waitingFares.theBuffer]
+		    targetFare.pickedUp=True
+
+                    # Tell the other Taxis that they lost
+                    for competingTaxi in targetFare.competeQ:
+                        # IMPORTANT: Do not interrupt self!  It's a tough bug
+                        # to track down.
+                        if self.name==competingTaxi.name:
+                            continue
+                        else:
+                            self.interrupt(competingTaxi)
+			    print '%.4f %s is interrupting %s [Fare %s]' % (now(), self.name,
+					    competingTaxi.name, targetFare.name)
 
                     drive_dist = self.map.get_distance(self.loc['curr'], targetFare.loc['dest'])
-                    print "%s's drive_dist: %.4f" % (self.name, drive_dist)
+		    print "[%s] Distance to Fare %s's destination: %.4f" % \
+				    (self.name, targetFare.name, drive_dist)
                     yield hold, self, drive_dist
 
                     # TODO signal Fare
@@ -458,7 +338,7 @@ Contrast with the cooperate() method.
 
                 else:
                     # I've never seen this (thank goodness)
-                    print '  !! RED ALERT !!'
+                    print '!! RED ALERT !!'
 
             else:
                 print '%.4f INFO: %s: There are no eligible Fares for this Taxi.' % (now(),
@@ -474,40 +354,96 @@ Contrast with the cooperate() method.
                 yield hold, self, 2
 
 
-    def updateLocation(self):
-        '''
-Update the Taxi's current position.
+#    def updateLocation(self):
+#        '''
+#Update the Taxi's current position.
+#
+#This method is normally only called from compete(), after a Taxi has been
+#interrupted while en'route to a Fare.  The interruption means that another
+#Taxi (the one doing the interrupting) got to the Fare first, and this Taxi
+#needs to figure out where he is, so he can set his loc['curr'], and compete
+#for the next Fare.
+#
+#Implementation detail: to keep things simple, I am just putting the Taxi near
+#the halfway point between their former current location and their destination.
+#
+#NOTE: This method works under the assumption that the Taxi travels 1 unit of
+#the grid for each tick of the simulation's clock.  This may eventually become
+#a configuration setting, but it's low priority.
+#        '''
+##        print '%s self.loc:' % self.name, self.loc
+#        assert(self.loc['curr'])
+#        assert(self.loc['dest'])
+#
+#        curr_tmp = {}
+#        curr_tmp['x'] = ((self.loc['curr'][0] + self.loc['dest'][0])/2)
+#        curr_tmp['y'] = ((self.loc['curr'][1] + self.loc['dest'][1])/2)
+#
+#        self.loc['curr'] = (curr_tmp['x'], curr_tmp['y'])
+#        self.loc['dest'] = ()
+#        curr_tmp.clear()
+#        return
 
-This method is normally only called from compete(), after a Taxi has been
-interrupted while en'route to a Fare.  The interruption means that another
-Taxi (the one doing the interrupting) got to the Fare first, and this Taxi
-needs to figure out where he is, so he can set his loc['curr'], and compete
-for the next Fare.
 
-Implementation detail: to keep things simple, I am just putting the Taxi near
-the halfway point between their former current location and their destination.
+#def closestfare_compete(not_a_magic_buffer=None):
+#    '''
+#    TODO UPDATE DOCSTRING
+#
+#Filter: return the Fare that is geographically closest to the calling Taxi.
+#
+#NOTE: The Fare is returned as a single-element list, because that (a list) is
+#what SimPy's yield is expecting.  This is a filter function for the Store, and
+#should not be called directly.  This is the second of the Taxi's three
+#negotiation protocols.
+#    '''
+#    tmp=[]
+#    if not not_a_magic_buffer:
+#        not_a_magic_buffer=Agent.waitingFares.theBuffer
+#    if DEBUG:
+#        if buffer==Agent.waitingFares.theBuffer:
+#            print 'the buffers are equal'
+#        if buffer is Agent.waitingFares.theBuffer:
+#            print 'the buffers are the same'
+#    if not len(not_a_magic_buffer)>0:
+#        print 'Buffer is empty!'
+#        return
+#    for fare in not_a_magic_buffer:
+#        # This is part of it, but not the only part.  Sometimes the Taxi
+#	    # has already chosen this Fare, although it's not going to get it.
+#	    # This seems impossible on the face of it - the only time we
+#	    # should ever invoke self.closestfare_compete() is when we're
+#	    # first starting, or after an interrupt.  Regardless, there are
+#	    # definitely times when one or more Taxis are interrupting others
+#	    # to pick up Fares that have already been picked up.
+##            if fare.pickedUp:
+##                if DEBUG:
+##		    print 'Fare %s has already been picked up.  %s is skipping.' % \
+##				(fare.name, self.name)
+##                continue
+##            else:
+##                d=self.map.get_distance(fare.loc['curr'], self.loc['curr'])
+##                if DEBUG:
+##                    print 'Distance from %s to Fare %s: %.4f' % (self.name, fare.name, d)
+##                tmp.append((fare, d))
+#
+#        d=Agent.map.get_distance(fare.loc['curr'], self.loc['curr'])
+##        if DEBUG:
+##            print 'Distance from %s to Fare %s: %.4f' % (self.name, fare.name, d)
+#        tmp.append((fare, d))
+#
+#    tmp2=sorted(tmp, key=itemgetter(1))
+#    result=map(itemgetter(0), tmp2)[0]
+#    # Critical difference between the competition and cooperative
+#    # closestfares: cooperative cf returns the Fare, and removes it from
+#    # waitingFares.theBuffer immediately.  Competition cf just returns the
+#    # Fare, without taking it out of the buffer until later.  Note also,
+#    # this method returns a single Fare, not (a list containing) a single
+#    # Fare.
+#    return [result]
 
-NOTE: This method works under the assumption that the Taxi travels 1 unit of
-the grid for each tick of the simulation's clock.  This may eventually become
-a configuration setting, but it's low priority.
-        '''
-#        print '%s self.loc:' % self.name, self.loc
-        assert(self.loc['curr'])
-        assert(self.loc['dest'])
-
-        curr_tmp = {}
-        curr_tmp['x'] = ((self.loc['curr'][0] + self.loc['dest'][0])/2)
-        curr_tmp['y'] = ((self.loc['curr'][1] + self.loc['dest'][1])/2)
-
-        self.loc['curr'] = (curr_tmp['x'], curr_tmp['y'])
-        self.loc['dest'] = ()
-        curr_tmp.clear()
-        return
-
-
-    def closestfare_compete(self, not_a_magic_buffer=None):
-        '''
-        TODO UPDATE DOCSTRING
+def closestfare_compete(buf):
+    '''
+    TODO UPDATE DOCSTRING
 
 Filter: return the Fare that is geographically closest to the calling Taxi.
 
@@ -515,60 +451,34 @@ NOTE: The Fare is returned as a single-element list, because that (a list) is
 what SimPy's yield is expecting.  This is a filter function for the Store, and
 should not be called directly.  This is the second of the Taxi's three
 negotiation protocols.
-        '''
-        tmp=[]
-        if not not_a_magic_buffer:
-            not_a_magic_buffer=Agent.waitingFares.theBuffer
+    '''
+    tmp=[]
+#        if not not_a_magic_buffer:
+#            not_a_magic_buffer=Agent.waitingFares.theBuffer
+#        if DEBUG:
+#            if buffer==Agent.waitingFares.theBuffer:
+#                print 'the buffers are equal'
+#            if buffer is Agent.waitingFares.theBuffer:
+#                print 'the buffers are the same'
+#        if not len(not_a_magic_buffer)>0:
+#            print 'Buffer is empty!'
+#            return
+    for fare in buf:
+        print 'xxx', fare.loc['curr'], taxi_loc
+        d=Agent.map.get_distance(fare.loc['curr'], taxi_loc)
         if DEBUG:
-            if buffer==Agent.waitingFares.theBuffer:
-                print 'the buffers are equal'
-            if buffer is Agent.waitingFares.theBuffer:
-                print 'the buffers are the same'
-        if not len(not_a_magic_buffer)>0:
-            print 'Buffer is empty!'
-            return
-        for fare in not_a_magic_buffer:
+            print 'Distance from %s to Fare %s: %.4f' % (self.name, fare.name, d)
+        tmp.append((fare, d))
 
-#            print '[DEBUG] closestfare_compete calling getdistance ...'
-	    # TODO There's a problem here.  The values that getdistance is
-	    # returning are close but wrong.  Both versions of getdistance
-	    # behave exactly the same, so it may be the inputs that are bad.
-	    #
-	    # Late note: there's nothing wrong here.  The distances are
-	    # different because update_location() is more precise than the old
-	    # updateLocation().
-#	    print "[DEBUG] fare.loc['curr']: ", fare.loc['curr']
-#	    print "[DEBUG] self.loc['curr']: ", self.loc['curr']
-
-#            d = getdistance(fare.loc['curr'], self.loc['curr'])
-            d=self.map.get_distance(fare.loc['curr'], self.loc['curr'])
-            if DEBUG:
-                print 'Distance from %s to Fare %s: %.4f' % (self.name, fare.name, d)
-
-            # TESTING - this seems like it's heading in the right direction as
-	    # a solution to the problem of post-interrupted Taxis turning
-	    # right around and fetching the Fares after they were interrupted
-	    # by another Taxi.  But it's not working quite right, and I'm now
-	    # thinking that the Fares themselves need to store a tombstone
-	    # that marks them as ineligible.
-	    #
-#	    if fare not in self.lostFaresQ:
-#                tmp.append((fare, d))
-
-            if fare.pickedUp:
-                print "Dog will hunt! Fare %s" % fare.name
-#                continue
-            tmp.append((fare, d))
-
-        tmp2=sorted(tmp, key=itemgetter(1))
-        result=map(itemgetter(0), tmp2)[0]
-        # Critical difference between the competition and cooperative
-        # closestfares: cooperative cf returns the Fare, and removes it from
-        # waitingFares.theBuffer immediately.  Competition cf just returns the
-        # Fare, without taking it out of the buffer until later.  Note also,
-        # this method returns a single Fare, not (a list containing) a single
-        # Fare.
-        return result
+    tmp2=sorted(tmp, key=itemgetter(1))
+    result=map(itemgetter(0), tmp2)[0]
+    # Critical difference between the competition and cooperative
+    # closestfares: cooperative cf returns the Fare, and removes it from
+    # waitingFares.theBuffer immediately.  Competition cf just returns the
+    # Fare, without taking it out of the buffer until later.  Note also,
+    # this method returns a single Fare, not (a list containing) a single
+    # Fare.
+    return result
 
 
     # Third of the Taxi's three negotiation protocols.  See notes in
@@ -716,6 +626,13 @@ queue, and all others have to renege out.
         # Fare.
         return result
 
+
+def get_my_fare(fare_list):
+#    print "inside get_my_fare"
+#    print "returning a list containing Fare", fare.name, "only"
+#    print "type([fare]):", type([fare])
+#    print "type(fare_list):", type(fare_list)
+    return fare_list
 
 def closestfare_cooperate(buffer):
     '''
