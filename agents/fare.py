@@ -44,6 +44,10 @@ class Fare(Agent):
         # This list is used with the Taxi's compete() method.  All Taxis that
         # are competing for this Fare get dropped here temporarily.
         self.competeQ = []
+	# This variable is set after a Taxi interrupts all other competitors,
+	# and the Fare is basically out of the game.  All competition for this
+	# Fare is OVER.
+	self.pickedUp=False
         print '%.4f Fare %s activated' % (self.ts['activation'], self.name)
         print '.. Fare %s location: %s' % (self.name, self.loc)
 
@@ -54,6 +58,17 @@ class Fare(Agent):
         # should just drop self.ts['pickup'] altogether.
         self.ts['pickup'] = now()
         yield waitevent, self, self.doneSignal
+
+#	# TESTING
+#	#
+#	# There is a BUG with interrupted Taxis going back and picking up the
+#	# same Fare on their next time thru the queue.  Potentially the fix is
+#	# to have the Fare mark itself as no longer eligible, and have the
+#	# Taxi poll state before adding itself to that Fare's (closed)
+#	# competeQ.
+#	print ".. %.4f setting %s.pickedUp=True in fare.py ..." % (now(), self.name)
+#	self.pickedUp=True
+
         self.ts['dropoff'] = now()
         whichTaxi = self.doneSignal.signalparam
         # TODO [hipri] This is being reported out of order.  It shows up in

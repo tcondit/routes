@@ -5,7 +5,10 @@ import ConfigParser
 import os.path
 from grid import Grid
 # I may have to do something ugly to use this class from this location (ie:
-# accessing ../graphs/graph from agents/grid)
+# accessing ../graphs/graph from agents/grid).
+#
+# Late note: or do the right thing, and put all these files into a single
+# directory.
 #from graphs.graph import Graph
 
 config = ConfigParser.SafeConfigParser()
