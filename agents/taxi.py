@@ -176,21 +176,21 @@ Contrast with the cooperate() method.
         while True:
             if len(Agent.waitingFares.theBuffer) > 0:
                 if DEBUG:
-                    my_curr_pre = self.loc['curr']
-                    my_dest_pre = self.loc['dest']
+                    my_curr_pre=self.loc['curr']
+                    my_dest_pre=self.loc['dest']
 
                 # Choose a Fare
-                if self.np == 'FIFO':
-                    targetFare = Agent.waitingFares.theBuffer[0]
-                elif self.np == 'closestfare':
+                if self.np=='FIFO':
+                    targetFare=Agent.waitingFares.theBuffer[0]
+                elif self.np=='closestfare':
                     numAgents=len(Agent.waitingFares.theBuffer)
-                    targetFare = self.closestfare_compete()
+                    targetFare=self.closestfare_compete()
                     if DEBUG:
                         assert(numAgents==len(Agent.waitingFares.theBuffer))
                         print '%s targetFare closestfare %s' % (self.name, targetFare.name)
-                elif self.np == 'mixedmode':
+                elif self.np=='mixedmode':
                     numAgents=len(Agent.waitingFares.theBuffer)
-                    targetFare = self.mixedmode_compete()
+                    targetFare=self.mixedmode_compete()
                     if DEBUG:
                         assert(numAgents==len(Agent.waitingFares.theBuffer))
                     if targetFare:
@@ -208,8 +208,8 @@ Contrast with the cooperate() method.
 		# End choose a Fare
 
                 if DEBUG:
-                    assert(self.loc['curr'] == my_curr_pre)
-                    assert(self.loc['dest'] == my_dest_pre)
+                    assert(self.loc['curr']==my_curr_pre)
+                    assert(self.loc['dest']==my_dest_pre)
 
                 # Add myself to the Fare's competeQ IFF I'm not already in
                 # there.
@@ -686,21 +686,23 @@ what SimPy's yield is expecting.  This is a filter function for the Store, and
 should not be called directly.  This is the second of the Taxi's three
 negotiation protocols.
     '''
-    tmp = []
+    tmp=[]
     if not len(Agent.waitingFares.theBuffer) > 0:
         print 'Buffer is empty!'
         return
     if DEBUG:
-        if buffer == Agent.waitingFares.theBuffer: print 'the buffers are equal'
-        if buffer is Agent.waitingFares.theBuffer: print 'the buffers are the same'
+        if buffer==Agent.waitingFares.theBuffer:
+            print 'the buffers are equal'
+        if buffer is Agent.waitingFares.theBuffer:
+            print 'the buffers are the same'
     for fare in buffer:
         #d = getdistance(fare.loc['curr'], taxi_loc)
-        d = Agent.map.get_distance(fare.loc['curr'], taxi_loc)
+        d=Agent.map.get_distance(fare.loc['curr'], taxi_loc)
         if DEBUG:
             print 'Distance from Taxi to Fare %s: %.4f' % (fare.name, d)
         tmp.append((fare, d))
-    tmp2 = sorted(tmp, key=itemgetter(1))
-    result = map(itemgetter(0), tmp2)[0]
+    tmp2=sorted(tmp, key=itemgetter(1))
+    result=map(itemgetter(0), tmp2)[0]
     return [result]
 
 
