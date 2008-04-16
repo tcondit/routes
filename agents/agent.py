@@ -29,7 +29,7 @@ class Agent(Process):
     # Static (class) attributes!  Do NOT declare these in __init__ (or they
     # apparently won't be static).
     waiting=[]
-    waitingFares = Store(capacity=STORECAP, initialBuffered=waiting)
+    waitingFares=Store(capacity=STORECAP, initialBuffered=waiting)
     # I think this Monitor is used for ...
 #    waitingFares = Store(capacity=STORECAP, initialBuffered=waiting,
 #            monitored=True, monitorType=Monitor)

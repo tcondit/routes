@@ -173,6 +173,8 @@ Contrast with the cooperate() method.
 	# The problem MAY be that the interrupted Taxis are not removing
 	# themselves from the competeQ...
 
+        global taxi_loc	# maybe I should use class G
+
         while True:
             if len(Agent.waitingFares.theBuffer) > 0:
                 if DEBUG:
@@ -211,225 +213,172 @@ Contrast with the cooperate() method.
                     assert(self.loc['curr']==my_curr_pre)
                     assert(self.loc['dest']==my_dest_pre)
 
-                # Add myself to the Fare's competeQ IFF I'm not already in
-                # there.
-		#
-		# Late note: Taxis are adding themselves back into the same
-		# queues AFTER being interrupted and removed from them.  I
-		# need to track which Fare the Taxi was just removed from, and
-		# not allow them to be added back in.
-		#
-		# Late note: it appears that while this is a good start, it's
-		# not good enough.  I think instead of this, what I need to do
-		# is maintain a lostFares list for each Taxi, and once the
-		# Taxi has lost the Fare, it's identifier is appended
-		# permanently.  Then the Taxi can query this list here in
-		# place of the transient self.lostFare variable.
-                if self not in targetFare.competeQ and \
-				not targetFare in self.lostFares:
-                    print "got here"
+                if (self not in targetFare.competeQ and
+				targetFare not in self.lostFares):
                     if DEBUG:
                         print ".. %.4f %s adding self to Fare %s's targetFare.competeQ" % (now(),
                                 self.name, targetFare.name)
                     targetFare.competeQ.append(self)
 
-                # Q: Should I always update the destination here?
+                # update destination unconditionally
                 self.loc['dest'] = targetFare.loc['curr']
-
-#		# DEBUG
-#		assert self.loc['curr']
-#		assert self.loc['dest']
-#                drive_dist = getdistance(self.loc['dest'], self.loc['curr'])
                 drive_dist=self.map.get_distance(self.loc['dest'], self.loc['curr'])
-
-# @@ Found this line in an old printout that may be "newer" than this code.
                 self.headingForFare=now()
 
                 # Drive to Fare, try to get there first
-#		drive_start_time=now()
                 yield hold, self, drive_dist
 
-                # If interrupted, another Taxi beat me to the Fare.
-                if self.interrupted():
-                    if DEBUG:
-                        print '.. Taxi %s was interrupted by' % self.name,
-                        print self.interruptCause.name, 'at %.4f' % now()
-		    print 
-                    self.interruptReset()
 
-		    # NEW TESTING -- add if DEBUG: if this works
-                    print ".. %.4f %s removing self from Fare %s's targetFare.competeQ" % (now(),
-                                self.name, targetFare.name)
-		    try:
-                        targetFare.competeQ.remove(self)
-                    except ValueError:
-                        print "Taxi not found in %s's competeQ!" % targetFare.name
-                        continue
-
-
-# This is stupid.  (1) Taxi chooses a Fare based on distance.  (2) Taxi adds
-# itself to the Fare's competeQ.  (3) All competing Taxis yield for
-# drive_dist.  (4) The winner interrupts everyone else.  (5) The winner is
-# okay.  The losers (ie, those who were interrupted) remove themselves from
-# the Fare's competeQ, and add the Fare to their lostFares queue (by the way,
-# a better name would be lostFaresQ).  The losers then ... what?
-#
-# What they should do at that point is go find another Fare to compete for.
-# Is that not what's happening?
-#
-#                    # TESTING!!
-#		    if self not in targetFare.competeQ and \
-#				    not targetFare in self.lostFares:
-#                        print "got here [TEMP DEBUG]"
-#                        if DEBUG:
-#                            print ".. %.4f %s adding self to Fare %s's targetFare.competeQ" % (now(),
-#                                self.name, targetFare.name)
-#                        targetFare.competeQ.append(self)
+		# NEW PLAN: All Taxis drive to the pickup location and query
+		# waitingFares.theBuffer for the Fare.  If the Fare is still
+		# in the buffer, the Taxi gets the Fare, and removes it from
+		# the buffer.  This Taxi updates his location to the Fare's
+		# location, and yields for the drive to the Fare's
+		# destination.
+		#
+		# All other Taxis find the Fare is already picked up, and
+		# immediately query the buffer for the next closest Fare.
+		# Then they start the same cycle all over again.
+		#
+		#
+		# There is some potential for the Taxis to chase each other
+		# around the grid, but it should be offset by new Fares coming
+		# into the buffer at different times, and the fact that Taxis
+		# will reach the same Fare at different times.
+		#
+		# Note: the winning Taxi does NOT interrupt or in any way
+		# notify the other Taxis.  He just removes the Fare from
+		# waitingFares.theBuffer and lets the other Taxis find the
+		# Fare already picked up when they get there.  This is what
+		# I'm now calling cutthroat_compete, as distinct from the
+		# former compete which is now courtesy_compete.
 
 
-		    # These are the Fares whose queue we just removed
-		    # ourselves from, since some other Taxi got there first
-		    # and interrupted us.  Add this Fare to the list to ensure
-		    # that we don't ever rejoin that queue.
-		    self.lostFares.append(targetFare)
-		    print ".. %.4f %s lostFares list:" % (now(), self.name),
-		    for fare in self.lostFares:
-                         print fare.name,
-                    print
+		# I've now driven to the Fare's pickup location.  Update my
+		# location to that of the Fare I'm competing for.  If Fare is
+		# still here, self.loc['dest'] is accurate.  Otherwise, need
+		# to reset it after querying closestfare_compete() for my new
+		# Fare.  Set the global taxi_loc so we can use this value in
+		# fare_is_here().
+                self.loc=targetFare.loc
+		taxi_loc=self.loc['curr']
 
-#		assert self.loc['curr']
-#		assert self.loc['dest']
-                    self.loc['curr']=Agent.map.update_location(self.loc['curr'],
-                                    self.loc['dest'], now()-self.headingForFare)
-#                    self.updateLocation()
+		# Try to get the Fare from the buffer.
+#		if self.fare_is_here():
+#                    print "yay, got the Fare!"
+#                    drive_dist=self.map.get_distance(self.loc['dest'], self.loc['curr'])
 
-		    # special case: if Agent.map.update_location() returns
-		    # (-1,-1), that means that this Taxi reached the Fare at
-		    # the same time as another Taxi did, but that one
-		    # interrupted this one first for whatever reason.  So this
-		    # Taxi's current location is its destination, and its
-		    # destination is reset.
-		    if self.loc['curr']==(-1,-1):
-                        self.loc['curr']=(self.loc['dest'])
-                        # ugly little hack to try and avoid some racy
-			# conditions (heh).  Too bad it doesn't fix anything
-#			self.loc['curr']=(self.loc['dest'][0]+randint(-2,2),
-#					  self.loc['dest'][1]+randint(-2,2))
+		#yield get, self, Agent.waitingFares, self.fare_is_here
+		yield get, self, Agent.waitingFares, fare_is_here
+                print "yay, got the Fare!"
+                drive_dist=self.map.get_distance(self.loc['dest'], self.loc['curr'])
 
-                    # In either case, the Taxi's destination needs to be
-		    # reset.
-		    self.loc['dest']=()
+                # Drive to Fare's destination, then continue
+                yield hold, self, drive_dist
 
-                # Not interrupted, so I win!  Take the Fare from
-                # waitingFares.theBuffer, and interrupt the Taxis who lost out
-                # on this one.
-		elif not self.interrupted():
-                    # Pick up Fare
-                    print '%.4f %s arrives to pick up Fare %s' % (now(), self.name,
-                            targetFare.name)
-                    yield get, self, Agent.waitingFares, 1
+#		else:
+#                    print "boo, got the shaft!"
+#		    self.loc['dest']=()
+#		    continue
 
-                    if DEBUG:
-                        print "..  (pre) contents of %s's competeQ:" % targetFare.name,
-                        for competitor in targetFare.competeQ:
-                            print competitor.name,
-                        print
-
-                    for competingTaxi in targetFare.competeQ:
-                        # IMPORTANT: Do not interrupt self!  It's a tough bug
-                        # to track down.
-                        if self.name==competingTaxi.name:
-                            continue
-
-			# A KeyError repros consistently when running
-			# driverdriver.py on compete/closestfare.  
-			#
-			# 20.0000 Yellow-0 is interrupting Yellow-4
-			#
-			# but Yellow-4 is not in the queue (it seems).  He's
-			# picked up a Fare:
-			#
-			# 8.0000 Yellow-4 arrives to pick up Fare 96
-			#
-			# So why was he not removed from targetFare.competeQ??
-			#
-			# LATE NOTE: This is totally stuffed.  There are a
-			# couple things about this that are suspicious:
-			#
-			# (1) Yellow-0 is interrupting Yellow-4 at time
-			#     20.0000, but (and this isn't shown, but it's in
-			#     the runtime output) the shortest distance is 21:
-			#
-			# C:\Source\hg\agents\package>python driver.py | grep Yellow-4
-			# 0.0000 Taxi Yellow-4 activated
-			# .. Taxi Yellow-4 location: {'dest': (), 'curr': (89, 63)}
-			# Distance from Yellow-4 to fare -1: 52.0000
-			# Distance from Yellow-4 to fare -2: 21.0000
-			# ...
-			#
-			# (2) Why in hell is Yellow-4 picking up Fare 96 at
-			#     time 8.0000???  There are only 5 fares in
-			#     existence at that time.  It's numFares, and it's
-			#     set to 5 in defaults.ini.  The fare should not
-			#     exist at this time in the simulation!
-			#
-			# (3) This bug seems to have slipped away.  I cannot
-			#     reproduce it at the moment.  So I'll note it and
-			#     move on.
-			#
-			#     TIP: Turn on DEBUG in overrides.ini to see the
-			#     contents of the targetFare.competeQ for each
-			#     Fare.
-                        print '%.4f %s is interrupting %s [Fare %s]' % (now(), self.name,
-                                competingTaxi.name, targetFare.name)
-
-			# YOU WERE INTERRUPTED.  TAKE YOUR ASS OUT OF THE
-			# targetFare.competeQ!!!
-
-# @@ Found this line in an old printout that may be "newer" than this code.
-                        self.interrupt(competingTaxi)
+#                    targetFare=self.closestfare_compete()
+#		    self.loc['dest']=targetFare.loc['curr']
 
 
-                    # how the f*** am I going to get the other Taxis out of
-		    # targetFare.competeQ?
-                    if DEBUG:
-                        print ".. (post) contents of %s's competeQ:" % targetFare.name,
-                        for competitor in targetFare.competeQ:
-                            print competitor.name,
-                        print
 
-# @@ Found this line in an old printout that may be "newer" than this code.
-# Setting this one breaks the code.
-#                    print 'self.loc BEFORE', self.loc
-#		    print 'setting self.loc ...'
-#                    self.loc = targetFare.loc
-#                    print 'self.loc AFTER', self.loc
-
-                    # Drive to Fare's destination
-
-# @@ This line is different in the old printout
-#                    drive_dist = getdistance(self.loc['dest'], self.loc['curr'])
-
-#                    drive_dist = getdistance(self.loc['curr'], targetFare.loc['dest'])
-
-#                    print '[DEBUG] calling get_distance ...'
-
-                    drive_dist = self.map.get_distance(self.loc['curr'], targetFare.loc['dest'])
-                    print "%s's drive_dist: %.4f" % (self.name, drive_dist)
-                    yield hold, self, drive_dist
-
-                    # TODO signal Fare
-                    # Drop off Fare
-                    self.loc['curr'] = self.loc['dest']
-                    self.loc['dest'] = ()
-#                    if DEBUG:
-#                        print '%.4f Taxi %s dropping off Fare %s' % (now(), self.name,
-#                                fareBeingDriven.name)
-#                    fareBeingDriven.doneSignal.signal(self.name)
-
-                else:
-                    # I've never seen this (thank goodness)
-                    print '  !! RED ALERT !!'
+#~~                # If interrupted, another Taxi beat me to the Fare.
+#~~                if self.interrupted():
+#~~                    if DEBUG:
+#~~                        print '.. Taxi %s was interrupted by' % self.name,
+#~~                        print self.interruptCause.name, 'at %.4f' % now()
+#~~		    print 
+#~~                    self.interruptReset()
+#~~
+#~~		    if DEBUG:
+#~~			print ".. %.4f %s removing self from Fare %s's targetFare.competeQ" % \
+#~~					(now(), self.name, targetFare.name)
+#~~		    try:
+#~~                        targetFare.competeQ.remove(self)
+#~~                    except ValueError:
+#~~                        print "Taxi not found in %s's competeQ!" % targetFare.name
+#~~                        continue
+#~~
+#~~		    # These are the Fares whose queue we just removed
+#~~		    # ourselves from, since some other Taxi got there first
+#~~		    # and interrupted us.  Add this Fare to the list to ensure
+#~~		    # that we don't ever rejoin that queue.
+#~~		    self.lostFares.append(targetFare)
+#~~		    print ".. %.4f %s lostFares list:" % (now(), self.name),
+#~~		    for fare in self.lostFares:
+#~~                         print fare.name,
+#~~                    print
+#~~
+#~~                    self.loc['curr']=Agent.map.update_location(self.loc['curr'],
+#~~                                    self.loc['dest'], now()-self.headingForFare)
+#~~#                    self.updateLocation()
+#~~
+#~~		    # special case: if Agent.map.update_location() returns
+#~~		    # (-1,-1), that means that this Taxi reached the Fare at
+#~~		    # the same time as another Taxi did, but that one
+#~~		    # interrupted this one first for whatever reason.  So this
+#~~		    # Taxi's current location is its destination, and its
+#~~		    # destination is reset.
+#~~		    if self.loc['curr']==(-1,-1):
+#~~                        self.loc['curr']=(self.loc['dest'])
+#~~
+#~~                    # In either case, the Taxi's destination needs to be
+#~~		    # reset.
+#~~		    self.loc['dest']=()
+#~~
+#~~                # Not interrupted, so I win!  Take the Fare from
+#~~                # waitingFares.theBuffer, and interrupt the Taxis who lost out
+#~~                # on this one.
+#~~		elif not self.interrupted():
+#~~                    # Pick up Fare
+#~~                    print '%.4f %s arrives to pick up Fare %s' % (now(), self.name,
+#~~                            targetFare.name)
+#~~                    yield get, self, Agent.waitingFares, 1
+#~~
+#~~                    if DEBUG:
+#~~                        print "..  (pre) contents of %s's competeQ:" % targetFare.name,
+#~~                        for competitor in targetFare.competeQ:
+#~~                            print competitor.name,
+#~~                        print
+#~~
+#~~                    for competingTaxi in targetFare.competeQ:
+#~~                        # IMPORTANT: Do not interrupt self!  It's a tough bug
+#~~                        # to track down.
+#~~                        if self.name==competingTaxi.name:
+#~~                            continue
+#~~
+#~~                        print '%.4f %s is interrupting %s [Fare %s]' % (now(), self.name,
+#~~                                competingTaxi.name, targetFare.name)
+#~~
+#~~# @@ Found this line in an old printout that may be "newer" than this code.
+#~~                        self.interrupt(competingTaxi)
+#~~
+#~~                    if DEBUG:
+#~~                        print ".. (post) contents of %s's competeQ:" % targetFare.name,
+#~~                        for competitor in targetFare.competeQ:
+#~~                            print competitor.name,
+#~~                        print
+#~~
+#~~                    drive_dist = self.map.get_distance(self.loc['curr'], targetFare.loc['dest'])
+#~~                    print "%s's drive_dist: %.4f" % (self.name, drive_dist)
+#~~                    yield hold, self, drive_dist
+#~~
+#~~                    # TODO signal Fare
+#~~                    # Drop off Fare
+#~~                    self.loc['curr'] = self.loc['dest']
+#~~                    self.loc['dest'] = ()
+#~~                    if DEBUG:
+#~~                        print '%.4f Taxi %s dropping off Fare %s' % \
+#~~					(now(), self.name, targetFare.name)
+#~~                    targetFare.doneSignal.signal(self.name)
+#~~
+#~~                else:
+#~~                    # I've never seen this (thank goodness)
+#~~                    print '  !! RED ALERT !!'
 
             else:
                 print '%.4f INFO: %s: There are no eligible Fares for this Taxi.' % (now(),
@@ -474,6 +423,24 @@ a configuration setting, but it's low priority.
         self.loc['dest'] = ()
         curr_tmp.clear()
         return
+
+
+    def fare_is_here(self, buffer):
+        '''
+Filter: if there is a Fare at this location, return it, else None.
+	'''
+	tmp=[]
+#	buf=Agent.waitingFares.theBuffer
+	for fare in buffer:
+            print '[DEBUG] inspecting Fare %s' % fare.name
+	    print "[DEBUG] Fare and Taxi's current location", \
+			    (fare.loc['curr'], taxi_loc)
+
+            # return first Fare at taxi_loc or None
+	    if fare.loc['curr']==taxi_loc:
+                tmp.append(fare)
+        print "len(tmp)==%d" % len(tmp)
+        return tmp
 
 
     def closestfare_compete(self, not_a_magic_buffer=None):
@@ -835,6 +802,23 @@ negotiation protocols.
     tmp2 = sorted(tmp, key=itemgetter(1))
     result = map(itemgetter(0), tmp2)[0]
     return [result]
+
+
+def fare_is_here(buffer):
+    '''
+Filter: if there is a Fare at this location, return it, else None.
+    '''
+    tmp=[]
+#    buf=Agent.waitingFares.theBuffer
+    for fare in buffer:
+        print '[DEBUG] inspecting Fare %s' % fare.name
+        print "[DEBUG] Fare and Taxi's current location", (fare.loc['curr'], taxi_loc)
+
+        # return first Fare at taxi_loc or None
+        if fare.loc['curr']==taxi_loc:
+            tmp.append(fare)
+    print "len(tmp)==%d" % len(tmp)
+    return tmp
 
 
 ###def getdistance(dest, currentLocation=None):
