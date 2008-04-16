@@ -45,7 +45,7 @@ class Taxi(Agent):
         self.np=np
 	self.lostFares=[]
         print '%.4f Taxi %s activated' % (self.ts['activation'], self.name)
-        print '.. Taxi %s location: %s' % (self.name, self.loc)
+        print '%.4f INFO Taxi %s location: %s' % (now(), self.name, self.loc)
 
 #//    def cooperate(self):
 #//        '''
@@ -226,9 +226,11 @@ Contrast with the cooperate() method.
 #                self.headingForFare=now()
 
                 # Drive to Fare, try to get there first
-		print "%s yielding for %d..." % (self.name, drive_dist)
+		print "%.4f Taxi %s driving to closest Fare %s (drive time %d)" \
+				% (now(), self.name, targetFare.name, drive_dist)
                 yield hold, self, drive_dist
-		print "%s done yielding for %d..." % (self.name, drive_dist)
+		print "%.4f Taxi %s arrives at Fare's %s location (drive time %d)" \
+				% (now(), self.name, targetFare.name, drive_dist)
 
 
 		# NEW PLAN: All Taxis drive to the pickup location and query
@@ -259,7 +261,7 @@ Contrast with the cooperate() method.
 		# I've now driven to the Fare's pickup location.  Update my
 		# location to that of the Fare I'm competing for.  If Fare is
 		# still here, self.loc['dest'] is accurate.  Otherwise, need
-		# to reset it after querying closestfare_compete() for my new
+		# to reset it after querying the filter function for my new
 		# Fare.  Set the global taxi_loc so we can use this value in
 		# fare_is_here().
                 self.loc=targetFare.loc
@@ -819,13 +821,22 @@ Filter: if there is a Fare at this location, return it, else None.
     tmp=[]
     for fare in buffer:
 #        print '[DEBUG] inspecting Fare %s' % fare.name
-#        print "[DEBUG] Fare and Taxi's current location", (fare.loc['curr'], taxi_loc)
+#	print "[DEBUG] Fare %s and Taxi current location" % (fare.name),
+#        print (fare.loc['curr'], taxi_loc)
 
         # return first Fare at taxi_loc or None
         if fare.loc['curr']==taxi_loc:
             tmp.append(fare)
 #    print "len(tmp)==%d" % len(tmp)
-    return tmp
+
+    # hack: ensure at most one Fare is returned
+    if len(tmp)==0:
+        print "fare is already gone"
+        return tmp
+    elif len(tmp)==1:
+        return tmp
+    else:
+        return
 
 
 ###def getdistance(dest, currentLocation=None):
