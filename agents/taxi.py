@@ -213,20 +213,22 @@ Contrast with the cooperate() method.
                     assert(self.loc['curr']==my_curr_pre)
                     assert(self.loc['dest']==my_dest_pre)
 
-                if (self not in targetFare.competeQ and
-				targetFare not in self.lostFares):
-                    if DEBUG:
-                        print ".. %.4f %s adding self to Fare %s's targetFare.competeQ" % (now(),
-                                self.name, targetFare.name)
-                    targetFare.competeQ.append(self)
+#                if (self not in targetFare.competeQ and
+#				targetFare not in self.lostFares):
+#                    if DEBUG:
+#                        print ".. %.4f %s adding self to Fare %s's targetFare.competeQ" % (now(),
+#                                self.name, targetFare.name)
+#                    targetFare.competeQ.append(self)
 
                 # update destination unconditionally
                 self.loc['dest'] = targetFare.loc['curr']
                 drive_dist=self.map.get_distance(self.loc['dest'], self.loc['curr'])
-                self.headingForFare=now()
+#                self.headingForFare=now()
 
                 # Drive to Fare, try to get there first
+		print "%s yielding for %d..." % (self.name, drive_dist)
                 yield hold, self, drive_dist
+		print "%s done yielding for %d..." % (self.name, drive_dist)
 
 
 		# NEW PLAN: All Taxis drive to the pickup location and query
@@ -264,19 +266,25 @@ Contrast with the cooperate() method.
 		taxi_loc=self.loc['curr']
 
 		# Try to get the Fare from the buffer.
-#		if self.fare_is_here():
-#                    print "yay, got the Fare!"
-#                    drive_dist=self.map.get_distance(self.loc['dest'], self.loc['curr'])
+                yield get, self, Agent.waitingFares, fare_is_here
 
-		#yield get, self, Agent.waitingFares, self.fare_is_here
-		yield get, self, Agent.waitingFares, fare_is_here
-                print "yay, got the Fare!"
-                drive_dist=self.map.get_distance(self.loc['dest'], self.loc['curr'])
+                # Got the Fare
+		if len(self.got)>0:
+                    print ".. %s got Fare %s" % (self.name, self.got[0].name)
+                    drive_dist=self.map.get_distance(self.loc['dest'], self.loc['curr'])
 
-                # Drive to Fare's destination, then continue
-                yield hold, self, drive_dist
+                    # Drive to Fare's destination, then continue
+                    yield hold, self, drive_dist
 
-#		else:
+                # Too late, Fare already picked up
+		else:
+                    print "boo, got the shaft!"
+		    self.loc['dest']=()
+		    print "%s self.loc", (self.name, self.loc)
+#		    continue
+
+
+#		except:
 #                    print "boo, got the shaft!"
 #		    self.loc['dest']=()
 #		    continue
@@ -425,22 +433,22 @@ a configuration setting, but it's low priority.
         return
 
 
-    def fare_is_here(self, buffer):
-        '''
-Filter: if there is a Fare at this location, return it, else None.
-	'''
-	tmp=[]
-#	buf=Agent.waitingFares.theBuffer
-	for fare in buffer:
-            print '[DEBUG] inspecting Fare %s' % fare.name
-	    print "[DEBUG] Fare and Taxi's current location", \
-			    (fare.loc['curr'], taxi_loc)
-
-            # return first Fare at taxi_loc or None
-	    if fare.loc['curr']==taxi_loc:
-                tmp.append(fare)
-        print "len(tmp)==%d" % len(tmp)
-        return tmp
+#    def fare_is_here(self, buffer):
+#        '''
+#Filter: if there is a Fare at this location, return it, else None.
+#	'''
+#	tmp=[]
+##	buf=Agent.waitingFares.theBuffer
+#	for fare in buffer:
+#            print '[DEBUG] inspecting Fare %s' % fare.name
+#	    print "[DEBUG] Fare and Taxi's current location", \
+#			    (fare.loc['curr'], taxi_loc)
+#
+#            # return first Fare at taxi_loc or None
+#	    if fare.loc['curr']==taxi_loc:
+#                tmp.append(fare)
+#        print "len(tmp)==%d" % len(tmp)
+#        return tmp
 
 
     def closestfare_compete(self, not_a_magic_buffer=None):
@@ -809,15 +817,14 @@ def fare_is_here(buffer):
 Filter: if there is a Fare at this location, return it, else None.
     '''
     tmp=[]
-#    buf=Agent.waitingFares.theBuffer
     for fare in buffer:
-        print '[DEBUG] inspecting Fare %s' % fare.name
-        print "[DEBUG] Fare and Taxi's current location", (fare.loc['curr'], taxi_loc)
+#        print '[DEBUG] inspecting Fare %s' % fare.name
+#        print "[DEBUG] Fare and Taxi's current location", (fare.loc['curr'], taxi_loc)
 
         # return first Fare at taxi_loc or None
         if fare.loc['curr']==taxi_loc:
             tmp.append(fare)
-    print "len(tmp)==%d" % len(tmp)
+#    print "len(tmp)==%d" % len(tmp)
     return tmp
 
 
