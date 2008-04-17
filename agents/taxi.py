@@ -247,12 +247,23 @@ Contrast with the cooperate() method.
 		print "%.4f %s trying to get Fare %s," % (now(), self.name, targetFare.name)
 
 		# Try to get the Fare from the buffer.
-                yield get, self, Agent.waitingFares, fare_is_here
+#                yield get, self, Agent.waitingFares, fare_is_here
                 #yield (get, self, Agent.waitingFares, fare_is_here), (hold, self, 2)
-                #yield (get, self, Agent.waitingFares, fare_is_here), (hold, self, .01)
+                yield (get, self, Agent.waitingFares, fare_is_here), (hold, self, .01)
 
-                for i in self.got:
-                    print "        ", i.name, i.loc
+                # HACK HACK - trying this to see if it will "absorb" the yield
+		# renege from the yield above
+		yield hold, self, .02
+
+                # TEMP DEBUG
+                #
+		# So it's looking more and more like the Taxis are entering
+		# the filter function, and either coming out with a Fare, or
+		# being passivated.  I see no evidence that the Taxis ever
+		# return empty-handed from fare_is_here.  This ain't gonna
+		# work.
+#                for i in self.got:
+#                    print "        ", i.name, i.loc
 
                 # TEMP DEBUG
 		#
@@ -283,21 +294,27 @@ Contrast with the cooperate() method.
                     drive_dist=self.map.get_distance(self.loc['dest'], self.loc['curr'])
 
                     # Drive to Fare's destination, then continue
+		    print "%.4f Taxi %s driving to Fare's %s destination (drive time %d)" \
+				% (now(), self.name, targetFare.name, drive_dist)
+
                     yield hold, self, drive_dist
+#                    yield hold, self, 10
+
+		    print "%.4f Taxi %s back in service" % (now(), self.name)
 		    self.loc['curr']=targetFare.loc['dest']
 		    self.loc['dest']=()
 		    continue
 
-                # If you get here, you lost the Fare.  Reset dest, and start
-		# over.  Except nothing ever gets here!  WTF!
-		print "zzzzzip"
-                self.loc['dest']=()
+#                # If you get here, you lost the Fare.  Reset dest, and start
+#		# over.  Except nothing ever gets here!  WTF!
+#		print "zzzzzip"
+#                self.loc['dest']=()
 
-#                # Too late, Fare already picked up
-#		else:
-#                    print "%.4f %s lost Fare %s, trying again" % \
-#				    (now(), self.name, targetFare.name)
-#		    self.loc['dest']=()
+                # Too late, Fare already picked up
+		else:
+                    print "%.4f %s lost Fare %s, trying again" % \
+				    (now(), self.name, targetFare.name)
+		    self.loc['dest']=()
 #		    print "%s self.loc" % (self.name), self.loc
 #		    continue
 
