@@ -249,7 +249,11 @@ Contrast with the cooperate() method.
 		# Try to get the Fare from the buffer.
 #                yield get, self, Agent.waitingFares, fare_is_here
                 #yield (get, self, Agent.waitingFares, fare_is_here), (hold, self, 2)
-                yield (get, self, Agent.waitingFares, fare_is_here), (hold, self, .01)
+
+		# instead of using .01 for everything, choose a random small float
+		yield_time=random.random()/100
+                #yield (get, self, Agent.waitingFares, fare_is_here), (hold, self, .01)
+                yield (get, self, Agent.waitingFares, fare_is_here), (hold, self, yield_time)
 
                 # HACK HACK - trying this to see if it will "absorb" the yield
 		# renege from the yield above
