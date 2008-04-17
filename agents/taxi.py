@@ -229,34 +229,9 @@ Contrast with the cooperate() method.
 		print "%.4f Taxi %s driving to closest Fare %s (drive time %d)" \
 				% (now(), self.name, targetFare.name, drive_dist)
                 yield hold, self, drive_dist
+
 		print "%.4f Taxi %s arrives at Fare's %s location (drive time %d)" \
 				% (now(), self.name, targetFare.name, drive_dist)
-
-
-		# NEW PLAN: All Taxis drive to the pickup location and query
-		# waitingFares.theBuffer for the Fare.  If the Fare is still
-		# in the buffer, the Taxi gets the Fare, and removes it from
-		# the buffer.  This Taxi updates his location to the Fare's
-		# location, and yields for the drive to the Fare's
-		# destination.
-		#
-		# All other Taxis find the Fare is already picked up, and
-		# immediately query the buffer for the next closest Fare.
-		# Then they start the same cycle all over again.
-		#
-		#
-		# There is some potential for the Taxis to chase each other
-		# around the grid, but it should be offset by new Fares coming
-		# into the buffer at different times, and the fact that Taxis
-		# will reach the same Fare at different times.
-		#
-		# Note: the winning Taxi does NOT interrupt or in any way
-		# notify the other Taxis.  He just removes the Fare from
-		# waitingFares.theBuffer and lets the other Taxis find the
-		# Fare already picked up when they get there.  This is what
-		# I'm now calling cutthroat_compete, as distinct from the
-		# former compete which is now courtesy_compete.
-
 
 		# I've now driven to the Fare's pickup location.  Update my
 		# location to that of the Fare I'm competing for.  If Fare is
@@ -264,25 +239,66 @@ Contrast with the cooperate() method.
 		# to reset it after querying the filter function for my new
 		# Fare.  Set the global taxi_loc so we can use this value in
 		# fare_is_here().
-                self.loc=targetFare.loc
-		taxi_loc=self.loc['curr']
+                self.loc['curr']=taxi_loc=targetFare.loc['curr']
+		self.loc['dest']=()
+#		taxi_loc=self.loc['curr']
+
+                # TEMP DEBUG
+		print "%.4f %s trying to get Fare %s," % (now(), self.name, targetFare.name)
 
 		# Try to get the Fare from the buffer.
                 yield get, self, Agent.waitingFares, fare_is_here
+                #yield (get, self, Agent.waitingFares, fare_is_here), (hold, self, 2)
+                #yield (get, self, Agent.waitingFares, fare_is_here), (hold, self, .01)
+
+                for i in self.got:
+                    print "        ", i.name, i.loc
+
+                # TEMP DEBUG
+		#
+		# The program runs, and sometimes prints "fare is already
+		# gone", even with this here.  So *something* is being
+		# returned from the filter function every time!
+		#
+		# Welp, a quick grep -E shows that what may be happening is
+		# that the Taxis are going into the filter function, and not
+		# coming back out!  That would explain their disappearance,
+		# and the fact that we're never seeing "boo, got the shaft!".
+		# So how to get them out?  Reneging?
+		#
+		# Trying reneging above.  Hopefully that will trigger the
+		# assertion.
+
+#                assert(len(self.got)==1)
+#                try:
+#                    print "gotti", self.got[0].name
+#                except IndexError:
+#                    print "nothing there boss"
 
                 # Got the Fare
 		if len(self.got)>0:
-                    print ".. %s got Fare %s" % (self.name, self.got[0].name)
+                    print ".. %.4f %s got Fare %s" % (now(), self.name, self.got[0].name)
+		    self.loc['dest']=targetFare.loc['dest']
+#		    taxi_loc=()
                     drive_dist=self.map.get_distance(self.loc['dest'], self.loc['curr'])
 
                     # Drive to Fare's destination, then continue
                     yield hold, self, drive_dist
-
-                # Too late, Fare already picked up
-		else:
-                    print "boo, got the shaft!"
+		    self.loc['curr']=targetFare.loc['dest']
 		    self.loc['dest']=()
-		    print "%s self.loc", (self.name, self.loc)
+		    continue
+
+                # If you get here, you lost the Fare.  Reset dest, and start
+		# over.  Except nothing ever gets here!  WTF!
+		print "zzzzzip"
+                self.loc['dest']=()
+
+#                # Too late, Fare already picked up
+#		else:
+#                    print "%.4f %s lost Fare %s, trying again" % \
+#				    (now(), self.name, targetFare.name)
+#		    self.loc['dest']=()
+#		    print "%s self.loc" % (self.name), self.loc
 #		    continue
 
 
@@ -831,11 +847,12 @@ Filter: if there is a Fare at this location, return it, else None.
 
     # hack: ensure at most one Fare is returned
     if len(tmp)==0:
-        print "fare is already gone"
+        print "%.4f Fare at %s is already gone" % (now(), taxi_loc)
         return tmp
     elif len(tmp)==1:
         return tmp
     else:
+        print "ERROR: should never get here!"
         return
 
 
