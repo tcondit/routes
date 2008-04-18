@@ -50,15 +50,15 @@ if sqlalchemy.__version__ < min_sqlver:
 
 # Locate and read the config files
 config=ConfigParser.SafeConfigParser()
-config.read(os.path.join('graphs','defaults.ini'))
-config.read(os.path.join('graphs','overrides.ini'))
+config.read(os.path.join('agents','conf','graphs','defaults.ini'))
+config.read(os.path.join('agents','conf','graphs','overrides.ini'))
 
 # dataprep config values
 #
 # Late note: I could move these into G().  It wouldn't be consistent with
 # agents, but it's something to consider.
-FETCH_COMMAND=os.path.join('graphs','bin',config.get('dataprep','fetchCommand'))
-ZIP_COMMAND=os.path.join('graphs','bin',config.get('dataprep','zipCommand'))
+FETCH_COMMAND=os.path.join('agents','bin',config.get('dataprep','fetchCommand'))
+ZIP_COMMAND=os.path.join('agents','bin',config.get('dataprep','zipCommand'))
 FIPS_METADATA_URL=config.get('dataprep','fipsMetadataUrl')
 FIPS_ZIPFILE_ROOT=config.get('dataprep','fipsZipfileRoot')
 EXCLUDE_PUERTO_RICO=config.getboolean('dataprep','excludePuertoRico')

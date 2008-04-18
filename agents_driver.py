@@ -10,11 +10,11 @@ from agents.taxi import Taxi
 from agents.agent import Agent
 
 # TEST
-import graphs.tigerutils
+import agents.tigerutils
 
 config=ConfigParser.SafeConfigParser()
-config.read(os.path.join('agents','defaults.ini'))
-config.read(os.path.join('agents','overrides.ini'))
+config.read(os.path.join('agents','conf','agents','defaults.ini'))
+config.read(os.path.join('agents','conf','agents','overrides.ini'))
 
 # dev and runtime config values
 TRACING=config.getboolean('dev','tracing')

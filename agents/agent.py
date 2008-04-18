@@ -9,8 +9,8 @@ from grid import Grid
 #from graphs.graph import Graph
 
 config = ConfigParser.SafeConfigParser()
-config.read(os.path.join('agents', 'defaults.ini'))
-config.read(os.path.join('agents', 'overrides.ini'))
+config.read(os.path.join('agents','conf','agents','defaults.ini'))
+config.read(os.path.join('agents','conf','agents','overrides.ini'))
 
 # runtime config values
 STORECAP = config.getint('runtime', 'storeCapacity')

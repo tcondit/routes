@@ -7,8 +7,8 @@ from random import expovariate
 from agent import Agent
 
 config = ConfigParser.SafeConfigParser()
-config.read(os.path.join('agents', 'defaults.ini'))
-config.read(os.path.join('agents', 'overrides.ini'))
+config.read(os.path.join('agents','conf','agents','defaults.ini'))
+config.read(os.path.join('agents','conf','agents','overrides.ini'))
 
 # dev config values
 TRACING = config.getboolean('dev', 'tracing')

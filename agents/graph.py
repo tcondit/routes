@@ -3,7 +3,7 @@
 
 # graphs/Graph is polymorphic with agents/Grid
 
-import ConfigParser
+#import ConfigParser
 
 #from area import Area
 

@@ -10,8 +10,8 @@ import os.path
 import random
 
 config = ConfigParser.SafeConfigParser()
-config.read(os.path.join('agents', 'defaults.ini'))
-config.read(os.path.join('agents', 'overrides.ini'))
+config.read(os.path.join('agents','conf','agents','defaults.ini'))
+config.read(os.path.join('agents','conf','agents','overrides.ini'))
 
 # runtime config values
 GRID_MIN = config.getint('runtime', 'gridMin')

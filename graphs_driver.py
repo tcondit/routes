@@ -2,7 +2,7 @@
 
 # Note: Made this change to permit moving getFips.py to the top level
 # directory along with rename to graphs_driver.py.
-import graphs.tigerutils as tigerutils
+import agents.tigerutils as tigerutils
 
 def run():
     # [DONE] choose the FIPS county file
