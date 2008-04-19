@@ -1,9 +1,7 @@
 #!/usr/bin/env python
 '''DOCSTRING'''
 
-#import math
 from operator import itemgetter # itemgegger is new in Python 2.4
-#from random import randint, seed, choice
 from agent import Agent
 import ConfigParser
 import os.path
@@ -44,9 +42,6 @@ class Taxi(Agent):
         Agent.__init__(self, name)
         self.np=np
 	self.lostFares=[]
-	print '%.4f activated: [(Taxi %s), (location %s)]' % \
-			(self.ts['activation'], self.name, self.loc)
-#        print '%.4f INFO Taxi %s location: %s' % (now(), self.name, self.loc)
 
 #//    def cooperate(self):
 #//        '''
@@ -84,7 +79,7 @@ class Taxi(Agent):
 #//                if DEBUG:
 #//                    print '.. waitingFares (post)', [x.name for x in Agent.waitingFares.theBuffer]
 #//                    assert len(self.got) == 1
-#//                print '%.4f Taxi %s chose Fare' % (now(), self.name), [x.name for x in self.got]
+#//                print '%.4f\tTaxi %s chose Fare' % (now(), self.name), [x.name for x in self.got]
 #//
 #//# Found this line in an old printout that may be "newer" than this code.  It's
 #//# redundant in the unified project.
@@ -100,21 +95,21 @@ class Taxi(Agent):
 #//                drive_dist=self.map.get_distance(fareBeingDriven.loc['curr'], taxi_loc)
 #//
 #//                if DEBUG:
-#//                    print '%.4f Taxi %s driving to Fare %s' % (now(), self.name,
+#//                    print '%.4f\tTaxi %s driving to Fare %s' % (now(), self.name,
 #//                            fareBeingDriven.name)
 #//                yield hold, self, drive_dist
 #//
 #//                # Pick up Fare
 #//                self.loc=fareBeingDriven.loc     # tuple
 #//                if DEBUG:
-#//                    print '%.4f Taxi %s arrives to pick up Fare %s' % (now(), self.name,
+#//                    print '%.4f\tTaxi %s arrives to pick up Fare %s' % (now(), self.name,
 #//                            fareBeingDriven.name)
 #//
 #//                # Drive to Fare's destination
 #//                drive_dist=self.map.get_distance(self.loc['dest'], self.loc['curr'])
 #//
 #//                if DEBUG:
-#//                    print "%.4f Taxi %s driving to Fare %s's destination" % (now(), self.name,
+#//                    print "%.4f\tTaxi %s driving to Fare %s's destination" % (now(), self.name,
 #//                            fareBeingDriven.name)
 #//                yield hold, self, drive_dist
 #//
@@ -125,11 +120,11 @@ class Taxi(Agent):
 #//                self.loc['dest'] = ()
 #//
 #//                if DEBUG:
-#//                    print '%.4f Taxi %s dropping off Fare %s' % (now(), self.name,
+#//                    print '%.4f\tTaxi %s dropping off Fare %s' % (now(), self.name,
 #//                            fareBeingDriven.name)
 #//                fareBeingDriven.doneSignal.signal(self.name)
 #//            else:
-#//                print '%.4f INFO: %s: There are no eligible Fares for this Taxi.' % (now(),
+#//                print '%.4f\tINFO: %s: There are no eligible Fares for this Taxi.' % (now(),
 #//                        self.name)
 #//
 #//                # Throttle back the flood of messages.
@@ -171,9 +166,6 @@ may get the Fare, even though others are already competing for that Fare.
 Contrast with the cooperate() method.
         '''
 
-	# The problem MAY be that the interrupted Taxis are not removing
-	# themselves from the competeQ...
-
         global taxi_loc	# maybe I should use class G
 
         while True:
@@ -204,7 +196,7 @@ Contrast with the cooperate() method.
                         # to compete for.  I should never get here, so this
                         # should be an Error.  For now I'll just throttle back
                         # the flood of messages and move on.
-                        print '%.4f INFO: %s: There are no eligible Fares for this Taxi.' % \
+                        print '%.4f\tINFO: %s: There are no eligible Fares for this Taxi.' % \
                                 (now(), self.name)
                         yield hold, self, 2
                         continue
@@ -214,24 +206,16 @@ Contrast with the cooperate() method.
                     assert(self.loc['curr']==my_curr_pre)
                     assert(self.loc['dest']==my_dest_pre)
 
-#                if (self not in targetFare.competeQ and
-#				targetFare not in self.lostFares):
-#                    if DEBUG:
-#                        print ".. %.4f %s adding self to Fare %s's targetFare.competeQ" % (now(),
-#                                self.name, targetFare.name)
-#                    targetFare.competeQ.append(self)
-
                 # update destination unconditionally
                 self.loc['dest'] = targetFare.loc['curr']
                 drive_dist=self.map.get_distance(self.loc['dest'], self.loc['curr'])
-#                self.headingForFare=now()
 
                 # Drive to Fare, try to get there first
-		print "%.4f Taxi %s driving to closest Fare %s (drive time %d)" \
+		print "%.4f\tTaxi %s driving to closest Fare %s (drive time %d)" \
 				% (now(), self.name, targetFare.name, drive_dist)
                 yield hold, self, drive_dist
 
-		print "%.4f Taxi %s arrives at Fare's %s location (drive time %d)" \
+		print "%.4f\tTaxi %s arrives at Fare's %s location (drive time %d)" \
 				% (now(), self.name, targetFare.name, drive_dist)
 
 		# I've now driven to the Fare's pickup location.  Update my
@@ -242,197 +226,47 @@ Contrast with the cooperate() method.
 		# fare_is_here().
                 self.loc['curr']=taxi_loc=targetFare.loc['curr']
 		self.loc['dest']=()
-#		taxi_loc=self.loc['curr']
 
                 # TEMP DEBUG
-		print "%.4f %s trying to get Fare %s," % (now(), self.name, targetFare.name)
+		print "%.4f\t%s trying to get Fare %s," % (now(), self.name, targetFare.name)
 
-		# Try to get the Fare from the buffer.
-#                yield get, self, Agent.waitingFares, fare_is_here
-                #yield (get, self, Agent.waitingFares, fare_is_here), (hold, self, 2)
-
-		# instead of using .01 for everything, choose a random small float
+                # choose a random small float wait time for reneging
 		yield_time=random.random()/100
-                #yield (get, self, Agent.waitingFares, fare_is_here), (hold, self, .01)
                 yield (get, self, Agent.waitingFares, fare_is_here), (hold, self, yield_time)
 
                 # HACK HACK - trying this to see if it will "absorb" the yield
 		# renege from the yield above
 		yield hold, self, .02
 
-                # TEMP DEBUG
-                #
-		# So it's looking more and more like the Taxis are entering
-		# the filter function, and either coming out with a Fare, or
-		# being passivated.  I see no evidence that the Taxis ever
-		# return empty-handed from fare_is_here.  This ain't gonna
-		# work.
-#                for i in self.got:
-#                    print "        ", i.name, i.loc
-
-                # TEMP DEBUG
-		#
-		# The program runs, and sometimes prints "fare is already
-		# gone", even with this here.  So *something* is being
-		# returned from the filter function every time!
-		#
-		# Welp, a quick grep -E shows that what may be happening is
-		# that the Taxis are going into the filter function, and not
-		# coming back out!  That would explain their disappearance,
-		# and the fact that we're never seeing "boo, got the shaft!".
-		# So how to get them out?  Reneging?
-		#
-		# Trying reneging above.  Hopefully that will trigger the
-		# assertion.
-
-#                assert(len(self.got)==1)
-#                try:
-#                    print "gotti", self.got[0].name
-#                except IndexError:
-#                    print "nothing there boss"
-
                 # Got the Fare
 		if len(self.got)>0:
-                    print ".. %.4f %s got Fare %s" % (now(), self.name, self.got[0].name)
+                    print "%.4f\t%s got Fare %s" % (now(), self.name, self.got[0].name)
 		    self.loc['dest']=targetFare.loc['dest']
 #		    taxi_loc=()
                     drive_dist=self.map.get_distance(self.loc['dest'], self.loc['curr'])
 
                     # Drive to Fare's destination, then continue
-		    print "%.4f Taxi %s driving to Fare's %s destination (drive time %d)" \
+		    print "%.4f\tTaxi %s driving to Fare's %s destination (drive time %d)" \
 				% (now(), self.name, targetFare.name, drive_dist)
 
                     yield hold, self, drive_dist
-#                    yield hold, self, 10
 
                     # BUGBUG this was missing from compete() !!
                     targetFare.doneSignal.signal(self.name)
 
-		    print "%.4f Taxi %s back in service" % (now(), self.name)
+		    print "%.4f\tTaxi %s back in service" % (now(), self.name)
 		    self.loc['curr']=targetFare.loc['dest']
 		    self.loc['dest']=()
 		    continue
 
-#                # If you get here, you lost the Fare.  Reset dest, and start
-#		# over.  Except nothing ever gets here!  WTF!
-#		print "zzzzzip"
-#                self.loc['dest']=()
-
                 # Too late, Fare already picked up
 		else:
-                    print "%.4f %s lost Fare %s, trying again" % \
+                    print "%.4f\t%s lost Fare %s, trying again" % \
 				    (now(), self.name, targetFare.name)
 		    self.loc['dest']=()
-#		    print "%s self.loc" % (self.name), self.loc
-#		    continue
-
-
-#		except:
-#                    print "boo, got the shaft!"
-#		    self.loc['dest']=()
-#		    continue
-
-#                    targetFare=self.closestfare_compete()
-#		    self.loc['dest']=targetFare.loc['curr']
-
-
-
-#~~                # If interrupted, another Taxi beat me to the Fare.
-#~~                if self.interrupted():
-#~~                    if DEBUG:
-#~~                        print '.. Taxi %s was interrupted by' % self.name,
-#~~                        print self.interruptCause.name, 'at %.4f' % now()
-#~~		    print 
-#~~                    self.interruptReset()
-#~~
-#~~		    if DEBUG:
-#~~			print ".. %.4f %s removing self from Fare %s's targetFare.competeQ" % \
-#~~					(now(), self.name, targetFare.name)
-#~~		    try:
-#~~                        targetFare.competeQ.remove(self)
-#~~                    except ValueError:
-#~~                        print "Taxi not found in %s's competeQ!" % targetFare.name
-#~~                        continue
-#~~
-#~~		    # These are the Fares whose queue we just removed
-#~~		    # ourselves from, since some other Taxi got there first
-#~~		    # and interrupted us.  Add this Fare to the list to ensure
-#~~		    # that we don't ever rejoin that queue.
-#~~		    self.lostFares.append(targetFare)
-#~~		    print ".. %.4f %s lostFares list:" % (now(), self.name),
-#~~		    for fare in self.lostFares:
-#~~                         print fare.name,
-#~~                    print
-#~~
-#~~                    self.loc['curr']=Agent.map.update_location(self.loc['curr'],
-#~~                                    self.loc['dest'], now()-self.headingForFare)
-#~~#                    self.updateLocation()
-#~~
-#~~		    # special case: if Agent.map.update_location() returns
-#~~		    # (-1,-1), that means that this Taxi reached the Fare at
-#~~		    # the same time as another Taxi did, but that one
-#~~		    # interrupted this one first for whatever reason.  So this
-#~~		    # Taxi's current location is its destination, and its
-#~~		    # destination is reset.
-#~~		    if self.loc['curr']==(-1,-1):
-#~~                        self.loc['curr']=(self.loc['dest'])
-#~~
-#~~                    # In either case, the Taxi's destination needs to be
-#~~		    # reset.
-#~~		    self.loc['dest']=()
-#~~
-#~~                # Not interrupted, so I win!  Take the Fare from
-#~~                # waitingFares.theBuffer, and interrupt the Taxis who lost out
-#~~                # on this one.
-#~~		elif not self.interrupted():
-#~~                    # Pick up Fare
-#~~                    print '%.4f %s arrives to pick up Fare %s' % (now(), self.name,
-#~~                            targetFare.name)
-#~~                    yield get, self, Agent.waitingFares, 1
-#~~
-#~~                    if DEBUG:
-#~~                        print "..  (pre) contents of %s's competeQ:" % targetFare.name,
-#~~                        for competitor in targetFare.competeQ:
-#~~                            print competitor.name,
-#~~                        print
-#~~
-#~~                    for competingTaxi in targetFare.competeQ:
-#~~                        # IMPORTANT: Do not interrupt self!  It's a tough bug
-#~~                        # to track down.
-#~~                        if self.name==competingTaxi.name:
-#~~                            continue
-#~~
-#~~                        print '%.4f %s is interrupting %s [Fare %s]' % (now(), self.name,
-#~~                                competingTaxi.name, targetFare.name)
-#~~
-#~~# @@ Found this line in an old printout that may be "newer" than this code.
-#~~                        self.interrupt(competingTaxi)
-#~~
-#~~                    if DEBUG:
-#~~                        print ".. (post) contents of %s's competeQ:" % targetFare.name,
-#~~                        for competitor in targetFare.competeQ:
-#~~                            print competitor.name,
-#~~                        print
-#~~
-#~~                    drive_dist = self.map.get_distance(self.loc['curr'], targetFare.loc['dest'])
-#~~                    print "%s's drive_dist: %.4f" % (self.name, drive_dist)
-#~~                    yield hold, self, drive_dist
-#~~
-#~~                    # TODO signal Fare
-#~~                    # Drop off Fare
-#~~                    self.loc['curr'] = self.loc['dest']
-#~~                    self.loc['dest'] = ()
-#~~                    if DEBUG:
-#~~                        print '%.4f Taxi %s dropping off Fare %s' % \
-#~~					(now(), self.name, targetFare.name)
-#~~                    targetFare.doneSignal.signal(self.name)
-#~~
-#~~                else:
-#~~                    # I've never seen this (thank goodness)
-#~~                    print '  !! RED ALERT !!'
 
             else:
-                print '%.4f INFO: %s: There are no eligible Fares for this Taxi.' % (now(),
+                print '%.4f\tINFO: %s: There are no eligible Fares for this Taxi.' % (now(),
                         self.name)
                 # Throttle back the flood of messages.
                 #
@@ -582,16 +416,16 @@ queue, and all others have to renege out.
                 # I need to use as many words as it takes
                 # to_make_things_clear.  I can shorten them later, but not
                 # until things are simpler.
-                print '  %.4f Fare %s broadcast stats:' % (now(), fare.name)
+                print '  %.4f\tFare %s broadcast stats:' % (now(), fare.name)
                 print "    range: %s (based on Fare's time in queue)" % broadcastRange
                 print '    time in queue: %.4f' % TIQ
                 print '    distance from Taxi: %.4f' % d
                 print "    Taxi's range: %.2f (= TAXI_RANGE_XXX * GRID_MAX)" % \
                         (taxiRange*GRID_MAX)
-                print '    weight: %.4f (= SIMTIME - TIQ)' % weight
-                print '    score: %.4f (= weight + distance)' % score
+                print '    weight: %.4f\t(= SIMTIME - TIQ)' % weight
+                print '    score: %.4f\t(= weight + distance)' % score
             else:
-                print "  %.4f Fare %s broadcast stats: range: %s, time in queue: %.4f, Taxi's range: %.2f, distance from Taxi: %.4f, weight: %.4f, score: %.4f" \
+                print "  %.4f\tFare %s broadcast stats: range: %s, time in queue: %.4f, Taxi's range: %.2f, distance from Taxi: %.4f, weight: %.4f, score: %.4f" \
                         % (now(), fare.name, broadcastRange, TIQ, taxiRange*GRID_MAX, d, weight, score)
 
         # start of mixedmode_compete()
@@ -675,7 +509,7 @@ queue, and all others have to renege out.
         # that if there's nothing here, the only thing left to do is return.
         if len(tmp) == 0:
             if DEBUG:
-                print '%.4f INFO:' % now(),
+                print '%.4f\tINFO:' % now(),
                 print 'There are no eligible Fares for this Taxi.  Entering getQ...'
             return
         tmp2 = sorted(tmp, key=itemgetter(1))
@@ -759,15 +593,15 @@ negotiation protocols.
             #
             # I need to use as many words as it takes to_make_things_clear.  I
             # can shorten them later, but not until things are simpler.
-            print '  %.4f Fare %s broadcast stats:' % (now(), fare.name)
+            print '  %.4f\tFare %s broadcast stats:' % (now(), fare.name)
             print "    range: %s (based on Fare's time in queue)" % broadcastRange
             print '    time in queue: %.4f' % TIQ
             print '    distance from Taxi: %.4f' % d
             print "    Taxi's range: %.2f (= TAXI_RANGE_XXX * GRID_MAX)" % (taxiRange*GRID_MAX)
-            print '    weight: %.4f (= SIMTIME - TIQ)' % weight
-            print '    score: %.4f (= weight + distance)' % score
+            print '    weight: %.4f\t(= SIMTIME - TIQ)' % weight
+            print '    score: %.4f\t(= weight + distance)' % score
         else:
-            print "  %.4f Fare %s broadcast stats: range: %s, time in queue: %.4f, Taxi's range: %.2f, distance from Taxi: %.4f, weight: %.4f, score: %.4f" \
+            print "  %.4f\tFare %s broadcast stats: range: %s, time in queue: %.4f, Taxi's range: %.2f, distance from Taxi: %.4f, weight: %.4f, score: %.4f" \
                     % (now(), fare.name, broadcastRange, TIQ, taxiRange*GRID_MAX, d, weight, score)
 
     # start of mixedmode_cooperate()
@@ -847,7 +681,7 @@ negotiation protocols.
     # nothing here, the only thing left to do is return.
     if len(tmp) == 0:
         if DEBUG:
-            print '%.4f INFO:' % now(),
+            print '%.4f\tINFO:' % now(),
             print 'There are no eligible Fares for this Taxi.  Entering getQ...'
         return
     tmp2 = sorted(tmp, key=itemgetter(1))
@@ -872,7 +706,7 @@ Filter: if there is a Fare at this location, return it, else None.
 
     # hack: ensure at most one Fare is returned
     if len(tmp)==0:
-        print "%.4f Fare at %s is already gone" % (now(), taxi_loc)
+        print "%.4f\tFare at %s is already gone" % (now(), taxi_loc)
         return tmp
     elif len(tmp)==1:
         return tmp
