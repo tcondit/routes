@@ -279,53 +279,35 @@ Contrast with the cooperate() method.
                 yield hold, self, 2
 
 
-    def updateLocation(self):
-        '''
-Update the Taxi's current position.
-
-This method is normally only called from compete(), after a Taxi has been
-interrupted while en'route to a Fare.  The interruption means that another
-Taxi (the one doing the interrupting) got to the Fare first, and this Taxi
-needs to figure out where he is, so he can set his loc['curr'], and compete
-for the next Fare.
-
-Implementation detail: to keep things simple, I am just putting the Taxi near
-the halfway point between their former current location and their destination.
-
-NOTE: This method works under the assumption that the Taxi travels 1 unit of
-the grid for each tick of the simulation's clock.  This may eventually become
-a configuration setting, but it's low priority.
-        '''
-#        print '%s self.loc:' % self.name, self.loc
-        assert(self.loc['curr'])
-        assert(self.loc['dest'])
-
-        curr_tmp = {}
-        curr_tmp['x'] = ((self.loc['curr'][0] + self.loc['dest'][0])/2)
-        curr_tmp['y'] = ((self.loc['curr'][1] + self.loc['dest'][1])/2)
-
-        self.loc['curr'] = (curr_tmp['x'], curr_tmp['y'])
-        self.loc['dest'] = ()
-        curr_tmp.clear()
-        return
-
-
-#    def fare_is_here(self, buffer):
-#        '''
-#Filter: if there is a Fare at this location, return it, else None.
-#	'''
-#	tmp=[]
-##	buf=Agent.waitingFares.theBuffer
-#	for fare in buffer:
-#            print '[DEBUG] inspecting Fare %s' % fare.name
-#	    print "[DEBUG] Fare and Taxi's current location", \
-#			    (fare.loc['curr'], taxi_loc)
-#
-#            # return first Fare at taxi_loc or None
-#	    if fare.loc['curr']==taxi_loc:
-#                tmp.append(fare)
-#        print "len(tmp)==%d" % len(tmp)
-#        return tmp
+#~~    def updateLocation(self):
+#~~        '''
+#~~Update the Taxi's current position.
+#~~
+#~~This method is normally only called from compete(), after a Taxi has been
+#~~interrupted while en'route to a Fare.  The interruption means that another
+#~~Taxi (the one doing the interrupting) got to the Fare first, and this Taxi
+#~~needs to figure out where he is, so he can set his loc['curr'], and compete
+#~~for the next Fare.
+#~~
+#~~Implementation detail: to keep things simple, I am just putting the Taxi near
+#~~the halfway point between their former current location and their destination.
+#~~
+#~~NOTE: This method works under the assumption that the Taxi travels 1 unit of
+#~~the grid for each tick of the simulation's clock.  This may eventually become
+#~~a configuration setting, but it's low priority.
+#~~        '''
+#~~#        print '%s self.loc:' % self.name, self.loc
+#~~        assert(self.loc['curr'])
+#~~        assert(self.loc['dest'])
+#~~
+#~~        curr_tmp = {}
+#~~        curr_tmp['x'] = ((self.loc['curr'][0] + self.loc['dest'][0])/2)
+#~~        curr_tmp['y'] = ((self.loc['curr'][1] + self.loc['dest'][1])/2)
+#~~
+#~~        self.loc['curr'] = (curr_tmp['x'], curr_tmp['y'])
+#~~        self.loc['dest'] = ()
+#~~        curr_tmp.clear()
+#~~        return
 
 
     def closestfare_compete(self, not_a_magic_buffer=None):
@@ -351,19 +333,6 @@ negotiation protocols.
             print 'Buffer is empty!'
             return
         for fare in not_a_magic_buffer:
-
-#            print '[DEBUG] closestfare_compete calling getdistance ...'
-	    # TODO There's a problem here.  The values that getdistance is
-	    # returning are close but wrong.  Both versions of getdistance
-	    # behave exactly the same, so it may be the inputs that are bad.
-	    #
-	    # Late note: there's nothing wrong here.  The distances are
-	    # different because update_location() is more precise than the old
-	    # updateLocation().
-#	    print "[DEBUG] fare.loc['curr']: ", fare.loc['curr']
-#	    print "[DEBUG] self.loc['curr']: ", self.loc['curr']
-
-#            d = getdistance(fare.loc['curr'], self.loc['curr'])
             d=self.map.get_distance(fare.loc['curr'], self.loc['curr'])
             if DEBUG:
                 print 'Distance from %s to fare %s: %.4f' % (self.name, fare.name, d)
