@@ -28,6 +28,7 @@ if TRACING:
 else:
     from SimPy.Simulation import *
 
+
 class Fare(Agent):
     '''DOCSTRING'''
     # TODO [hipri] Monitor the time between when the fare was requested and
@@ -35,39 +36,40 @@ class Fare(Agent):
     waitMon = Monitor('All Fares total wait time')
     def __init__(self, name):
         Agent.__init__(self, name)
-        # Fare maintains its own SimEvent, but Taxi uses it (look for
-        # fareBeingDriven.doneSignal.signal(self.name) in the Taxi's
-        # cooperate() method.)
+	# Fare maintains its own SimEvent, but Taxi uses it (look for
+	# fareBeingDriven.doneSignal.signal(self.name) in the Taxi's
+	# cooperate() and compete() methods.)
         self.doneSignal = SimEvent()
-        #self.loc['dest'] = self.mkcoords()
         self.loc['dest'] = self.map.get_location()
+	print ('%.4f\tset-dest: [(Agent %s), (location %s)]' %
+			(now(), self.name, self.loc))
+
+	# DEPRECATION - this may be used in the future, if I make a
+	# courtesy_compete() method, and rename compete() to
+	# cutthroat_compete().  When a Taxi gets a Fare in courtesy_compete,
+	# he would interrupt the losing Taxis, so they would not have to drive
+	# all the way to the pickup point.  But it's not done yet.
+	#
         # This list is used with the Taxi's compete() method.  All Taxis that
         # are competing for this Fare get dropped here temporarily.
-        self.competeQ = []
-        print '%.4f Fare %s activated' % (self.ts['activation'], self.name)
-        print '.. Fare %s location: %s' % (self.name, self.loc)
+#        self.competeQ = []
+#        print '%.4f\tFare %s activated' % (self.ts['activation'], self.name)
 
     def run(self):
         self.ts['mkreq'] = now()
-#	print 'Fare got here 1'
         yield put, self, Agent.waitingFares, [self]
-        # TODO [hipri] Should this be yield and then self.ts?  Maybe better, I
-        # should just drop self.ts['pickup'] altogether.
+	# TODO Should this be yield and then self.ts?  Maybe I should just
+	# drop self.ts['pickup'] altogether.
         self.ts['pickup'] = now()
-#	print 'Fare got here 2'
 
-	# BUGBUG I'm not sending the doneSignal !?!
         yield waitevent, self, self.doneSignal
         self.ts['dropoff'] = now()
-#	print 'Fare got here 3'
         whichTaxi = self.doneSignal.signalparam
-        # TODO [hipri] This is being reported out of order.  It shows up in
-        # the simulation output after the Taxi is on to the next Fare.
-        # Regardless, the Fare is the right "place" to report drop off time.
-        # I'll probably remove the other print statements in Taxi.py anyway.
-        # They are there for development, not for the final product.
-        print 'Time %s Fare %s taken by Taxi %s' % (now(), self.name,
-                whichTaxi)
+
+	# TODO This is being reported out of order.  It shows up in the
+	# simulation output after the Taxi is on to the next Fare.
+	# Regardless, the Fare is the right "place" to report drop off time.
+        print '%.4f\t%s taken by %s' % (now(), self.name, whichTaxi)
 
         # WAIT MONITOR
         #Fare.waitMon.observe((self.ts['dropoff'] - self.ts['mkreq']), now())
@@ -80,6 +82,7 @@ class FareFactory(Process):
         global numFaresCreated
         while True:
             # TODO [very lopri] f = Fare(name='Fare-%s' % numFaresCreated)?
+            #f = Fare(Fare, name="Fare-"+str(numFaresCreated))
             f = Fare(name="Fare-"+str(numFaresCreated))
             activate(f, f.run())
             numFaresCreated+=1

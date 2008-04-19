@@ -47,13 +47,12 @@ class Agent(Process):
 	    self.map=Graph()
         self.loc = {}
         self.loc['curr'] = self.map.get_location()
-        self.loc['dest'] = ()
         self.ts = {}    # timestamps
         self.ts['activation'] = now()
-	print ('%.4f activated: [(Agent %s), (location %s)]' %
+	print ('%.4f\tactivated: [(Agent %s), (location %s)]' %
 			(self.ts['activation'], self.name, self.loc))
 
 if __name__ == '__main__':
-    a=Agent('Agent Smith')
+    a=Agent('Smith')
     print a.map.get_location()
 
