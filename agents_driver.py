@@ -63,19 +63,19 @@ def model():
     random.seed(SEED)
 #    random.seed(333777)
 
-    # Create Fares prior to starting the simulation.  Now a TK.
-    for j in range(1,NUM_FARES):
-        # TODO Put this in place later.  grep for "Fare Fare" to see what it's
-        # doing.  It may in fact point to other problems with my strategy.
-        #f=Fare(name='Fare-' + `j`)
-#        fname = 'Fare-%s' % j
-#        f=Fare(fname)
-        f=Fare(name=-j)
-        activate(f, f.run())
+#    # Create Fares prior to starting the simulation.  Now a TK.
+#    for j in range(1,NUM_FARES):
+#        # TODO Put this in place later.  grep for "Fare Fare" to see what it's
+#        # doing.  It may in fact point to other problems with my strategy.
+#        #f=Fare(name='Fare-' + `j`)
+##        fname = 'Fare-%s' % j
+##        f=Fare(fname)
+#        f=Fare(name="Fare-"+str(j))
+#        activate(f, f.run())
 
     # Team 1 - Yellow Cab
     for i in range(NUM_TAXIS):
-        tx = Taxi('Yellow-%s' % i, NP)
+        tx = Taxi('Taxi-%s' % i, NP)
         if SIMTYPE == 'cooperate':
             activate(tx, tx.cooperate())
         elif SIMTYPE == 'compete':

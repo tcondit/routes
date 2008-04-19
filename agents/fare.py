@@ -80,7 +80,7 @@ class FareFactory(Process):
         global numFaresCreated
         while True:
             # TODO [very lopri] f = Fare(name='Fare-%s' % numFaresCreated)?
-            f = Fare(name=numFaresCreated)
+            f = Fare(name="Fare-"+str(numFaresCreated))
             activate(f, f.run())
             numFaresCreated+=1
             t = expovariate(1.0/MEAN_FARE_GENERATION_RATE)
