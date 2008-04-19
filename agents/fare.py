@@ -49,12 +49,17 @@ class Fare(Agent):
 
     def run(self):
         self.ts['mkreq'] = now()
+#	print 'Fare got here 1'
         yield put, self, Agent.waitingFares, [self]
         # TODO [hipri] Should this be yield and then self.ts?  Maybe better, I
         # should just drop self.ts['pickup'] altogether.
         self.ts['pickup'] = now()
+#	print 'Fare got here 2'
+
+	# BUGBUG I'm not sending the doneSignal !?!
         yield waitevent, self, self.doneSignal
         self.ts['dropoff'] = now()
+#	print 'Fare got here 3'
         whichTaxi = self.doneSignal.signalparam
         # TODO [hipri] This is being reported out of order.  It shows up in
         # the simulation output after the Taxi is on to the next Fare.

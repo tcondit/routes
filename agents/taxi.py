@@ -1,9 +1,9 @@
 #!/usr/bin/env python
 '''DOCSTRING'''
 
-import math
+#import math
 from operator import itemgetter # itemgegger is new in Python 2.4
-from random import randint, seed, choice
+#from random import randint, seed, choice
 from agent import Agent
 import ConfigParser
 import os.path
@@ -34,7 +34,7 @@ else:
 if SET_TRACE:
     import pdb
 
-# This is used by the filter functions.  Looks like (23, 61).
+# This is a 2-tuple used by the filter functions.  Looks like (23, 61).
 taxi_loc = ()
 
 
@@ -44,8 +44,9 @@ class Taxi(Agent):
         Agent.__init__(self, name)
         self.np=np
 	self.lostFares=[]
-        print '%.4f Taxi %s activated' % (self.ts['activation'], self.name)
-        print '%.4f INFO Taxi %s location: %s' % (now(), self.name, self.loc)
+	print '%.4f activated: [(Taxi %s), (location %s)]' % \
+			(self.ts['activation'], self.name, self.loc)
+#        print '%.4f INFO Taxi %s location: %s' % (now(), self.name, self.loc)
 
 #//    def cooperate(self):
 #//        '''
@@ -303,6 +304,9 @@ Contrast with the cooperate() method.
 
                     yield hold, self, drive_dist
 #                    yield hold, self, 10
+
+                    # BUGBUG this was missing from compete() !!
+                    targetFare.doneSignal.signal(self.name)
 
 		    print "%.4f Taxi %s back in service" % (now(), self.name)
 		    self.loc['curr']=targetFare.loc['dest']
@@ -926,8 +930,10 @@ Filter: if there is a Fare at this location, return it, else None.
 
 if __name__ == '__main__':
     t = Taxi('Terence', 'FIFO')
-    t.cooperate()
+    #t.cooperate()
+    t.compete()
     print "updating negotiation protocol to 'closestfare' and running again"
     t.np = 'closestfare'
-    t.cooperate()
+    #t.cooperate()
+    t.compete()
     # TODO [eventually] add in the rest of the simulation runs

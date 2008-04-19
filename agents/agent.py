@@ -4,9 +4,7 @@
 import ConfigParser
 import os.path
 from grid import Grid
-# I may have to do something ugly to use this class from this location (ie:
-# accessing ../graphs/graph from agents/grid)
-#from graphs.graph import Graph
+from graph import Graph
 
 config = ConfigParser.SafeConfigParser()
 config.read(os.path.join('agents','conf','agents','defaults.ini'))

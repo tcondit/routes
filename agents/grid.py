@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 '''DOCSTRING'''
 
-# agents/Grid is polymorphic with graphs/Graph 
+# agents/Grid is polymorphic with agents/Graph 
 
 #from area import Area
 import ConfigParser
