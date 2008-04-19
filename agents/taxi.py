@@ -43,99 +43,99 @@ class Taxi(Agent):
         self.np=np
 	self.lostFares=[]
 
-#//    def cooperate(self):
-#//        '''
-#//Coordinate pickups with other Taxis.  A SimPy PEM.
-#//
-#//This is the PEM for cooperative negotiation.  In this simulation, Taxis choose
-#//a Fare for pickup, and take a reference to the Fare at acknowledgment.  The
-#//Taxi effectively locks out other Taxis from competing for that Fare by
-#//removing it from the queue of waiting Fares just before yield'ing for the ride
-#//to the Fare.
-#//
-#//Contrast with the compete() method.
-#//        '''
-#//        global taxi_loc
-#//        while True:
-#//            if len(Agent.waitingFares.theBuffer) > 0:
-#//                if DEBUG:
-#//                    print
-#//                    print '.. Taxi %s is looking for an eligible fare:' % self.name
-#//                    print '.. waitingFares (pre) ', [x.name for x in Agent.waitingFares.theBuffer]
-#//                taxi_loc = self.loc['curr']
-#//
-#//                # Choose a Fare
-#//                if self.np == 'FIFO':
-#//                    yield get, self, Agent.waitingFares, 1
-#//                elif self.np == 'closestfare':
-#//                    numAgents=len(Agent.waitingFares.theBuffer)
-#//                    yield get, self, Agent.waitingFares, closestfare_cooperate
-#//                    #yield get, self, Agent.waitingFares, self.closestfare_cooperate
-#//                elif self.np == 'mixedmode':
-#//                    yield get, self, Agent.waitingFares, mixedmode_cooperate
-#//                    #yield get, self, Agent.waitingFares, self.mixedmode_cooperate
-#//                else:
-#//                    print 'Something broke in the negotiation protocol!'
-#//                if DEBUG:
-#//                    print '.. waitingFares (post)', [x.name for x in Agent.waitingFares.theBuffer]
-#//                    assert len(self.got) == 1
-#//                print '%.4f\tTaxi %s chose Fare' % (now(), self.name), [x.name for x in self.got]
-#//
-#//# Found this line in an old printout that may be "newer" than this code.  It's
-#//# redundant in the unified project.
-#//#                print 'taxi_loc before', taxi_loc
-#//#                print 'setting old printout code ...'
-#//#                taxi_loc = self.loc['curr']
-#//#                print 'taxi_loc after', taxi_loc
-#//
-#//                fareBeingDriven=self.got[0]
-#//
-#//                # Drive to Fare
-#//                #drive_dist = getdistance(fareBeingDriven.loc['curr'], taxi_loc)
-#//                drive_dist=self.map.get_distance(fareBeingDriven.loc['curr'], taxi_loc)
-#//
-#//                if DEBUG:
-#//                    print '%.4f\tTaxi %s driving to Fare %s' % (now(), self.name,
-#//                            fareBeingDriven.name)
-#//                yield hold, self, drive_dist
-#//
-#//                # Pick up Fare
-#//                self.loc=fareBeingDriven.loc     # tuple
-#//                if DEBUG:
-#//                    print '%.4f\tTaxi %s arrives to pick up Fare %s' % (now(), self.name,
-#//                            fareBeingDriven.name)
-#//
-#//                # Drive to Fare's destination
-#//                drive_dist=self.map.get_distance(self.loc['dest'], self.loc['curr'])
-#//
-#//                if DEBUG:
-#//                    print "%.4f\tTaxi %s driving to Fare %s's destination" % (now(), self.name,
-#//                            fareBeingDriven.name)
-#//                yield hold, self, drive_dist
-#//
-#//                # Drop off Fare
-#//                self.loc['curr'] = fareBeingDriven.loc['dest']
-#//
-#//# @@ This one was NOT found in the old printout referred to above.
-#//                self.loc['dest'] = ()
-#//
-#//                if DEBUG:
-#//                    print '%.4f\tTaxi %s dropping off Fare %s' % (now(), self.name,
-#//                            fareBeingDriven.name)
-#//                fareBeingDriven.doneSignal.signal(self.name)
-#//            else:
-#//                print '%.4f\tINFO: %s: There are no eligible Fares for this Taxi.' % (now(),
-#//                        self.name)
-#//
-#//                # Throttle back the flood of messages.
-#//                #
-#//                # NOTE: I'm using a simple 'yield hold <small-number>' here
-#//                # because there are two main events that can occur, and the
-#//                # Taxi should be able to respond to them promptly.  The first
-#//                # is the arrival of a new Fare into the buffer.  The second is
-#//                # a Fare already in the queue that becomes eligible for
-#//                # inspection by the Taxi.
-#//                yield hold, self, 2
+    def cooperate(self):
+        '''
+Coordinate pickups with other Taxis.  A SimPy PEM.
+
+This is the PEM for cooperative negotiation.  In this simulation, Taxis choose
+a Fare for pickup, and take a reference to the Fare at acknowledgment.  The
+Taxi effectively locks out other Taxis from competing for that Fare by
+removing it from the queue of waiting Fares just before yield'ing for the ride
+to the Fare.
+
+Contrast with the compete() method.
+        '''
+        global taxi_loc
+        while True:
+            if len(Agent.waitingFares.theBuffer) > 0:
+                if DEBUG:
+                    print
+                    print '.. Taxi %s is looking for an eligible fare:' % self.name
+                    print '.. waitingFares (pre) ', [x.name for x in Agent.waitingFares.theBuffer]
+                taxi_loc = self.loc['curr']
+
+                # Choose a Fare
+                if self.np == 'FIFO':
+                    yield get, self, Agent.waitingFares, 1
+                elif self.np == 'closestfare':
+                    numAgents=len(Agent.waitingFares.theBuffer)
+                    yield get, self, Agent.waitingFares, closestfare_cooperate
+                    #yield get, self, Agent.waitingFares, self.closestfare_cooperate
+                elif self.np == 'mixedmode':
+                    yield get, self, Agent.waitingFares, mixedmode_cooperate
+                    #yield get, self, Agent.waitingFares, self.mixedmode_cooperate
+                else:
+                    print 'Something broke in the negotiation protocol!'
+                if DEBUG:
+                    print '.. waitingFares (post)', [x.name for x in Agent.waitingFares.theBuffer]
+                    assert len(self.got) == 1
+                print '%.4f\tTaxi %s chose Fare' % (now(), self.name), [x.name for x in self.got]
+
+# Found this line in an old printout that may be "newer" than this code.  It's
+# redundant in the unified project.
+#                print 'taxi_loc before', taxi_loc
+#                print 'setting old printout code ...'
+#                taxi_loc = self.loc['curr']
+#                print 'taxi_loc after', taxi_loc
+
+                fareBeingDriven=self.got[0]
+
+                # Drive to Fare
+                #drive_dist = getdistance(fareBeingDriven.loc['curr'], taxi_loc)
+                drive_dist=self.map.get_distance(fareBeingDriven.loc['curr'], taxi_loc)
+
+                if DEBUG:
+                    print '%.4f\tTaxi %s driving to Fare %s' % (now(), self.name,
+                            fareBeingDriven.name)
+                yield hold, self, drive_dist
+
+                # Pick up Fare
+                self.loc=fareBeingDriven.loc     # tuple
+                if DEBUG:
+                    print '%.4f\tTaxi %s arrives to pick up Fare %s' % (now(), self.name,
+                            fareBeingDriven.name)
+
+                # Drive to Fare's destination
+                drive_dist=self.map.get_distance(self.loc['dest'], self.loc['curr'])
+
+                if DEBUG:
+                    print "%.4f\tTaxi %s driving to Fare %s's destination" % (now(), self.name,
+                            fareBeingDriven.name)
+                yield hold, self, drive_dist
+
+                # Drop off Fare
+                self.loc['curr'] = fareBeingDriven.loc['dest']
+
+# @@ This one was NOT found in the old printout referred to above.
+                self.loc['dest'] = ()
+
+                if DEBUG:
+                    print '%.4f\tTaxi %s dropping off Fare %s' % (now(), self.name,
+                            fareBeingDriven.name)
+                fareBeingDriven.doneSignal.signal(self.name)
+            else:
+                print '%.4f\tINFO: %s: There are no eligible Fares for this Taxi.' % (now(),
+                        self.name)
+
+                # Throttle back the flood of messages.
+                #
+                # NOTE: I'm using a simple 'yield hold <small-number>' here
+                # because there are two main events that can occur, and the
+                # Taxi should be able to respond to them promptly.  The first
+                # is the arrival of a new Fare into the buffer.  The second is
+                # a Fare already in the queue that becomes eligible for
+                # inspection by the Taxi.
+                yield hold, self, 2
 
 
     def compete(self):
