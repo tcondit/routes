@@ -27,16 +27,16 @@
 #   best way to go.  I'll have to think about that.
 
 import ConfigParser
-import os, os.path
-import random, re
-import shutil, sys
-import urllib
-import sqlalchemy
 import networkx
 import networkx.path
+import os, os.path
 import pylab
+import random, re
+import shutil, sys
+import sqlalchemy # can I delete this?
+import urllib
 
-from sqlalchemy import Column, ForeignKey, Integer
+from sqlalchemy import Column, Integer # ForeignKey,
 from sqlalchemy import MetaData, Numeric, String, Table
 from sqlalchemy.orm import sessionmaker, mapper
 from sqlalchemy.sql import select
@@ -129,6 +129,7 @@ class FipsMetadataParser(object):
         self.p4=re.compile(self.state_name)
         #p5 = re.compile(spaces)
 
+    # I should think about using this ...
     def greet(self):
         print "This is the FIPS county data download tool."
         print

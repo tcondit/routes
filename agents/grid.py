@@ -3,11 +3,11 @@
 
 # agents/Grid is polymorphic with agents/Graph 
 
-#from area import Area
 import ConfigParser
 import math
 import os.path
 import random
+
 
 config = ConfigParser.SafeConfigParser()
 config.read(os.path.join('agents','conf','agents','defaults.ini'))
@@ -22,7 +22,6 @@ class Grid(object):
     '''DOCSTRING'''
     def __init__(self):
         pass
-#        Area.__init__(self)
 
 
     def get_location(self, lo=GRID_MIN, hi=GRID_MAX, length=2):
@@ -35,6 +34,10 @@ class Grid(object):
 	return tuple(tmp)
 
 
+    # I'm no longer using this for the regular compete methods.  If I go on to
+    # create courtesy_compete methods, and rename the regular compete methods
+    # to cutthroat_compete, then I'll be able to use this.  In the meantime,
+    # I'm not going to create an update_location() method in graph.py.
     def update_location(self, point_a, point_b, time_delta):
         '''
 Update an Agent's current position.
@@ -102,8 +105,10 @@ Options are straight-line distance between the points, or driving distance.
             return None # error
 
 
-    # maybe this one should not be publicly available - I don't think Grid
-    # even needs it, so Graph should use it internally only
+    # Maybe this one should not be publicly available - I don't think Grid
+    # even needs it, so Graph should use it internally only.
+    #
+    # Late note: I don't think Graph needs it either.
     def get_point(self):
         '''Return a single (x,y) coordinate point'''
 	pass
