@@ -1148,6 +1148,7 @@ entire county.'''
 class MakeGraph(object):
     def __init__(self):
         print "\n====[ MakeGraph ]===="
+        self.q=QueryDatabase()
 
     def makeGraph(self):
         self.uniqlist=[]
@@ -1156,12 +1157,9 @@ class MakeGraph(object):
         self.G=networkx.XGraph(name="please work ...")
         self.G.pos={}
 
-        # f because it used to be module fetchtigerdata.  I'll change it later.
-        self.f=QueryDatabase()
-
 #        for k,v in self.f.tuptotup(zipcode).items():
 #        for k,v in self.f.tuptotup(G.zipCode).items():
-        for k,v in self.f.tuptotup().items():
+        for k,v in self.q.tuptotup().items():
 
 	    # NOTE: it is an error (currently unhandled) if the zipcode is not
 	    # found in the database
@@ -1199,7 +1197,7 @@ class MakeGraph(object):
 	if not os.path.exists(IMAGES_DIR):
             print 'Making images dir %s' % IMAGES_DIR
             os.mkdir(IMAGES_DIR)
-	print 'Writing %s ...' % pngname,
+	print 'Writing %s ...' % os.path.join(IMAGES_DIR, pngname),
         pylab.savefig(os.path.join(IMAGES_DIR, pngname))
 	print 'done\n'
 

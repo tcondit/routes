@@ -40,7 +40,8 @@ class Fare(Agent):
 	# fareBeingDriven.doneSignal.signal(self.name) in the Taxi's
 	# cooperate() and compete() methods.)
         self.doneSignal = SimEvent()
-        self.loc['dest'] = self.map.get_location()
+        #self.loc['dest'] = self.map.get_location()
+        self.loc['dest'] = self.map.get_point()
 	print ('%.4f\tset-dest: [(Agent %s), (location %s)]' %
 			(now(), self.name, self.loc))
 

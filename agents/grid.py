@@ -29,7 +29,17 @@ class Grid(object):
         pass
 
 
-    def get_location(self, lo=GRID_MIN, hi=GRID_MAX, length=2):
+    # Maybe this one should not be publicly available - I don't think Grid
+    # even needs it, so Graph should use it internally only.
+    #
+    # Late note: I don't think Graph needs it either.
+#    def get_point(self):
+#        '''Return a single (x,y) coordinate point'''
+#	pass
+
+
+    #def get_location(self, lo=GRID_MIN, hi=GRID_MAX, length=2):
+    def get_point(self, lo=GRID_MIN, hi=GRID_MAX, length=2):
 	'''Generates two-tuples representing locations'''
 	# the former mkcoords from Agent class; it needs a more descriptive
 	# name; something like mkcoords... :)
@@ -109,15 +119,6 @@ Options are straight-line distance between the points, or driving distance.
             return abs(point_a[0]-point_b[0])+abs(point_a[1]-point_b[1])
         else:
             return None # error
-
-
-    # Maybe this one should not be publicly available - I don't think Grid
-    # even needs it, so Graph should use it internally only.
-    #
-    # Late note: I don't think Graph needs it either.
-    def get_point(self):
-        '''Return a single (x,y) coordinate point'''
-	pass
 
 if __name__=='__main__':
     g=Grid()

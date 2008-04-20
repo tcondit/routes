@@ -308,6 +308,10 @@ negotiation protocols.
             print 'Buffer is empty!'
             return
         for fare in not_a_magic_buffer:
+
+            # DEBUG
+#            print(fare.loc['curr'], self.loc['curr'])
+
             d=self.map.get_distance(fare.loc['curr'], self.loc['curr'])
             if DEBUG:
                 print("Distance from %s to %s: %.4f" % (self.name, fare.name, d))
@@ -627,7 +631,7 @@ negotiation protocols.
                     print '  %s:' % fare.name,
                     print 'local broadcast, but Fare is out of range:',
 		    print("(distance) %.1f > (range) %.1f" % (d,
-			    TAXI_RANGE_LOW * GRID_MAX)
+			    TAXI_RANGE_LOW * GRID_MAX))
                 if (d < TAXI_RANGE_LOW * GRID_MAX):
                     print 'Local broadcast is broken!'
                 continue
