@@ -1,6 +1,11 @@
 #!/usr/bin/env python
 '''DOCSTRING'''
 
+# TODO: edit this and put it in the module docstring.
+#
+# This module is activated if mapType is set to 'grid' in
+# agents/conf/agent/defaults.ini or overrides.ini.
+
 # agents/Grid is polymorphic with agents/Graph 
 
 import ConfigParser
@@ -17,7 +22,7 @@ config.read(os.path.join('agents','conf','agents','overrides.ini'))
 GRID_MIN = config.getint('runtime', 'gridMin')
 GRID_MAX = config.getint('runtime', 'gridMax')
 
-#class Grid(Area):
+
 class Grid(object):
     '''DOCSTRING'''
     def __init__(self):
@@ -34,10 +39,11 @@ class Grid(object):
 	return tuple(tmp)
 
 
-    # I'm no longer using this for the regular compete methods.  If I go on to
-    # create courtesy_compete methods, and rename the regular compete methods
-    # to cutthroat_compete, then I'll be able to use this.  In the meantime,
-    # I'm not going to create an update_location() method in graph.py.
+    # I'm no longer using this for the regular compete methods (thanks to a
+    # suggestion from Dan Struthers).  If I go on to create courtesy_compete
+    # methods, and rename the regular compete methods to cutthroat_compete,
+    # then I'll be able to use this.  In the meantime, I'm not going to create
+    # an update_location() method in graph.py.
     def update_location(self, point_a, point_b, time_delta):
         '''
 Update an Agent's current position.

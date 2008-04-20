@@ -1061,7 +1061,7 @@ entire county.'''
 
         # the data is in zipList; present it to the user
         print 'Here are the county ZIP codes.  Choose one of them'
-	print 'or (01) to use the whole county: '
+	print 'or (01 None) to use the whole county: '
 	for number, zip in zipList:
             print '%02d %s' % (number, zip)
 	self.u=UserInput()
