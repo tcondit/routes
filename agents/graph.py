@@ -119,8 +119,8 @@ Note 2: The smallest data file may be Denali county, Alaska: state code 02,
         self.query.chooseGraphArea()
 
         # [DONE] plot the chosen area
-        mg=tigerutils.MakeGraph()
-        mg.makeGraph()
+        self.mkgraph=tigerutils.MakeGraph()
+        self.mkgraph.makeGraph()
 
         print """
 As a bonus, we have generated a plot of your chosen area.  It is stored in
@@ -148,9 +148,59 @@ when you're done, and we'll continue.
 	# tigerutils's QueryDatabase.getPoint() returns a 6-tuple of
 	# r['id'],r['tlid'],r['frlong'],r['frlat'],r['tolong'],r['tolat'].
 	#    0       1         2           3          4           5
-	#
-	# The Agents don't need, and can't use id and tlid, so leave them out.
-	return self.query.getPoint()[2:6]
+
+        tmp=self.query.getPoint()
+        # tmp[0:2] are id and tlid that the Agents don't need
+	fr=(tmp[2:4])
+	to=(tmp[4:6])
+        return (fr,to)
+
+#	print tmp
+#	frlong=round(tmp[2],6)
+#	frlat=round(tmp[3],6)
+#	tolong=round(tmp[4],6)
+#	tolat=round(tmp[5],6)
+#
+#	# SQLAlchemy uses Python's new Decimal class, but NetworkX does not.
+#	# Convert Decimals to floats for NX.  (Yuck.)
+#	frlong=float(tmp[2])
+#	frlong=round(frlong,6)
+#	frlat=float(tmp[3])
+#	frlat=round(frlat,6)
+#	tolong=float(tmp[4])
+#	tolong=round(tolong,6)
+#	tolat=float(tmp[5])
+#	tolat=round(tolat,6)
+#	print("frlong, frlat, tolong, tolat:", round(frlong,6),frlat,tolong,tolat)
+#
+#
+#	# tmp[0:2] are id and tlid that the Agents don't need
+#	point_a=tmp[2:4]
+#	print "type(point_a):", type(point_a)
+#	print "point_a:", point_a
+#
+#	point_b=tmp[4:6]
+#	print "type(point_b):", type(point_b)
+#	print "point_b:", point_b
+#
+#
+#	# The Agents don't need, and can't use id and tlid, so leave them out.
+#        tmp=self.query.getPoint()[2:6]
+#	tmp2=[]
+#	# SimPy uses Python's new Decimal class, but NetworkX does not.
+#	# Convert Decimals to floats for NX.
+#	for d in tmp:
+#            d=float(d)
+#	    d=round(d,6)
+#            tmp2.append(d)
+#
+#	print "DEBUG get_location:",
+#        for d in tmp2:
+#            print d,
+#	print
+#
+#	print (tuple(tmp2[0:2]),tuple(tmp2[2:4]))
+#	return (tuple(tmp2[0:2]),tuple(tmp2[2:4]))
 
 
     # I'm no longer using this for the regular compete methods (thanks to a
@@ -166,7 +216,13 @@ when you're done, and we'll continue.
     # TODO
     def get_distance(self, here, there):
         '''Return the distance between two points'''
-	pass
+	# This distance is subject to the graphCoordinateMultiplier, to bring
+	# it approximately in line with the grid simulation.  The multiplier
+	# is explained above.
+
+	# DEBUG
+	print "DEBUG inside Graph.get_distance()"
+	return self.mkgraph.shortest_path(here,there)*graphCoordinateMultiplier
 
 
     # Not using get_point in Graph.  It doesn't make sense.  So it's been

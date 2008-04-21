@@ -51,10 +51,9 @@ class Agent(Process):
 #        print "self.map:%s" % self.map
 
         self.loc={}
-#        self.loc['curr']=self.map.get_location()[0]
-#        self.loc['dest']=self.map.get_location()[1]
         self.loc['curr']=Agent.map.get_location()[0]
         self.loc['dest']=Agent.map.get_location()[1]
+
         self.ts = {}    # timestamps
         self.ts['activation'] = now()
 	print ('%.4f\tactivated: [(Agent %s), (location %s)]' %

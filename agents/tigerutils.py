@@ -1145,6 +1145,8 @@ entire county.'''
 	# 
         return r['id'],r['tlid'],r['frlong'],r['frlat'],r['tolong'],r['tolat']
 
+# BIG CAUTION: G in MakeGraph is a NetworkX Graph object.  G in the tigerutils
+# module is a global class for holding variables.
 class MakeGraph(object):
     def __init__(self):
         print "\n====[ MakeGraph ]===="
@@ -1201,7 +1203,7 @@ class MakeGraph(object):
         pylab.savefig(os.path.join(IMAGES_DIR, pngname))
 	print 'done\n'
 
-    def shortestpath(self,point1,point2):
+    def shortest_path(self,point1,point2):
         # TODO get the points from the ...
         #
         # TODO arrange to choose source and target randomly
@@ -1210,10 +1212,11 @@ class MakeGraph(object):
         #latlong2=(-149.197317, 64.350731)
         #
         # ZIP 98121
-        latlong1=(-122.349738, 47.616520)
-        latlong2=(-122.352438, 47.617020)
-        print "NP.shortest_path: %s" %\
-                NP.shortest_path(G,latlong1,latlong2)
+#        latlong1=(-122.349738, 47.616520)
+#        latlong2=(-122.352438, 47.617020)
+#	print("NP.shortest_path: %s" % NP.shortest_path(G,latlong1,latlong2))
+	print("networkx.path.shortest_path: %s" %
+			networkx.path.shortest_path(self.G,point1,point2))
 
 
 #

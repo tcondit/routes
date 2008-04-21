@@ -214,12 +214,16 @@ Contrast with the cooperate() method.
                 self.loc['dest'] = targetFare.loc['curr']
                 drive_dist=self.map.get_distance(self.loc['dest'], self.loc['curr'])
 
+                # DEBUG
+		print "DEBUG", drive_dist
+		print "DEBUG", self.loc['dest'], self.loc['curr']
+
                 # Drive to Fare, try to get there first
-		print("%.4f\t%s competing for %s (drive time %d)" %
+		print("%.4f\t%s competing for %s (drive time %.4f)" %
 				(now(), self.name, targetFare.name, drive_dist))
                 yield hold, self, drive_dist
 
-		print("%.4f\t%s arrives at %s's location (drive time %d)" %
+		print("%.4f\t%s arrives at %s's location (drive time %.4f)" %
 				(now(), self.name, targetFare.name, drive_dist))
 
 		# Taxi has now driven to the Fare's pickup location.  Update
@@ -255,7 +259,7 @@ Contrast with the cooperate() method.
                     drive_dist=self.map.get_distance(self.loc['dest'], self.loc['curr'])
 
                     # Drive to Fare's destination, then continue
-		    print("%.4f\t%s driving to %s's destination (drive time %d)" %
+		    print("%.4f\t%s driving to %s's destination (drive time %.4f)" %
 				    (now(), self.name, targetFare.name, drive_dist))
                     yield hold, self, drive_dist
 
@@ -320,7 +324,7 @@ negotiation protocols.
         for fare in not_a_magic_buffer:
 
             # DEBUG
-#            print(fare.loc['curr'], self.loc['curr'])
+            print(fare.loc['curr'], self.loc['curr'])
 
             d=self.map.get_distance(fare.loc['curr'], self.loc['curr'])
             if DEBUG:
