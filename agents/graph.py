@@ -59,13 +59,13 @@ to use the entire county for the simulation, or a specific ZIP code, which is
 generally a smaller area.
 
 Note 1: The first time a new county is chosen, the file will be downloaded
-from www.census.gov.  Subsequent runs of the simulation on the same county
-will reuse the downloaded data to save bandwidth and preparation time.
+  from www.census.gov.  Subsequent runs of the simulation on the same county
+  will reuse the downloaded data to save bandwidth and preparation time.
 
 Note 2: The smallest data file may be Denali county, Alaska: state code 02,
-county code 068.  Some of the ZIP codes in this county are too small to use
-for the map, with only have 3 or 4 disconnected nodes, but it's convenient for
-doing a quick check that everything works end-to-end.
+  county code 068.  Some of the ZIP codes in this county are too small to use
+  for the map, with only have 3 or 4 disconnected nodes, but it's convenient
+  for doing a quick check that everything works end-to-end.
 """
 
         print greeting
@@ -142,11 +142,6 @@ when you're done, and we'll continue.
     # end __init__ (finally)
 
 
-    def get_point(self):
-        '''Return a single (x,y) coordinate point'''
-	pass
-
-
     # TODO
     def get_location(self):
         '''DOCSTRING'''
@@ -158,8 +153,11 @@ when you're done, and we'll continue.
 	return self.query.getPoint()[2:6]
 
 
-    # set_location?  This and get_location are not very Pythonic.  Maybe find
-    # a Python for Java programmers guide?
+    # I'm no longer using this for the regular compete methods (thanks to a
+    # suggestion from Dan Struthers).  If I go on to create courtesy_compete
+    # methods, and rename the regular compete methods to cutthroat_compete,
+    # then I'll be able to use this.  In the meantime, I'm not going to create
+    # an update_location() method in graph.py.
     def update_location(self):
         '''DOCSTRING'''
 	pass
@@ -168,6 +166,14 @@ when you're done, and we'll continue.
     # TODO
     def get_distance(self, here, there):
         '''Return the distance between two points'''
+	pass
+
+
+    # Not using get_point in Graph.  It doesn't make sense.  So it's been
+    # converted to a private method.  It's implemented in Grid, and empty in
+    # Graph.
+    def __get_point(self):
+        '''Return a single (x,y) coordinate point'''
 	pass
 
 

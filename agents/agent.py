@@ -32,29 +32,29 @@ class Agent(Process):
 #    waitingFares = Store(capacity=STORECAP, initialBuffered=waiting,
 #            monitored=True, monitorType=Monitor)
 
-    # This is a class attribute so that the SimPy filter functions
+    # These are class attributes so that the SimPy filter functions
     # closestfare_cooperate and mixedmode_cooperate in Taxi.py can use them
     if MAP_TYPE=='grid':
         map=Grid()
     elif MAP_TYPE=='graph':
         map=Graph()
 
+    print "MAP_TYPE:%s" % MAP_TYPE
+
     def __init__(self, name):
         Process.__init__(self, name)
-#        self.loc={}
-	if MAP_TYPE=='grid':
-            self.map=Grid()
-#            self.loc['curr']=self.map.get_location()[0]
-#            self.loc['dest']=self.map.get_location()[1]
-        elif MAP_TYPE=='graph':
-	    self.map=Graph()
-#            self.loc=self.map.get_location()
-#        self.loc={}
-#        self.loc=self.map.get_location()
+#	if MAP_TYPE=='grid':
+#            self.map=Grid()
+#        elif MAP_TYPE=='graph':
+#	    self.map=Graph()
+#
+#        print "self.map:%s" % self.map
 
         self.loc={}
-        self.loc['curr']=self.map.get_location()[0]
-        self.loc['dest']=self.map.get_location()[1]
+#        self.loc['curr']=self.map.get_location()[0]
+#        self.loc['dest']=self.map.get_location()[1]
+        self.loc['curr']=Agent.map.get_location()[0]
+        self.loc['dest']=Agent.map.get_location()[1]
         self.ts = {}    # timestamps
         self.ts['activation'] = now()
 	print ('%.4f\tactivated: [(Agent %s), (location %s)]' %

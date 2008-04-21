@@ -31,14 +31,7 @@ class Grid(object):
 
     def get_location(self):
         '''DOCSTRING'''
-	return (self.get_point(), self.get_point())
-
-    def get_point(self, lo=GRID_MIN, hi=GRID_MAX, length=2):
-	'''Generates two-tuples representing (x,y) locations'''
-	tmp = []
-	for i in range(length):
-            tmp.append(random.randint(lo, hi))
-	return tuple(tmp)
+	return (self.__get_point(), self.__get_point())
 
 
     # I'm no longer using this for the regular compete methods (thanks to a
@@ -111,6 +104,18 @@ Options are straight-line distance between the points, or driving distance.
             return abs(point_a[0]-point_b[0])+abs(point_a[1]-point_b[1])
         else:
             return None # error
+
+
+    # Not using get_point in Graph.  It doesn't make sense.  So it's been
+    # converted to a private method.  It's implemented in Grid, and empty in
+    # Graph.
+    def __get_point(self, lo=GRID_MIN, hi=GRID_MAX, length=2):
+	'''Generates two-tuples representing (x,y) locations'''
+	tmp = []
+	for i in range(length):
+            tmp.append(random.randint(lo, hi))
+	return tuple(tmp)
+
 
 if __name__=='__main__':
     g=Grid()
