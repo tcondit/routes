@@ -41,9 +41,9 @@ class Fare(Agent):
 	# cooperate() and compete() methods.)
         self.doneSignal = SimEvent()
         #self.loc['dest'] = self.map.get_location()
-        self.loc['dest'] = self.map.get_point()
-	print ('%.4f\tset-dest: [(Agent %s), (location %s)]' %
-			(now(), self.name, self.loc))
+#        self.loc['dest'] = self.map.get_point()
+#	print ('%.4f\tset-dest: [(Agent %s), (location %s)]' %
+#			(now(), self.name, self.loc))
 
 	# DEPRECATION - this may be used in the future, if I make a
 	# courtesy_compete() method, and rename compete() to
@@ -70,7 +70,7 @@ class Fare(Agent):
 	# TODO This is being reported out of order.  It shows up in the
 	# simulation output after the Taxi is on to the next Fare.
 	# Regardless, the Fare is the right "place" to report drop off time.
-        print '%.4f\t%s taken by %s' % (now(), self.name, whichTaxi)
+        print '%.4f\t(f) %s was taken by %s' % (now(), self.name, whichTaxi)
 
         # WAIT MONITOR
         #Fare.waitMon.observe((self.ts['dropoff'] - self.ts['mkreq']), now())

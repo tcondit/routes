@@ -29,20 +29,12 @@ class Grid(object):
         pass
 
 
-    # Maybe this one should not be publicly available - I don't think Grid
-    # even needs it, so Graph should use it internally only.
-    #
-    # Late note: I don't think Graph needs it either.
-#    def get_point(self):
-#        '''Return a single (x,y) coordinate point'''
-#	pass
+    def get_location(self):
+        '''DOCSTRING'''
+	return (self.get_point(), self.get_point())
 
-
-    #def get_location(self, lo=GRID_MIN, hi=GRID_MAX, length=2):
     def get_point(self, lo=GRID_MIN, hi=GRID_MAX, length=2):
-	'''Generates two-tuples representing locations'''
-	# the former mkcoords from Agent class; it needs a more descriptive
-	# name; something like mkcoords... :)
+	'''Generates two-tuples representing (x,y) locations'''
 	tmp = []
 	for i in range(length):
             tmp.append(random.randint(lo, hi))

@@ -41,16 +41,20 @@ class Agent(Process):
 
     def __init__(self, name):
         Process.__init__(self, name)
-        self.loc={}
+#        self.loc={}
 	if MAP_TYPE=='grid':
             self.map=Grid()
-            self.loc['curr']=self.map.get_point()
-#            self.loc['dest']=self.map.get_point()
+#            self.loc['curr']=self.map.get_location()[0]
+#            self.loc['dest']=self.map.get_location()[1]
         elif MAP_TYPE=='graph':
 	    self.map=Graph()
 #            self.loc=self.map.get_location()
 #        self.loc={}
 #        self.loc=self.map.get_location()
+
+        self.loc={}
+        self.loc['curr']=self.map.get_location()[0]
+        self.loc['dest']=self.map.get_location()[1]
         self.ts = {}    # timestamps
         self.ts['activation'] = now()
 	print ('%.4f\tactivated: [(Agent %s), (location %s)]' %

@@ -241,9 +241,11 @@ Contrast with the cooperate() method.
 		yield_time=random.random()/100
                 yield (get, self, Agent.waitingFares, fare_is_here), (hold, self, yield_time)
 
-		# HACK HACK - trying to "absorb" the yield renege from the
-		# yield above
-		yield hold, self, .02
+		# HACK HACK - "absorb" the renege (if it occurs) from the
+		# yield above.  The idea is to yield for some semi-random time
+		# longer than the length of that yield, to ensure that the
+		# renege time has elapsed.
+		yield hold, self, yield_time+random.random()/100
 
                 # Got the Fare
 		if len(self.got)>0:
@@ -267,6 +269,14 @@ Contrast with the cooperate() method.
 
                 # Too late, Fare already picked up
 		else:
+
+                    # DEBUG
+		# HACK HACK - "absorb" the renege (if it occurs) from the
+		# yield above.  The idea is to yield for some semi-random time
+		# longer than the length of that yield, to ensure that the
+		# renege time has elapsed.
+#		    yield hold, self, yield_time+random.random()/100
+
 		    print("%.4f\t%s lost %s" % (now(), self.name, targetFare.name))
 		    print("%.4f\t%s back in service" % (now(), self.name))
 		    self.loc['dest']=()
