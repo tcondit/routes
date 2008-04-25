@@ -38,11 +38,26 @@ def run():
     query.chooseGraphArea()
 
     # TESTING
-    print 'The point is',query.getPoint()
+    gp=query.get_point()
+    print 'The query.get_point() is',gp
+    frlong,frlat,tolong,tolat=gp[2:] # skip id and tlid
+    for dat in gp:
+        print dat, #float(dat)
 
-#    # [TODO] plot the chosen area
-#    mg=tigerutils.MakeGraph()
-#    mg.makeGraph()
+#    print 'The query.tuptotup() is',query.tuptotup()
+#    tup=query.tuptotup(gp)
+#    print 'The query.tuptotup() is',tup
+
+    # [TODO] plot the chosen area
+    mg=tigerutils.MakeGraph()
+    mg.makeGraph()
+    #mg.makeGraphFromTLID()
+#    frlong.lstrip('+')
+#    frlat.lstrip('+')
+#    tolong.lstrip('+')
+#    tolat.lstrip('+')
+    mg.shortest_path((frlong,frlat),(tolong,tolat))
+#    print query.__rpOne()
 
 if __name__ == '__main__':
     run()

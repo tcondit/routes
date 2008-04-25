@@ -145,11 +145,11 @@ when you're done, and we'll continue.
     # TODO
     def get_location(self):
         '''DOCSTRING'''
-	# tigerutils's QueryDatabase.getPoint() returns a 6-tuple of
+	# tigerutils's QueryDatabase.get_point() returns a 6-tuple of
 	# r['id'],r['tlid'],r['frlong'],r['frlat'],r['tolong'],r['tolat'].
 	#    0       1         2           3          4           5
 
-        tmp=self.query.getPoint()
+        tmp=self.query.get_point()
         # tmp[0:2] are id and tlid that the Agents don't need
 	fr=(tmp[2:4])
 	to=(tmp[4:6])
@@ -185,7 +185,7 @@ when you're done, and we'll continue.
 #
 #
 #	# The Agents don't need, and can't use id and tlid, so leave them out.
-#        tmp=self.query.getPoint()[2:6]
+#        tmp=self.query.get_point()[2:6]
 #	tmp2=[]
 #	# SimPy uses Python's new Decimal class, but NetworkX does not.
 #	# Convert Decimals to floats for NX.
@@ -243,7 +243,7 @@ when you're done, and we'll continue.
 #~~    # sqlite>
 #~~    #
 #~~    # NOTE: this method is similar to agents.Agent mkcoords()
-#~~    def getPoint(self):
+#~~    def get_point(self):
 #~~        '''Fetch a SQLAlchemy ResultProxy for a random point on the graph.'''
 #~~        randomRow=random.randint(1,self.getRecordCount())
 #~~	r=self.session.execute(select([
