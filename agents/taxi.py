@@ -325,7 +325,7 @@ negotiation protocols.
         for fare in not_a_magic_buffer:
 
             # DEBUG
-            print(fare.loc['curr'], self.loc['curr'])
+#            print(fare.loc['curr'], self.loc['curr'])
 
             d=self.map.get_distance(fare.loc['curr'], self.loc['curr'])
             if DEBUG:

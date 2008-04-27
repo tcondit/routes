@@ -1,46 +1,15 @@
 #!/usr/bin/env python
-'''DOCSTRING'''
-
-# TODO: edit this and put it in the module docstring.
-#
-# This module is activated if mapType is set to 'graph' in
-# agents/conf/agent/defaults.ini or overrides.ini.  The graph simulations need
-# additional preparation that the grid simulations do not.  The bulk of the
-# work is done by the tigerutils module, and used by the graph module.
-#
-# Note 1: There winds up being a lot of activity when a Graph object is
-#   created.  I may need to add an "are you sure?" dialog, or if the user
-#   exits from one of the tigerutils tasks, try to recover gracefully.  Or
-#   not.  There are only two mapTypes.  You either use this one, or go back to
-#   grids, which are already working.
-#
-# Note 2: By the time a Graph object is fully instantiated, ...
+'''
+This module is activated if mapType is set to 'graph' in
+agents/conf/agent/defaults.ini or overrides.ini.  The graph simulations need
+additional preparation that the grid simulations do not.  The bulk of the work
+is done by the tigerutils module, and used by the graph module.
+'''
 
 # agents/Graph is polymorphic with agents/Grid
 
-#from tigerutils import UserInput
 import sys
 import tigerutils
-
-# Working out the "multiplier" for lat/long graph simulations.  Starting with
-# calculating the distance from Belfield ND to Fargo ND.  I chose these
-# locations because they are almost a perfectly straight line on the map.
-#
-# http://www.batchgeocode.com/lookup/
-# Belfield ND lat:46.885885 long:-103.199379
-# Fargo ND lat:46.87591 long:-96.782299
-#
-# Google maps says the driving distance between these two coordinates is 312
-# miles.  I am using a metric of 2 "ticks" per mile, or an average Agent
-# driving speed of 30 MPH.  That's 624 ticks for 312 miles.  The absolute
-# value of the delta of the lat/long from Belfield to Fargo is 6.42, and
-# 624/6.42 is ~100.  So that's the multiplier.
-#
-# >>> abs(46.885885-46.87591)+abs(-103.199379-(-96.782299))
-# 6.4270550000000028
-# >>> 624/6.427055
-# 97.089569017224832
-graphCoordinateMultiplier=100
 
 
 class Graph(object):
@@ -142,42 +111,18 @@ when you're done, and we'll continue.
     # end __init__ (finally)
 
 
-    # TODO ASAP.
-    #
-    # This is broken.  I'm returning a pair of points ((frlong,frlat),
-    # (tolong,tolat)) instead of a single point.  No good.
-    #
+    def get_location(self):
+        '''Returns a pair of points (vertices) representing a location'''
+	return (self.get_point(),self.get_point())
+
+
     # Going forward, (frlong,frlat) is THE point when only one is needed.
     # (tolong,tolat) can be ignored.  The records from the Census bureau
     # describe line segments (nodes or vertices, I can never keep them
     # straight), but I need the end points.  Or, in this case, one end point.
-    def get_location(self):
-        '''DOCSTRING'''
-	# tigerutils's QueryDatabase.get_point() returns a 6-tuple of
-	# r['id'],r['tlid'],r['frlong'],r['frlat'],r['tolong'],r['tolat'].
-	#    0       1         2           3          4           5
-
-        tmp=self.query.get_point()
-        # tmp[0:2] are id and tlid that the Agents don't need
-	fr=(tmp[2:4])
-	to=(tmp[4:6])
-        return (fr,to)
-
-    # Not using get_point in Graph.  It doesn't make sense.  So it's been
-    # converted to a private method.  It's implemented in Grid, and empty in
-    # Graph.
-    #
-    # Late note: I may have to do something like this in Graph after all.  The
-    # vertices returned in the SQLAlchemy ResultProxy's are actually adjacent,
-    # and share an edge.  That's not gonna work.  I need distinct vertices, or
-    # points.
-    #
-    # On another note, I'm thinking about renaming this to get_vertex(), with
-    # a plural if needed of get_vertices().  Or maybe the better thing to do
-    # is something like this:
-    #
-    # def get_point(params):
-    #     return self.get_vertex(params)
+    def get_point(self):
+	'''Generates a two-tuple representing an (x,y) location'''
+        return self.__get_vertex()
 
 
     # TODO next.
@@ -191,60 +136,50 @@ when you're done, and we'll continue.
     # A: Do whatever needs to be done to make this thing behave like Grid.py
     # behaves.  That means use the graphCoordinateMultiplier HERE.
     def get_distance(self, here, there):
-        '''Return the distance between two points'''
+        '''
+Given a pair of coordinates, return the driving distance between them.
+        '''
 	# This distance is subject to the graphCoordinateMultiplier, to bring
 	# it approximately in line with the grid simulation.  The multiplier
-	# is explained above.
+	# is explained here.  (Q: Should the multiplier be added to the INI
+	# files?)
+
+# Working out the "multiplier" for lat/long graph simulations.  Starting with
+# calculating the distance from Belfield ND to Fargo ND.  I chose these
+# locations because they are almost a perfectly straight line on the map.
+#
+# http://www.batchgeocode.com/lookup/
+# Belfield ND lat:46.885885 long:-103.199379
+# Fargo ND lat:46.87591 long:-96.782299
+#
+# Google maps says the driving distance between these two coordinates is 312
+# miles.  I am using a metric of 2 "ticks" per mile, or an average Agent
+# driving speed of 30 MPH.  That's 624 ticks for 312 miles.  The absolute
+# value of the delta of the lat/long from Belfield to Fargo is 6.42, and
+# 624/6.42 is ~100.  So that's the multiplier.
+#
+# >>> abs(46.885885-46.87591)+abs(-103.199379-(-96.782299))
+# 6.4270550000000028
+# >>> 624/6.427055
+# 97.089569017224832
+#
+# Late note: I think this can go into Graph.get_distance().
+#graphCoordinateMultiplier=100
+        graphCoordinateMultiplier=100
 
 	# DEBUG
 	print "DEBUG inside Graph.get_distance()"
 	return self.mkgraph.shortest_path(here,there)*graphCoordinateMultiplier
 
 
-    # Not using get_point in Graph.  It doesn't make sense.  So it's been
-    # converted to a private method.  It's implemented in Grid, and empty in
-    # Graph.
     def __get_vertex(self):
-        '''Return a single (x,y) coordinate point'''
-	pass
-
-# From grid.py -
-#    def get_point(self, lo=GRID_MIN, hi=GRID_MAX, length=2):
-#	'''Generates two-tuples representing (x,y) locations'''
-#	return self.__get_vertex()
-
-
-#~~    # Here's an example in sqlite3
-#~~    #
-#~~    # C:\Source\hg\unified\generated\data\AK\TGR02068\sql>sqlite3 TGR02068.db
-#~~    # sqlite> SELECT id, frlong, frlat, tolong, tolat FROM tiger_01 ORDER BY random() LIMIT 1;
-#~~    # 438|-149.987164|64.144821|-150.002351|64.131662
-#~~    # sqlite> SELECT id, frlong, frlat, tolong, tolat FROM tiger_01 ORDER BY random() LIMIT 1;
-#~~    # 2164|-148.808454|63.56553|-148.811602|63.564018
-#~~    # sqlite>
-#~~    #
-#~~    # NOTE: this method is similar to agents.Agent mkcoords()
-#~~    def get_point(self):
-#~~        '''Fetch a SQLAlchemy ResultProxy for a random point on the graph.'''
-#~~        randomRow=random.randint(1,self.getRecordCount())
-#~~	r=self.session.execute(select([
-#~~		G.tiger01_Table.c.id,
-#~~		G.tiger01_Table.c.tlid,
-#~~		G.tiger01_Table.c.frlong,
-#~~		G.tiger01_Table.c.frlat,
-#~~		G.tiger01_Table.c.tolong,
-#~~		G.tiger01_Table.c.tolat
-#~~		],G.tiger01_Table.c.id==randomRow)).fetchone()
-#~~#	for row in result:
-#~~#            return row
-#~~	# This thing returns a tuple with an int and four Decimal objects
-#~~	# (which I don't know what the f--k to do with).
-#~~	#
-#~~	# Late note: maybe it's not so bad
-#~~        # >>> print decimal.Decimal("-150.330257")
-#~~        # -150.330257
-#~~	# 
-#~~        return r['id'],r['tlid'],r['frlong'],r['frlat'],r['tolong'],r['tolat']
+        '''[private] Returns a single (x,y) coordinate point'''
+        tmp=self.query.get_point()
+        # tmp[0:2] are id and tlid that the Agents don't need
+	fr=(tmp[2:4])
+	# tmp[4:6] are (tolong,tolat) which are not needed here either
+	#to=(tmp[4:6])
+        return fr
 
 
     # I'm no longer using this for the regular compete methods (thanks to a
@@ -270,3 +205,4 @@ if __name__=='__main__':
     print "loc['dest']=", loc['dest']
 
     print "bye"
+

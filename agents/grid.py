@@ -30,8 +30,42 @@ class Grid(object):
 
 
     def get_location(self):
-        '''DOCSTRING'''
-	return (self.__get_point(), self.__get_point())
+        '''Returns a pair of points (vertices) representing a location'''
+	return (self.get_point(),self.get_point())
+
+
+    def get_point(self, lo=GRID_MIN, hi=GRID_MAX, length=2):
+	'''Generates a two-tuple representing an (x,y) location'''
+	return self.__get_vertex()
+
+
+    def get_distance(self, point_a, point_b):
+        '''
+Given a pair of coordinates, return the distance between them.
+
+The Grid distance calculation is set in the configuration option
+distanceCalculation.  Options are straight-line distance between the points,
+or driving distance.
+        '''
+        DC=config.get('runtime', 'distanceCalculation')
+        if DC=='straightLine':    # use the hypotenuse
+#            dist=math.hypot((point_a[0]-point_b[0]), (point_a[1]-point_b[1]))
+#	    print 'dist: ', dist
+#	    return dist
+            return math.hypot((point_a[0]-point_b[0]), (point_a[1]-point_b[1]))
+        elif DC=='drivingDistance':
+            return abs(point_a[0]-point_b[0])+abs(point_a[1]-point_b[1])
+        else:
+            return None # error
+
+
+    # private method
+    def __get_vertex(self,lo=GRID_MIN,hi=GRID_MAX,length=2):
+        '''[private] Returns a single (x,y) coordinate point'''
+	tmp = []
+	for i in range(length):
+            tmp.append(random.randint(lo, hi))
+	return tuple(tmp)
 
 
     # I'm no longer using this for the regular compete methods (thanks to a
@@ -85,36 +119,6 @@ for the next Fare.
             ydelta=-ydelta
 
         return (int(ax+xdelta),int(ay+ydelta))
-
-
-    def get_distance(self, point_a, point_b):
-        '''
-Given a pair of coordinates, return the distance between them.
-
-The calculation is set in the configuration option distanceCalculation.
-Options are straight-line distance between the points, or driving distance.
-        '''
-        DC=config.get('runtime', 'distanceCalculation')
-        if DC=='straightLine':    # use the hypotenuse
-            dist=math.hypot((point_a[0]-point_b[0]), (point_a[1]-point_b[1]))
-	    print 'dist: ', dist
-	    return dist
-#            return math.hypot((point_a[0]-point_b[0]), (point_a[1]-point_b[1]))
-        elif DC=='drivingDistance':
-            return abs(point_a[0]-point_b[0])+abs(point_a[1]-point_b[1])
-        else:
-            return None # error
-
-
-    # Not using get_point in Graph.  It doesn't make sense.  So it's been
-    # converted to a private method.  It's implemented in Grid, and empty in
-    # Graph.
-    def __get_point(self, lo=GRID_MIN, hi=GRID_MAX, length=2):
-	'''Generates two-tuples representing (x,y) locations'''
-	tmp = []
-	for i in range(length):
-            tmp.append(random.randint(lo, hi))
-	return tuple(tmp)
 
 
 if __name__=='__main__':

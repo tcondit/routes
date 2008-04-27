@@ -1170,6 +1170,8 @@ entire county.'''
     # NOTE: this method is similar to agents.Agent mkcoords()
     def get_point(self):
         '''Fetch a SQLAlchemy ResultProxy for a random point on the graph.'''
+	# TODO think about renaming this to get_vertices().  get_point() is
+	# just plain wrong.  Update the docstring as well.
         randomRow=random.randint(1,self.getRecordCount())
 	return self.session.execute(select([
 		G.tiger01_Table.c.id,
