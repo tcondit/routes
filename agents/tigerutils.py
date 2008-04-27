@@ -1217,9 +1217,10 @@ class MakeGraph(object):
 
             self.G.add_edge(fr,to)
             self.G.pos[(fr,to)]=(fr,to)
-            print "self.G.neighbors(fr) => %s" % self.G.neighbors(fr)
-            print "self.G.neighbors(to) => %s" % self.G.neighbors(to)
-            print
+	    # TODO: if DEBUG?
+#            print "self.G.neighbors(fr) => %s" % self.G.neighbors(fr)
+#            print "self.G.neighbors(to) => %s" % self.G.neighbors(to)
+#            print
         self.G.info()
         # colors: b=blue, w=white, m=magenta, c=cyan, r=red, ...
         networkx.draw_networkx_nodes(self.G,self.G.pos,node_size=2,
@@ -1352,8 +1353,9 @@ class MakeGraph(object):
         point2[1]=int(point2[1])
 	point1=tuple(point1)
 	point2=tuple(point2)
-	print("networkx.path.shortest_path: %s" %
-			networkx.path.shortest_path(self.G,point1,point2))
+#	print("networkx.path.shortest_path: %s" %
+#			networkx.path.shortest_path(self.G,point1,point2))
+        return networkx.path.shortest_path(self.G,point1,point2)
 
 
 #

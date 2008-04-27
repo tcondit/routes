@@ -38,11 +38,16 @@ def run():
     query.chooseGraphArea()
 
     # TESTING
-    gp=query.get_point()
-    print 'The query.get_point() is',gp
-    frlong,frlat,tolong,tolat=gp[2:] # skip id and tlid
-    for dat in gp:
-        print dat, #float(dat)
+    gp1=query.get_point()
+    print 'The start query.get_point() is',gp1
+    start_frlong,start_frlat,tolong,tolat=gp1[2:] # skip id and tlid
+
+    gp2=query.get_point()
+    print 'The end query.get_point() is',gp2
+    frlong,frlat,end_tolong,end_tolat=gp2[2:] # skip id and tlid
+
+#    for dat in gp:
+#        print dat, #float(dat)
 
 #    print 'The query.tuptotup() is',query.tuptotup()
 #    tup=query.tuptotup(gp)
@@ -56,8 +61,24 @@ def run():
 #    frlat.lstrip('+')
 #    tolong.lstrip('+')
 #    tolat.lstrip('+')
-    mg.shortest_path((frlong,frlat),(tolong,tolat))
-#    print query.__rpOne()
+
+    # This is not useful.  These two points are adjacent to one another.
+    #
+    # mg.shortest_path: [(-149171250, 64285006), (-149169441, 64289333)]
+    # -- and --
+    # sqlite> SELECT * FROM tiger_01 WHERE frlong='-149171250' AND frlat='64285006';
+    # 627|1|1006|191177659|||||||||||-149171250|64285006|-149169441|64289333
+    # 628|1|1006|191177626|||||||||||-149171250|64285006|-149174638|64285261
+    # 
+    # The second row is on the "other side" of the same point.  In other
+    # words:
+    # (-149169441,64289333)->(-149171250,64285006)->(-149174638,64285261)
+    # -- and --
+    # (-149174638,64285261)->(-149171250,64285006)->(-149169441,64289333)
+    #
+    #print "mg.shortest_path:", mg.shortest_path((frlong,frlat),(tolong,tolat))
+    print("mg.shortest_path:",
+		    mg.shortest_path((start_frlong,start_frlat),(end_tolong,end_tolat)))
 
 if __name__ == '__main__':
     run()

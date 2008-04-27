@@ -215,11 +215,12 @@ Contrast with the cooperate() method.
                 drive_dist=self.map.get_distance(self.loc['dest'], self.loc['curr'])
 
                 # DEBUG
-		print "DEBUG", drive_dist
-		print "DEBUG", self.loc['dest'], self.loc['curr']
+		print "DEBUG (drive_dist)", drive_dist
+		print "DEBUG (self.loc)", self.loc['dest'], self.loc['curr']
 
                 # Drive to Fare, try to get there first
-		print("%.4f\t%s competing for %s (drive time %.4f)" %
+#		print("%.4f\t%s competing for %s (drive time %.4f)" %
+		print("%.4f\t%s competing for %s (drive time %s)" %
 				(now(), self.name, targetFare.name, drive_dist))
                 yield hold, self, drive_dist
 
