@@ -142,7 +142,15 @@ when you're done, and we'll continue.
     # end __init__ (finally)
 
 
-    # TODO
+    # TODO ASAP.
+    #
+    # This is broken.  I'm returning a pair of points ((frlong,frlat),
+    # (tolong,tolat)) instead of a single point.  No good.
+    #
+    # Going forward, (frlong,frlat) is THE point when only one is needed.
+    # (tolong,tolat) can be ignored.  The records from the Census bureau
+    # describe line segments (nodes or vertices, I can never keep them
+    # straight), but I need the end points.  Or, in this case, one end point.
     def get_location(self):
         '''DOCSTRING'''
 	# tigerutils's QueryDatabase.get_point() returns a 6-tuple of
@@ -155,65 +163,33 @@ when you're done, and we'll continue.
 	to=(tmp[4:6])
         return (fr,to)
 
-#	print tmp
-#	frlong=round(tmp[2],6)
-#	frlat=round(tmp[3],6)
-#	tolong=round(tmp[4],6)
-#	tolat=round(tmp[5],6)
-#
-#	# SQLAlchemy uses Python's new Decimal class, but NetworkX does not.
-#	# Convert Decimals to floats for NX.  (Yuck.)
-#	frlong=float(tmp[2])
-#	frlong=round(frlong,6)
-#	frlat=float(tmp[3])
-#	frlat=round(frlat,6)
-#	tolong=float(tmp[4])
-#	tolong=round(tolong,6)
-#	tolat=float(tmp[5])
-#	tolat=round(tolat,6)
-#	print("frlong, frlat, tolong, tolat:", round(frlong,6),frlat,tolong,tolat)
-#
-#
-#	# tmp[0:2] are id and tlid that the Agents don't need
-#	point_a=tmp[2:4]
-#	print "type(point_a):", type(point_a)
-#	print "point_a:", point_a
-#
-#	point_b=tmp[4:6]
-#	print "type(point_b):", type(point_b)
-#	print "point_b:", point_b
-#
-#
-#	# The Agents don't need, and can't use id and tlid, so leave them out.
-#        tmp=self.query.get_point()[2:6]
-#	tmp2=[]
-#	# SimPy uses Python's new Decimal class, but NetworkX does not.
-#	# Convert Decimals to floats for NX.
-#	for d in tmp:
-#            d=float(d)
-#	    d=round(d,6)
-#            tmp2.append(d)
-#
-#	print "DEBUG get_location:",
-#        for d in tmp2:
-#            print d,
-#	print
-#
-#	print (tuple(tmp2[0:2]),tuple(tmp2[2:4]))
-#	return (tuple(tmp2[0:2]),tuple(tmp2[2:4]))
+    # Not using get_point in Graph.  It doesn't make sense.  So it's been
+    # converted to a private method.  It's implemented in Grid, and empty in
+    # Graph.
+    #
+    # Late note: I may have to do something like this in Graph after all.  The
+    # vertices returned in the SQLAlchemy ResultProxy's are actually adjacent,
+    # and share an edge.  That's not gonna work.  I need distinct vertices, or
+    # points.
+    #
+    # On another note, I'm thinking about renaming this to get_vertex(), with
+    # a plural if needed of get_vertices().  Or maybe the better thing to do
+    # is something like this:
+    #
+    # def get_point(params):
+    #     return self.get_vertex(params)
 
 
-    # I'm no longer using this for the regular compete methods (thanks to a
-    # suggestion from Dan Struthers).  If I go on to create courtesy_compete
-    # methods, and rename the regular compete methods to cutthroat_compete,
-    # then I'll be able to use this.  In the meantime, I'm not going to create
-    # an update_location() method in graph.py.
-    def update_location(self):
-        '''DOCSTRING'''
-	pass
-
-
-    # TODO
+    # TODO next.
+    #
+    # Graph.get_distance() accepts two points (frlong, frlat) and
+    # (tolong,tolat) and finds the "distance" between them.
+    #
+    # Q: Should this distance be "normalized" to take the
+    # graphCoordinateMultiplier into account?  Or should that be done as late
+    # as possible?
+    # A: Do whatever needs to be done to make this thing behave like Grid.py
+    # behaves.  That means use the graphCoordinateMultiplier HERE.
     def get_distance(self, here, there):
         '''Return the distance between two points'''
 	# This distance is subject to the graphCoordinateMultiplier, to bring
@@ -228,9 +204,14 @@ when you're done, and we'll continue.
     # Not using get_point in Graph.  It doesn't make sense.  So it's been
     # converted to a private method.  It's implemented in Grid, and empty in
     # Graph.
-    def __get_point(self):
+    def __get_vertex(self):
         '''Return a single (x,y) coordinate point'''
 	pass
+
+# From grid.py -
+#    def get_point(self, lo=GRID_MIN, hi=GRID_MAX, length=2):
+#	'''Generates two-tuples representing (x,y) locations'''
+#	return self.__get_vertex()
 
 
 #~~    # Here's an example in sqlite3
@@ -264,6 +245,16 @@ when you're done, and we'll continue.
 #~~        # -150.330257
 #~~	# 
 #~~        return r['id'],r['tlid'],r['frlong'],r['frlat'],r['tolong'],r['tolat']
+
+
+    # I'm no longer using this for the regular compete methods (thanks to a
+    # suggestion from Dan Struthers).  If I go on to create courtesy_compete
+    # methods, and rename the regular compete methods to cutthroat_compete,
+    # then I'll be able to use this.  In the meantime, I'm not going to create
+    # an update_location() method in graph.py.
+    def update_location(self):
+        '''DOCSTRING'''
+	pass
 
 
 if __name__=='__main__':
