@@ -212,11 +212,13 @@ Contrast with the cooperate() method.
 
                 # update destination unconditionally
                 self.loc['dest'] = targetFare.loc['curr']
+		print('%.4f DEBUG: %s calling get_distance [1]' % (now(),
+			self.name))
                 drive_dist=self.map.get_distance(self.loc['dest'], self.loc['curr'])
 
                 # DEBUG
-		print "DEBUG (drive_dist)", drive_dist
-		print "DEBUG (self.loc)", self.loc['dest'], self.loc['curr']
+#		print "DEBUG (drive_dist)", drive_dist
+#		print "DEBUG (self.loc)", self.loc['dest'], self.loc['curr']
 
                 # Drive to Fare, try to get there first
 #		print("%.4f\t%s competing for %s (drive time %.4f)" %
@@ -257,6 +259,8 @@ Contrast with the cooperate() method.
 		    print("%.4f\t%s picked up %s" % (now(), self.name,
 			    self.got[0].name))
 		    self.loc['dest']=targetFare.loc['dest']
+		    print('%.4f DEBUG: %s calling get_distance [2]' % (now(),
+			    self.name))
                     drive_dist=self.map.get_distance(self.loc['dest'], self.loc['curr'])
 
                     # Drive to Fare's destination, then continue
@@ -327,6 +331,8 @@ negotiation protocols.
             # DEBUG
 #            print(fare.loc['curr'], self.loc['curr'])
 
+	    print('%.4f DEBUG: %s calling get_distance [3]' % (now(),
+		    self.name))
             d=self.map.get_distance(fare.loc['curr'], self.loc['curr'])
             if DEBUG:
                 print("Distance from %s to %s: %.4f" % (self.name, fare.name, d))

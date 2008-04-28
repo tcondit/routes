@@ -138,46 +138,85 @@ when you're done, and we'll continue.
     def get_distance(self, here, there):
         '''
 Given a pair of coordinates, return the driving distance between them.
+
+The distance calculation is set in the configuration option
+distanceCalculation.  Options are straight-line distance between the points
+(the default), or driving distance.
         '''
 	# This distance is subject to the graphCoordinateMultiplier, to bring
 	# it approximately in line with the grid simulation.  The multiplier
-	# is explained here.  (Q: Should the multiplier be added to the INI
-	# files?)
+	# is used here in order to make this thing behave as much as possible
+	# like get_distance() from Grid.py.
+	#
+	# Q: Should the multiplier be added to the INI files?
+	# A: (tbd)
 
-# Working out the "multiplier" for lat/long graph simulations.  Starting with
-# calculating the distance from Belfield ND to Fargo ND.  I chose these
-# locations because they are almost a perfectly straight line on the map.
-#
-# http://www.batchgeocode.com/lookup/
-# Belfield ND lat:46.885885 long:-103.199379
-# Fargo ND lat:46.87591 long:-96.782299
-#
-# Google maps says the driving distance between these two coordinates is 312
-# miles.  I am using a metric of 2 "ticks" per mile, or an average Agent
-# driving speed of 30 MPH.  That's 624 ticks for 312 miles.  The absolute
-# value of the delta of the lat/long from Belfield to Fargo is 6.42, and
-# 624/6.42 is ~100.  So that's the multiplier.
-#
-# >>> abs(46.885885-46.87591)+abs(-103.199379-(-96.782299))
-# 6.4270550000000028
-# >>> 624/6.427055
-# 97.089569017224832
-#
-# Late note: I think this can go into Graph.get_distance().
-#graphCoordinateMultiplier=100
-        graphCoordinateMultiplier=100
+	# Working out the "multiplier" for lat/long graph simulations.
+	# Starting with calculating the distance from Belfield ND to Fargo ND.
+	# I chose these locations because they are almost a perfectly straight
+	# line on the map.
+        #
+        # http://www.batchgeocode.com/lookup/
+        # Belfield ND lat:46.885885 long:-103.199379
+        # Fargo ND lat:46.87591 long:-96.782299
+        #
+	# Google maps says the driving distance between these two coordinates
+	# is 312 miles.  I am using a metric of 2 "ticks" per mile, or an
+	# average Agent driving speed of 30 MPH.  That's 624 ticks for 312
+	# miles.  The absolute value of the delta of the lat/long from
+	# Belfield to Fargo is 6.42, and 624/6.42 is ~100.  So that's the
+	# multiplier.  The idea isn't to be an exact counterpart to the Grid
+	# class.  I'm not trying to compare apples to apples.  But it's nice
+	# to be in the ballpark.
+        #
+        # >>> abs(46.885885-46.87591)+abs(-103.199379-(-96.782299))
+        # 6.4270550000000028
+        # >>> 624/6.427055
+        # 97.089569017224832
+        #
+        # Late note: I think this can go into Graph.get_distance().
+        coordinateMultiplier=100
+	coordinateDivisor=1e-6
+	coordinateNormalization=coordinateMultiplier*coordinateDivisor
 
-	# DEBUG
-	print "DEBUG inside Graph.get_distance()"
-	return self.mkgraph.shortest_path(here,there)*graphCoordinateMultiplier
+        # TEMP DEBUG
+	print('DEBUG type(here): %s' % type(here))
+	print 'here', here
+	print('DEBUG type(there): %s' % type(there))
+	print 'there', there
+
+        lon_dist=lat_dist=0
+	for lon,lat in self.mkgraph.shortest_path(here,there):
+            try:
+                lastlon=currlon
+		lastlat=currlat
+		lon_dist+=abs(lon-lastlon)
+		lat_dist+=abs(lat-lastlat)
+#		print("Added %s+%s (lon,lat deltas) to %s and %s" % (lon_dist,
+#			lat_dist, lon, lat))
+	    except NameError: # first time thru
+                currlon=lastlon=lon
+	        currlat=lastlat=lat
+#            print 'x',lon,'y',lat
+        norm=lon_dist*coordinateNormalization+lat_dist*coordinateNormalization
+#	print("final normalized values: %.4f+%.4f=%.4f" %
+#			(lon_dist*coordinateNormalization,
+#				lat_dist*coordinateNormalization, norm))
+        return norm
+
+#	# DEBUG
+#	print "DEBUG inside Graph.get_distance()"
+#	#return self.mkgraph.shortest_path(here,there)*graphCoordinateMultiplier
+#	return self.mkgraph.shortest_path(here,there)*coordinateMultiplier
 
 
     def __get_vertex(self):
         '''[private] Returns a single (x,y) coordinate point'''
         tmp=self.query.get_point()
         # tmp[0:2] are id and tlid that the Agents don't need
+	# tmp[2:4] are (frlong,frlat)
+	# tmp[4:6] are (tolong,tolat) which are not needed here
 	fr=(tmp[2:4])
-	# tmp[4:6] are (tolong,tolat) which are not needed here either
 	#to=(tmp[4:6])
         return fr
 

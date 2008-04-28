@@ -43,9 +43,9 @@ class Grid(object):
         '''
 Given a pair of coordinates, return the distance between them.
 
-The Grid distance calculation is set in the configuration option
-distanceCalculation.  Options are straight-line distance between the points,
-or driving distance.
+The distance calculation is set in the configuration option
+distanceCalculation.  Options are straight-line distance between the points
+(the default), or driving distance.
         '''
         DC=config.get('runtime', 'distanceCalculation')
         if DC=='straightLine':    # use the hypotenuse
