@@ -175,15 +175,110 @@ distanceCalculation.  Options are straight-line distance between the points
         # 97.089569017224832
         #
         # Late note: I think this can go into Graph.get_distance().
-        coordinateMultiplier=100
+	#
+	# Late note 2: make this a TK.  It should be variable with the varying
+	# size of the region (ZIP or county).
+        #coordinateMultiplier=1
+        coordinateMultiplier=10
+        #coordinateMultiplier=100
 	coordinateDivisor=1e-6
 	coordinateNormalization=coordinateMultiplier*coordinateDivisor
 
         # TEMP DEBUG
-	print('DEBUG type(here): %s' % type(here))
-	print 'here', here
-	print('DEBUG type(there): %s' % type(there))
-	print 'there', there
+#	print('DEBUG type(here): %s' % type(here))
+#	print 'here', here
+#	print('DEBUG type(there): %s' % type(there))
+#	print 'there', there
+#	print
+#
+	# This TEMP DEBUG section is all about defensive programming (now that
+	# I know what the problem is).  I dug into the NetworkX.path
+	# shortest_path methods, and found that if there is no path from one
+	# vertex to another, _bidirectional_pred_succ() returns False.  Here
+	# is the call to get_distance() that triggered a TypeError and the
+	# reason:
+	#
+        # 578.0285 DEBUG: Taxi-1 calling get_distance [3]
+        # here (u'-148889095', u'63669110')
+        # there (u'-148101119', u'63678200')
+	#
+	# sqlite> SELECT * FROM tiger_01 WHERE frlong='-148889095' AND tolong='-148101119';
+	# sqlite>
+	#
+	# There is no path from one to the other.
+
+        # TODO ASAP
+	#
+	# This doesn't work yet.  It's not triggering the TypeError,
+	# presumably because it's not the first iterable in the
+	# shortest_path() list that causes the error.
+	#
+        # Clean it up later.  For now just get it working.
+
+	# Calling Taxi is trying to find the distances to all the Fares in
+	# order to compete for the one it is closest to.  There should never
+	# be a Fare for which there is no route.  But it happens.  How to deal
+	# with it?  Where to deal with it?  The Fare will probably be
+	# unreachable by all Taxis, and should be removed from the simulation.
+	if self.mkgraph.shortest_path(here,there) is False:
+            print "one of these is a disconnected vertex:",
+	    print here, there
+            return None
+        else:
+            lon_dist=lat_dist=0
+
+            #
+            #Traceback (most recent call last):
+            #	...
+            #  File "C:\Source\hg\unified\agents\graph.py", line 229, in get_distance
+            #    for lon,lat in self.mkgraph.shortest_path(here,there):
+            #TypeError: 'int' object is not iterable
+            #
+            #C:\Source\hg\unified>python
+            #>>> for lon,lat in (1.0,'two'):
+            #...   print lon, lat
+            #...
+            #Traceback (most recent call last):
+            #  File "<stdin>", line 1, in <module>
+            #TypeError: 'float' object is not iterable
+	    #
+
+#	    for lon,lat in self.mkgraph.shortest_path(here,there):
+
+            # this is from get_distance [3] in taxi.py
+	    if len(self.mkgraph.shortest_path(here,there)) > 1:
+                for lon,lat in self.mkgraph.shortest_path(here,there):
+                    try:
+                        lastlon=currlon
+                        lastlat=currlat
+                        lon_dist+=abs(lon-lastlon)
+                        lat_dist+=abs(lat-lastlat)
+	            except NameError: # first time thru
+                        currlon=lastlon=lon
+                        currlat=lastlat=lat
+                return lon_dist*coordinateNormalization+lat_dist*coordinateNormalization
+            else:
+                print "Too short?  Maybe I forgot to reset a loc?"
+
+#            for lon,lat in self.mkgraph.shortest_path(here,there):
+#                try:
+#                    lastlon=currlon
+#		    lastlat=currlat
+#		    lon_dist+=abs(lon-lastlon)
+#		    lat_dist+=abs(lat-lastlat)
+#	        except NameError: # first time thru
+#                    currlon=lastlon=lon
+#	            currlat=lastlat=lat
+#            return lon_dist*coordinateNormalization+lat_dist*coordinateNormalization
+
+#	try:
+#            print self.mkgraph.shortest_path(here,there)
+##	    for lon,lat in self.mkgraph.shortest_path(here,there):
+##                pass
+#	except TypeError:
+#            print "Got the error"
+#	    print "here:", here, ", there:", there
+#	    import sys; sys.exit(1)
 
         lon_dist=lat_dist=0
 	for lon,lat in self.mkgraph.shortest_path(here,there):
@@ -210,9 +305,26 @@ distanceCalculation.  Options are straight-line distance between the points
 #	return self.mkgraph.shortest_path(here,there)*coordinateMultiplier
 
 
-    def __get_vertex(self):
-        '''[private] Returns a single (x,y) coordinate point'''
-        tmp=self.query.get_point()
+    def __get_vertex(self,connected=True):
+        '''
+[private] Returns a single (x,y) coordinate point.
+
+Parameter connected specifies whether this vertex should come from the first
+and largest list of nodes.  This is important for the simulation to function
+properly, since Agents located on unconnected vertices are unreachable.
+'''
+        if connected is True:
+            connected_vertices=self.mkgraph.get_connected()
+            tmp=self.query.get_point()
+	    fr=(int(tmp[2]),int(tmp[3]))
+#	    fr=(tmp[2:4])
+	    while fr not in connected_vertices:
+#                print "stuck in the middle with you", fr
+                tmp=self.query.get_point()
+	        fr=(int(tmp[2]),int(tmp[3]))
+#	        fr=(tmp[2:4])
+
+
         # tmp[0:2] are id and tlid that the Agents don't need
 	# tmp[2:4] are (frlong,frlat)
 	# tmp[4:6] are (tolong,tolat) which are not needed here

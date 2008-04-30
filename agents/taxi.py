@@ -211,10 +211,22 @@ Contrast with the cooperate() method.
                     assert(self.loc['dest']==my_dest_pre)
 
                 # update destination unconditionally
-                self.loc['dest'] = targetFare.loc['curr']
+                self.loc['dest']=targetFare.loc['curr']
 		print('%.4f DEBUG: %s calling get_distance [1]' % (now(),
 			self.name))
                 drive_dist=self.map.get_distance(self.loc['dest'], self.loc['curr'])
+		# This cannot happen.  I need to figure out how to remove
+		# these Graph dead spots before they are added to the
+		# database.
+		if drive_dist is None: # no path from curr to dest
+		    print("INFO: no path from %s to %s" % (self.name,
+			    targetFare.name))
+		    print("%.4f\t%s is back in service" % (now(), self.name))
+		    self.loc['curr']=targetFare.loc['dest']
+		    self.loc['dest']=()
+		    continue
+#                    print "TEMP DEBUG Something's broken [1]!"
+#		    import sys; sys.exit(1)
 
                 # DEBUG
 #		print "DEBUG (drive_dist)", drive_dist
@@ -262,8 +274,19 @@ Contrast with the cooperate() method.
 		    print('%.4f DEBUG: %s calling get_distance [2]' % (now(),
 			    self.name))
                     drive_dist=self.map.get_distance(self.loc['dest'], self.loc['curr'])
+		    if drive_dist is None: # no path from curr to dest
+			print("INFO: no path from %s to %s" % (self.name,
+				self.got[0].name))
+		        print("%.4f\t%s is back in service" % (now(), self.name))
+#		        self.loc['curr']=self.got[0].loc['dest']
+#		        self.loc['dest']=()
+			continue
+#                        print "TEMP DEBUG Something's broken [2]!"
+#		        import sys; sys.exit(1)
 
                     # Drive to Fare's destination, then continue
+#		    # Use %s instead of %.4f for drive_dist in case it's None
+#		    print("%.4f\t%s driving to %s's destination (drive time %s)" %
 		    print("%.4f\t%s driving to %s's destination (drive time %.4f)" %
 				    (now(), self.name, targetFare.name, drive_dist))
                     yield hold, self, drive_dist
@@ -329,16 +352,55 @@ negotiation protocols.
         for fare in not_a_magic_buffer:
 
             # DEBUG
-#            print(fare.loc['curr'], self.loc['curr'])
+	    #
+	    # Try to figure out why graph get_distance() sometimes triggers a
+	    # TypeError.  It's here:
+	    #   for lon,lat in self.mkgraph.shortest_path(here,there):
+            # TypeError: 'int' object is not iterable
+	    #
+	    # HEY!  Look what jumped out!  The Taxi and Fare current locations
+	    # are the same!  Zzzzzap!!!  Something's broken!  (And my note
+	    # about forgetting to reset a loc seems to be pointing in the
+	    # right direction.)
+	    #
+            #((u'-149169424', u'64331706'), (u'-149169424', u'64331706'))
+            #Too short?  Maybe I forgot to reset a loc?
+	    #
+            print(self.name, self.loc['curr'], fare.loc['curr'])
 
-	    print('%.4f DEBUG: %s calling get_distance [3]' % (now(),
-		    self.name))
+#	    print('%.4f DEBUG: (%s, %s) calling get_distance [3]' % (now(),
+#		    self.name, fare.name))
             d=self.map.get_distance(fare.loc['curr'], self.loc['curr'])
-            if DEBUG:
-                print("Distance from %s to %s: %.4f" % (self.name, fare.name, d))
-            tmp.append((fare, d))
+
+	    # TODO need to make sure all Fares are inspected, even if some
+	    # have to be skipped or removed from the simulation.
+	    #
+	    # Late note: this should no longer happen, since I added
+	    # get_connected() to tigerutils.  Confirmed?
+            if d is None: # no path from curr to dest
+                print("INFO: no path from %s to %s" % (self.name, fare.name))
+		print("%s is an invalid Fare and %s will not compete for it" %
+				(fare.name, self.name))
+#		d=-1
+#                print("%.4f\t%s is back in service" % (now(), self.name))
+#		        self.loc['curr']=self.got[0].loc['dest']
+#		        self.loc['dest']=()
+#                continue
+            else:
+                if DEBUG:
+		    print("Distance from %s to %s: %.4f" % (self.name,
+			    fare.name, d))
+                tmp.append((fare, d))
+#            if DEBUG:
+#                print("Distance from %s to %s: %.4f" % (self.name, fare.name, d))
+#            tmp.append((fare, d))
         tmp2=sorted(tmp, key=itemgetter(1))
+
+	# TODO Arrgh!  It looks like sometimes there is NOTHING in the tmp
+	# queue.
+	print("DEBUG len(tmp): %d, len(tmp2): %d" % (len(tmp), len(tmp2)))
         result=map(itemgetter(0), tmp2)[0]
+
         # Critical difference between the competition and cooperative
         # closestfares: cooperative cf returns the Fare, and removes it from
         # waitingFares.theBuffer immediately.  Competition cf just returns the

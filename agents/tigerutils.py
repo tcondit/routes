@@ -1122,25 +1122,25 @@ entire county.'''
 		G.tiger01_Table.c.tolat
 		],G.tiger01_Table.c.zipl==zip).distinct())
 
-    # TEMP -- make non-private if I need it outside this class
-    def __rpZip(self,zip):
-        '''Fetch a SQLAlchemy ResultProxy based on a zip code query.'''
-	return self.session.execute(select([
-		G.tiger01_Table.c.tlid,
-		G.tiger01_Table.c.frlong,
-		G.tiger01_Table.c.frlat,
-		G.tiger01_Table.c.tolong,
-		G.tiger01_Table.c.tolat
-		],G.tiger01_Table.c.zipl==zip).distinct())
+#    # TEMP -- make non-private if I need it outside this class
+#    def __rpZip(self,zip):
+#        '''Fetch a SQLAlchemy ResultProxy based on a zip code query.'''
+#	return self.session.execute(select([
+#		G.tiger01_Table.c.tlid,
+#		G.tiger01_Table.c.frlong,
+#		G.tiger01_Table.c.frlat,
+#		G.tiger01_Table.c.tolong,
+#		G.tiger01_Table.c.tolat
+#		],G.tiger01_Table.c.zipl==zip).distinct())
 
     def __rpAll(self):
         '''Fetch a SQLAlchemy ResultProxy for all records.'''
         return self.session.execute(select([G.tiger01_Table]).distinct())
 
-    # TEMP -- make non-private if I need it outside this class
-    def rpAll(self):
-        '''Fetch a SQLAlchemy ResultProxy for all records.'''
-        return self.session.execute(select([G.tiger01_Table]).distinct())
+#    # TEMP -- make non-private if I need it outside this class
+#    def rpAll(self):
+#        '''Fetch a SQLAlchemy ResultProxy for all records.'''
+#        return self.session.execute(select([G.tiger01_Table]).distinct())
 
     # TODO I want to see some self.rt2.da_da_da in here!
 
@@ -1247,85 +1247,85 @@ class MakeGraph(object):
         pylab.savefig(os.path.join(IMAGES_DIR, pngname))
 	print 'done\n'
 
-    # DO NOT USE THIS.  It's fundamentally broken.  You can't add an edge with
-    # only one coordinate.  It's kind of like an x without a y;  or in this
-    # case, a tlid without a ...
-    def makeGraphFromTLID(self):
-        self.uniqlist=[]
-	# TODO name the graph according to the county code and zipcode if
-	# used.  The generated graphic should be named the same way.
-        self.G=networkx.XGraph(name="please work ...")
-        self.G.pos={}
-
-#        for k,v in self.f.tuptotup(zipcode).items():
-#        for k,v in self.f.tuptotup(G.zipCode).items():
-#        for k,v in self.q.tuptotup().items():
-
-        # get the data directly
-	self.query=QueryDatabase()
-        if G.zipCode is None:
-           rp=self.query.rpAll()
-        else:
-           rp=self.query.__rpZip(G.zipCode)
-
-        for result in rp:
-            tlid=float(result['tlid'])
-            if tlid not in self.uniqlist:
-                self.uniqlist.append(tlid)
-                self.G.add_node(tlid)
-                self.G.pos[tlid]=tlid
-
-#            frlong=float(result['frlong'])
-#            frlat=float(result['frlat'])
-#            tolong=float(result['tolong'])
-#            tolat=float(result['tolat'])
-#	    tuptotup[(frlong,frlat,tolong,tolat)]= \
-#			    [(frlong,frlat),(tolong,tolat)]
-#        return tuptotup
-#
-#	    # NOTE: it is an error (currently unhandled) if the zipcode is not
-#	    # found in the database
-#            fr=(v[0][0],v[0][1])
-#            to=(v[1][0],v[1][1])
-#
-#            if fr not in self.uniqlist:
-#                self.uniqlist.append(fr)
-#                self.G.add_node(fr)
-#                self.G.pos[fr]=fr
-#            if to not in self.uniqlist:
-#                self.uniqlist.append(to)
-#                self.G.add_node(to)
-#                self.G.pos[to]=to
-
-            self.G.add_edge(tlid)
-            self.G.pos[(tlid)]=(tlid)
-            print "self.G.neighbors(tlid) => %s" % self.G.neighbors(tlid)
-            print
-#            self.G.add_edge(fr,to)
-#            self.G.pos[(fr,to)]=(fr,to)
-#            print "self.G.neighbors(fr) => %s" % self.G.neighbors(fr)
-#            print "self.G.neighbors(to) => %s" % self.G.neighbors(to)
-#            print
-        self.G.info()
-        # colors: b=blue, w=white, m=magenta, c=cyan, r=red, ...
-        networkx.draw_networkx_nodes(self.G,self.G.pos,node_size=2,
-			node_color='c')
-        networkx.draw_networkx_edges(self.G,self.G.pos,width=0.3,
-			edge_color='r')
-        # Don't get cute here.  Just give me a file name.
-	if G.zipCode is None:
-            pngname="TGR%s.png" % G.stateCountyCode
-	else:
-            pngname="TGR%s_ZIP%s.png" % (G.stateCountyCode, G.zipCode)
-
-	# TODO Where to write the file to?  It's going to the working dir
-	# right now.
-	if not os.path.exists(IMAGES_DIR):
-            print 'Making images dir %s' % IMAGES_DIR
-            os.mkdir(IMAGES_DIR)
-	print 'Writing %s ...' % os.path.join(IMAGES_DIR, pngname),
-        pylab.savefig(os.path.join(IMAGES_DIR, pngname))
-	print 'done\n'
+#~~    # DO NOT USE THIS.  It's fundamentally broken.  You can't add an edge with
+#~~    # only one coordinate.  It's kind of like an x without a y;  or in this
+#~~    # case, a tlid without a ...
+#~~    def makeGraphFromTLID(self):
+#~~        self.uniqlist=[]
+#~~	# TODO name the graph according to the county code and zipcode if
+#~~	# used.  The generated graphic should be named the same way.
+#~~        self.G=networkx.XGraph(name="please work ...")
+#~~        self.G.pos={}
+#~~
+#~~#        for k,v in self.f.tuptotup(zipcode).items():
+#~~#        for k,v in self.f.tuptotup(G.zipCode).items():
+#~~#        for k,v in self.q.tuptotup().items():
+#~~
+#~~        # get the data directly
+#~~	self.query=QueryDatabase()
+#~~        if G.zipCode is None:
+#~~           rp=self.query.__rpAll()
+#~~        else:
+#~~           rp=self.query.__rpZip(G.zipCode)
+#~~
+#~~        for result in rp:
+#~~            tlid=float(result['tlid'])
+#~~            if tlid not in self.uniqlist:
+#~~                self.uniqlist.append(tlid)
+#~~                self.G.add_node(tlid)
+#~~                self.G.pos[tlid]=tlid
+#~~
+#~~#            frlong=float(result['frlong'])
+#~~#            frlat=float(result['frlat'])
+#~~#            tolong=float(result['tolong'])
+#~~#            tolat=float(result['tolat'])
+#~~#	    tuptotup[(frlong,frlat,tolong,tolat)]= \
+#~~#			    [(frlong,frlat),(tolong,tolat)]
+#~~#        return tuptotup
+#~~#
+#~~#	    # NOTE: it is an error (currently unhandled) if the zipcode is not
+#~~#	    # found in the database
+#~~#            fr=(v[0][0],v[0][1])
+#~~#            to=(v[1][0],v[1][1])
+#~~#
+#~~#            if fr not in self.uniqlist:
+#~~#                self.uniqlist.append(fr)
+#~~#                self.G.add_node(fr)
+#~~#                self.G.pos[fr]=fr
+#~~#            if to not in self.uniqlist:
+#~~#                self.uniqlist.append(to)
+#~~#                self.G.add_node(to)
+#~~#                self.G.pos[to]=to
+#~~
+#~~            self.G.add_edge(tlid)
+#~~            self.G.pos[(tlid)]=(tlid)
+#~~            print "self.G.neighbors(tlid) => %s" % self.G.neighbors(tlid)
+#~~            print
+#~~#            self.G.add_edge(fr,to)
+#~~#            self.G.pos[(fr,to)]=(fr,to)
+#~~#            print "self.G.neighbors(fr) => %s" % self.G.neighbors(fr)
+#~~#            print "self.G.neighbors(to) => %s" % self.G.neighbors(to)
+#~~#            print
+#~~        self.G.info()
+#~~        # colors: b=blue, w=white, m=magenta, c=cyan, r=red, ...
+#~~        networkx.draw_networkx_nodes(self.G,self.G.pos,node_size=2,
+#~~			node_color='c')
+#~~        networkx.draw_networkx_edges(self.G,self.G.pos,width=0.3,
+#~~			edge_color='r')
+#~~        # Don't get cute here.  Just give me a file name.
+#~~	if G.zipCode is None:
+#~~            pngname="TGR%s.png" % G.stateCountyCode
+#~~	else:
+#~~            pngname="TGR%s_ZIP%s.png" % (G.stateCountyCode, G.zipCode)
+#~~
+#~~	# TODO Where to write the file to?  It's going to the working dir
+#~~	# right now.
+#~~	if not os.path.exists(IMAGES_DIR):
+#~~            print 'Making images dir %s' % IMAGES_DIR
+#~~            os.mkdir(IMAGES_DIR)
+#~~	print 'Writing %s ...' % os.path.join(IMAGES_DIR, pngname),
+#~~        pylab.savefig(os.path.join(IMAGES_DIR, pngname))
+#~~	print 'done\n'
 
     def shortest_path(self,point1,point2):
         # TODO get the points from the ...
@@ -1364,14 +1364,16 @@ class MakeGraph(object):
         return networkx.path.shortest_path(self.G,point1,point2)
 
     def get_connected(self):
-	print "connected components:"
-	i=0
-	j=0
-	for comp in networkx.component.connected_components(self.G):
-            print i, len(comp), comp
-	    j+=len(comp)
-	    i+=1
-	print "total number of components: %d" % j
+#	print "connected components:"
+#	i=0
+#	j=0
+#	for comp in networkx.component.connected_components(self.G):
+##            print i, len(comp), comp
+#            print("(%s,%s)" % (i, len(comp))), #comp
+#	    j+=len(comp)
+#	    i+=1
+#	print "total number of components: %d" % j
+	return networkx.component.connected_components(self.G)[0]
 
 #
 # Most of these are from the original mungeutils.py (now rolled into
