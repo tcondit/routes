@@ -80,6 +80,9 @@ def run():
     print("mg.shortest_path:",
 		    mg.shortest_path((start_frlong,start_frlat),(end_tolong,end_tolat)))
 
+    print("calling connected_components")
+    print mg.get_connected()
+
 if __name__ == '__main__':
     run()
 

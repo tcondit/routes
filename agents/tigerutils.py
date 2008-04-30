@@ -28,6 +28,7 @@
 
 import ConfigParser
 import networkx
+import networkx.component
 import networkx.path
 import os, os.path
 import pylab
@@ -1105,6 +1106,8 @@ entire county.'''
                 else:
                     G.zipCode=zipDict[userIn]
 		return G.zipCode # gotta return, why not return something? :)
+	    else:
+                print "DEBUG %d not in zipDict?" % userIn
 
     # TODO I'd like to collapse __rpZip() and __rpAll() and any others into a
     # single method that takes variable arguments.  The problem I'm running
@@ -1349,16 +1352,26 @@ class MakeGraph(object):
 
         point1=list(point1)
         point2=list(point2)
-        point1[0]=int(point1[0])
-        point1[1]=int(point1[1])
-        point2[0]=int(point2[0])
-        point2[1]=int(point2[1])
+        point1[0],point1[1]=int(point1[0]),int(point1[1])
+        point2[0],point2[1]=int(point2[0]),int(point2[1])
+#        point1[1]=int(point1[1])
+#        point2[0]=int(point2[0])
+#        point2[1]=int(point2[1])
 	point1=tuple(point1)
 	point2=tuple(point2)
 #	print("networkx.path.shortest_path: %s" %
 #			networkx.path.shortest_path(self.G,point1,point2))
         return networkx.path.shortest_path(self.G,point1,point2)
 
+    def get_connected(self):
+	print "connected components:"
+	i=0
+	j=0
+	for comp in networkx.component.connected_components(self.G):
+            print i, len(comp), comp
+	    j+=len(comp)
+	    i+=1
+	print "total number of components: %d" % j
 
 #
 # Most of these are from the original mungeutils.py (now rolled into
