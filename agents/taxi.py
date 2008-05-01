@@ -475,11 +475,17 @@ queue, and all others have to renege out.
 #    for lon,lat in self.mkgraph.shortest_path(here,there):
 #TypeError: 'int' object is not iterable
             #
-	    if fare.loc['curr']==self.loc['curr']:
-		print("Taxi and Fare are at the same vertex!")
-		# (followed by a TypeError)
+#	    if fare.loc['curr']==self.loc['curr']:
+#		print("Taxi and Fare are at the same vertex!")
+#		# (followed by a TypeError)
+#
+#            d = self.map.get_distance(fare.loc['curr'], self.loc['curr'])
 
-            d = self.map.get_distance(fare.loc['curr'], self.loc['curr'])
+            if fare.loc['curr']==self.loc['curr']:
+                # Taxi and Fare are at the same vertex!  drive_dist is 0!
+                d=0
+            else:
+                d=self.map.get_distance(fare.loc['dest'],self.loc['curr'])
 
             # TODO [eventually] put the weight and scoring routines into a
             # config file.  Major TK.

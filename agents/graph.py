@@ -113,12 +113,11 @@ when you're done, and we'll continue.
 
     def get_location(self):
         '''Returns a pair of points (vertices) representing a location'''
-	point_a=self.get_point()
-	point_b=self.get_point()
-	while point_a==point_b:
-            print("DEBUG curr and dest same point!")
-	    point_b=self.get_point()
-	return (point_a,point_b)
+        point_a=self.get_point()
+        point_b=self.get_point()
+        while point_a==point_b:
+            point_b=self.get_point()
+        return (point_a,point_b)
 
 
     def get_point(self):
