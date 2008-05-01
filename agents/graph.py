@@ -116,25 +116,11 @@ when you're done, and we'll continue.
 	return (self.get_point(),self.get_point())
 
 
-    # Going forward, (frlong,frlat) is THE point when only one is needed.
-    # (tolong,tolat) can be ignored.  The records from the Census bureau
-    # describe line segments (nodes or vertices, I can never keep them
-    # straight), but I need the end points.  Or, in this case, one end point.
     def get_point(self):
 	'''Generates a two-tuple representing an (x,y) location'''
         return self.__get_vertex()
 
 
-    # TODO next.
-    #
-    # Graph.get_distance() accepts two points (frlong, frlat) and
-    # (tolong,tolat) and finds the "distance" between them.
-    #
-    # Q: Should this distance be "normalized" to take the
-    # graphCoordinateMultiplier into account?  Or should that be done as late
-    # as possible?
-    # A: Do whatever needs to be done to make this thing behave like Grid.py
-    # behaves.  That means use the graphCoordinateMultiplier HERE.
     def get_distance(self, here, there):
         '''
 Given a pair of coordinates, return the driving distance between them.
@@ -149,8 +135,9 @@ distanceCalculation.  Options are straight-line distance between the points
 	# like get_distance() from Grid.py.
 	#
 	# Q: Should the multiplier be added to the INI files?
-	# A: (tbd)
-
+	# A: Yes.  It should be variable with the varying size of the region
+	#    (ZIP or county).
+        #
 	# Working out the "multiplier" for lat/long graph simulations.
 	# Starting with calculating the distance from Belfield ND to Fargo ND.
 	# I chose these locations because they are almost a perfectly straight
@@ -174,112 +161,27 @@ distanceCalculation.  Options are straight-line distance between the points
         # >>> 624/6.427055
         # 97.089569017224832
         #
-        # Late note: I think this can go into Graph.get_distance().
-	#
-	# Late note 2: make this a TK.  It should be variable with the varying
-	# size of the region (ZIP or county).
         #coordinateMultiplier=1
         coordinateMultiplier=10
         #coordinateMultiplier=100
 	coordinateDivisor=1e-6
 	coordinateNormalization=coordinateMultiplier*coordinateDivisor
 
-        # TEMP DEBUG
-#	print('DEBUG type(here): %s' % type(here))
-#	print 'here', here
-#	print('DEBUG type(there): %s' % type(there))
-#	print 'there', there
-#	print
-#
-	# This TEMP DEBUG section is all about defensive programming (now that
-	# I know what the problem is).  I dug into the NetworkX.path
-	# shortest_path methods, and found that if there is no path from one
-	# vertex to another, _bidirectional_pred_succ() returns False.  Here
-	# is the call to get_distance() that triggered a TypeError and the
-	# reason:
-	#
-        # 578.0285 DEBUG: Taxi-1 calling get_distance [3]
-        # here (u'-148889095', u'63669110')
-        # there (u'-148101119', u'63678200')
-	#
-	# sqlite> SELECT * FROM tiger_01 WHERE frlong='-148889095' AND tolong='-148101119';
-	# sqlite>
-	#
-	# There is no path from one to the other.
-
-        # TODO ASAP
-	#
-	# This doesn't work yet.  It's not triggering the TypeError,
-	# presumably because it's not the first iterable in the
-	# shortest_path() list that causes the error.
-	#
-        # Clean it up later.  For now just get it working.
-
-	# Calling Taxi is trying to find the distances to all the Fares in
-	# order to compete for the one it is closest to.  There should never
-	# be a Fare for which there is no route.  But it happens.  How to deal
-	# with it?  Where to deal with it?  The Fare will probably be
-	# unreachable by all Taxis, and should be removed from the simulation.
-	if self.mkgraph.shortest_path(here,there) is False:
-            print "one of these is a disconnected vertex:",
-	    print here, there
-            return None
-        else:
-            lon_dist=lat_dist=0
-
-            #
-            #Traceback (most recent call last):
-            #	...
-            #  File "C:\Source\hg\unified\agents\graph.py", line 229, in get_distance
-            #    for lon,lat in self.mkgraph.shortest_path(here,there):
-            #TypeError: 'int' object is not iterable
-            #
-            #C:\Source\hg\unified>python
-            #>>> for lon,lat in (1.0,'two'):
-            #...   print lon, lat
-            #...
-            #Traceback (most recent call last):
-            #  File "<stdin>", line 1, in <module>
-            #TypeError: 'float' object is not iterable
-	    #
-
-#	    for lon,lat in self.mkgraph.shortest_path(here,there):
-
-            # this is from get_distance [3] in taxi.py
-	    if len(self.mkgraph.shortest_path(here,there)) > 1:
-                for lon,lat in self.mkgraph.shortest_path(here,there):
-                    try:
-                        lastlon=currlon
-                        lastlat=currlat
-                        lon_dist+=abs(lon-lastlon)
-                        lat_dist+=abs(lat-lastlat)
-	            except NameError: # first time thru
-                        currlon=lastlon=lon
-                        currlat=lastlat=lat
-                return lon_dist*coordinateNormalization+lat_dist*coordinateNormalization
-            else:
-                print "Too short?  Maybe I forgot to reset a loc?"
-
-#            for lon,lat in self.mkgraph.shortest_path(here,there):
-#                try:
-#                    lastlon=currlon
-#		    lastlat=currlat
-#		    lon_dist+=abs(lon-lastlon)
-#		    lat_dist+=abs(lat-lastlat)
-#	        except NameError: # first time thru
-#                    currlon=lastlon=lon
-#	            currlat=lastlat=lat
-#            return lon_dist*coordinateNormalization+lat_dist*coordinateNormalization
-
-#	try:
-#            print self.mkgraph.shortest_path(here,there)
-##	    for lon,lat in self.mkgraph.shortest_path(here,there):
-##                pass
-#	except TypeError:
-#            print "Got the error"
-#	    print "here:", here, ", there:", there
-#	    import sys; sys.exit(1)
-
+        #
+        #Traceback (most recent call last):
+        #	...
+        #  File "C:\Source\hg\unified\agents\graph.py", line 229, in get_distance
+        #    for lon,lat in self.mkgraph.shortest_path(here,there):
+        #TypeError: 'int' object is not iterable
+        #
+        #C:\Source\hg\unified>python
+        #>>> for lon,lat in (1.0,'two'):
+        #...   print lon, lat
+        #...
+        #Traceback (most recent call last):
+        #  File "<stdin>", line 1, in <module>
+        #TypeError: 'float' object is not iterable
+        #
         lon_dist=lat_dist=0
 	for lon,lat in self.mkgraph.shortest_path(here,there):
             try:
@@ -287,22 +189,11 @@ distanceCalculation.  Options are straight-line distance between the points
 		lastlat=currlat
 		lon_dist+=abs(lon-lastlon)
 		lat_dist+=abs(lat-lastlat)
-#		print("Added %s+%s (lon,lat deltas) to %s and %s" % (lon_dist,
-#			lat_dist, lon, lat))
 	    except NameError: # first time thru
                 currlon=lastlon=lon
 	        currlat=lastlat=lat
-#            print 'x',lon,'y',lat
         norm=lon_dist*coordinateNormalization+lat_dist*coordinateNormalization
-#	print("final normalized values: %.4f+%.4f=%.4f" %
-#			(lon_dist*coordinateNormalization,
-#				lat_dist*coordinateNormalization, norm))
         return norm
-
-#	# DEBUG
-#	print "DEBUG inside Graph.get_distance()"
-#	#return self.mkgraph.shortest_path(here,there)*graphCoordinateMultiplier
-#	return self.mkgraph.shortest_path(here,there)*coordinateMultiplier
 
 
     def __get_vertex(self,connected=True):
@@ -316,20 +207,17 @@ properly, since Agents located on unconnected vertices are unreachable.
         if connected is True:
             connected_vertices=self.mkgraph.get_connected()
             tmp=self.query.get_point()
+	    # I'm not sure what's going on here ...
 	    fr=(int(tmp[2]),int(tmp[3]))
-#	    fr=(tmp[2:4])
 	    while fr not in connected_vertices:
-#                print "stuck in the middle with you", fr
                 tmp=self.query.get_point()
+		# ... and here
 	        fr=(int(tmp[2]),int(tmp[3]))
-#	        fr=(tmp[2:4])
-
 
         # tmp[0:2] are id and tlid that the Agents don't need
 	# tmp[2:4] are (frlong,frlat)
 	# tmp[4:6] are (tolong,tolat) which are not needed here
 	fr=(tmp[2:4])
-	#to=(tmp[4:6])
         return fr
 
 

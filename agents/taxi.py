@@ -72,10 +72,8 @@ Contrast with the compete() method.
                 elif self.np == 'closestfare':
                     numAgents=len(Agent.waitingFares.theBuffer)
                     yield get, self, Agent.waitingFares, closestfare_cooperate
-                    #yield get, self, Agent.waitingFares, self.closestfare_cooperate
                 elif self.np == 'mixedmode':
                     yield get, self, Agent.waitingFares, mixedmode_cooperate
-                    #yield get, self, Agent.waitingFares, self.mixedmode_cooperate
                 else:
                     print "Something broke in the negotiation protocol!"
                 if DEBUG:
@@ -85,17 +83,9 @@ Contrast with the compete() method.
 		print("%.4f\t%s chose " % (now(), self.name), [x.name for x
 			in self.got])
 
-# Found this line in an old printout that may be "newer" than this code.  It's
-# redundant in the unified project.
-#                print 'taxi_loc before', taxi_loc
-#                print 'setting old printout code ...'
-#                taxi_loc = self.loc['curr']
-#                print 'taxi_loc after', taxi_loc
-
                 fareBeingDriven=self.got[0]
 
                 # Drive to Fare
-                #drive_dist = getdistance(fareBeingDriven.loc['curr'], taxi_loc)
                 drive_dist=self.map.get_distance(fareBeingDriven.loc['curr'], taxi_loc)
 
                 if DEBUG:
@@ -212,9 +202,15 @@ Contrast with the cooperate() method.
 
                 # update destination unconditionally
                 self.loc['dest']=targetFare.loc['curr']
-		print('%.4f DEBUG: %s calling get_distance [1]' % (now(),
-			self.name))
-                drive_dist=self.map.get_distance(self.loc['dest'], self.loc['curr'])
+
+                if self.loc['curr']==targetFare.loc['curr']:
+		    # Taxi and Fare are at the same vertex!  drive_dist is 0!
+		    drive_dist=0
+		else:
+		    print('%.4f DEBUG: %s calling get_distance [1]' % (now(),
+			    self.name))
+		    drive_dist=self.map.get_distance(self.loc['dest'], self.loc['curr'])
+
 		# This cannot happen.  I need to figure out how to remove
 		# these Graph dead spots before they are added to the
 		# database.
@@ -225,15 +221,8 @@ Contrast with the cooperate() method.
 		    self.loc['curr']=targetFare.loc['dest']
 		    self.loc['dest']=()
 		    continue
-#                    print "TEMP DEBUG Something's broken [1]!"
-#		    import sys; sys.exit(1)
-
-                # DEBUG
-#		print "DEBUG (drive_dist)", drive_dist
-#		print "DEBUG (self.loc)", self.loc['dest'], self.loc['curr']
 
                 # Drive to Fare, try to get there first
-#		print("%.4f\t%s competing for %s (drive time %.4f)" %
 		print("%.4f\t%s competing for %s (drive time %s)" %
 				(now(), self.name, targetFare.name, drive_dist))
                 yield hold, self, drive_dist
@@ -273,7 +262,15 @@ Contrast with the cooperate() method.
 		    self.loc['dest']=targetFare.loc['dest']
 		    print('%.4f DEBUG: %s calling get_distance [2]' % (now(),
 			    self.name))
-                    drive_dist=self.map.get_distance(self.loc['dest'], self.loc['curr'])
+		    if self.loc['dest']==self.loc['curr']:
+			# TODO WTF!  Fare's destination is the same as it's
+			# current location???  I need to make sure they are
+			# not the same (this also could happen, but probably
+			# wouldn't ... and in any event, I won't let it
+			# happen).  This will do in the meantime.
+		        drive_dist=0
+                    else:
+                        drive_dist=self.map.get_distance(self.loc['dest'], self.loc['curr'])
 		    if drive_dist is None: # no path from curr to dest
 			print("INFO: no path from %s to %s" % (self.name,
 				self.got[0].name))
@@ -281,12 +278,8 @@ Contrast with the cooperate() method.
 #		        self.loc['curr']=self.got[0].loc['dest']
 #		        self.loc['dest']=()
 			continue
-#                        print "TEMP DEBUG Something's broken [2]!"
-#		        import sys; sys.exit(1)
 
                     # Drive to Fare's destination, then continue
-#		    # Use %s instead of %.4f for drive_dist in case it's None
-#		    print("%.4f\t%s driving to %s's destination (drive time %s)" %
 		    print("%.4f\t%s driving to %s's destination (drive time %.4f)" %
 				    (now(), self.name, targetFare.name, drive_dist))
                     yield hold, self, drive_dist
@@ -301,14 +294,6 @@ Contrast with the cooperate() method.
 
                 # Too late, Fare already picked up
 		else:
-
-                    # DEBUG
-		# HACK HACK - "absorb" the renege (if it occurs) from the
-		# yield above.  The idea is to yield for some semi-random time
-		# longer than the length of that yield, to ensure that the
-		# renege time has elapsed.
-#		    yield hold, self, yield_time+random.random()/100
-
 		    print("%.4f\t%s lost %s" % (now(), self.name, targetFare.name))
 		    print("%.4f\t%s back in service" % (now(), self.name))
 		    self.loc['dest']=()
@@ -366,39 +351,20 @@ negotiation protocols.
             #((u'-149169424', u'64331706'), (u'-149169424', u'64331706'))
             #Too short?  Maybe I forgot to reset a loc?
 	    #
-            print(self.name, self.loc['curr'], fare.loc['curr'])
-
-#	    print('%.4f DEBUG: (%s, %s) calling get_distance [3]' % (now(),
-#		    self.name, fare.name))
-            d=self.map.get_distance(fare.loc['curr'], self.loc['curr'])
-
-	    # TODO need to make sure all Fares are inspected, even if some
-	    # have to be skipped or removed from the simulation.
-	    #
-	    # Late note: this should no longer happen, since I added
-	    # get_connected() to tigerutils.  Confirmed?
-            if d is None: # no path from curr to dest
-                print("INFO: no path from %s to %s" % (self.name, fare.name))
-		print("%s is an invalid Fare and %s will not compete for it" %
-				(fare.name, self.name))
-#		d=-1
-#                print("%.4f\t%s is back in service" % (now(), self.name))
-#		        self.loc['curr']=self.got[0].loc['dest']
-#		        self.loc['dest']=()
-#                continue
+#            print(self.name, self.loc['curr'], fare.name, fare.loc['curr'])
+            if self.loc['curr']==fare.loc['curr']:
+                # Taxi and Fare are at the same vertex!  Short circuit the
+		# whole deal and just take the Fare.
+		print("Taxi and Fare are at the same vertex!")
+		return fare
             else:
-                if DEBUG:
-		    print("Distance from %s to %s: %.4f" % (self.name,
-			    fare.name, d))
-                tmp.append((fare, d))
-#            if DEBUG:
-#                print("Distance from %s to %s: %.4f" % (self.name, fare.name, d))
-#            tmp.append((fare, d))
-        tmp2=sorted(tmp, key=itemgetter(1))
+                d=self.map.get_distance(fare.loc['curr'], self.loc['curr'])
 
-	# TODO Arrgh!  It looks like sometimes there is NOTHING in the tmp
-	# queue.
-	print("DEBUG len(tmp): %d, len(tmp2): %d" % (len(tmp), len(tmp2)))
+            if DEBUG:
+		print("Distance from %s to %s: %.4f" % (self.name, fare.name,
+			d))
+            tmp.append((fare, d))
+        tmp2=sorted(tmp, key=itemgetter(1))
         result=map(itemgetter(0), tmp2)[0]
 
         # Critical difference between the competition and cooperative
@@ -471,6 +437,48 @@ queue, and all others have to renege out.
             return
         for fare in not_a_magic_buffer:
             TIQ = (now() - fare.ts['mkreq'])
+
+	    # TODO This is broken in a familiar way.  If I recall correctly
+	    # (and you'd think I would, with all the headache this caused), it
+	    # means that the Taxi and the Fare are at the same location!
+	    # Whether this is a "happy coincidence", or whether another Taxi
+	    # got here first (something which was disproven in
+	    # closestfare_compete) is unclear so far.
+	    #
+	    # At any rate, it's easy to fix since I've fixed it in three
+	    # places in closestfare_compete already.
+	    #
+#1090.8933       Taxi-3 is back in service
+#.. Pushing (Fare-33, score 2264.4608) onto list
+#.. Pushing (Fare-34, score 2272.4847) onto list
+#.. Pushing (Fare-38, score 2362.8803) onto list
+#.. Pushing (Fare-42, score 2493.7965) onto list
+#.. Pushing (Fare-44, score 2539.8396) onto list
+#.. Pushing (Fare-54, score 2594.2863) onto list
+#.. Pushing (Fare-57, score 2664.5078) onto list
+#.. Pushing (Fare-61, score 2731.6690) onto list
+#.. Pushing (Fare-63, score 2772.4385) onto list
+#Traceback (most recent call last):
+#  File "C:\Source\hg\unified\agents_driver.py", line 175, in <module>
+#    model()
+#  File "C:\Source\hg\unified\agents_driver.py", line 98, in model
+#    simulate(until=SIMTIME)
+#  File "c:\program files\python25\lib\site-packages\SimPy\Simulation.py", line 2009, in simulate
+#    a=_e._nextev()
+#  File "c:\program files\python25\lib\site-packages\SimPy\Simulation.py", line 554, in _nextev
+#    tt=tempwho._nextpoint.next()
+#  File "C:\Source\hg\unified\agents\taxi.py", line 181, in compete
+#    targetFare=self.mixedmode_compete()
+#  File "C:\Source\hg\unified\agents\taxi.py", line 440, in mixedmode_compete
+#    d = self.map.get_distance(fare.loc['curr'], self.loc['curr'])
+#  File "C:\Source\hg\unified\agents\graph.py", line 186, in get_distance
+#    for lon,lat in self.mkgraph.shortest_path(here,there):
+#TypeError: 'int' object is not iterable
+            #
+	    if fare.loc['curr']==self.loc['curr']:
+		print("Taxi and Fare are at the same vertex!")
+		# (followed by a TypeError)
+
             d = self.map.get_distance(fare.loc['curr'], self.loc['curr'])
 
             # TODO [eventually] put the weight and scoring routines into a
@@ -550,6 +558,7 @@ queue, and all others have to renege out.
 #                print ("%.4f\tINFO: There are no eligible Fares for %s" %
 #				(now(), self.name))
             return
+
         tmp2 = sorted(tmp, key=itemgetter(1))
         result = map(itemgetter(0), tmp2)[0]
         # Borrowed from the bottom of closestfare.  Applies here as well.

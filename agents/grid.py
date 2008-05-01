@@ -49,9 +49,6 @@ distanceCalculation.  Options are straight-line distance between the points
         '''
         DC=config.get('runtime', 'distanceCalculation')
         if DC=='straightLine':    # use the hypotenuse
-#            dist=math.hypot((point_a[0]-point_b[0]), (point_a[1]-point_b[1]))
-#	    print 'dist: ', dist
-#	    return dist
             return math.hypot((point_a[0]-point_b[0]), (point_a[1]-point_b[1]))
         elif DC=='drivingDistance':
             return abs(point_a[0]-point_b[0])+abs(point_a[1]-point_b[1])
@@ -88,12 +85,11 @@ for the next Fare.
 	# causes ZeroDivisionErrors.  But since one of them has already been
 	# interrupted (which is why it's here), it is simple enough to
 	# straighten out.
-
+	#
         ax=point_a[0]
         ay=point_a[1]
         bx=point_b[0]
         by=point_b[1]
-
         xdiff=abs(ax-bx)
         ydiff=abs(ay-by)
 

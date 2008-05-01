@@ -43,13 +43,6 @@ class Agent(Process):
 
     def __init__(self, name):
         Process.__init__(self, name)
-#	if MAP_TYPE=='grid':
-#            self.map=Grid()
-#        elif MAP_TYPE=='graph':
-#	    self.map=Graph()
-#
-#        print "self.map:%s" % self.map
-
         self.loc={}
         self.loc['curr']=Agent.map.get_location()[0]
         self.loc['dest']=Agent.map.get_location()[1]

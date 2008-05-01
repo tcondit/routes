@@ -33,7 +33,7 @@ class Fare(Agent):
     '''DOCSTRING'''
     # TODO [hipri] Monitor the time between when the fare was requested and
     # when the Fare was dropped off.  ylab should be ...
-    waitMon = Monitor('All Fares total wait time')
+    waitMon=Monitor('All Fares total wait time')
     def __init__(self, name):
         Agent.__init__(self, name)
 	# Fare maintains its own SimEvent, but Taxi uses it (look for
@@ -72,6 +72,7 @@ class FareFactory(Process):
             numFaresCreated+=1
             t = expovariate(1.0/MEAN_FARE_GENERATION_RATE)
             yield hold, self, t
+
 
 if __name__ == '__main__':
     # TODO try FareFactory too

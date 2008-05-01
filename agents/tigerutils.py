@@ -1,4 +1,5 @@
 # tigerutils.py
+'''DOCSTRING'''
 
 # NOTES
 # * Add query scopes (county, city or ZIP code) to config files!
@@ -8,23 +9,6 @@
 #The data dictionary used to generate these schemas is here
 #[http://www.census.gov/geo/www/tiger/tiger2006se/a6sech6.txt]'''
 #
-
-# TODO (FEATURES)
-# * Right now (Sunday 1/7/08) the only thing that I can think of that would be
-#   nice to have is a directory walker that picks up all the SQL files and
-#   imports them into the database.  It would have to be interactive, for two
-#   reasons: need credentials, and the user may not want to import all of
-#   them.  Also, need to decide whether to drop the existing tables first.
-#
-#   Actually, the way the SQL code is currently written, that plan is not
-#   going to work.  MakeRtSqlFiles::generateSqlFiles() says
-#
-#        DROP TABLE IF EXISTS `tiger_01`;
-#          and
-#        DROP TABLE IF EXISTS `tiger_02`;
-#
-#   So the newest table always wins.  It's destructive, and probably not the
-#   best way to go.  I'll have to think about that.
 
 import ConfigParser
 import networkx
@@ -657,27 +641,17 @@ the source directory, they are skipped with a message to STDOUT.
             before=os.path.join(G.rawPath,rtfile)
             after=os.path.join(G.mungedPath,rtfile)+'m'
             if rtfile.endswith('RT1'):
-                #m=mungeRT1.MungeRT1()
-                #m=MungeRT1()
-                #m=MungeRT1(before,after)
                 m=MungeRT1(before)
             elif rtfile.endswith('RT2'):
-                #m=mungeRT2.MungeRT2()
-                #m=MungeRT2()
-                #m=MungeRT2(before,after)
                 m=MungeRT2(before)
             else:
                 print "* Skipping unknown file %s" % rtfile
                 continue
-            # a list
-            recordset=m.munge(before)
+            recordset=m.munge(before) # a list
             outfile=open(after,'w')
-            #print "Writing recordset to %s" % (after)
             print "Writing munged data to %s" % (after)
             for record in recordset:
-#            print record
                 outfile.write(record+'\n')
-
 
 
 class CreateDatabase(object):
@@ -705,19 +679,11 @@ This class has no methods.  Everything happens in __init__.'''
         		Column('toaddr',String(12),nullable=True),
         		Column('zipl',Integer,nullable=True),
         		Column('zipr',Integer,nullable=True),
-#        		Column('frlong',String(10,6),nullable=False,default=0),
-#        		Column('frlat',String(10,6),nullable=False,default=0),
-#        		Column('tolong',String(10,6),nullable=False,default=0),
-#        		Column('tolat',String(10,6),nullable=False,default=0)
         		Column('frlong',String(10),nullable=False,default=0),
         		Column('frlat',String(10),nullable=False,default=0),
         		Column('tolong',String(10),nullable=False,default=0),
         		Column('tolat',String(10),nullable=False,default=0)
         		)
-#        		Column('frlong',Numeric(10,6),nullable=False,default=0),
-#        		Column('frlat',Numeric(10,6),nullable=False,default=0),
-#        		Column('tolong',Numeric(10,6),nullable=False,default=0),
-#        		Column('tolat',Numeric(10,6),nullable=False,default=0)
 
 	# drop existing Table (if present) before creating and loading
 	try:
@@ -934,30 +900,10 @@ class MungeRT1(object):
             TOADDR=field(line[91:102],True)
             ZIPL=field(line[106:111])
             ZIPR=field(line[111:116])
-#            FRLONG=decimal2(field(line[190:200],True))
-#            FRLAT=decimal2(field(line[200:209],True))
-#            TOLONG=decimal2(field(line[209:219],True))
-#            TOLAT=decimal2(field(line[219:228],True))
-
             FRLONG=int(line[190:200])
             FRLAT=int(line[200:209])
             TOLONG=int(line[209:219])
             TOLAT=int(line[219:228])
-
-#            FRLONG=field(line[190:200],True)
-#            FRLAT=field(line[200:209],True)
-#            TOLONG=field(line[209:219],True)
-#            TOLAT=field(line[219:228],True)
-
-#            FRLONG=decimal2(field(line[190:200]))
-#            FRLAT=decimal2(field(line[200:209]))
-#            TOLONG=decimal2(field(line[209:219]))
-#            TOLAT=decimal2(field(line[219:228]))
-
-#            FRLONG=decimal(field(line[190:200]),True)
-#            FRLAT=decimal(field(line[200:209]),True)
-#            TOLONG=decimal(field(line[209:219]),True)
-#            TOLAT=decimal(field(line[219:228]),True)
 
             # It is an error if any of RT, VERSION, TLID, FRLONG, FRLAT,
             # TOLONG or TOLAT are not present.
@@ -1050,7 +996,6 @@ class QueryDatabase(object):
     def __init__(self):
         print "\n====[ QueryDatabase ]===="
         self.session=G.Session()
-#        print "record count:", self.getRecordCount()
 
     def getRecordCount(self):
         '''TODO'''
@@ -1122,25 +1067,9 @@ entire county.'''
 		G.tiger01_Table.c.tolat
 		],G.tiger01_Table.c.zipl==zip).distinct())
 
-#    # TEMP -- make non-private if I need it outside this class
-#    def __rpZip(self,zip):
-#        '''Fetch a SQLAlchemy ResultProxy based on a zip code query.'''
-#	return self.session.execute(select([
-#		G.tiger01_Table.c.tlid,
-#		G.tiger01_Table.c.frlong,
-#		G.tiger01_Table.c.frlat,
-#		G.tiger01_Table.c.tolong,
-#		G.tiger01_Table.c.tolat
-#		],G.tiger01_Table.c.zipl==zip).distinct())
-
     def __rpAll(self):
         '''Fetch a SQLAlchemy ResultProxy for all records.'''
         return self.session.execute(select([G.tiger01_Table]).distinct())
-
-#    # TEMP -- make non-private if I need it outside this class
-#    def rpAll(self):
-#        '''Fetch a SQLAlchemy ResultProxy for all records.'''
-#        return self.session.execute(select([G.tiger01_Table]).distinct())
 
     # TODO I want to see some self.rt2.da_da_da in here!
 
@@ -1247,133 +1176,18 @@ class MakeGraph(object):
         pylab.savefig(os.path.join(IMAGES_DIR, pngname))
 	print 'done\n'
 
-#~~    # DO NOT USE THIS.  It's fundamentally broken.  You can't add an edge with
-#~~    # only one coordinate.  It's kind of like an x without a y;  or in this
-#~~    # case, a tlid without a ...
-#~~    def makeGraphFromTLID(self):
-#~~        self.uniqlist=[]
-#~~	# TODO name the graph according to the county code and zipcode if
-#~~	# used.  The generated graphic should be named the same way.
-#~~        self.G=networkx.XGraph(name="please work ...")
-#~~        self.G.pos={}
-#~~
-#~~#        for k,v in self.f.tuptotup(zipcode).items():
-#~~#        for k,v in self.f.tuptotup(G.zipCode).items():
-#~~#        for k,v in self.q.tuptotup().items():
-#~~
-#~~        # get the data directly
-#~~	self.query=QueryDatabase()
-#~~        if G.zipCode is None:
-#~~           rp=self.query.__rpAll()
-#~~        else:
-#~~           rp=self.query.__rpZip(G.zipCode)
-#~~
-#~~        for result in rp:
-#~~            tlid=float(result['tlid'])
-#~~            if tlid not in self.uniqlist:
-#~~                self.uniqlist.append(tlid)
-#~~                self.G.add_node(tlid)
-#~~                self.G.pos[tlid]=tlid
-#~~
-#~~#            frlong=float(result['frlong'])
-#~~#            frlat=float(result['frlat'])
-#~~#            tolong=float(result['tolong'])
-#~~#            tolat=float(result['tolat'])
-#~~#	    tuptotup[(frlong,frlat,tolong,tolat)]= \
-#~~#			    [(frlong,frlat),(tolong,tolat)]
-#~~#        return tuptotup
-#~~#
-#~~#	    # NOTE: it is an error (currently unhandled) if the zipcode is not
-#~~#	    # found in the database
-#~~#            fr=(v[0][0],v[0][1])
-#~~#            to=(v[1][0],v[1][1])
-#~~#
-#~~#            if fr not in self.uniqlist:
-#~~#                self.uniqlist.append(fr)
-#~~#                self.G.add_node(fr)
-#~~#                self.G.pos[fr]=fr
-#~~#            if to not in self.uniqlist:
-#~~#                self.uniqlist.append(to)
-#~~#                self.G.add_node(to)
-#~~#                self.G.pos[to]=to
-#~~
-#~~            self.G.add_edge(tlid)
-#~~            self.G.pos[(tlid)]=(tlid)
-#~~            print "self.G.neighbors(tlid) => %s" % self.G.neighbors(tlid)
-#~~            print
-#~~#            self.G.add_edge(fr,to)
-#~~#            self.G.pos[(fr,to)]=(fr,to)
-#~~#            print "self.G.neighbors(fr) => %s" % self.G.neighbors(fr)
-#~~#            print "self.G.neighbors(to) => %s" % self.G.neighbors(to)
-#~~#            print
-#~~        self.G.info()
-#~~        # colors: b=blue, w=white, m=magenta, c=cyan, r=red, ...
-#~~        networkx.draw_networkx_nodes(self.G,self.G.pos,node_size=2,
-#~~			node_color='c')
-#~~        networkx.draw_networkx_edges(self.G,self.G.pos,width=0.3,
-#~~			edge_color='r')
-#~~        # Don't get cute here.  Just give me a file name.
-#~~	if G.zipCode is None:
-#~~            pngname="TGR%s.png" % G.stateCountyCode
-#~~	else:
-#~~            pngname="TGR%s_ZIP%s.png" % (G.stateCountyCode, G.zipCode)
-#~~
-#~~	# TODO Where to write the file to?  It's going to the working dir
-#~~	# right now.
-#~~	if not os.path.exists(IMAGES_DIR):
-#~~            print 'Making images dir %s' % IMAGES_DIR
-#~~            os.mkdir(IMAGES_DIR)
-#~~	print 'Writing %s ...' % os.path.join(IMAGES_DIR, pngname),
-#~~        pylab.savefig(os.path.join(IMAGES_DIR, pngname))
-#~~	print 'done\n'
-
     def shortest_path(self,point1,point2):
-        # TODO get the points from the ...
-        #
-        # TODO arrange to choose source and target randomly
-        # ZIP 99744
-        #latlong1=(-149.198816, 64.347768)
-        #latlong2=(-149.197317, 64.350731)
-        #
-        # ZIP 98121
-#        latlong1=(-122.349738, 47.616520)
-#        latlong2=(-122.352438, 47.617020)
-#	print("NP.shortest_path: %s" % NP.shortest_path(G,latlong1,latlong2))
-
-        # ugly temporary hack
-#        point1=list(point1)
-#        point2=list(point2)
-#        point1[0]=point1[0].lstrip('+')
-#        point1[1]=point1[1].lstrip('+')
-#        point2[0]=point2[0].lstrip('+')
-#        point2[1]=point2[1].lstrip('+')
-#	point1=tuple(point1)
-#	point2=tuple(point2)
-
         point1=list(point1)
         point2=list(point2)
         point1[0],point1[1]=int(point1[0]),int(point1[1])
         point2[0],point2[1]=int(point2[0]),int(point2[1])
-#        point1[1]=int(point1[1])
-#        point2[0]=int(point2[0])
-#        point2[1]=int(point2[1])
 	point1=tuple(point1)
 	point2=tuple(point2)
-#	print("networkx.path.shortest_path: %s" %
-#			networkx.path.shortest_path(self.G,point1,point2))
         return networkx.path.shortest_path(self.G,point1,point2)
 
     def get_connected(self):
-#	print "connected components:"
-#	i=0
-#	j=0
-#	for comp in networkx.component.connected_components(self.G):
-##            print i, len(comp), comp
-#            print("(%s,%s)" % (i, len(comp))), #comp
-#	    j+=len(comp)
-#	    i+=1
-#	print "total number of components: %d" % j
 	return networkx.component.connected_components(self.G)[0]
+
 
 #
 # Most of these are from the original mungeutils.py (now rolled into
@@ -1412,35 +1226,6 @@ def decimal2(field):
     '''Normalize all decimal data to the same precision.'''
     decimal_places=10**6
     return Decimal(field)/decimal_places
-
-# Since I started this project, Python has added module decimal to the
-# standard library.  I don't yet understand it enough to like it, but I need
-# it.  [ http://www.python.org/doc/2.4.4/whatsnew/node9.html ]
-#
-# Converting from floating-point numbers poses a bit of a problem: should the
-# FP number representing 1.1 turn into the decimal number for exactly 1.1, or
-# for 1.1 plus whatever inaccuracies are introduced? The decision was to dodge
-# the issue and leave such a conversion out of the API. Instead, you should
-# convert the floating-point number into a string using the desired precision
-# and pass the string to the Decimal constructor:
-#
-#>>> f = 1.1
-#>>> decimal.Decimal(str(f))
-#Decimal("1.1")
-#>>> decimal.Decimal('%.12f' % f)
-#Decimal("1.100000000000")
-#
-#def decimal2(field):
-#    if not type(field)==type(float):
-#        print 'float required'
-#	sys.exit(0)
-#    else:
-#        print '[DEBUG] got a float'
-#
-#    decimal_places=6
-#    # magic number -----------\/
-#    print decimal.Decimal('%.6f' % (field))
-##    return decimal.Decimal('%.6f' % (field))
 
 def field(n,wrap=False):
     '''Clean certain data for safe insertion to database.'''

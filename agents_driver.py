@@ -10,7 +10,7 @@ from agents.taxi import Taxi
 from agents.agent import Agent
 
 # TEST
-import agents.tigerutils
+#import agents.tigerutils
 
 config=ConfigParser.SafeConfigParser()
 config.read(os.path.join('agents','conf','agents','defaults.ini'))

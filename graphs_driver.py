@@ -46,21 +46,9 @@ def run():
     print 'The end query.get_point() is',gp2
     frlong,frlat,end_tolong,end_tolat=gp2[2:] # skip id and tlid
 
-#    for dat in gp:
-#        print dat, #float(dat)
-
-#    print 'The query.tuptotup() is',query.tuptotup()
-#    tup=query.tuptotup(gp)
-#    print 'The query.tuptotup() is',tup
-
     # [TODO] plot the chosen area
     mg=tigerutils.MakeGraph()
     mg.makeGraph()
-    #mg.makeGraphFromTLID()
-#    frlong.lstrip('+')
-#    frlat.lstrip('+')
-#    tolong.lstrip('+')
-#    tolat.lstrip('+')
 
     # This is not useful.  These two points are adjacent to one another.
     #
