@@ -208,20 +208,20 @@ Parameter connected specifies whether this vertex should come from the first
 and largest list of nodes.  This is important for the simulation to function
 properly, since Agents located on unconnected vertices are unreachable.
 '''
+        tmp=self.query.get_point()
         if connected is True:
             connected_vertices=self.mkgraph.get_connected()
-            tmp=self.query.get_point()
 	    # I'm not sure what's going on here ...
 	    fr=(int(tmp[2]),int(tmp[3]))
 	    while fr not in connected_vertices:
                 tmp=self.query.get_point()
 		# ... and here
 	        fr=(int(tmp[2]),int(tmp[3]))
-
-        # tmp[0:2] are id and tlid that the Agents don't need
-	# tmp[2:4] are (frlong,frlat)
-	# tmp[4:6] are (tolong,tolat) which are not needed here
-	fr=(tmp[2:4])
+        else:
+            # tmp[0:2] are id and tlid that the Agents don't need
+	    # tmp[2:4] are (frlong,frlat)
+	    # tmp[4:6] are (tolong,tolat) which are not needed here
+	    fr=(tmp[2:4])
         return fr
 
 

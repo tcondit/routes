@@ -1032,6 +1032,8 @@ entire county.'''
 	    # add keys and values to the dict for selection
 	    if zipCount<10:
                 zipStr='0'+str(zipCount)
+            else:
+                zipStr=str(zipCount)
 	    zipDict[zipStr]=zip[0]
 
         # the data is in zipList; present it to the user
@@ -1039,8 +1041,8 @@ entire county.'''
 	print 'or (01 None) to use the whole county: '
 	for number, zip in zipList:
             print '%02d %s' % (number, zip)
-	self.u=UserInput()
 
+	self.u=UserInput()
 	while True:
             userIn=self.u.getDigit(2,2,"Zip code: ")
 	    if userIn in zipDict:
@@ -1052,7 +1054,9 @@ entire county.'''
                     G.zipCode=zipDict[userIn]
 		return G.zipCode # gotta return, why not return something? :)
 	    else:
-                print "DEBUG %d not in zipDict?" % userIn
+                # this is an error; exception thrown if we get here
+                print zipDict
+                print "DEBUG %d not in zipDict?" % zipDict[userIn]
 
     # TODO I'd like to collapse __rpZip() and __rpAll() and any others into a
     # single method that takes variable arguments.  The problem I'm running
