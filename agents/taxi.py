@@ -207,8 +207,8 @@ Contrast with the cooperate() method.
 		    # Taxi and Fare are at the same vertex!  drive_dist is 0!
 		    drive_dist=0
 		else:
-		    print('%.4f DEBUG: %s calling get_distance [1]' % (now(),
-			    self.name))
+#		    print('%.4f DEBUG: %s calling get_distance [1]' % (now(),
+#			    self.name))
 		    drive_dist=self.map.get_distance(self.loc['dest'], self.loc['curr'])
 
 		# This cannot happen.  I need to figure out how to remove
@@ -260,8 +260,8 @@ Contrast with the cooperate() method.
 		    print("%.4f\t%s picked up %s" % (now(), self.name,
 			    self.got[0].name))
 		    self.loc['dest']=targetFare.loc['dest']
-		    print('%.4f DEBUG: %s calling get_distance [2]' % (now(),
-			    self.name))
+#		    print('%.4f DEBUG: %s calling get_distance [2]' % (now(),
+#			    self.name))
 		    if self.loc['dest']==self.loc['curr']:
 			# TODO WTF!  Fare's destination is the same as it's
 			# current location???  I need to make sure they are
@@ -503,8 +503,9 @@ queue, and all others have to renege out.
             if TAXI_RANGE_MID < f_time_ratio <= TAXI_RANGE_HI:
                 broadcastRange = 'GLOBAL'
                 if VERBOSE: __printFareDetails(TAXI_RANGE_HI)
-		print(".. %s pushing %s (score %.4f) onto list" % (self.name,
-			fare.name, score))
+#		print(".. %s pushing %s (score %.4f) onto list" % (self.name,
+		print("%.4f %s pushing %s (score %.4f) onto list" % (now(),
+			self.name, fare.name, score))
                 tmp.append((fare, score))
 
             # Has the Fare been in the queue long enough to be a Regional?
@@ -518,8 +519,9 @@ queue, and all others have to renege out.
                 # (TAXI_RANGE_MID * GRID_MAX), then broadcast is received by
                 # Taxi, and Fare gets added to the queue.
                 if d <= (TAXI_RANGE_MID * GRID_MAX):
-		    print(".. %s pushing %s (score %.4f) onto list" %
-				    (self.name, fare.name, score))
+#		    print(".. %s pushing %s (score %.4f) onto list" %
+		    print("%.4f %s pushing %s (score %.4f) onto list" %
+				    (now(), self.name, fare.name, score))
 #		    print(".. Pushing (%s, score %.4f) onto list" %
 #				    (fare.name, score))
                     tmp.append((fare, score))
@@ -542,8 +544,9 @@ queue, and all others have to renege out.
                 if VERBOSE: __printFareDetails(TAXI_RANGE_LOW)
                 # The Fare has only been in the queue long enough to be a Local
                 if d <= (TAXI_RANGE_LOW  * GRID_MAX):
-		    print(".. %s pushing %s (score %.4f) onto list" %
-				    (self.name, fare.name, score))
+#		    print(".. %s pushing %s (score %.4f) onto list" %
+		    print("%.4f %s pushing %s (score %.4f) onto list" %
+				    (now(), self.name, fare.name, score))
 #		    print(".. Pushing (%s, score %.4f) onto list" %
 #				    (fare.name, score))
                     tmp.append((fare, score))
@@ -687,8 +690,9 @@ negotiation protocols.
         if TAXI_RANGE_MID < f_time_ratio <= TAXI_RANGE_HI:
             broadcastRange = 'GLOBAL'
             if VERBOSE: __printFareDetails(TAXI_RANGE_HI)
-	    print(".. %s pushing %s (score %.4f) onto list" % (self.name,
-		    fare.name, score))
+#	    print(".. %s pushing %s (score %.4f) onto list" % (self.name,
+	    print("%.4f %s pushing %s (score %.4f) onto list" % (now(),
+		    self.name, fare.name, score))
 #	    print(".. Pushing (%s, score %.4f) onto list" % (fare.name,
 #		    score))
             tmp.append((fare, score))
@@ -704,8 +708,9 @@ negotiation protocols.
             # (TAXI_RANGE_MID * GRID_MAX), then broadcast is received by Taxi,
             # and Fare gets added to the queue.
             if d <= (TAXI_RANGE_MID * GRID_MAX):
-		print(".. %s pushing %s (score %.4f) onto list" % (self.name,
-			fare.name, score))
+#		print(".. %s pushing %s (score %.4f) onto list" % (self.name,
+		print("%.4f %s pushing %s (score %.4f) onto list" % (now(),
+			self.name, fare.name, score))
 #		print(".. Pushing (%s, score %.4f) onto list" % (fare.name,
 #			score))
                 tmp.append((fare, score))
@@ -728,8 +733,9 @@ negotiation protocols.
             if VERBOSE: __printFareDetails(TAXI_RANGE_LOW)
             # The Fare has only been in the queue long enough to be a Local
             if d <= (TAXI_RANGE_LOW  * GRID_MAX):
-		print(".. %s pushing %s (score %.4f) onto list" % (self.name,
-			fare.name, score))
+#		print(".. %s pushing %s (score %.4f) onto list" % (self.name,
+		print("%.4f %s pushing %s (score %.4f) onto list" % (now(),
+			self.name, fare.name, score))
 #		print(".. Pushing (%s, score %.4f) onto list" % (fare.name,
 #			score))
                 tmp.append((fare, score))
