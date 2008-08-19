@@ -31,6 +31,8 @@ if TRACING:
 else:
     from SimPy.Simulation import *
 
+mon = Monitor('All fares wait time')
+
 def printHeader(verbose=False):
     # This function prints all the configuration data for this specific
     # simulation run.  Useful for ensuring we're comparing apples to apples.
@@ -94,6 +96,8 @@ def model():
 
     ff = FareFactory()
     activate(ff, ff.generate())
+#    fare = ff.generate()
+#    activate(ff, fare)
 #    activate(ff, ff.generate(), datacollector=)
     simulate(until=SIMTIME)
     print 'waitingFares', [x.name for x in Agent.waitingFares.theBuffer]
@@ -146,17 +150,19 @@ def reportstats():
     print '  * stdDeviation: Not part of SimPy.Monitor, but easy to',
     print "calculate.  It's the square root of the variance."
     print 'Fare.waitMon.timeAverage:', Fare.waitMon.timeAverage()
-    #print 'Fare.waitMon.:', Fare.waitMon
-#    Fare.waitMon.var()
 
 def oooh_shiny():
     # TODO [hipri] Add this into the main proggy.  Use config switch 'useGUI'
     # to decide whether to use SimPlot/plotHistogram, or just printHistogram.
     # There is no reason to leave that important data out, even though I don't
     # always want to incur the cost/hassle of producing a GUI.
+    histoWidth=10
     if USE_GUI:
         from SimPy.SimPlot import SimPlot
-        histo = Fare.waitMon.histogram(low=0.0, high=SIMTIME, nbins=20)
+	# Include enough bins to make each bar 'histoWidth' time units wide.
+	histo = Fare.waitMon.histogram(low=0.0, high=SIMTIME,
+			nbins=SIMTIME/histoWidth)
+        #histo = Fare.waitMon.histogram(low=0.0, high=SIMTIME, nbins=20)
         plt = SimPlot()
         plt.plotHistogram(histo, xlab='Time', ylab='Number of waiting Fares',
                 title='Time waiting for Taxi', color='red', width=2)
@@ -167,11 +173,13 @@ def oooh_shiny():
         #        ylab='Number of waiting Fares', \
         #        title='Time waiting for Taxi', color='red', width=2)
 #        Fare.waitMon.printHistogram(histo)
-        Fare.waitMon.setHistogram(low=0.0, high=SIMTIME, nbins=20)
+        #Fare.waitMon.setHistogram(low=0.0, high=SIMTIME, nbins=20)
+	Fare.waitMon.setHistogram(low=0.0, high=SIMTIME,
+			nbins=SIMTIME/histoWidth)
         print Fare.waitMon.printHistogram(fmt='%6.4f')
 
 if __name__ == '__main__':
     printHeader()
     model()
-#    reportstats()
-#    oooh_shiny()
+    reportstats()
+    oooh_shiny()
