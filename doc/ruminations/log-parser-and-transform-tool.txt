@@ -1,0 +1,3 @@
+I've got a big problem with my agents data.  It's not in a analysis-friendly
+format.  It's all log files.  The logs are great, but they are chronologically
+linear, meaning they are based on events in the order in which they occur.
