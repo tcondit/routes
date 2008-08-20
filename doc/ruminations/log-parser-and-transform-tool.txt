@@ -1,3 +1,38 @@
 I've got a big problem with my agents data.  It's not in a analysis-friendly
 format.  It's all log files.  The logs are great, but they are chronologically
 linear, meaning they are based on events in the order in which they occur.
+
+(later that day...)
+
+So this is nonsense.  I've got (almost) everything I need for collecting time
+data about the Fares right in the Fare class.  The only thing that would be
+tough to get is data about which Taxis are competing for a specific Fare in
+the compete simulations.
+
+Collecting data about the Taxis is another matter.  I'm going to have to do
+some work to get that, but it shouldn't be too bad, just different.  The Taxis
+can tell me who they are competing for in a given simulation and I can
+cross-reference it against the Fare data to get the missing piece for the
+Fares.
+
+[By the way: I *loathe* the term "cross-reference" and don't think I've ever
+had reason to use it before today.]
+
+
+Fares: see self.ts['this-n-that'] in class Fare
+
+Taxis: What kind of data do I want?  Is it different depending on whether it's
+  a cooperate or compete sim?  Should the Taxis in the cooperate sims
+  acknowledge the Fare request?  Some of the things that would be good to
+  collect are:
+    * Is this a local, regional or global broadcast?
+    * Am I competing for a Fare?  Who else is competing for the same Fare?
+    * If I am competing for a Fare, did I get it?  What percentage of the
+      Fares that I competed for did I get?  (These values should (?) add to
+      100%.)
+    * What is my origin?  How far have I driven?
+    * How much of my driving is productive?  This only makes sense in a
+      competitive sim.  The ratio is (distance driven to Fare and to Fare's
+      destination) divided by (total distance driven).  This gets at the
+      question of how much driving was wasted because another Taxi got the
+      Fare.
