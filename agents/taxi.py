@@ -510,9 +510,9 @@ queue, and all others have to renege out.
             if TAXI_RANGE_MID < f_time_ratio <= TAXI_RANGE_HI:
                 broadcastRange = 'GLOBAL'
                 if VERBOSE: __printFareDetails(TAXI_RANGE_HI)
-#		print(".. %s pushing %s (score %.4f) onto list" % (self.name,
-		print("%.4f %s pushing %s (score %.4f) onto list" % (now(),
-			self.name, fare.name, score))
+		# NB: Taxi names are not available inside this function
+		print("%.4f pushing (%s, score %.4f) onto list" % (now(),
+			fare.name, score))
                 tmp.append((fare, score))
 
             # Has the Fare been in the queue long enough to be a Regional?
@@ -526,11 +526,9 @@ queue, and all others have to renege out.
                 # (TAXI_RANGE_MID * GRID_MAX), then broadcast is received by
                 # Taxi, and Fare gets added to the queue.
                 if d <= (TAXI_RANGE_MID * GRID_MAX):
-#		    print(".. %s pushing %s (score %.4f) onto list" %
-		    print("%.4f %s pushing %s (score %.4f) onto list" %
-				    (now(), self.name, fare.name, score))
-#		    print(".. Pushing (%s, score %.4f) onto list" %
-#				    (fare.name, score))
+		    # NB: Taxi names are not available inside this function
+		    print("%.4f pushing (%s, score %.4f) onto list" % (now(),
+			    fare.name, score))
                     tmp.append((fare, score))
                 else:
                     # Fare's been around long enough for it's broadcast to be
@@ -551,11 +549,9 @@ queue, and all others have to renege out.
                 if VERBOSE: __printFareDetails(TAXI_RANGE_LOW)
                 # The Fare has only been in the queue long enough to be a Local
                 if d <= (TAXI_RANGE_LOW  * GRID_MAX):
-#		    print(".. %s pushing %s (score %.4f) onto list" %
-		    print("%.4f %s pushing %s (score %.4f) onto list" %
-				    (now(), self.name, fare.name, score))
-#		    print(".. Pushing (%s, score %.4f) onto list" %
-#				    (fare.name, score))
+		    # NB: Taxi names are not available inside this function
+		    print("%.4f pushing (%s, score %.4f) onto list" % (now(),
+			    fare.name, score))
                     tmp.append((fare, score))
                 else:
                     # Local broadcast, but this Taxi is not in range.  Break
@@ -697,11 +693,9 @@ negotiation protocols.
         if TAXI_RANGE_MID < f_time_ratio <= TAXI_RANGE_HI:
             broadcastRange = 'GLOBAL'
             if VERBOSE: __printFareDetails(TAXI_RANGE_HI)
-#	    print(".. %s pushing %s (score %.4f) onto list" % (self.name,
-	    print("%.4f %s pushing %s (score %.4f) onto list" % (now(),
-		    self.name, fare.name, score))
-#	    print(".. Pushing (%s, score %.4f) onto list" % (fare.name,
-#		    score))
+            # NB: Taxi names are not available inside this function
+	    print("%.4f pushing (%s, score %.4f) onto list" % (now(),
+		    fare.name, score))
             tmp.append((fare, score))
 
         # Has the Fare been in the queue long enough to be a Regional?
@@ -715,11 +709,9 @@ negotiation protocols.
             # (TAXI_RANGE_MID * GRID_MAX), then broadcast is received by Taxi,
             # and Fare gets added to the queue.
             if d <= (TAXI_RANGE_MID * GRID_MAX):
-#		print(".. %s pushing %s (score %.4f) onto list" % (self.name,
-		print("%.4f %s pushing %s (score %.4f) onto list" % (now(),
-			self.name, fare.name, score))
-#		print(".. Pushing (%s, score %.4f) onto list" % (fare.name,
-#			score))
+                # NB: Taxi names are not available inside this function
+		print("%.4f pushing (%s, score %.4f) onto list" % (now(),
+			fare.name, score))
                 tmp.append((fare, score))
             else:
                 # Fare's been around long enough for it's broadcast to be
@@ -740,11 +732,9 @@ negotiation protocols.
             if VERBOSE: __printFareDetails(TAXI_RANGE_LOW)
             # The Fare has only been in the queue long enough to be a Local
             if d <= (TAXI_RANGE_LOW  * GRID_MAX):
-#		print(".. %s pushing %s (score %.4f) onto list" % (self.name,
-		print("%.4f %s pushing %s (score %.4f) onto list" % (now(),
-			self.name, fare.name, score))
-#		print(".. Pushing (%s, score %.4f) onto list" % (fare.name,
-#			score))
+                # NB: Taxi names are not available inside this function
+		print("%.4f pushing (%s, score %.4f) onto list" % (now(),
+			fare.name, score))
                 tmp.append((fare, score))
             else:
                 # Local broadcast, but this Taxi is not in range.  Break out
