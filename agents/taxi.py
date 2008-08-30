@@ -60,8 +60,8 @@ Contrast with the compete() method.
             if len(Agent.waitingFares.theBuffer) > 0:
                 if DEBUG:
                     print
-		    print("%.4f %s is looking for an eligible Fare:" %
-				    self.name)
+		    print("%.4f %s is looking for an eligible Fare:" % (now(),
+			    self.name))
 		    print(".. waitingFares (pre) ", [x.name for x in
 			    Agent.waitingFares.theBuffer])
                 taxi_loc = self.loc['curr']
@@ -80,10 +80,10 @@ Contrast with the compete() method.
                     print(".. waitingFares (post)", [x.name for x in
 			    Agent.waitingFares.theBuffer])
                     assert len(self.got) == 1
-		print("%.4f\t%s chose " % (now(), self.name), [x.name for x
-			in self.got])
-
+                # self.got is a list but we restrict it to a single element
+                # representing the Fare object that was selected by this Taxi
                 fareBeingDriven=self.got[0]
+                print("%.4f\t%s chose %s" % (now(), self.name, fareBeingDriven.name))
 
                 # Drive to Fare
                 drive_dist=self.map.get_distance(fareBeingDriven.loc['curr'], taxi_loc)
@@ -101,6 +101,13 @@ Contrast with the compete() method.
 
                 # Drive to Fare's destination
                 drive_dist=self.map.get_distance(self.loc['dest'], self.loc['curr'])
+
+		# (minor hack) Collect the expected arrival time so that it
+		# can be reported accurately even if the simulation ends
+		# before arrival.
+                dropoffTime=now()+drive_dist
+		print "%s dropoffTime for %s: %.4f" % (self.name,
+				fareBeingDriven.name, dropoffTime)
 
                 if DEBUG:
 		    print("%.4f\t%s driving to %s's destination" % (now(),
