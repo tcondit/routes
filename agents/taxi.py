@@ -41,7 +41,7 @@ class Taxi(Agent):
     def __init__(self, name, np): # negotiation protocol
         Agent.__init__(self, name)
         self.np=np
-	self.lostFares=[]
+        self.lostFares=[]
 
     def cooperate(self):
         '''
@@ -54,16 +54,16 @@ removing it from the queue of waiting Fares just before yield'ing for the ride
 to the Fare.
 
 Contrast with the compete() method.
-        '''
+'''
         global taxi_loc
         while True:
             if len(Agent.waitingFares.theBuffer) > 0:
                 if DEBUG:
                     print
-		    print("%.4f %s is looking for an eligible Fare:" % (now(),
-			    self.name))
-		    print(".. waitingFares (pre) ", [x.name for x in
-			    Agent.waitingFares.theBuffer])
+                    print("%.4f %s is looking for an eligible Fare:" % (now(),
+                        self.name))
+                    print(".. waitingFares (pre) ", [x.name for x in
+                        Agent.waitingFares.theBuffer])
                 taxi_loc = self.loc['curr']
 
                 # Choose a Fare
@@ -78,40 +78,43 @@ Contrast with the compete() method.
                     print "Something broke in the negotiation protocol!"
                 if DEBUG:
                     print(".. waitingFares (post)", [x.name for x in
-			    Agent.waitingFares.theBuffer])
+                        Agent.waitingFares.theBuffer])
                     assert len(self.got) == 1
                 # self.got is a list but we restrict it to a single element
                 # representing the Fare object that was selected by this Taxi
                 fareBeingDriven=self.got[0]
-                print("%.4f\t%s chose %s" % (now(), self.name, fareBeingDriven.name))
+                print("%.4f\t%s chose %s" % (now(), self.name,
+                    fareBeingDriven.name))
 
                 # Drive to Fare
-                drive_dist=self.map.get_distance(fareBeingDriven.loc['curr'], taxi_loc)
+                drive_dist=self.map.get_distance(fareBeingDriven.loc['curr'],
+                    taxi_loc)
 
                 if DEBUG:
-		    print("%.4f\t%s driving to %s" % (now(), self.name,
-			    fareBeingDriven.name))
+                    print("%.4f\t%s driving to %s" % (now(), self.name,
+                        fareBeingDriven.name))
                 yield hold, self, drive_dist
 
                 # Pick up Fare
                 self.loc=fareBeingDriven.loc     # tuple
                 if DEBUG:
-		    print("%.4f\t%s arrives to pick up %s" % (now(),
-			    self.name, fareBeingDriven.name))
+                    print("%.4f\t%s arrives to pick up %s" % (now(),
+                        self.name, fareBeingDriven.name))
 
                 # Drive to Fare's destination
-                drive_dist=self.map.get_distance(self.loc['dest'], self.loc['curr'])
+                drive_dist=self.map.get_distance(self.loc['dest'],
+                    self.loc['curr'])
 
-		# (minor hack) Collect the expected arrival time so that it
-		# can be reported accurately even if the simulation ends
-		# before arrival.
+                # (minor hack) Collect the expected arrival time so that it
+                # can be reported accurately even if the simulation ends
+                # before arrival.
                 dropoffTime=now()+drive_dist
-		print "%s dropoffTime for %s: %.4f" % (self.name,
-				fareBeingDriven.name, dropoffTime)
+                print "%s dropoffTime for %s: %.4f" % (self.name,
+                    fareBeingDriven.name, dropoffTime)
 
                 if DEBUG:
-		    print("%.4f\t%s driving to %s's destination" % (now(),
-			    self.name, fareBeingDriven.name))
+                    print("%.4f\t%s driving to %s's destination" % (now(),
+                        self.name, fareBeingDriven.name))
                 yield hold, self, drive_dist
 
                 # Drop off Fare
@@ -119,12 +122,12 @@ Contrast with the compete() method.
                 self.loc['dest'] = ()
 
                 if DEBUG:
-		    print("%.4f\t%s dropping off %s" % (now(), self.name,
-			    fareBeingDriven.name))
+                    print("%.4f\t%s dropping off %s" % (now(), self.name,
+                        fareBeingDriven.name))
                 fareBeingDriven.doneSignal.signal(self.name)
             else:
-		print("%.4f\tINFO: %s: There are no eligible Fares for this Taxi." %
-				(now(), self.name))
+                print("%.4f\tINFO: %s: There are no eligible Fares for this Taxi." %
+                    (now(), self.name))
 
                 # Throttle back the flood of messages.
                 #
@@ -163,7 +166,7 @@ them up, latecomers should have a shot at them too.  If they are closer, they
 may get the Fare, even though others are already competing for that Fare.
 
 Contrast with the cooperate() method.
-        '''
+'''
 
         global taxi_loc	# maybe I should use class G
 
@@ -181,8 +184,8 @@ Contrast with the cooperate() method.
                     targetFare=self.closestfare_compete()
                     if DEBUG:
                         assert(numAgents==len(Agent.waitingFares.theBuffer))
-			print("%s targetFare closestfare %s" % (self.name,
-				targetFare.name))
+                        print("%s targetFare closestfare %s" % (self.name,
+                            targetFare.name))
                 elif self.np=='mixedmode':
                     numAgents=len(Agent.waitingFares.theBuffer)
                     targetFare=self.mixedmode_compete()
@@ -190,18 +193,18 @@ Contrast with the cooperate() method.
                         assert(numAgents==len(Agent.waitingFares.theBuffer))
                     if targetFare:
                         if DEBUG:
-			    print("%s targetFare closestfare %s" % (self.name,
-				    targetFare.name))
+                            print("%s targetFare closestfare %s" % (self.name,
+                                targetFare.name))
                     else:
                         # Not a lot I can do here, since I don't have a Fare
                         # to compete for.  I should never get here, so this
                         # should be an Error.  For now I'll just throttle back
                         # the flood of messages and move on.
                         print("%.4f\tINFO: There are no eligible Fares for %s" %
-					(now(), self.name))
+                            (now(), self.name))
                         yield hold, self, 2
                         continue
-		# End choose a Fare
+                # End choose a Fare
 
                 if DEBUG:
                     assert(self.loc['curr']==my_curr_pre)
@@ -211,103 +214,105 @@ Contrast with the cooperate() method.
                 self.loc['dest']=targetFare.loc['curr']
 
                 if self.loc['curr']==targetFare.loc['curr']:
-		    # Taxi and Fare are at the same vertex!  drive_dist is 0!
-		    drive_dist=0
-		else:
-#		    print('%.4f DEBUG: %s calling get_distance [1]' % (now(),
-#			    self.name))
-		    drive_dist=self.map.get_distance(self.loc['dest'], self.loc['curr'])
+                    # Taxi and Fare are at the same vertex!  drive_dist is 0!
+                    drive_dist=0
+                else:
+#                    print('%.4f DEBUG: %s calling get_distance [1]' % (now(),
+#                        self.name))
+                    drive_dist=self.map.get_distance(self.loc['dest'],
+                        self.loc['curr'])
 
-		# This cannot happen.  I need to figure out how to remove
-		# these Graph dead spots before they are added to the
-		# database.
-		if drive_dist is None: # no path from curr to dest
-		    print("INFO: no path from %s to %s" % (self.name,
-			    targetFare.name))
-		    print("%.4f\t%s is back in service" % (now(), self.name))
-		    self.loc['curr']=targetFare.loc['dest']
-		    self.loc['dest']=()
-		    continue
+                # This cannot happen.  I need to figure out how to remove
+                # these Graph dead spots before they are added to the
+                # database.
+                if drive_dist is None: # no path from curr to dest
+                    print("INFO: no path from %s to %s" % (self.name,
+                        targetFare.name))
+                    print("%.4f\t%s is back in service" % (now(), self.name))
+                    self.loc['curr']=targetFare.loc['dest']
+                    self.loc['dest']=()
+                    continue
 
                 # Drive to Fare, try to get there first
-		print("%.4f\t%s competing for %s (drive time %s)" %
-				(now(), self.name, targetFare.name, drive_dist))
+                print("%.4f\t%s competing for %s (drive time %s)" % (now(),
+                    self.name, targetFare.name, drive_dist))
                 yield hold, self, drive_dist
 
-		print("%.4f\t%s arrives at %s's location (drive time %.4f)" %
-				(now(), self.name, targetFare.name, drive_dist))
+                print("%.4f\t%s arrives at %s's location (drive time %.4f)" %
+                    (now(), self.name, targetFare.name, drive_dist))
 
-		# Taxi has now driven to the Fare's pickup location.  Update
-		# its location to that of the Fare its competing for.  If Fare
-		# is still here, self.loc['dest'] is accurate.  Otherwise,
-		# need to reset it after querying the filter function for its
-		# new Fare.  Set the global taxi_loc so we can use this value
-		# in fare_is_here().
+                # Taxi has now driven to the Fare's pickup location.  Update
+                # its location to that of the Fare its competing for.  If Fare
+                # is still here, self.loc['dest'] is accurate.  Otherwise,
+                # need to reset it after querying the filter function for its
+                # new Fare.  Set the global taxi_loc so we can use this value
+                # in fare_is_here().
                 self.loc['curr']=taxi_loc=targetFare.loc['curr']
-		self.loc['dest']=()
+                self.loc['dest']=()
 
                 # TEMP DEBUG
-		print("%.4f\t%s trying to get %s" % (now(), self.name,
-			targetFare.name))
+                print("%.4f\t%s trying to get %s" % (now(), self.name,
+                    targetFare.name))
 
-		# HACK HACK - choose a random small float wait time for
-		# reneging.  This is a bit of a hack to get around the fact
-		# that ...
-		yield_time=random.random()/100
+                # HACK HACK - choose a random small float wait time for
+                # reneging.  This is a bit of a hack to get around the fact
+                # that ...
+                yield_time=random.random()/100
                 yield (get, self, Agent.waitingFares, fare_is_here), (hold, self, yield_time)
 
-		# HACK HACK - "absorb" the renege (if it occurs) from the
-		# yield above.  The idea is to yield for some semi-random time
-		# longer than the length of that yield, to ensure that the
-		# renege time has elapsed.
-		yield hold, self, yield_time+random.random()/100
+                # HACK HACK - "absorb" the renege (if it occurs) from the
+                # yield above.  The idea is to yield for some semi-random time
+                # longer than the length of that yield, to ensure that the
+                # renege time has elapsed.
+                yield hold, self, yield_time+random.random()/100
 
                 # Got the Fare
-		if len(self.got)>0:
-		    print("%.4f\t%s picked up %s" % (now(), self.name,
-			    self.got[0].name))
-		    self.loc['dest']=targetFare.loc['dest']
-#		    print('%.4f DEBUG: %s calling get_distance [2]' % (now(),
-#			    self.name))
-		    if self.loc['dest']==self.loc['curr']:
-			# TODO WTF!  Fare's destination is the same as it's
-			# current location???  I need to make sure they are
-			# not the same (this also could happen, but probably
-			# wouldn't ... and in any event, I won't let it
-			# happen).  This will do in the meantime.
-		        drive_dist=0
+                if len(self.got)>0:
+                    print("%.4f\t%s picked up %s" % (now(), self.name,
+                        self.got[0].name))
+                    self.loc['dest']=targetFare.loc['dest']
+#                   print('%.4f DEBUG: %s calling get_distance [2]' % (now(),
+#                       self.name))
+                    if self.loc['dest']==self.loc['curr']:
+                        # TODO WTF!  Fare's destination is the same as it's
+                        # current location???  I need to make sure they are
+                        # not the same (this also could happen, but probably
+                        # wouldn't ... and in any event, I won't let it
+                        # happen).  This will do in the meantime.
+                        drive_dist=0
                     else:
-                        drive_dist=self.map.get_distance(self.loc['dest'], self.loc['curr'])
-		    if drive_dist is None: # no path from curr to dest
-			print("INFO: no path from %s to %s" % (self.name,
-				self.got[0].name))
-		        print("%.4f\t%s is back in service" % (now(), self.name))
-#		        self.loc['curr']=self.got[0].loc['dest']
-#		        self.loc['dest']=()
-			continue
+                        drive_dist=self.map.get_distance(self.loc['dest'],
+                            self.loc['curr'])
+                    if drive_dist is None: # no path from curr to dest
+                        print("INFO: no path from %s to %s" % (self.name,
+                            self.got[0].name))
+                        print("%.4f\t%s is back in service" % (now(), self.name))
+#                       self.loc['curr']=self.got[0].loc['dest']
+#                       self.loc['dest']=()
+                        continue
 
                     # Drive to Fare's destination, then continue
-		    print("%.4f\t%s driving to %s's destination (drive time %.4f)" %
-				    (now(), self.name, targetFare.name, drive_dist))
+                    print("%.4f\t%s driving to %s's destination (drive time %.4f)" %
+                        (now(), self.name, targetFare.name, drive_dist))
                     yield hold, self, drive_dist
 
                     # BUGBUG this was missing from compete() !!
                     targetFare.doneSignal.signal(self.name)
 
-		    print("%.4f\t%s is back in service" % (now(), self.name))
-		    self.loc['curr']=targetFare.loc['dest']
-		    self.loc['dest']=()
-		    continue
+                    print("%.4f\t%s is back in service" % (now(), self.name))
+                    self.loc['curr']=targetFare.loc['dest']
+                    self.loc['dest']=()
+                    continue
 
                 # Too late, Fare already picked up
-		else:
-		    print("%.4f\t%s lost %s" % (now(), self.name, targetFare.name))
-		    print("%.4f\t%s back in service" % (now(), self.name))
-		    self.loc['dest']=()
+                else:
+                    print("%.4f\t%s lost %s" % (now(), self.name, targetFare.name))
+                    print("%.4f\t%s back in service" % (now(), self.name))
+                    self.loc['dest']=()
 
             else:
-		print("%.4f\tINFO: There are no eligible Fares for %s" %
-				(now(), self.name))
+                print("%.4f\tINFO: There are no eligible Fares for %s" %
+                    (now(), self.name))
                 # Throttle back the flood of messages.
                 #
                 # NOTE: I'm using a simple 'yield hold <small-number>' here
@@ -329,7 +334,7 @@ NOTE: The Fare is returned as a single-element list, because that (a list) is
 what SimPy's yield is expecting.  This is a filter function for the Store, and
 should not be called directly.  This is the second of the Taxi's three
 negotiation protocols.
-        '''
+'''
         tmp=[]
         if not not_a_magic_buffer:
             not_a_magic_buffer=Agent.waitingFares.theBuffer
@@ -344,32 +349,32 @@ negotiation protocols.
         for fare in not_a_magic_buffer:
 
             # DEBUG
-	    #
-	    # Try to figure out why graph get_distance() sometimes triggers a
-	    # TypeError.  It's here:
-	    #   for lon,lat in self.mkgraph.shortest_path(here,there):
+            #
+            # Try to figure out why graph get_distance() sometimes triggers a
+            # TypeError.  It's here:
+            #   for lon,lat in self.mkgraph.shortest_path(here,there):
             # TypeError: 'int' object is not iterable
-	    #
-	    # HEY!  Look what jumped out!  The Taxi and Fare current locations
-	    # are the same!  Zzzzzap!!!  Something's broken!  (And my note
-	    # about forgetting to reset a loc seems to be pointing in the
-	    # right direction.)
-	    #
+            #
+            # HEY!  Look what jumped out!  The Taxi and Fare current locations
+            # are the same!  Zzzzzap!!!  Something's broken!  (And my note
+            # about forgetting to reset a loc seems to be pointing in the
+            # right direction.)
+            #
             #((u'-149169424', u'64331706'), (u'-149169424', u'64331706'))
             #Too short?  Maybe I forgot to reset a loc?
-	    #
-#            print(self.name, self.loc['curr'], fare.name, fare.loc['curr'])
+            #
+#           print(self.name, self.loc['curr'], fare.name, fare.loc['curr'])
             if self.loc['curr']==fare.loc['curr']:
                 # Taxi and Fare are at the same vertex!  Short circuit the
-		# whole deal and just take the Fare.
-		print("Taxi and Fare are at the same vertex!")
-		return fare
+                # whole deal and just take the Fare.
+                print("Taxi and Fare are at the same vertex!")
+                return fare
             else:
                 d=self.map.get_distance(fare.loc['curr'], self.loc['curr'])
 
             if DEBUG:
-		print("Distance from %s to %s: %.4f" % (self.name, fare.name,
-			d))
+                print("Distance from %s to %s: %.4f" % (self.name, fare.name,
+                    d))
             tmp.append((fare, d))
         tmp2=sorted(tmp, key=itemgetter(1))
         result=map(itemgetter(0), tmp2)[0]
@@ -405,7 +410,7 @@ NOTE: This method is explicitly not a SimPy filter function.  It behaves
 similarly, but is used for competition only, which has different requirements,
 since only the first Taxi to reach the Fare may remove the Fare from the
 queue, and all others have to renege out.
-        '''
+'''
 
         def __printFareDetails(taxiRange):
             '''DOCSTRING'''
@@ -425,13 +430,13 @@ queue, and all others have to renege out.
                 print "    time in queue: %.4f" % TIQ
                 print "    distance from Taxi: %.4f" % d
                 print("    Taxi's range: %.2f (= TAXI_RANGE_XXX * GRID_MAX)" %
-				(taxiRange*GRID_MAX))
+                    (taxiRange*GRID_MAX))
                 print "    weight: %.4f\t(= SIMTIME - TIQ)" % weight
                 print "    score: %.4f\t(= weight + distance)" % score
             else:
                 print("  %.4f\t%s's broadcast stats: range: %s, time in queue: %.4f, Taxi's range: %.2f, distance from Taxi: %.4f, weight: %.4f, score: %.4f" %
-                        (now(), fare.name, broadcastRange, TIQ,
-				taxiRange*GRID_MAX, d, weight, score))
+                    (now(), fare.name, broadcastRange, TIQ,
+                    taxiRange*GRID_MAX, d, weight, score))
 
         # start of mixedmode_compete()
         tmp = []
@@ -445,16 +450,16 @@ queue, and all others have to renege out.
         for fare in not_a_magic_buffer:
             TIQ = (now() - fare.ts['mkreq'])
 
-	    # TODO This is broken in a familiar way.  If I recall correctly
-	    # (and you'd think I would, with all the headache this caused), it
-	    # means that the Taxi and the Fare are at the same location!
-	    # Whether this is a "happy coincidence", or whether another Taxi
-	    # got here first (something which was disproven in
-	    # closestfare_compete) is unclear so far.
-	    #
-	    # At any rate, it's easy to fix since I've fixed it in three
-	    # places in closestfare_compete already.
-	    #
+            # TODO This is broken in a familiar way.  If I recall correctly
+            # (and you'd think I would, with all the headache this caused), it
+            # means that the Taxi and the Fare are at the same location!
+            # Whether this is a "happy coincidence", or whether another Taxi
+            # got here first (something which was disproven in
+            # closestfare_compete) is unclear so far.
+            #
+            # At any rate, it's easy to fix since I've fixed it in three
+            # places in closestfare_compete already.
+            #
 #1090.8933       Taxi-3 is back in service
 #.. Pushing (Fare-33, score 2264.4608) onto list
 #.. Pushing (Fare-34, score 2272.4847) onto list
@@ -482,11 +487,11 @@ queue, and all others have to renege out.
 #    for lon,lat in self.mkgraph.shortest_path(here,there):
 #TypeError: 'int' object is not iterable
             #
-#	    if fare.loc['curr']==self.loc['curr']:
-#		print("Taxi and Fare are at the same vertex!")
-#		# (followed by a TypeError)
-#
-#            d = self.map.get_distance(fare.loc['curr'], self.loc['curr'])
+            #if fare.loc['curr']==self.loc['curr']:
+                #print("Taxi and Fare are at the same vertex!")
+                # (followed by a TypeError)
+            #
+            #d = self.map.get_distance(fare.loc['curr'], self.loc['curr'])
 
             if fare.loc['curr']==self.loc['curr']:
                 # Taxi and Fare are at the same vertex!  drive_dist is 0!
@@ -510,9 +515,9 @@ queue, and all others have to renege out.
             if TAXI_RANGE_MID < f_time_ratio <= TAXI_RANGE_HI:
                 broadcastRange = 'GLOBAL'
                 if VERBOSE: __printFareDetails(TAXI_RANGE_HI)
-		# NB: Taxi names are not available inside this function
-		print("%.4f pushing (%s, score %.4f) onto list" % (now(),
-			fare.name, score))
+                # NB: Taxi names are not available inside this function
+                print("%.4f pushing (%s, score %.4f) onto list" % (now(),
+                    fare.name, score))
                 tmp.append((fare, score))
 
             # Has the Fare been in the queue long enough to be a Regional?
@@ -526,9 +531,9 @@ queue, and all others have to renege out.
                 # (TAXI_RANGE_MID * GRID_MAX), then broadcast is received by
                 # Taxi, and Fare gets added to the queue.
                 if d <= (TAXI_RANGE_MID * GRID_MAX):
-		    # NB: Taxi names are not available inside this function
-		    print("%.4f pushing (%s, score %.4f) onto list" % (now(),
-			    fare.name, score))
+                # NB: Taxi names are not available inside this function
+                    print("%.4f pushing (%s, score %.4f) onto list" % (now(),
+                        fare.name, score))
                     tmp.append((fare, score))
                 else:
                     # Fare's been around long enough for it's broadcast to be
@@ -537,8 +542,8 @@ queue, and all others have to renege out.
                     if DEBUG:
                         print '  %s:' % fare.name,
                         print 'regional broadcast, but Fare is out of range:',
-			print("(distance) %.1f > (range) %.1f" % (d,
-				TAXI_RANGE_MID * GRID_MAX))
+                        print("(distance) %.1f > (range) %.1f" % (d,
+                            TAXI_RANGE_MID * GRID_MAX))
                     if (d < (TAXI_RANGE_LOW * GRID_MAX)):
                         print 'Regional broadcast is broken!'
                     continue
@@ -549,9 +554,9 @@ queue, and all others have to renege out.
                 if VERBOSE: __printFareDetails(TAXI_RANGE_LOW)
                 # The Fare has only been in the queue long enough to be a Local
                 if d <= (TAXI_RANGE_LOW  * GRID_MAX):
-		    # NB: Taxi names are not available inside this function
-		    print("%.4f pushing (%s, score %.4f) onto list" % (now(),
-			    fare.name, score))
+                    # NB: Taxi names are not available inside this function
+                    print("%.4f pushing (%s, score %.4f) onto list" % (now(),
+                        fare.name, score))
                     tmp.append((fare, score))
                 else:
                     # Local broadcast, but this Taxi is not in range.  Break
@@ -559,8 +564,8 @@ queue, and all others have to renege out.
                     if DEBUG:
                         print '  Fare %s:' % fare.name,
                         print 'local broadcast, but Fare is out of range:',
-			print("(distance) %.1f > (range) %.1f" % (d,
-				TAXI_RANGE_LOW * GRID_MAX))
+                        print("(distance) %.1f > (range) %.1f" % (d,
+                            TAXI_RANGE_LOW * GRID_MAX))
                     if (d < TAXI_RANGE_LOW * GRID_MAX):
                         print 'Local broadcast is broken!'
                     continue
@@ -572,8 +577,8 @@ queue, and all others have to renege out.
             if DEBUG:
                 print "%.4f\tINFO:" % now(),
                 print 'There are no eligible Fares for this Taxi.  Entering getQ...'
-#                print ("%.4f\tINFO: There are no eligible Fares for %s" %
-#				(now(), self.name))
+#               print ("%.4f\tINFO: There are no eligible Fares for %s" %
+#                   (now(), self.name))
             return
 
         tmp2 = sorted(tmp, key=itemgetter(1))
@@ -601,7 +606,7 @@ NOTE: The Fare is returned as a single-element list, because that (a list) is
 what SimPy's yield is expecting.  This is a filter function for the Store, and
 should not be called directly.  This is the second of the Taxi's three
 negotiation protocols.
-    '''
+'''
     tmp=[]
     if not len(Agent.waitingFares.theBuffer) > 0:
         print 'Buffer is empty!'
@@ -643,7 +648,7 @@ NOTE: The Fare is returned as a single-element list, because that's what
 SimPy's yield is expecting.  This is a filter function for the Store, and
 should not be called directly.  This is the third of the Taxi's three
 negotiation protocols.
-    '''
+'''
     def __printFareDetails(taxiRange):
         '''DOCSTRING'''
         PRETTY_PRINT = config.getboolean('runtime', 'prettyPrint')
@@ -660,14 +665,14 @@ negotiation protocols.
             print "    range: %s (based on Fare's time in queue)" % broadcastRange
             print "    time in queue: %.4f" % TIQ
             print "    distance from Taxi: %.4f" % d
-	    print("    Taxi's range: %.2f (= TAXI_RANGE_XXX * GRID_MAX)" %
-			    (taxiRange*GRID_MAX))
+            print("    Taxi's range: %.2f (= TAXI_RANGE_XXX * GRID_MAX)" %
+                (taxiRange*GRID_MAX))
             print "    weight: %.4f\t(= SIMTIME - TIQ)" % weight
             print "    score: %.4f\t(= weight + distance)" % score
         else:
             print("  %.4f\tFare %s broadcast stats: range: %s, time in queue: %.4f, Taxi's range: %.2f, distance from Taxi: %.4f, weight: %.4f, score: %.4f" %
-			    (now(), fare.name, broadcastRange, TIQ,
-				    taxiRange*GRID_MAX, d, weight, score))
+                (now(), fare.name, broadcastRange, TIQ, taxiRange*GRID_MAX,
+                d, weight, score))
 
     # start of mixedmode_cooperate()
     tmp = []
@@ -694,8 +699,8 @@ negotiation protocols.
             broadcastRange = 'GLOBAL'
             if VERBOSE: __printFareDetails(TAXI_RANGE_HI)
             # NB: Taxi names are not available inside this function
-	    print("%.4f pushing (%s, score %.4f) onto list" % (now(),
-		    fare.name, score))
+            print("%.4f pushing (%s, score %.4f) onto list" % (now(),
+                fare.name, score))
             tmp.append((fare, score))
 
         # Has the Fare been in the queue long enough to be a Regional?
@@ -710,8 +715,8 @@ negotiation protocols.
             # and Fare gets added to the queue.
             if d <= (TAXI_RANGE_MID * GRID_MAX):
                 # NB: Taxi names are not available inside this function
-		print("%.4f pushing (%s, score %.4f) onto list" % (now(),
-			fare.name, score))
+                print("%.4f pushing (%s, score %.4f) onto list" % (now(),
+                    fare.name, score))
                 tmp.append((fare, score))
             else:
                 # Fare's been around long enough for it's broadcast to be
@@ -720,8 +725,8 @@ negotiation protocols.
                 if DEBUG:
                     print '  %s:' % fare.name,
                     print 'regional broadcast, but Fare is out of range:',
-		    print("(distance) %.1f > (range) %.1f" % (d,
-			    TAXI_RANGE_MID * GRID_MAX))
+                    print("(distance) %.1f > (range) %.1f" % (d,
+                        TAXI_RANGE_MID * GRID_MAX))
                 if (d < (TAXI_RANGE_LOW * GRID_MAX)):
                     print 'Regional broadcast is broken!'
                 continue
@@ -733,8 +738,8 @@ negotiation protocols.
             # The Fare has only been in the queue long enough to be a Local
             if d <= (TAXI_RANGE_LOW  * GRID_MAX):
                 # NB: Taxi names are not available inside this function
-		print("%.4f pushing (%s, score %.4f) onto list" % (now(),
-			fare.name, score))
+                print("%.4f pushing (%s, score %.4f) onto list" % (now(),
+                    fare.name, score))
                 tmp.append((fare, score))
             else:
                 # Local broadcast, but this Taxi is not in range.  Break out
@@ -742,8 +747,8 @@ negotiation protocols.
                 if DEBUG:
                     print '  %s:' % fare.name,
                     print 'local broadcast, but Fare is out of range:',
-		    print("(distance) %.1f > (range) %.1f" % (d,
-			    TAXI_RANGE_LOW * GRID_MAX))
+                    print("(distance) %.1f > (range) %.1f" % (d,
+                        TAXI_RANGE_LOW * GRID_MAX))
                 if (d < TAXI_RANGE_LOW * GRID_MAX):
                     print 'Local broadcast is broken!'
                 continue
@@ -770,7 +775,7 @@ Filter: if there is a Fare at this location, return it, else None.
         # return first Fare at taxi_loc or None
         if fare.loc['curr']==taxi_loc:
             tmp.append(fare)
-	    break
+            break
     return tmp
 
 

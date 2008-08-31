@@ -36,9 +36,9 @@ class Fare(Agent):
     waitMon=Monitor('All Fares total wait time')
     def __init__(self, name):
         Agent.__init__(self, name)
-	# Fare maintains its own SimEvent, but Taxi uses it (look for
-	# fareBeingDriven.doneSignal.signal(self.name) in the Taxi's
-	# cooperate() and compete() methods.)
+        # Fare maintains its own SimEvent, but Taxi uses it (look for
+        # fareBeingDriven.doneSignal.signal(self.name) in the Taxi's
+        # cooperate() and compete() methods.)
         self.doneSignal = SimEvent()
 
     def run(self):
@@ -48,14 +48,14 @@ class Fare(Agent):
         yield put, self, Agent.waitingFares, [self]
         self.ts['pickup'] = now()
 
-    # TODO get the name of the Taxi that picked up this Fare.  Add to the
-    # final report for this Fare.
-    #
-    # Also, if this is a compete simulation, it would be nice (but maybe
-    # not easy) to collect the identifiers for all Taxis that are
-    # competing for a given Fare.
+        # TODO get the name of the Taxi that picked up this Fare.  Add to the
+        # final report for this Fare.
+        #
+        # Also, if this is a compete simulation, it would be nice (but maybe
+        # not easy) to collect the identifiers for all Taxis that are
+        # competing for a given Fare.
 
-    # picked up [received signal]
+        # picked up [received signal]
         yield waitevent, self, self.doneSignal
         self.ts['dropoff'] = now()
 
@@ -67,7 +67,7 @@ class Fare(Agent):
         #Fare.waitMon.observe((self.ts['dropoff'] - self.ts['mkreq']), now())
         Fare.waitMon.observe(now() - self.ts['mkreq'])
 
-    print "%s -- I'm outta here!" % self.name
+        print "%s -- I'm outta here!" % self.name
 
 
 class FareFactory(Process):
@@ -87,4 +87,3 @@ if __name__ == '__main__':
     # TODO try FareFactory too
     f = Fare('Filip')
     f.run()
-
