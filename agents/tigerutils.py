@@ -53,7 +53,7 @@ TIGER_SANDBOX=config.get('dataprep','tigerSandbox')
 # dev config values
 DEBUG=config.getboolean('dev','debug')
 
-if TIGER_SANDBOX=='None': # it's a config string, not the None value 
+if TIGER_SANDBOX=='None': # it's a config string, not the None value
     print "Please specify where to store generated files by setting"
     print "tigerSandbox in graphs\\overrides.ini"
     sys.exit(0)
@@ -92,12 +92,12 @@ class FipsMetadataParser(object):
         self.state_name="[A-Z][A-Z]$"
         self.county_code="\d{3}?"
 
-	# county_name is hard to match since it is the most variable.  Instead
-	# of getting all complicated, I'm going to make a couple simplifying
-	# assumptions.  First, the county name must be surrounded by 5 spaces
-	# on either side that I'll strip off before storing or printing.
-	# Second, all these characters are legal: (alpha), (hyphen), (dot),
-	# (apostrophe), (whitespace).
+        # county_name is hard to match since it is the most variable.  Instead
+        # of getting all complicated, I'm going to make a couple simplifying
+        # assumptions.  First, the county name must be surrounded by 5 spaces
+        # on either side that I'll strip off before storing or printing.
+        # Second, all these characters are legal: (alpha), (hyphen), (dot),
+        # (apostrophe), (whitespace).
         #
         # This one works fine everywhere except for Puerto Rico.
         #county_name = "[A-Z][A-Za-z\-\.\'\s]*?"
@@ -106,9 +106,9 @@ class FipsMetadataParser(object):
         # probably pay for this later, when it's time to load up the database.
         self.county_name="[A-Z].*?"
 
-	# Compile the regexes to match lines to include in the state/county
-	# list.  They are ordered here to match the order they appear in the
-	# FIPS file. 
+        # Compile the regexes to match lines to include in the state/county
+        # list.  They are ordered here to match the order they appear in the
+        # FIPS file.
         self.p1=re.compile(self.state_code)
         self.p2=re.compile(self.county_code)
         self.p3=re.compile(self.spaces + self.county_name + self.spaces)
@@ -148,12 +148,12 @@ class FipsMetadataParser(object):
         self.eligible=[]
         p_eligible=re.compile(self.state_code + self.spaces)
 
-	# There are several graves, accents, and other things in county names
-	# in Puerto Rico that may cause problems when it comes time to parse
-	# the strings for import into the database.  Set EXCLUDE_PUERTO_RICO
-	# to True in overrides.ini to strip it out from consideration when
-	# generating the set of states and counties for either random sets or
-	# for populating the chooser.
+        # There are several graves, accents, and other things in county names
+        # in Puerto Rico that may cause problems when it comes time to parse
+        # the strings for import into the database.  Set EXCLUDE_PUERTO_RICO
+        # to True in overrides.ini to strip it out from consideration when
+        # generating the set of states and counties for either random sets or
+        # for populating the chooser.
         if EXCLUDE_PUERTO_RICO is True:
             PuertoRicoRE=re.compile("PR$")
             for line in self.fips:
@@ -190,7 +190,7 @@ class FipsMetadataParser(object):
             # took me a while to figure this out!)
             self.next_state=SC.group()
             if not self.FIPS_D.get(self.next_state):
-                self.FIPS_D[self.next_state]=([SN.group(),[(CC.group(), 
+                self.FIPS_D[self.next_state]=([SN.group(),[(CC.group(),
                         CN.group().strip())]])
             else:
                 self.FIPS_D[self.next_state][1].append((CC.group(),
@@ -288,7 +288,7 @@ class FipsMetadataParser(object):
         states=self.FIPS_D.keys()
         count=0
         for state in states:
-	    if count==G.statesPerRow:
+            if count==G.statesPerRow:
                 print
                 count=0
             print "  %s" % (state),
@@ -301,7 +301,7 @@ class FipsMetadataParser(object):
             counties=self.FIPS_D.get(stateCode)[1]
             count=0
             for county in counties:
-		if count==G.countiesPerRow:
+                if count==G.countiesPerRow:
                     print
                     count=0
                 out="%s %s" % (county[0], county[1])
@@ -341,65 +341,63 @@ class UserInput(object):
     def getDbEngine(self):
         '''Query the user for which database engine to use'''
         engineCode=None
-	dbEngineNames=[(1,'SQLite'),(2,'MySQL')]
+        dbEngineNames=[(1,'SQLite'),(2,'MySQL')]
 
         print "Enter the database engine: "
-	while True:
-	    engineCode=self.getDigit(1,1,"(1) SQLite (2) MySQL (3) quit: ")
+        while True:
+            engineCode=self.getDigit(1,1,"(1) SQLite (2) MySQL (3) quit: ")
             if engineCode=='1' or engineCode=='2':
                 G.dbEngineName=dbEngineNames[int(engineCode)-1][1]
-		if DEBUG:
-		    print '[DEBUG] G.dbEngineName: %s' % G.dbEngineName
-		break
+                if DEBUG:
+                    print '[DEBUG] G.dbEngineName: %s' % G.dbEngineName
+                break
             elif engineCode=='3':
                 print "Exiting."
                 sys.exit(0)
             else:
                 continue # this is redundant but explicit
 
-	# If using SQLite, need a path to the database file.  If using MySQL,
-	# need username and password.
+        # If using SQLite, need a path to the database file.  If using MySQL,
+        # need username and password.
         if G.dbEngineName=='MySQL':
             self.__MySQLCreds()
-	    self.__MySQLUri()
+            self.__MySQLUri()
         elif G.dbEngineName=='SQLite':
             self.__SQLiteUri()
         else:
             print "Something's broken in UserInput.getDbEngine()!"
-	    sys.exit(0)
+            sys.exit(0)
 
     def __MySQLCreds(self):
-            # TODO Be sneaky and use some cloaking method for password (later)
-            G.dbUsername=raw_input('Enter the username: ')
-	    G.dbPassword=raw_input('Enter the password: ')
-	    G.dbHostname=raw_input('Enter the hostname (or localhost): ')
-	    # TODO make it clear that this is the name of the database (ie:
-	    # agents), not the name of the engine (ie: MySQL).
-	    G.dbName=raw_input('Enter the database name: ')
+        # TODO Be sneaky and use some cloaking method for password (later)
+        G.dbUsername=raw_input('Enter the username: ')
+        G.dbPassword=raw_input('Enter the password: ')
+        G.dbHostname=raw_input('Enter the hostname (or localhost): ')
+        # TODO make it clear that this is the name of the database (ie:
+        # agents), not the name of the engine (ie: MySQL).
+        G.dbName=raw_input('Enter the database name: ')
 
     def __MySQLUri(self):
-	    # Assemble the uri for SQLAlchemy.  Looks like
-	    #mysql://username:password@host/database_name
-	    G.dbUri='mysql://%s:%s@%s/%s' % (G.dbUsername,
-			    G.dbPassword,
-			    G.dbHostname,
-			    G.dbName)
-            if DEBUG:
-                print '[DEBUG] G.dbUri: %s' % G.dbUri
+        # Assemble the uri for SQLAlchemy.  Looks like
+        #mysql://username:password@host/database_name
+        G.dbUri='mysql://%s:%s@%s/%s' % \
+            (G.dbUsername, G.dbPassword, G.dbHostname, G.dbName)
+        if DEBUG:
+            print '[DEBUG] G.dbUri: %s' % G.dbUri
 
     def __SQLiteUri(self):
-            G.dbName='TGR'+G.stateCountyCode+'.db'	
-	    # Assemble the uri for SQLAlchemy.  Looks like
-	    # sqlite:///tgr53033.db.
-	    G.sqlPath=DATA_DIR+'/'+G.stateAbbr+'/TGR'+ \
-			    G.stateCountyCode+'/sql/'
-            if DEBUG:
-                print 'G.sqlPath: %s'%G.sqlPath
-	    if not os.path.exists(G.sqlPath):
-	        os.mkdir(G.sqlPath)
-            G.dbUri=G.dbEngineName.lower()+':///'+G.sqlPath+G.dbName
-            if DEBUG:
-                print '[DEBUG] G.dbUri: %s' % G.dbUri
+        G.dbName='TGR'+G.stateCountyCode+'.db'
+        # Assemble the uri for SQLAlchemy.  Looks like
+        # sqlite:///tgr53033.db.
+        G.sqlPath=DATA_DIR+'/'+G.stateAbbr+'/TGR'+ \
+            G.stateCountyCode+'/sql/'
+        if DEBUG:
+            print 'G.sqlPath: %s'%G.sqlPath
+        if not os.path.exists(G.sqlPath):
+            os.mkdir(G.sqlPath)
+        G.dbUri=G.dbEngineName.lower()+':///'+G.sqlPath+G.dbName
+        if DEBUG:
+            print '[DEBUG] G.dbUri: %s' % G.dbUri
 
 
 class GetFips(object):
@@ -422,7 +420,7 @@ files that are not used by the graphs programs.'''
         self.fp.parseAll()
         self.states=self.fp.getStates()
         self.states.sort()
-	self.u=UserInput()
+        self.u=UserInput()
 
     def getSelection(self):
         # get the user's initial choice
@@ -436,7 +434,7 @@ files that are not used by the graphs programs.'''
                 states.sort()
                 count=0
                 for abbr,code in states:
-		    if count==G.statesPerRow:
+                    if count==G.statesPerRow:
                         print
                         count=0
                     print "    %s %s" % (code,abbr),
@@ -446,24 +444,23 @@ files that are not used by the graphs programs.'''
                 # have the user choose a state by code, then display the
                 # counties
                 while True:
-                    G.stateCode=self.u.getDigit(
-				    min=2,max=2,msg="Enter the state code: ")
+                    G.stateCode=self.u.getDigit(min=2,max=2,
+                        msg="Enter the state code: ")
                     if self.fp.isState(G.stateCode):
                         G.stateAbbr=self.fp.getStateAbbr(
-					G.stateCode)[0].upper()
-                        print
-			"Here are the counties in %s you can choose from:" % \
-                                (G.stateAbbr)
+                            G.stateCode)[0].upper()
+                        print ("Here are the counties in %s you can choose from:" % \
+                                (G.stateAbbr))
                         self.fp.showCounties(G.stateCode)
                         break
 
                 # choose a county by code
                 while True:
-                   print
-		   # TODO am I even using this?  the syntax is outdated
-                   G.countyCode=self.u.getDigit(
-				   min=3,max=3,msg="Enter the county code: ")
-                   if self.fp.isCounty(G.stateCode,G.countyCode):
+                    print
+                    # TODO am I even using this?  the syntax is outdated
+                    G.countyCode=self.u.getDigit(
+                        min=3,max=3,msg="Enter the county code: ")
+                    if self.fp.isCounty(G.stateCode,G.countyCode):
                        # we've got a valid FIPS code, time to fetch the ZIP
                        # file
                        break
@@ -494,21 +491,21 @@ files that are not used by the graphs programs.'''
             if confirm=='1':
                 # Some assembly required
                 #
-		# Note: zipFileUrl depends on FIPS_ZIPFILE_ROOT having a
-		# trailing slash in the config file like it's supposed to.
-		# I'll add a check later.
+                # Note: zipFileUrl depends on FIPS_ZIPFILE_ROOT having a
+                # trailing slash in the config file like it's supposed to.
+                # I'll add a check later.
                 #
 #                if not FIPS_ZIPFILE_ROOT.endswith('/'):
 #                    FIPS_ZIPFILE_ROOT+='/'
                 G.stateCountyCode=G.stateCode+G.countyCode
                 zipFileName='TGR%s.ZIP' % (G.stateCountyCode)
                 zipFileUrl=FIPS_ZIPFILE_ROOT+G.stateAbbr+r'/'+zipFileName
-                G.srcPath=os.path.normpath(os.path.join(DATA_DIR,
-                        G.stateAbbr,'TGR'+G.stateCountyCode,'src'))
-		if DEBUG:
-		    print '[DEBUG] G.srcPath: %s' % G.srcPath
+                G.srcPath=os.path.normpath(os.path.join(DATA_DIR, G.stateAbbr,
+                    'TGR'+G.stateCountyCode,'src'))
+                if DEBUG:
+                    print '[DEBUG] G.srcPath: %s' % G.srcPath
                 print "Downloading %s from %s" % (zipFileName,
-                     FIPS_ZIPFILE_ROOT+G.stateAbbr)
+                    FIPS_ZIPFILE_ROOT+G.stateAbbr)
 
                 # Prepare for the little bundle of joy (county zip file)
                 if not os.path.exists(G.srcPath):
@@ -518,12 +515,12 @@ files that are not used by the graphs programs.'''
                     print "Found directory %s" % G.srcPath
 
                 zipFilePath=G.srcPath+r'/'+zipFileName
-		if os.path.exists(zipFilePath):
+                if os.path.exists(zipFilePath):
                    print "Found %s.  Skipping download." % zipFilePath
                 else:
                     # C:\Source\hg\graphs\bin>wget -O C:\Source\TIGER\sandbox\src
                     #    http://www2.census.gov/geo/tiger/tiger2006se/WA/TGR53033.ZIP
-		    cmd="%s --output-document=%s %s" % \
+                    cmd="%s --output-document=%s %s" % \
                                 (FETCH_COMMAND,zipFilePath,zipFileUrl)
                     status=os.system(cmd)
                     if DEBUG:
@@ -561,35 +558,35 @@ temporary location.'''
 
 The files are extracted to the same directory (from G.srcPath to
 G.srcPath).'''
-	# There should be only one ZIP file in G.srcPath for a particular
-	# county.  One county, one zip file.
-	for candidate_file in os.listdir(G.srcPath):
+        # There should be only one ZIP file in G.srcPath for a particular
+        # county.  One county, one zip file.
+        for candidate_file in os.listdir(G.srcPath):
             # Note 1: no space between -o and the output directory!
-	    # Note 2: -y is assume Yes on all queries.  This means previously
-	    #     unzipped files will be overwritten.  That's fine.
-#	    if zipfile.is_zipfile(candidate_file):
+            # Note 2: -y is assume Yes on all queries.  This means previously
+            #     unzipped files will be overwritten.  That's fine.
+#           if zipfile.is_zipfile(candidate_file):
             if candidate_file.upper().endswith('ZIP'):
                 cmd=ZIP_COMMAND+' '+os.path.join(G.srcPath,candidate_file)+ \
-				' -o'+G.srcPath+' -y'
+                    ' -o'+G.srcPath+' -y'
                 status=os.system(cmd)
                 if DEBUG:
-	            print '[DEBUG] cmd: %s' % cmd
+                    print '[DEBUG] cmd: %s' % cmd
                     print "Status: ", status
             else:
-		if DEBUG:
+                if DEBUG:
                     print '[DEBUG] Skipping %s (not a ZIP file)' % \
-				    candidate_file
+                        candidate_file
 
     def export(self):
         '''Copy RT1 and RT2 files from G.srcPath to G.rawPath.'''
         for rtfile in os.listdir(G.srcPath):
             tmp=rtfile.upper()
-	    if DEBUG:
-	        print '[DEBUG] checking %s for RT1 or RT2 extension' % tmp
+            if DEBUG:
+                print '[DEBUG] checking %s for RT1 or RT2 extension' % tmp
             if tmp.endswith('RT1') or tmp.endswith('RT2'):
                 cmd=shutil.copy2(os.path.join(G.srcPath,tmp),G.rawPath)
-		if DEBUG:
-		    print '[DEBUG] cmd: %s' % cmd
+                if DEBUG:
+                    print '[DEBUG] cmd: %s' % cmd
             else:
                 if DEBUG:
                     print '[DEBUG] Skipping %s' % rtfile
@@ -600,12 +597,12 @@ G.srcPath).'''
 Do not delete the ZIP file.'''
         for rtfile in os.listdir(G.srcPath):
             tmp=rtfile.upper()
-	    if tmp.endswith('ZIP'):
-	        if DEBUG:
+            if tmp.endswith('ZIP'):
+                if DEBUG:
                     print '[DEBUG] Skipping file %s' % tmp
             else:
                 if DEBUG:
-	            print '[DEBUG] Deleting file %s' % tmp
+                    print '[DEBUG] Deleting file %s' % tmp
                 os.unlink(os.path.join(G.srcPath,tmp))
 
 
@@ -619,8 +616,8 @@ a SQL database.'''
         print "\n====[ RunMungers ]===="
 
         # should look like G.srcPath
-	G.mungedPath=os.path.normpath(os.path.join(DATA_DIR,G.stateAbbr,
-		'TGR'+G.stateCountyCode,'munged'))
+        G.mungedPath=os.path.normpath(os.path.join(DATA_DIR,G.stateAbbr,
+            'TGR'+G.stateCountyCode,'munged'))
 
         if not os.path.exists(G.mungedPath):
             print "Creating %s" % G.mungedPath
@@ -635,7 +632,7 @@ This loop processes all the RT1 and RT2 files, and generates a SQL
 (SQLAlchemy?) recordset from them.  If other files are present in
 the source directory, they are skipped with a message to STDOUT.
 '''
-	for rtfile in os.listdir(G.rawPath):
+        for rtfile in os.listdir(G.rawPath):
             # TODO move this print statement into MungeRTx()
             #print "  Reading file %s" % rtfile
             before=os.path.join(G.rawPath,rtfile)
@@ -661,219 +658,219 @@ This class has no methods.  Everything happens in __init__.'''
     def __init__(self):
         print "\n====[ CreateDatabase ]===="
         G.engine=sqlalchemy.create_engine(G.dbUri,echo=False)
-	meta=MetaData()
+        meta=MetaData()
 
         # describe table 'tiger01_table', query the database for its columns
         G.tiger01_Table=Table('tiger_01',meta,
-        		Column('id',Integer,nullable=False,primary_key=True),
-        		Column('rt',String(2),nullable=False,default=0),
-        		Column('version',Integer,nullable=False,default=0),
-        		Column('tlid',Integer,nullable=False,default=0),
-        		Column('fedirp',String(3),nullable=True),
-                        Column('fename',String(31),nullable=True),
-        		Column('fetype',String(5),nullable=True),
-        		Column('fedirs',String(3),nullable=True),
-        		Column('fraddl',String(12),nullable=True),
-        		Column('toaddl',String(12),nullable=True),
-        		Column('fraddr',String(12),nullable=True),
-        		Column('toaddr',String(12),nullable=True),
-        		Column('zipl',Integer,nullable=True),
-        		Column('zipr',Integer,nullable=True),
-        		Column('frlong',String(10),nullable=False,default=0),
-        		Column('frlat',String(10),nullable=False,default=0),
-        		Column('tolong',String(10),nullable=False,default=0),
-        		Column('tolat',String(10),nullable=False,default=0)
-        		)
+            Column('id',Integer,nullable=False,primary_key=True),
+            Column('rt',String(2),nullable=False,default=0),
+            Column('version',Integer,nullable=False,default=0),
+            Column('tlid',Integer,nullable=False,default=0),
+            Column('fedirp',String(3),nullable=True),
+            Column('fename',String(31),nullable=True),
+            Column('fetype',String(5),nullable=True),
+            Column('fedirs',String(3),nullable=True),
+            Column('fraddl',String(12),nullable=True),
+            Column('toaddl',String(12),nullable=True),
+            Column('fraddr',String(12),nullable=True),
+            Column('toaddr',String(12),nullable=True),
+            Column('zipl',Integer,nullable=True),
+            Column('zipr',Integer,nullable=True),
+            Column('frlong',String(10),nullable=False,default=0),
+            Column('frlat',String(10),nullable=False,default=0),
+            Column('tolong',String(10),nullable=False,default=0),
+            Column('tolat',String(10),nullable=False,default=0)
+        )
 
-	# drop existing Table (if present) before creating and loading
-	try:
-	    G.tiger01_Table.drop(bind=G.engine,checkfirst=True)
-	except sqlalchemy.exceptions.OperationalError:
+        # drop existing Table (if present) before creating and loading
+        try:
+            G.tiger01_Table.drop(bind=G.engine,checkfirst=True)
+        except sqlalchemy.exceptions.OperationalError:
             # no database, pass
             pass
 
-	                # TODO foreign_key=tiger01_Table._id?
-        		#Column('_rtid',Integer,nullable=False,primary_key=True),
+                        # TODO foreign_key=tiger01_Table._id?
+                        #Column('_rtid',Integer,nullable=False,primary_key=True),
 
-#        tiger02_Table=Table('tiger_02',meta,
-#        		Column('_rtid',Integer,nullable=False,primary_key=True),
-#			Column('version',Integer,nullable=False,default=0),
-#			Column('tlid',Integer,nullable=False,default=0),
-#			Column('rtsq',Integer,nullable=False,default=0),
-#			Column('long1',Numeric(11,6),nullable=False,default=0),
-#			Column('lat1',Numeric(10,6),nullable=False,default=0),
-#			Column('long2',Numeric(11,6),nullable=False,default=0),
-#			Column('lat2',Numeric(10,6),nullable=False,default=0),
-#			Column('long3',Numeric(11,6),nullable=False,default=0),
-#			Column('lat3',Numeric(10,6),nullable=False,default=0),
-#			Column('long4',Numeric(11,6),nullable=False,default=0),
-#			Column('lat4',Numeric(10,6),nullable=False,default=0),
-#			Column('long5',Numeric(11,6),nullable=False,default=0),
-#			Column('lat5',Numeric(10,6),nullable=False,default=0),
-#			Column('long6',Numeric(11,6),nullable=False,default=0),
-#			Column('lat6',Numeric(10,6),nullable=False,default=0),
-#			Column('long7',Numeric(11,6),nullable=False,default=0),
-#			Column('lat7',Numeric(10,6),nullable=False,default=0),
-#			Column('long8',Numeric(11,6),nullable=False,default=0),
-#			Column('lat8',Numeric(10,6),nullable=False,default=0),
-#			Column('long9',Numeric(11,6),nullable=False,default=0),
-#			Column('lat9',Numeric(10,6),nullable=False,default=0),
-#			Column('long10',Numeric(11,6),nullable=False,default=0),
-#			Column('lat10',Numeric(10,6),nullable=False,default=0)
-#			)
+#       tiger02_Table=Table('tiger_02',meta,
+#           Column('_rtid',Integer,nullable=False,primary_key=True),
+#           Column('version',Integer,nullable=False,default=0),
+#           Column('tlid',Integer,nullable=False,default=0),
+#           Column('rtsq',Integer,nullable=False,default=0),
+#           Column('long1',Numeric(11,6),nullable=False,default=0),
+#           Column('lat1',Numeric(10,6),nullable=False,default=0),
+#           Column('long2',Numeric(11,6),nullable=False,default=0),
+#           Column('lat2',Numeric(10,6),nullable=False,default=0),
+#           Column('long3',Numeric(11,6),nullable=False,default=0),
+#           Column('lat3',Numeric(10,6),nullable=False,default=0),
+#           Column('long4',Numeric(11,6),nullable=False,default=0),
+#           Column('lat4',Numeric(10,6),nullable=False,default=0),
+#           Column('long5',Numeric(11,6),nullable=False,default=0),
+#           Column('lat5',Numeric(10,6),nullable=False,default=0),
+#           Column('long6',Numeric(11,6),nullable=False,default=0),
+#           Column('lat6',Numeric(10,6),nullable=False,default=0),
+#           Column('long7',Numeric(11,6),nullable=False,default=0),
+#           Column('lat7',Numeric(10,6),nullable=False,default=0),
+#           Column('long8',Numeric(11,6),nullable=False,default=0),
+#           Column('lat8',Numeric(10,6),nullable=False,default=0),
+#           Column('long9',Numeric(11,6),nullable=False,default=0),
+#           Column('lat9',Numeric(10,6),nullable=False,default=0),
+#           Column('long10',Numeric(11,6),nullable=False,default=0),
+#           Column('lat10',Numeric(10,6),nullable=False,default=0)
+#       )
 
-	# drop existing Table (if present) before creating and loading
-#	tiger02_Table.drop(bind=engine,checkfirst=True)
+        # drop existing Table (if present) before creating and loading
+#       tiger02_Table.drop(bind=engine,checkfirst=True)
 
         # issue CREATE statements for all tables
         meta.create_all(G.engine)
 
-	# class RecordType1 goes here (if you're following the docs)
+        # class RecordType1 goes here (if you're following the docs)
 
         mapper(RecordType1, G.tiger01_Table)
-#        mapper(RecordType2, tiger02_Table)
+#       mapper(RecordType2, tiger02_Table)
 
 
 class LoadDatabase(object):
     def __init__(self):
         print "\n====[ LoadDatabase ]===="
 
-	# Create a Session object.  In SQLAlchemy terms, this is the ORM's
-	# "handle" to the database.
+        # Create a Session object.  In SQLAlchemy terms, this is the ORM's
+        # "handle" to the database.
         G.Session=sessionmaker(bind=G.engine,autoflush=True,transactional=True)
 
         for rtfile in os.listdir(G.mungedPath):
             if DEBUG:
-	        print '[DEBUG] rtfile: %s' % rtfile
+                print '[DEBUG] rtfile: %s' % rtfile
             rtfilePath=os.path.join(G.mungedPath,rtfile)
-	    print 'Reading munged data from %s' % rtfilePath
+            print 'Reading munged data from %s' % rtfilePath
 
             if rtfile.endswith('RT1m'):
-		session=G.Session()
-		recordTypesInRecordType1=[ 'rt','version','tlid','fedirp',
-				'fename','fetype','fedirs','fraddl','toaddl',
-				'fraddr','toaddr','zipl','zipr',
-				'frlong','frlat','tolong','tolat' ]
+                session=G.Session()
+                recordTypesInRecordType1=[ 'rt','version','tlid','fedirp',
+                    'fename','fetype','fedirs','fraddl','toaddl',
+                    'fraddr','toaddr','zipl','zipr',
+                    'frlong','frlat','tolong','tolat' ]
 
-		f=file(rtfilePath)
-		for line in f:
+                f=file(rtfilePath)
+                for line in f:
                     # make a dictionary of parameter names to parameter values
                     # suitable for passing into RecordType1()
                     #
-		    # remove '\n' from last field in each row with strip()
+                    # remove '\n' from last field in each row with strip()
                     d=dict(zip(recordTypesInRecordType1,(line.strip().split(','))))
 
-		    # convert record items with value 'NULL' to Python None
-		    for k,v in d.items():
-			# I put double quotes around several of the strings to
-			# prevent them from being parsed as multiple tokens by
-			# the munger.  Now it needs to go away.
+                    # convert record items with value 'NULL' to Python None
+                    for k,v in d.items():
+                        # I put double quotes around several of the strings to
+                        # prevent them from being parsed as multiple tokens by
+                        # the munger.  Now it needs to go away.
                         d[k]=v.strip('"')
                         if 'NULL'==v:
                             d[k]=None
-		    rt1obj=RecordType1(rt=d['rt'],version=d['version'],
-				    tlid=d['tlid'],fedirp=d['fedirp'],
-				    fename=d['fename'],fetype=d['fetype'],
-				    fedirs=d['fetype'],fraddl=d['fraddl'],
-				    toaddl=d['toaddl'],fraddr=d['fraddr'],
-				    toaddr=d['toaddr'],zipl=d['zipl'],
-				    zipr=d['zipr'],frlong=d['frlong'],
-				    frlat=d['frlat'],tolong=d['tolong'],
-				    tolat=d['tolat'])
+                    rt1obj=RecordType1(rt=d['rt'],version=d['version'],
+                        tlid=d['tlid'],fedirp=d['fedirp'],
+                        fename=d['fename'],fetype=d['fetype'],
+                        fedirs=d['fetype'],fraddl=d['fraddl'],
+                        toaddl=d['toaddl'],fraddr=d['fraddr'],
+                        toaddr=d['toaddr'],zipl=d['zipl'],
+                        zipr=d['zipr'],frlong=d['frlong'],
+                        frlat=d['frlat'],tolong=d['tolong'],
+                        tolat=d['tolat'])
 
-		    session.save(rt1obj)
+                    session.save(rt1obj)
                 session.commit()
 
             elif rtfile.endswith('RT2m'):
                 # load up RecordType2 objects
-		pass
+                pass
             else:
                 print "Something's broken in LoadDatabase.__init__()!"
 
 
 class RecordType1(object):
     def __init__(self,rt=1,version=0,tlid=0,fedirp=None,fename=None,
-		    fetype=None,fedirs=None,fraddl=None,toaddl=None,
-		    fraddr=None,toaddr=None,zipl=None,zipr=None,
-		    frlong=0,frlat=0,tolong=0,tolat=0):
+        fetype=None,fedirs=None,fraddl=None,toaddl=None,
+        fraddr=None,toaddr=None,zipl=None,zipr=None,
+        frlong=0,frlat=0,tolong=0,tolat=0):
 
-	    #print "\n====[ RecordType1 ]===="
-	    self.rt=rt
-	    self.version=version
-	    self.tlid=tlid
-	    self.fedirp=fedirp
-	    self.fename=fename
-	    self.fetype=fetype
-	    self.fedirs=fedirs
-	    self.fraddl=fraddl
-	    self.toaddl=toaddl
+        #print "\n====[ RecordType1 ]===="
+        self.rt=rt
+        self.version=version
+        self.tlid=tlid
+        self.fedirp=fedirp
+        self.fename=fename
+        self.fetype=fetype
+        self.fedirs=fedirs
+        self.fraddl=fraddl
+        self.toaddl=toaddl
 
-	    self.fraddr=fraddr
-	    self.toaddr=toaddr
-	    self.zipl=zipl
-	    self.zipr=zipr
-	    self.frlong=frlong
-	    self.frlat=frlat
-	    self.tolong=tolong
-	    self.tolat=tolat
+        self.fraddr=fraddr
+        self.toaddr=toaddr
+        self.zipl=zipl
+        self.zipr=zipr
+        self.frlong=frlong
+        self.frlat=frlat
+        self.tolong=tolong
+        self.tolat=tolat
 
     def __repr__(self):
         return "<RecordType1('%s', '%s', '%s', '%s', '%s','%s', '%s', '%s', '%s', '%s','%s', '%s', '%s', '%s', '%s','%s','%s')>" % \
-			(self.rt,self.version,self.tlid,self.fedirp,
-					self.fename,self.fetype,self.fedirs,
-					self.fraddl,self.toaddl,self.fraddr,
-					self.toaddr,self.zipl,self.zipr,
-					self.frlong,self.frlat,self.tolong,self.tolat)
+            (self.rt,self.version,self.tlid,self.fedirp,
+                self.fename,self.fetype,self.fedirs,
+                self.fraddl,self.toaddl,self.fraddr,
+                self.toaddr,self.zipl,self.zipr,
+                self.frlong,self.frlat,self.tolong,self.tolat)
 
 
 class RecordType2(object):
-    def __init__(self,rtid,version,tlid,rtsq,long1,lat1,long2,lat2,long3,lat3,
-		    long4,lat4,long5,lat5,long6,lat6,long7,lat7,long8,lat8,
-		    long9,lat9,long10,lat10):
+    def __init__(self,rtid,version,tlid,rtsq,long1,lat1,long2,lat2,
+        long3,lat3,long4,lat4,long5,lat5,long6,lat6,long7,lat7,long8,lat8,
+        long9,lat9,long10,lat10):
 
-	    #print "\n====[ RecordType2 ]===="
-	    self.rtid=rtid
-            self.version=version
-            self.tlid=tlid
-            self.rtsq=rtsq
-            self.long1=long1
-            self.lat1=lat1
-            self.long2=long2
-            self.lat2=lat2
+        #print "\n====[ RecordType2 ]===="
+        self.rtid=rtid
+        self.version=version
+        self.tlid=tlid
+        self.rtsq=rtsq
+        self.long1=long1
+        self.lat1=lat1
+        self.long2=long2
+        self.lat2=lat2
 
-            self.long3=long3
-            self.lat3=lat3
-            self.long4=long4
-            self.lat4=lat4
-            self.long5=long5
-            self.lat5=lat5
-            self.long6=long6
-            self.lat6=lat6
+        self.long3=long3
+        self.lat3=lat3
+        self.long4=long4
+        self.lat4=lat4
+        self.long5=long5
+        self.lat5=lat5
+        self.long6=long6
+        self.lat6=lat6
 
-            self.long7=long7
-            self.lat7=lat7
-            self.long8=long8
-            self.lat8=lat8
-            self.long9=long9
-            self.lat9=lat9
-            self.long10=long10
-            self.lat10=lat10
+        self.long7=long7
+        self.lat7=lat7
+        self.long8=long8
+        self.lat8=lat8
+        self.long9=long9
+        self.lat9=lat9
+        self.long10=long10
+        self.lat10=lat10
 
     def __repr__(self):
         return "<RecordType2('%s','%s','%s','%s','%s','%s','%s','%s','%s','%s','%s','%s','%s','%s','%s','%s','%s','%s','%s','%s','%s','%s','%s','%s')>" % \
-			(self.rtid,self.version,self.tlid,self.rtsq,
-					self.long1,self.lat1,self.long2,self.lat2,
-					self.long3,self.lat3,self.long4,self.lat4,
-					self.long5,self.lat5,self.long6,self.lat6,
-					self.long7,self.lat7,self.long8,self.lat8,
-					self.long9,self.lat9,self.long10,self.lat10)
+            (self.rtid,self.version,self.tlid,self.rtsq,
+                self.long1,self.lat1,self.long2,self.lat2,
+                self.long3,self.lat3,self.long4,self.lat4,
+                self.long5,self.lat5,self.long6,self.lat6,
+                self.long7,self.lat7,self.long8,self.lat8,
+                self.long9,self.lat9,self.long10,self.lat10)
 
 
 class MungeRT1(object):
     #def __init__(self,rawIn,mungedOut):
     def __init__(self,rawIn):
         print "\n====[ MungeRT1 ]===="
-	print 'Reading raw data from %s' % rawIn
+        print 'Reading raw data from %s' % rawIn
 
     def munge(self,infile):
         rtnum=1
@@ -886,7 +883,7 @@ class MungeRT1(object):
         recordset=[]
         for line in dat:
             # TODO think about a field name to character range mapping for
-	    # this.
+            # this.
             RT=field(line[0])
             VERSION=field(line[1:5])
             TLID=field(line[5:15])
@@ -912,14 +909,14 @@ class MungeRT1(object):
                 print "One of the required fields is missing!"
                 sys.exit(1)
 
-	    # TODO Ask the user what field separator they want (one space,
-	    # vtab, comma), but default to comma.  Keep in sync with the other
-	    # munge tool.
+            # TODO Ask the user what field separator they want (one space,
+            # vtab, comma), but default to comma.  Keep in sync with the other
+            # munge tool.
             #fieldsep='\t'
             fieldsep=','
             recordset.append(fieldsep.join((RT,VERSION,TLID,FEDIRP,
-		    FENAME,FETYPE,FEDIRS,FRADDL,TOADDL,FRADDR,TOADDR,ZIPL,
-		    ZIPR,str(FRLONG),str(FRLAT),str(TOLONG),str(TOLAT))))
+                FENAME,FETYPE,FEDIRS,FRADDL,TOADDL,FRADDR,TOADDR,ZIPL,
+                ZIPR,str(FRLONG),str(FRLAT),str(TOLONG),str(TOLAT))))
         dat.close()
         return recordset
 
@@ -928,7 +925,7 @@ class MungeRT2(object):
     #def __init__(self,rawIn,mungedOut):
     def __init__(self,rawIn):
         print "\n====[ MungeRT2 ]===="
-	print 'Reading raw data from %s' % rawIn
+        print 'Reading raw data from %s' % rawIn
 
 
     def munge(self,infile):
@@ -942,7 +939,7 @@ class MungeRT2(object):
         recordset=[]
         for line in dat:
             # TODO think about a field name to character range mapping for
-	    # this.
+            # this.
             RT = field(line[0])
             VERSION = field(line[1:5])
             TLID = field(line[5:15])
@@ -975,9 +972,9 @@ class MungeRT2(object):
                 print "One of the required fields is missing!"
                 sys.exit(1)
 
-	    # TODO Ask the user what field separator they want (one space,
-	    # vtab, comma), but default to comma.  Keep in sync with the other
-	    # munge tool.
+            # TODO Ask the user what field separator they want (one space,
+            # vtab, comma), but default to comma.  Keep in sync with the other
+            # munge tool.
             #fieldsep='\t'
             fieldsep=','
             recordset.append(fieldsep.join((RT,VERSION,TLID,RTSQ,
@@ -999,14 +996,14 @@ class QueryDatabase(object):
 
     def getRecordCount(self):
         '''TODO'''
-	try:
+        try:
             return G.recordCount
         except: # AttributeError
             rp=self.session.execute(select([G.tiger01_Table.c.id]))
-	    tmp=[]
-	    for result in rp:
+            tmp=[]
+            for result in rp:
                 tmp.append(result)
-	    G.recordCount = len(tmp)
+            G.recordCount = len(tmp)
             return G.recordCount
 
     def getZipCodes(self):
@@ -1021,39 +1018,39 @@ entire county.'''
         G.zipCodesResultProxy=self.getZipCodes()
 
         # TODO experiment with how to pair up numbers (01, 02, ...) with ZIP
-	# codes before doing anything about the data structure
-	zipList=[]
-	zipDict={}
-	zipCount=0
-	for zip in G.zipCodesResultProxy:
+        # codes before doing anything about the data structure
+        zipList=[]
+        zipDict={}
+        zipCount=0
+        for zip in G.zipCodesResultProxy:
             zipCount+=1
-	    # append tuples to the list for display
+            # append tuples to the list for display
             zipList.append((zipCount,zip[0]))
-	    # add keys and values to the dict for selection
-	    if zipCount<10:
+            # add keys and values to the dict for selection
+            if zipCount<10:
                 zipStr='0'+str(zipCount)
             else:
                 zipStr=str(zipCount)
-	    zipDict[zipStr]=zip[0]
+            zipDict[zipStr]=zip[0]
 
         # the data is in zipList; present it to the user
         print 'Here are the county ZIP codes.  Choose one of them'
-	print 'or (01 None) to use the whole county: '
-	for number, zip in zipList:
+        print 'or (01 None) to use the whole county: '
+        for number, zip in zipList:
             print '%02d %s' % (number, zip)
 
-	self.u=UserInput()
-	while True:
+        self.u=UserInput()
+        while True:
             userIn=self.u.getDigit(2,2,"Zip code: ")
-	    if userIn in zipDict:
+            if userIn in zipDict:
                 # got valid input, now do something with it
-		if zipDict[userIn]=='01':
+                if zipDict[userIn]=='01':
                     # use the whole county
-		    G.zipCode=None
+                    G.zipCode=None
                 else:
                     G.zipCode=zipDict[userIn]
-		return G.zipCode # gotta return, why not return something? :)
-	    else:
+                return G.zipCode # gotta return, why not return something? :)
+            else:
                 # this is an error; exception thrown if we get here
                 print zipDict
                 print "DEBUG %d not in zipDict?" % zipDict[userIn]
@@ -1063,13 +1060,13 @@ entire county.'''
     # into is creating a callable string, and executing it.
     def __rpZip(self,zip):
         '''Fetch a SQLAlchemy ResultProxy based on a zip code query.'''
-	return self.session.execute(select([
-		G.tiger01_Table.c.tlid,
-		G.tiger01_Table.c.frlong,
-		G.tiger01_Table.c.frlat,
-		G.tiger01_Table.c.tolong,
-		G.tiger01_Table.c.tolat
-		],G.tiger01_Table.c.zipl==zip).distinct())
+        return self.session.execute(select([
+            G.tiger01_Table.c.tlid,
+            G.tiger01_Table.c.frlong,
+            G.tiger01_Table.c.frlat,
+            G.tiger01_Table.c.tolong,
+            G.tiger01_Table.c.tolat
+            ],G.tiger01_Table.c.zipl==zip).distinct())
 
     def __rpAll(self):
         '''Fetch a SQLAlchemy ResultProxy for all records.'''
@@ -1090,8 +1087,8 @@ entire county.'''
             frlat=float(result['frlat'])
             tolong=float(result['tolong'])
             tolat=float(result['tolat'])
-	    tuptotup[(frlong,frlat,tolong,tolat)]= \
-			    [(frlong,frlat),(tolong,tolat)]
+            tuptotup[(frlong,frlat,tolong,tolat)]= \
+                [(frlong,frlat),(tolong,tolat)]
         return tuptotup
 
     # Here's an example in sqlite3
@@ -1106,17 +1103,17 @@ entire county.'''
     # NOTE: this method is similar to agents.Agent mkcoords()
     def get_point(self):
         '''Fetch a SQLAlchemy ResultProxy for a random point on the graph.'''
-	# TODO think about renaming this to get_vertices().  get_point() is
-	# just plain wrong.  Update the docstring as well.
+        # TODO think about renaming this to get_vertices().  get_point() is
+        # just plain wrong.  Update the docstring as well.
         randomRow=random.randint(1,self.getRecordCount())
-	return self.session.execute(select([
-		G.tiger01_Table.c.id,
-		G.tiger01_Table.c.tlid,
-		G.tiger01_Table.c.frlong,
-		G.tiger01_Table.c.frlat,
-		G.tiger01_Table.c.tolong,
-		G.tiger01_Table.c.tolat
-		],G.tiger01_Table.c.id==randomRow)).fetchone()
+        return self.session.execute(select([
+            G.tiger01_Table.c.id,
+            G.tiger01_Table.c.tlid,
+            G.tiger01_Table.c.frlong,
+            G.tiger01_Table.c.frlat,
+            G.tiger01_Table.c.tolong,
+            G.tiger01_Table.c.tolat
+            ],G.tiger01_Table.c.id==randomRow)).fetchone()
 
 
 # BIG CAUTION: G in MakeGraph is a NetworkX Graph object.  G in the tigerutils
@@ -1128,21 +1125,21 @@ class MakeGraph(object):
 
     def makeGraph(self):
         self.uniqlist=[]
-	# TODO name the graph according to the county code and zipcode if
-	# used.  The generated graphic should be named the same way.
+        # TODO name the graph according to the county code and zipcode if
+        # used.  The generated graphic should be named the same way.
         self.G=networkx.XGraph(name="please work ...")
         self.G.pos={}
 
-#        for k,v in self.f.tuptotup(zipcode).items():
-#        for k,v in self.f.tuptotup(G.zipCode).items():
+#       for k,v in self.f.tuptotup(zipcode).items():
+#       for k,v in self.f.tuptotup(G.zipCode).items():
         for k,v in self.q.tuptotup().items():
 
-	    # NOTE: it is an error (currently unhandled) if the zipcode is not
-	    # found in the database
+            # NOTE: it is an error (currently unhandled) if the zipcode is not
+            # found in the database
             fr=(int(v[0][0]),int(v[0][1]))
             to=(int(v[1][0]),int(v[1][1]))
-#            fr=(v[0][0],v[0][1])
-#            to=(v[1][0],v[1][1])
+#           fr=(v[0][0],v[0][1])
+#           to=(v[1][0],v[1][1])
 
             if fr not in self.uniqlist:
                 self.uniqlist.append(fr)
@@ -1155,42 +1152,42 @@ class MakeGraph(object):
 
             self.G.add_edge(fr,to)
             self.G.pos[(fr,to)]=(fr,to)
-	    # TODO: if DEBUG?
-#            print "self.G.neighbors(fr) => %s" % self.G.neighbors(fr)
-#            print "self.G.neighbors(to) => %s" % self.G.neighbors(to)
-#            print
+            # TODO: if DEBUG?
+#           print "self.G.neighbors(fr) => %s" % self.G.neighbors(fr)
+#           print "self.G.neighbors(to) => %s" % self.G.neighbors(to)
+#           print
         self.G.info()
         # colors: b=blue, w=white, m=magenta, c=cyan, r=red, ...
         networkx.draw_networkx_nodes(self.G,self.G.pos,node_size=2,
-			node_color='c')
+            node_color='c')
         networkx.draw_networkx_edges(self.G,self.G.pos,width=0.3,
-			edge_color='r')
+            edge_color='r')
         # Don't get cute here.  Just give me a file name.
-	if G.zipCode is None:
+        if G.zipCode is None:
             pngname="TGR%s.png" % G.stateCountyCode
-	else:
+        else:
             pngname="TGR%s_ZIP%s.png" % (G.stateCountyCode, G.zipCode)
 
-	# TODO Where to write the file to?  It's going to the working dir
-	# right now.
-	if not os.path.exists(IMAGES_DIR):
+        # TODO Where to write the file to?  It's going to the working dir
+        # right now.
+        if not os.path.exists(IMAGES_DIR):
             print 'Making images dir %s' % IMAGES_DIR
             os.mkdir(IMAGES_DIR)
-	print 'Writing %s ...' % os.path.join(IMAGES_DIR, pngname),
+        print 'Writing %s ...' % os.path.join(IMAGES_DIR, pngname),
         pylab.savefig(os.path.join(IMAGES_DIR, pngname))
-	print 'done\n'
+        print 'done\n'
 
     def shortest_path(self,point1,point2):
         point1=list(point1)
         point2=list(point2)
         point1[0],point1[1]=int(point1[0]),int(point1[1])
         point2[0],point2[1]=int(point2[0]),int(point2[1])
-	point1=tuple(point1)
-	point2=tuple(point2)
+        point1=tuple(point1)
+        point2=tuple(point2)
         return networkx.path.shortest_path(self.G,point1,point2)
 
     def get_connected(self):
-	return networkx.component.connected_components(self.G)[0]
+        return networkx.component.connected_components(self.G)[0]
 
 
 #

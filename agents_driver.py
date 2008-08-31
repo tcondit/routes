@@ -159,13 +159,13 @@ def oooh_shiny():
     histoWidth=10
     if USE_GUI:
         from SimPy.SimPlot import SimPlot
-	# Include enough bins to make each bar 'histoWidth' time units wide.
-	histo = Fare.waitMon.histogram(low=0.0, high=SIMTIME,
-			nbins=SIMTIME/histoWidth)
+        # Include enough bins to make each bar 'histoWidth' time units wide.
+        histo = Fare.waitMon.histogram(low=0.0, high=SIMTIME,
+            nbins=SIMTIME/histoWidth)
         #histo = Fare.waitMon.histogram(low=0.0, high=SIMTIME, nbins=20)
         plt = SimPlot()
         plt.plotHistogram(histo, xlab='Time', ylab='Number of waiting Fares',
-                title='Time waiting for Taxi', color='red', width=2)
+            title='Time waiting for Taxi', color='red', width=2)
         plt.mainloop()
     else:
 #        print 'Got here'
@@ -174,8 +174,8 @@ def oooh_shiny():
         #        title='Time waiting for Taxi', color='red', width=2)
 #        Fare.waitMon.printHistogram(histo)
         #Fare.waitMon.setHistogram(low=0.0, high=SIMTIME, nbins=20)
-	Fare.waitMon.setHistogram(low=0.0, high=SIMTIME,
-			nbins=SIMTIME/histoWidth)
+        Fare.waitMon.setHistogram(low=0.0, high=SIMTIME,
+            nbins=SIMTIME/histoWidth)
         print Fare.waitMon.printHistogram(fmt='%6.4f')
 #    print Agent.waitingFares.theBuffer
 
@@ -184,4 +184,3 @@ if __name__ == '__main__':
     model()
     reportstats()
 #    oooh_shiny()
-
