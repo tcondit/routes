@@ -177,9 +177,11 @@ def oooh_shiny():
 	Fare.waitMon.setHistogram(low=0.0, high=SIMTIME,
 			nbins=SIMTIME/histoWidth)
         print Fare.waitMon.printHistogram(fmt='%6.4f')
+#    print Agent.waitingFares.theBuffer
 
 if __name__ == '__main__':
     printHeader()
     model()
     reportstats()
-    oooh_shiny()
+#    oooh_shiny()
+

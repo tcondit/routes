@@ -132,7 +132,7 @@ Given a pair of coordinates, return the driving distance between them.
 The distance calculation is set in the configuration option
 distanceCalculation.  Options are straight-line distance between the points
 (the default), or driving distance.
-        '''
+'''
 	# This distance is subject to the graphCoordinateMultiplier, to bring
 	# it approximately in line with the grid simulation.  The multiplier
 	# is used here in order to make this thing behave as much as possible
