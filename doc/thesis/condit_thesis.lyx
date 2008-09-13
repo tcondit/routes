@@ -7,7 +7,7 @@
 \inputencoding auto
 \font_roman default
 \font_sans default
-\font_typewriter default
+\font_typewriter lmtt
 \font_default_family default
 \font_sc false
 \font_osf false
@@ -514,7 +514,7 @@ SQLAlchemy
 \end_layout
 
 \begin_layout Itemize
-TeX tools: LaTeX and LyX (you're reading it now!)
+TeX tools: LaTeX2e and LyX (you're reading it now!)
 \end_layout
 
 \begin_layout Itemize
@@ -528,7 +528,22 @@ Mercurial
 \end_layout
 
 \begin_layout Chapter
-Using TIGER/Line data
+Using TIGER/Line
+\begin_inset ERT
+status open
+
+\begin_layout Standard
+
+{
+\backslash
+scriptsize{
+\backslash
+copyright}}
+\end_layout
+
+\end_inset
+
+ data
 \end_layout
 
 \begin_layout Section
@@ -634,6 +649,7 @@ target "http://en.wikipedia.org/wiki/INI_file"
  defaults.ini defines the default settings for the agent simulations.
  Simulation settings should not be changed here.
  All changes should be made in overrides.ini.
+ The agents configuration includes two sections: runtime and dev.
 \end_layout
 
 \begin_layout Description
@@ -641,49 +657,97 @@ target "http://en.wikipedia.org/wiki/INI_file"
 \end_layout
 
 \begin_layout Description
-useGUI Type: Boolean.
+useGUI 
+\emph on
+Type: Boolean.
+
+\emph default
  Specifies whether or not to produce graphical results.
  This is a top-level option.
- If it is False, ________ is ignored.
- Default: False.
+ If it is False, [TODO] is ignored.
+ 
+\emph on
+Default: False.
 \end_layout
 
 \begin_layout Description
-mapType Type: String.
+mapType 
+\emph on
+Type: String.
+
+\emph default
  Valid values are grid or graph.
  If grid, the simulation area is a square grid bounded by GRID_MIN and GRID_MAX.
- If graph, TIGER data is chosen by the user and the graph is populated dynamical
-ly.
- Default: grid.
+ If graph, 
+\begin_inset ERT
+status open
+
+\begin_layout Standard
+
+TIGER/Line{
+\backslash
+tiny{
+\backslash
+copyright}}
+\end_layout
+
+\end_inset
+
+ data is chosen by the user and the graph is populated dynamically.
+ 
+\emph on
+Default: grid.
 \end_layout
 
 \begin_layout Description
-verbose Type: Boolean.
+verbose 
+\emph on
+Type: Boolean.
+
+\emph default
  How much data do you want to see at run time? Note, if verbose is False,
  prettyPrint is ignored.
- Default: False.
+ 
+\emph on
+Default: False.
 \end_layout
 
 \begin_layout Description
-prettyPrint Type: Boolean.
+prettyPrint 
+\emph on
+Type: Boolean.
+
+\emph default
  Flag to set printing options.
  Note, this option is ignored if verbose is False.
  Valid values are True or False.
- Default: False.
+ 
+\emph on
+Default: False.
 \end_layout
 
 \begin_layout Description
-numTaxis Type: Integer.
+numTaxis 
+\emph on
+Type: Integer.
+
+\emph default
  This is the TOTAL number of Taxis that this simulation will use.
  They are all created at the start of the simulation.
  NOTE: setting this value to 0 will cause the program to crash with an IndexErro
 r.
  Valid values are positive integers (1 and up).
- Default: 5.
+ 
+\emph on
+Default: 5.
 \end_layout
 
 \begin_layout Description
-numFares Type: Integer.
+numFares 
+\emph on
+Type: Integer.
+
+\emph default
  This is the number of Fares that are generated at the START of the simulation,
  before the simulation is activated.
  Other Fares will be created when the simulation runs, at an average rate
@@ -691,11 +755,17 @@ numFares Type: Integer.
  If you want all Fares to be created after the simulation has started, just
  set this value to 0.
  Valid values are non-negative integers (0 and up).
- Default: 5.
+ 
+\emph on
+Default: 5.
 \end_layout
 
 \begin_layout Description
-meanFareGenerationRate Type: Integer.
+meanFareGenerationRate 
+\emph on
+Type: Integer.
+
+\emph default
  This is the average rate at which Fares will be created after the simulation
  is running.
  If the mean is 0, no Fares will be created.
@@ -703,164 +773,216 @@ meanFareGenerationRate Type: Integer.
  Conversely, if the mean is high (say, over 30 or so), Fares will be created
  relatively slowly.
  Valid values are non-negative integers (0 and up).
- Default: 7.
+ 
+\emph on
+Default: 7.
 \end_layout
 
 \begin_layout Description
-storeCapacity Type: Integer.
+storeCapacity 
+\emph on
+Type: Integer.
+
+\emph default
  The Store is a SimPy Resource that holds (in this case) Fares waiting for
  pickup.
  If a Taxi is unable to find an eligible Fare from the queue of waiting
  Fares, it winds up in here until an eligible Fare comes along.
  Valid values are non-negative integers.
- Default: 40.
+ 
+\emph on
+Default: 40.
 \end_layout
 
 \begin_layout Description
-simulationTime Type: Integer.
+simulationTime 
+\emph on
+Type: Integer.
+
+\emph default
  Valid values are non-negative integers (0 and up).
- Default: 100.
+ 
+\emph on
+Default: 100.
 \end_layout
 
 \begin_layout Description
-gridMin Type: Integer.
+gridMin 
+\emph on
+Type: Integer.
+
+\emph default
  Minimum grid size, in other words, the origin.
  Valid values are non-negative integers (0 and up), although anything other
  than 0 currently doesn't make much sense.
- Default: 0.
+ 
+\emph on
+Default: 0.
 \end_layout
 
 \begin_layout Description
-gridMax Type: Integer.
+gridMax 
+\emph on
+Type: Integer.
+
+\emph default
  Maximum grid size, in other words, the (x,y) at the upper right hand corner.
  Valid values are gridMin or higher.
- Default: 100.
+ 
+\emph on
+Default: 100.
 \end_layout
 
 \begin_layout Description
-taxiRangeLow Type: Float.
+taxiRangeLow 
+\emph on
+Type: Float.
+
+\emph default
  When running in mixedmode, the Taxi uses this value to determine if the
  Fares have been in the queue only long enough to send local broadcasts.
- Valid values are (0.0 to taxiRangeMedium) Default: 0.25.
+ Valid values are (0.0 to taxiRangeMedium) 
+\emph on
+Default: 0.25.
 \end_layout
 
 \begin_layout Description
-taxiRangeMedium Type: Float.
+taxiRangeMedium 
+\emph on
+Type: Float.
+
+\emph default
  When running in mixedmode, the Taxi uses this value to determine if the
  Fares have been in the queue long enough to send regional broadcasts.
  Valid values are (taxiRangeLow to taxiRangeMedium).
- Default: 0.50.
+ 
+\emph on
+Default: 0.50.
 \end_layout
 
 \begin_layout Description
-taxiRangeHigh Type: Float.
+taxiRangeHigh 
+\emph on
+Type: Float.
+
+\emph default
  When running in mixedmode, the Taxi uses this value to determine if the
  Fares have been in the queue long enough to send global broadcasts.
  Valid values are (taxiRangeMedium to 1.00).
- Default: 1.00.
+ 
+\emph on
+Default: 1.00.
 \end_layout
 
 \begin_layout Description
-negotiationProtocol Type: String.
- Valid values are FIFO, closestfare, and mixedmode.
- Default: FIFO.
-\end_layout
+simType 
+\emph on
+Type: String.
 
-\begin_layout Standard
-simType: string.
+\emph default
+ Specifies which general type of simulation to run.
+ Paired with negotiationProtocol to describe the simulation class.
  Valid values are cooperate and compete.
- Default:
+ 
+\emph on
+Default: cooperate.
 \end_layout
 
-\begin_layout Standard
-# cooperate
+\begin_layout Description
+negotiationProtocol 
+\emph on
+Type: String.
+
+\emph default
+ Specifies which general type of negotiation and queueing protocol to run.
+ Paired with simType to describe the simulation class.
+ FIFO is first-in, first-out.
+ closestfare means favor the closest Fare by distance when deciding what
+ to do next.
+ mixedmode takes distance to Fare and time Fares have been in the wait queue
+ into account when deciding what to do.
+ Valid values are FIFO, closestfare, and mixedmode.
+ 
+\emph on
+Default: FIFO.
 \end_layout
 
-\begin_layout Standard
-simType = cooperate
+\begin_layout Description
+distanceCalculation 
+\emph on
+Type: String.
+
+\emph default
+ Specifies whether to use a straight line (hypotenuse) or surface driving
+ distance when calculating distances.
+ This setting will probably have a bigger impact on performance when doing
+ graph simulations.
+ Valid values are drivingDistance or straightLine (hypotenuse).
+ 
+\emph on
+Default: straightLine.
 \end_layout
 
-\begin_layout Standard
-# distanceCalculation: string.
- Valid values are drivingDistance or
+\begin_layout Description
+randomSeed 
+\emph on
+Type: Integer.
+
+\emph default
+ The value used to seed the random number generator.
+ We use this to generate consistent results.
+ If the seed is used correctly, we can run a simulation and get the same
+ results repeatedly.
+ 
+\emph on
+Default: 0.
 \end_layout
 
-\begin_layout Standard
-# straightLine (hypotenuse).
- Default: straightLine
+\begin_layout Description
+\begin_inset VSpace defskip
+\end_inset
+
+
 \end_layout
 
-\begin_layout Standard
-distanceCalculation = straightLine
-\end_layout
-
-\begin_layout Standard
-# randomSeed: int.
- A big number used to seed the random number generator.
-\end_layout
-
-\begin_layout Standard
-# We use this to generate consistent results.
- If the seed is used correctly,
-\end_layout
-
-\begin_layout Standard
-# we can run a simulation and get the same results repeatedly.
- Default: 0.
-\end_layout
-
-\begin_layout Standard
-randomSeed = 0
-\end_layout
-
-\begin_layout Standard
+\begin_layout Description
 [dev]
 \end_layout
 
-\begin_layout Standard
-# tracing: Boolean.
- Run simulation with SimPy's tracing enabled? Default:
+\begin_layout Description
+tracing 
+\emph on
+Type: Boolean.
+
+\emph default
+ Run simulation with SimPy's tracing enabled? 
+\emph on
+Default: False.
 \end_layout
 
-\begin_layout Standard
-# False.
+\begin_layout Description
+debug 
+\emph on
+Type: Boolean.
+
+\emph default
+ If True, prints a bunch of extra information to standard output.
+ 
+\emph on
+Default: False.
 \end_layout
 
-\begin_layout Standard
-tracing = False
-\end_layout
+\begin_layout Description
+setTrace 
+\emph on
+Type: Boolean.
 
-\begin_layout Standard
-# debug: Boolean.
- If True, prints a bunch of extra information to standard
-\end_layout
-
-\begin_layout Standard
-# output.
- Default: False
-\end_layout
-
-\begin_layout Standard
-debug = False
-\end_layout
-
-\begin_layout Standard
-# setTrace: Boolean.
+\emph default
  Debugging aid, for development only.
- Use this to set
-\end_layout
-
-\begin_layout Standard
-# something like breakpoints in the code.
- Default: False
-\end_layout
-
-\begin_layout Standard
-setTrace = False
-\end_layout
-
-\begin_layout Standard
-# vim: tw=78
+ Use this to set something like breakpoints in the code.
+ 
+\emph on
+Default: False.
 \end_layout
 
 \begin_layout Standard
