@@ -486,39 +486,107 @@ This list includes only software that I used directly.
 \end_layout
 
 \begin_layout Itemize
-Python
+\begin_inset LatexCommand htmlurl
+name "Python"
+target "http://www.python.org/"
+
+\end_inset
+
+
 \end_layout
 
 \begin_layout Itemize
-SimPy (nest this under Python)
+\begin_inset LatexCommand htmlurl
+name "SimPy"
+target "http://simpy.sourceforge.net/"
+
+\end_inset
+
+ (nest this under Python)
 \end_layout
 
 \begin_layout Itemize
-NetworkX (nest this under Python)
+\begin_inset LatexCommand htmlurl
+name "NetworkX"
+target "https://networkx.lanl.gov/wiki/"
+
+\end_inset
+
+(nest this under Python)
 \end_layout
 
 \begin_layout Itemize
-Matplotlib/PyLab
+\begin_inset LatexCommand htmlurl
+name "Matplotlib/PyLab"
+target "http://matplotlib.sourceforge.net/"
+
+\end_inset
+
+
 \end_layout
 
 \begin_layout Itemize
-SQLite
+\begin_inset LatexCommand htmlurl
+name "SQLite"
+target "http://www.sqlite.org/"
+
+\end_inset
+
+
 \end_layout
 
 \begin_layout Itemize
-MySQL
+\begin_inset LatexCommand htmlurl
+name "MySQL"
+target "http://www.mysql.com/"
+
+\end_inset
+
+
 \end_layout
 
 \begin_layout Itemize
-SQLAlchemy
+\begin_inset LatexCommand htmlurl
+name "SQLAlchemy"
+target "http://www.sqlalchemy.org/"
+
+\end_inset
+
+
 \end_layout
 
 \begin_layout Itemize
-TeX tools: LaTeX2e and LyX (you're reading it now!)
+\begin_inset LatexCommand htmlurl
+name "http://www.ctan.org/"
+target "TeX"
+
+\end_inset
+
+ tools: 
+\begin_inset LatexCommand htmlurl
+name "LaTeX2e"
+target "http://www.latex-project.org/"
+
+\end_inset
+
+ and 
+\begin_inset LatexCommand htmlurl
+name "LyX"
+target "http://www.lyx.org/"
+
+\end_inset
+
+ (you're reading it now!)
 \end_layout
 
 \begin_layout Itemize
-Mercurial
+\begin_inset LatexCommand htmlurl
+name "Mercurial"
+target "http://www.selenic.com/mercurial/wiki/"
+
+\end_inset
+
+
 \end_layout
 
 \begin_layout Standard
@@ -534,11 +602,13 @@ status open
 
 \begin_layout Standard
 
-{
+
+\backslash
+textsuperscript{{
 \backslash
 scriptsize{
 \backslash
-copyright}}
+copyright}}}
 \end_layout
 
 \end_inset
@@ -993,6 +1063,30 @@ Default: False.
 
 \begin_layout Chapter
 Annotated config file: graphs
+\end_layout
+
+\begin_layout Standard
+Note: This section only applies if you are using the 
+\begin_inset ERT
+status open
+
+\begin_layout Standard
+
+TIGER/Line
+\backslash
+textsuperscript{{
+\backslash
+tiny{
+\backslash
+copyright}}}
+\end_layout
+
+\end_inset
+
+ Census data to generate geographic graphs for your simulations.
+ In that case, you should have already installed MySQL, SQLAlchemy, and
+ NetworkX.
+ 
 \end_layout
 
 \begin_layout Standard
