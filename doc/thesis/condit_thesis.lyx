@@ -29,7 +29,7 @@
 \defskip medskip
 \quotes_language english
 \papercolumns 1
-\papersides 1
+\papersides 2
 \paperpagestyle default
 \tracking_changes false
 \output_changes false
@@ -640,321 +640,134 @@ target "http://en.wikipedia.org/wiki/INI_file"
 [runtime]
 \end_layout
 
-\begin_layout Standard
-useGUI: Boolean.
- Flag to specify whether or not to produce graphical
-\end_layout
-
-\begin_layout Standard
-# results.
+\begin_layout Description
+useGUI Type: Boolean.
+ Specifies whether or not to produce graphical results.
  This is a top-level option.
  If it is False, ________ is ignored.
-\end_layout
-
-\begin_layout Standard
-# Default: False.
-\end_layout
-
-\begin_layout Standard
-useGUI = False
-\end_layout
-
-\begin_layout Standard
-# mapType: string.
- Valid values are grid or graph.
- If grid, the simulation
-\end_layout
-
-\begin_layout Standard
-# area is a square grid bounded by GRID_MIN and GRID_MAX.
- If graph, TIGER
-\end_layout
-
-\begin_layout Standard
-# data is chosen by the user and the graph is populated dynamically.
- Default:
-\end_layout
-
-\begin_layout Standard
-# grid.
-\end_layout
-
-\begin_layout Standard
-mapType = grid
-\end_layout
-
-\begin_layout Standard
-# verbose: Boolean.
- How much data do you want to see at run time? Note, if
-\end_layout
-
-\begin_layout Standard
-# verbose is False, prettyPrint is ignored.
  Default: False.
 \end_layout
 
-\begin_layout Standard
-verbose = False
+\begin_layout Description
+mapType Type: String.
+ Valid values are grid or graph.
+ If grid, the simulation area is a square grid bounded by GRID_MIN and GRID_MAX.
+ If graph, TIGER data is chosen by the user and the graph is populated dynamical
+ly.
+ Default: grid.
 \end_layout
 
-\begin_layout Standard
-# prettyPrint: Boolean.
+\begin_layout Description
+verbose Type: Boolean.
+ How much data do you want to see at run time? Note, if verbose is False,
+ prettyPrint is ignored.
+ Default: False.
+\end_layout
+
+\begin_layout Description
+prettyPrint Type: Boolean.
  Flag to set printing options.
- Note, this option is
-\end_layout
-
-\begin_layout Standard
-# ignored if verbose is False.
+ Note, this option is ignored if verbose is False.
  Valid values are True or False.
- Default:
+ Default: False.
 \end_layout
 
-\begin_layout Standard
-# False
-\end_layout
-
-\begin_layout Standard
-prettyPrint = False
-\end_layout
-
-\begin_layout Standard
-# numTaxis: int.
- This is the TOTAL number of Taxis that this simulation will
-\end_layout
-
-\begin_layout Standard
-# use.
+\begin_layout Description
+numTaxis Type: Integer.
+ This is the TOTAL number of Taxis that this simulation will use.
  They are all created at the start of the simulation.
- NOTE: setting
+ NOTE: setting this value to 0 will cause the program to crash with an IndexErro
+r.
+ Valid values are positive integers (1 and up).
+ Default: 5.
 \end_layout
 
-\begin_layout Standard
-# this value to 0 will cause the program to crash with an IndexError.
- Valid
-\end_layout
-
-\begin_layout Standard
-# values are positive integers (1 and up).
- Default: 5
-\end_layout
-
-\begin_layout Standard
-numTaxis = 5
-\end_layout
-
-\begin_layout Standard
-# numFares: int.
- This is the number of Fares that are generated at the START
-\end_layout
-
-\begin_layout Standard
-# of the simulation, before the simulation is activated.
- Other Fares will be
-\end_layout
-
-\begin_layout Standard
-# created when the simulation runs, at an average rate specified below
-\end_layout
-
-\begin_layout Standard
-# (meanFareGenerationRate).
- If you want all Fares to be created after the
-\end_layout
-
-\begin_layout Standard
-# simulation has started, just set this value to 0.
- Valid values are
-\end_layout
-
-\begin_layout Standard
-# non-negative integers (0 and up).
- Default: 5
-\end_layout
-
-\begin_layout Standard
-numFares = 5
-\end_layout
-
-\begin_layout Standard
-# meanFareGenerationRate: int.
- This is the average rate at which Fares will
-\end_layout
-
-\begin_layout Standard
-# be created after the simulation is running.
- If the mean is 0, no Fares will
-\end_layout
-
-\begin_layout Standard
-# be created.
- If the mean is very low, Fares will be created very rapidly.
-\end_layout
-
-\begin_layout Standard
-# Conversely, if the mean is high (say, over 30 or so), Fares will be created
-\end_layout
-
-\begin_layout Standard
-# relatively slowly.
+\begin_layout Description
+numFares Type: Integer.
+ This is the number of Fares that are generated at the START of the simulation,
+ before the simulation is activated.
+ Other Fares will be created when the simulation runs, at an average rate
+ specified below (meanFareGenerationRate).
+ If you want all Fares to be created after the simulation has started, just
+ set this value to 0.
  Valid values are non-negative integers (0 and up).
+ Default: 5.
 \end_layout
 
-\begin_layout Standard
-# Default: 7
+\begin_layout Description
+meanFareGenerationRate Type: Integer.
+ This is the average rate at which Fares will be created after the simulation
+ is running.
+ If the mean is 0, no Fares will be created.
+ If the mean is very low, Fares will be created very rapidly.
+ Conversely, if the mean is high (say, over 30 or so), Fares will be created
+ relatively slowly.
+ Valid values are non-negative integers (0 and up).
+ Default: 7.
 \end_layout
 
-\begin_layout Standard
-meanFareGenerationRate = 7
-\end_layout
-
-\begin_layout Standard
-# storeCapacity: int.
- The Store is a SimPy Resource that holds (in this case)
-\end_layout
-
-\begin_layout Standard
-# Fares waiting for pickup.
- If a Taxi is unable to find an eligible Fare from
-\end_layout
-
-\begin_layout Standard
-# the queue of waiting Fares, it winds up in here until an eligible Fare
- comes
-\end_layout
-
-\begin_layout Standard
-# along.
+\begin_layout Description
+storeCapacity Type: Integer.
+ The Store is a SimPy Resource that holds (in this case) Fares waiting for
+ pickup.
+ If a Taxi is unable to find an eligible Fare from the queue of waiting
+ Fares, it winds up in here until an eligible Fare comes along.
  Valid values are non-negative integers.
  Default: 40.
 \end_layout
 
-\begin_layout Standard
-storeCapacity = 40
-\end_layout
-
-\begin_layout Standard
-# simulationTime: int.
+\begin_layout Description
+simulationTime Type: Integer.
  Valid values are non-negative integers (0 and up).
+ Default: 100.
 \end_layout
 
-\begin_layout Standard
-# Default: 100
-\end_layout
-
-\begin_layout Standard
-simulationTime = 100
-\end_layout
-
-\begin_layout Standard
-# gridMin: int.
+\begin_layout Description
+gridMin Type: Integer.
  Minimum grid size, in other words, the origin.
- Valid values
+ Valid values are non-negative integers (0 and up), although anything other
+ than 0 currently doesn't make much sense.
+ Default: 0.
 \end_layout
 
-\begin_layout Standard
-# are non-negative integers (0 and up), although anything other than 0
-\end_layout
-
-\begin_layout Standard
-# currently doesn't make much sense.
- Default: 0
-\end_layout
-
-\begin_layout Standard
-gridMin = 0
-\end_layout
-
-\begin_layout Standard
-# gridMax: int.
- Maximum grid size, in other words, the (x,y) at the upper
-\end_layout
-
-\begin_layout Standard
-# right hand corner.
+\begin_layout Description
+gridMax Type: Integer.
+ Maximum grid size, in other words, the (x,y) at the upper right hand corner.
  Valid values are gridMin or higher.
- Default: 100
+ Default: 100.
 \end_layout
 
-\begin_layout Standard
-gridMax = 100
+\begin_layout Description
+taxiRangeLow Type: Float.
+ When running in mixedmode, the Taxi uses this value to determine if the
+ Fares have been in the queue only long enough to send local broadcasts.
+ Valid values are (0.0 to taxiRangeMedium) Default: 0.25.
 \end_layout
 
-\begin_layout Standard
-# taxiRangeLow: float.
- When running in mixedmode, the Taxi uses this value to
-\end_layout
-
-\begin_layout Standard
-# determine if the Fares have been in the queue only long enough to send
- local
-\end_layout
-
-\begin_layout Standard
-# broadcasts.
- Valid values are (0.0 to taxiRangeMedium) Default: .25
-\end_layout
-
-\begin_layout Standard
-taxiRangeLow = .25
-\end_layout
-
-\begin_layout Standard
-# taxiRangeMedium: float.
- When running in mixedmode, the Taxi uses this value
-\end_layout
-
-\begin_layout Standard
-# to determine if the Fares have been in the queue long enough to send
-\end_layout
-
-\begin_layout Standard
-# regional broadcasts.
+\begin_layout Description
+taxiRangeMedium Type: Float.
+ When running in mixedmode, the Taxi uses this value to determine if the
+ Fares have been in the queue long enough to send regional broadcasts.
  Valid values are (taxiRangeLow to taxiRangeMedium).
+ Default: 0.50.
 \end_layout
 
-\begin_layout Standard
-# Default: .50
-\end_layout
-
-\begin_layout Standard
-taxiRangeMedium = .50
-\end_layout
-
-\begin_layout Standard
-# taxiRangeHigh: float.
- When running in mixedmode, the Taxi uses this value
-\end_layout
-
-\begin_layout Standard
-# to determine if the Fares have been in the queue long enough to send global
-\end_layout
-
-\begin_layout Standard
-# broadcasts.
+\begin_layout Description
+taxiRangeHigh Type: Float.
+ When running in mixedmode, the Taxi uses this value to determine if the
+ Fares have been in the queue long enough to send global broadcasts.
  Valid values are (taxiRangeMedium to 1.00).
- Default: 1.00
+ Default: 1.00.
+\end_layout
+
+\begin_layout Description
+negotiationProtocol Type: String.
+ Valid values are FIFO, closestfare, and mixedmode.
+ Default: FIFO.
 \end_layout
 
 \begin_layout Standard
-taxiRangeHigh = 1.00
-\end_layout
-
-\begin_layout Standard
-# negotiationProtocol: string.
- Valid values are FIFO, closestfare, and
-\end_layout
-
-\begin_layout Standard
-# mixedmode.
- Default: FIFO
-\end_layout
-
-\begin_layout Standard
-negotiationProtocol = FIFO
-\end_layout
-
-\begin_layout Standard
-# simType: string.
+simType: string.
  Valid values are cooperate and compete.
  Default:
 \end_layout
