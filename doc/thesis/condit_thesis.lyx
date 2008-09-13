@@ -456,30 +456,69 @@ Donec odio nibh, varius in, dictum nec, egestas in, nisl.
  Suspendisse ultrices sollicitudin nunc.
 \end_layout
 
+\begin_layout Section
+Future work
+\end_layout
+
+\begin_layout Standard
+See C:/Source/hg/tags/graphs_0.6/docs/daily_status/2006/10/18.txt for some
+ ideas.
+ More generally, I should print the entire set of daily_status notes and
+ scan them on paper.
+ Reading the text files one at a time is just misery.
+\end_layout
+
 \begin_layout Standard
 
 \clearpage
 
 \end_layout
 
-\begin_layout LyX-Code
-\begin_inset ERT
-status open
+\begin_layout Chapter
+\start_of_appendix
+List of open source software
+\end_layout
 
 \begin_layout Standard
-
-
-\backslash
-appendix
+This list includes only software that I used directly.
+ About half of them had additional dependencies which are also installed,
+ but not listed.
 \end_layout
 
-\end_inset
-
-
+\begin_layout Itemize
+Python
 \end_layout
 
-\begin_layout Chapter
-List of open source software
+\begin_layout Itemize
+SimPy (nest this under Python)
+\end_layout
+
+\begin_layout Itemize
+NetworkX (nest this under Python)
+\end_layout
+
+\begin_layout Itemize
+Matplotlib/PyLab
+\end_layout
+
+\begin_layout Itemize
+SQLite
+\end_layout
+
+\begin_layout Itemize
+MySQL
+\end_layout
+
+\begin_layout Itemize
+SQLAlchemy
+\end_layout
+
+\begin_layout Itemize
+TeX tools: LaTeX and LyX (you're reading it now!)
+\end_layout
+
+\begin_layout Itemize
+Mercurial
 \end_layout
 
 \begin_layout Standard
@@ -492,6 +531,86 @@ List of open source software
 Using TIGER/Line data
 \end_layout
 
+\begin_layout Section
+Getting the datasets
+\end_layout
+
+\begin_layout Standard
+Lorem ipsum dolor sit amet, consectetuer adipiscing elit.
+ Pellentesque dignissim.
+ Praesent tortor.
+ In fringilla feugiat nisi.
+ Fusce a elit.
+ Maecenas placerat facilisis magna.
+ Mauris dolor nisi, consequat quis, adipiscing et, consequat semper, odio.
+ In eget lacus.
+ Pellentesque mauris.
+ Sed vestibulum quam ac mauris.
+ Donec vehicula risus.
+ Maecenas vitae arcu quis tellus fringilla porttitor.
+ Donec enim nulla, ornare sit amet, lacinia id, bibendum scelerisque, sapien.
+\end_layout
+
+\begin_layout Section
+Parsing the records
+\end_layout
+
+\begin_layout Standard
+Lorem ipsum dolor sit amet, consectetuer adipiscing elit.
+ Pellentesque dignissim.
+ Praesent tortor.
+ In fringilla feugiat nisi.
+ Fusce a elit.
+ Maecenas placerat facilisis magna.
+ Mauris dolor nisi, consequat quis, adipiscing et, consequat semper, odio.
+ In eget lacus.
+ Pellentesque mauris.
+ Sed vestibulum quam ac mauris.
+ Donec vehicula risus.
+ Maecenas vitae arcu quis tellus fringilla porttitor.
+ Donec enim nulla, ornare sit amet, lacinia id, bibendum scelerisque, sapien.
+\end_layout
+
+\begin_layout Section
+Munging the data
+\end_layout
+
+\begin_layout Standard
+Lorem ipsum dolor sit amet, consectetuer adipiscing elit.
+ Pellentesque dignissim.
+ Praesent tortor.
+ In fringilla feugiat nisi.
+ Fusce a elit.
+ Maecenas placerat facilisis magna.
+ Mauris dolor nisi, consequat quis, adipiscing et, consequat semper, odio.
+ In eget lacus.
+ Pellentesque mauris.
+ Sed vestibulum quam ac mauris.
+ Donec vehicula risus.
+ Maecenas vitae arcu quis tellus fringilla porttitor.
+ Donec enim nulla, ornare sit amet, lacinia id, bibendum scelerisque, sapien.
+\end_layout
+
+\begin_layout Section
+Populating the database
+\end_layout
+
+\begin_layout Standard
+Lorem ipsum dolor sit amet, consectetuer adipiscing elit.
+ Pellentesque dignissim.
+ Praesent tortor.
+ In fringilla feugiat nisi.
+ Fusce a elit.
+ Maecenas placerat facilisis magna.
+ Mauris dolor nisi, consequat quis, adipiscing et, consequat semper, odio.
+ In eget lacus.
+ Pellentesque mauris.
+ Sed vestibulum quam ac mauris.
+ Donec vehicula risus.
+ Maecenas vitae arcu quis tellus fringilla porttitor.
+ Donec enim nulla, ornare sit amet, lacinia id, bibendum scelerisque, sapien.
+\end_layout
+
 \begin_layout Standard
 
 \clearpage
@@ -500,6 +619,435 @@ Using TIGER/Line data
 
 \begin_layout Chapter
 Annotated config file: agents
+\end_layout
+
+\begin_layout Standard
+All configuration for the simulation is done through 
+\begin_inset LatexCommand htmlurl
+name "ini-style configuration files"
+target "http://en.wikipedia.org/wiki/INI_file"
+
+\end_inset
+
+.
+ The agents use conf/agents/defaults.ini and conf/agents/overrides.ini.
+ defaults.ini defines the default settings for the agent simulations.
+ Simulation settings should not be changed here.
+ All changes should be made in overrides.ini.
+\end_layout
+
+\begin_layout Description
+[runtime]
+\end_layout
+
+\begin_layout Standard
+useGUI: Boolean.
+ Flag to specify whether or not to produce graphical
+\end_layout
+
+\begin_layout Standard
+# results.
+ This is a top-level option.
+ If it is False, ________ is ignored.
+\end_layout
+
+\begin_layout Standard
+# Default: False.
+\end_layout
+
+\begin_layout Standard
+useGUI = False
+\end_layout
+
+\begin_layout Standard
+# mapType: string.
+ Valid values are grid or graph.
+ If grid, the simulation
+\end_layout
+
+\begin_layout Standard
+# area is a square grid bounded by GRID_MIN and GRID_MAX.
+ If graph, TIGER
+\end_layout
+
+\begin_layout Standard
+# data is chosen by the user and the graph is populated dynamically.
+ Default:
+\end_layout
+
+\begin_layout Standard
+# grid.
+\end_layout
+
+\begin_layout Standard
+mapType = grid
+\end_layout
+
+\begin_layout Standard
+# verbose: Boolean.
+ How much data do you want to see at run time? Note, if
+\end_layout
+
+\begin_layout Standard
+# verbose is False, prettyPrint is ignored.
+ Default: False.
+\end_layout
+
+\begin_layout Standard
+verbose = False
+\end_layout
+
+\begin_layout Standard
+# prettyPrint: Boolean.
+ Flag to set printing options.
+ Note, this option is
+\end_layout
+
+\begin_layout Standard
+# ignored if verbose is False.
+ Valid values are True or False.
+ Default:
+\end_layout
+
+\begin_layout Standard
+# False
+\end_layout
+
+\begin_layout Standard
+prettyPrint = False
+\end_layout
+
+\begin_layout Standard
+# numTaxis: int.
+ This is the TOTAL number of Taxis that this simulation will
+\end_layout
+
+\begin_layout Standard
+# use.
+ They are all created at the start of the simulation.
+ NOTE: setting
+\end_layout
+
+\begin_layout Standard
+# this value to 0 will cause the program to crash with an IndexError.
+ Valid
+\end_layout
+
+\begin_layout Standard
+# values are positive integers (1 and up).
+ Default: 5
+\end_layout
+
+\begin_layout Standard
+numTaxis = 5
+\end_layout
+
+\begin_layout Standard
+# numFares: int.
+ This is the number of Fares that are generated at the START
+\end_layout
+
+\begin_layout Standard
+# of the simulation, before the simulation is activated.
+ Other Fares will be
+\end_layout
+
+\begin_layout Standard
+# created when the simulation runs, at an average rate specified below
+\end_layout
+
+\begin_layout Standard
+# (meanFareGenerationRate).
+ If you want all Fares to be created after the
+\end_layout
+
+\begin_layout Standard
+# simulation has started, just set this value to 0.
+ Valid values are
+\end_layout
+
+\begin_layout Standard
+# non-negative integers (0 and up).
+ Default: 5
+\end_layout
+
+\begin_layout Standard
+numFares = 5
+\end_layout
+
+\begin_layout Standard
+# meanFareGenerationRate: int.
+ This is the average rate at which Fares will
+\end_layout
+
+\begin_layout Standard
+# be created after the simulation is running.
+ If the mean is 0, no Fares will
+\end_layout
+
+\begin_layout Standard
+# be created.
+ If the mean is very low, Fares will be created very rapidly.
+\end_layout
+
+\begin_layout Standard
+# Conversely, if the mean is high (say, over 30 or so), Fares will be created
+\end_layout
+
+\begin_layout Standard
+# relatively slowly.
+ Valid values are non-negative integers (0 and up).
+\end_layout
+
+\begin_layout Standard
+# Default: 7
+\end_layout
+
+\begin_layout Standard
+meanFareGenerationRate = 7
+\end_layout
+
+\begin_layout Standard
+# storeCapacity: int.
+ The Store is a SimPy Resource that holds (in this case)
+\end_layout
+
+\begin_layout Standard
+# Fares waiting for pickup.
+ If a Taxi is unable to find an eligible Fare from
+\end_layout
+
+\begin_layout Standard
+# the queue of waiting Fares, it winds up in here until an eligible Fare
+ comes
+\end_layout
+
+\begin_layout Standard
+# along.
+ Valid values are non-negative integers.
+ Default: 40.
+\end_layout
+
+\begin_layout Standard
+storeCapacity = 40
+\end_layout
+
+\begin_layout Standard
+# simulationTime: int.
+ Valid values are non-negative integers (0 and up).
+\end_layout
+
+\begin_layout Standard
+# Default: 100
+\end_layout
+
+\begin_layout Standard
+simulationTime = 100
+\end_layout
+
+\begin_layout Standard
+# gridMin: int.
+ Minimum grid size, in other words, the origin.
+ Valid values
+\end_layout
+
+\begin_layout Standard
+# are non-negative integers (0 and up), although anything other than 0
+\end_layout
+
+\begin_layout Standard
+# currently doesn't make much sense.
+ Default: 0
+\end_layout
+
+\begin_layout Standard
+gridMin = 0
+\end_layout
+
+\begin_layout Standard
+# gridMax: int.
+ Maximum grid size, in other words, the (x,y) at the upper
+\end_layout
+
+\begin_layout Standard
+# right hand corner.
+ Valid values are gridMin or higher.
+ Default: 100
+\end_layout
+
+\begin_layout Standard
+gridMax = 100
+\end_layout
+
+\begin_layout Standard
+# taxiRangeLow: float.
+ When running in mixedmode, the Taxi uses this value to
+\end_layout
+
+\begin_layout Standard
+# determine if the Fares have been in the queue only long enough to send
+ local
+\end_layout
+
+\begin_layout Standard
+# broadcasts.
+ Valid values are (0.0 to taxiRangeMedium) Default: .25
+\end_layout
+
+\begin_layout Standard
+taxiRangeLow = .25
+\end_layout
+
+\begin_layout Standard
+# taxiRangeMedium: float.
+ When running in mixedmode, the Taxi uses this value
+\end_layout
+
+\begin_layout Standard
+# to determine if the Fares have been in the queue long enough to send
+\end_layout
+
+\begin_layout Standard
+# regional broadcasts.
+ Valid values are (taxiRangeLow to taxiRangeMedium).
+\end_layout
+
+\begin_layout Standard
+# Default: .50
+\end_layout
+
+\begin_layout Standard
+taxiRangeMedium = .50
+\end_layout
+
+\begin_layout Standard
+# taxiRangeHigh: float.
+ When running in mixedmode, the Taxi uses this value
+\end_layout
+
+\begin_layout Standard
+# to determine if the Fares have been in the queue long enough to send global
+\end_layout
+
+\begin_layout Standard
+# broadcasts.
+ Valid values are (taxiRangeMedium to 1.00).
+ Default: 1.00
+\end_layout
+
+\begin_layout Standard
+taxiRangeHigh = 1.00
+\end_layout
+
+\begin_layout Standard
+# negotiationProtocol: string.
+ Valid values are FIFO, closestfare, and
+\end_layout
+
+\begin_layout Standard
+# mixedmode.
+ Default: FIFO
+\end_layout
+
+\begin_layout Standard
+negotiationProtocol = FIFO
+\end_layout
+
+\begin_layout Standard
+# simType: string.
+ Valid values are cooperate and compete.
+ Default:
+\end_layout
+
+\begin_layout Standard
+# cooperate
+\end_layout
+
+\begin_layout Standard
+simType = cooperate
+\end_layout
+
+\begin_layout Standard
+# distanceCalculation: string.
+ Valid values are drivingDistance or
+\end_layout
+
+\begin_layout Standard
+# straightLine (hypotenuse).
+ Default: straightLine
+\end_layout
+
+\begin_layout Standard
+distanceCalculation = straightLine
+\end_layout
+
+\begin_layout Standard
+# randomSeed: int.
+ A big number used to seed the random number generator.
+\end_layout
+
+\begin_layout Standard
+# We use this to generate consistent results.
+ If the seed is used correctly,
+\end_layout
+
+\begin_layout Standard
+# we can run a simulation and get the same results repeatedly.
+ Default: 0.
+\end_layout
+
+\begin_layout Standard
+randomSeed = 0
+\end_layout
+
+\begin_layout Standard
+[dev]
+\end_layout
+
+\begin_layout Standard
+# tracing: Boolean.
+ Run simulation with SimPy's tracing enabled? Default:
+\end_layout
+
+\begin_layout Standard
+# False.
+\end_layout
+
+\begin_layout Standard
+tracing = False
+\end_layout
+
+\begin_layout Standard
+# debug: Boolean.
+ If True, prints a bunch of extra information to standard
+\end_layout
+
+\begin_layout Standard
+# output.
+ Default: False
+\end_layout
+
+\begin_layout Standard
+debug = False
+\end_layout
+
+\begin_layout Standard
+# setTrace: Boolean.
+ Debugging aid, for development only.
+ Use this to set
+\end_layout
+
+\begin_layout Standard
+# something like breakpoints in the code.
+ Default: False
+\end_layout
+
+\begin_layout Standard
+setTrace = False
+\end_layout
+
+\begin_layout Standard
+# vim: tw=78
 \end_layout
 
 \begin_layout Standard
