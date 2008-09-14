@@ -3,11 +3,14 @@
 \begin_document
 \begin_header
 \textclass report
+\begin_preamble
+\usepackage{hyperref}
+\end_preamble
 \language english
 \inputencoding auto
 \font_roman default
 \font_sans default
-\font_typewriter lmtt
+\font_typewriter default
 \font_default_family default
 \font_sc false
 \font_osf false
@@ -977,7 +980,7 @@ Type: Boolean.
 status open
 
 \begin_layout Standard
-TODO
+TODO: what is ignored?
 \end_layout
 
 \end_inset
@@ -1344,7 +1347,30 @@ reference "ite:[http://www.mysql.com/||MySQL]"
 
 \end_inset
 
-), SQLAlchemy, and NetworkX.
+), SQLAlchemy 
+\begin_inset LatexCommand eqref
+reference "ite:[http://www.sqlalchemy.org/||SQLAlchemy]"
+
+\end_inset
+
+, and NetworkX 
+\begin_inset LatexCommand eqref
+reference "ite:[https://networkx.lanl.gov/wiki/||NetworkX]"
+
+\end_inset
+
+.
+\begin_inset Note Note
+status open
+
+\begin_layout Standard
+The cross-ref link works, but it looks strange (red box) in Adobe Reader.
+ Is that how it's supposed to look?
+\end_layout
+
+\end_inset
+
+
 \end_layout
 
 \begin_layout Standard
