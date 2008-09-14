@@ -64,6 +64,16 @@ today
 \end_inset
 
 
+\begin_inset Note Note
+status open
+
+\begin_layout Standard
+TODO: fix the page numbering
+\end_layout
+
+\end_inset
+
+
 \end_layout
 
 \begin_layout Standard
@@ -858,11 +868,61 @@ copyright}}}
 \end_layout
 
 \begin_layout Standard
+\begin_inset Note Note
+status open
+
+\begin_layout Standard
+TODO: figure out how to center this box.
+ Maybe use a minipage instead.
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset ERT
+status open
+
+\begin_layout Standard
+
+
+\backslash
+parbox[b]{4in}{Note: This section only applies if you are planning on using
+ the geographical graphs for your simulations.
+ It's more work, but you get more realistic simulations.}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
 The U.S.
  Census Bureau provides free access to the raw geographic data that is used
  for the simulations.
- It is called TIGER, which is an acronym for Topologically Integrated Geographic
- Encoding and Referencing.
+ It is called TIGER
+\begin_inset Foot
+status open
+
+\begin_layout Standard
+This is an acronym for Topologically Integrated Geographic Encoding and
+ Referencing.
+ Looks like a 
+\begin_inset LatexCommand htmlurl
+name "backronym"
+target "http://en.wikipedia.org/wiki/Backronym"
+
+\end_inset
+
+ to me.
+\end_layout
+
+\end_inset
+
+.
  The Census Bureau provides data only -- there are no GIS or mapping tools
  available with TIGER.
  On the other hand, the data they provide is exhaustive.
@@ -878,18 +938,13 @@ geographs?
 \end_inset
 
 .
- Several tools were developed to extract the necessary pieces and transform
- the data into a form suitable for importing into an SQL database.
+ Several tools were developed as part of this project to extract the necessary
+ pieces and transform the data into a form suitable for importing into an
+ SQL database.
 \end_layout
 
 \begin_layout Section
 Getting the datasets
-\end_layout
-
-\begin_layout Standard
-This section only applies if you are planning on using the geographical
- graphs for your simulations.
- It's more work, but you get more realistic simulations.
 \end_layout
 
 \begin_layout Standard
@@ -902,7 +957,8 @@ The first thing to decide is how much data you want, and from what region.
 \end_layout
 
 \begin_layout Standard
-For all practical purposes, you have two choices: county or state.
+For all practical purposes, you have two choices: county (or county equivalent)
+ or state.
  The geographic data is grouped by state, and within each state, by county.
  The simplest way to get started is to download a single county.
  If you have a specific county in mind, you can find the name of the file
@@ -926,17 +982,50 @@ target "http://www.census.gov/geo/www/tiger/tiger2006se/a6seapa.txt"
 \begin_layout Standard
 If you want to download all the files for a state, or even all the states,
  you will need to automate the download step.
- My recommendation is that you download wget.exe for Windows [http://users.ugent.be
-/~bpuype/wget/], and use that.
- That's what I'll use for the examples.
+ My recommendation is that you download 
+\begin_inset LatexCommand htmlurl
+name "wget for Windows"
+target "http://users.ugent.be/~bpuype/wget/"
+
+\end_inset
+
+, and use that.
+ That's what is used for the examples.
 \end_layout
 
 \begin_layout Standard
 Here is the most direct and efficient way of downloading the TIGER files
  that I have found.
- This command says to fetch the files recursively for the state of Michigan,
- but only to a depth of level 1.
+ This command says to fetch the files recursively for the state of Michigan
+\begin_inset Foot
+status open
+
+\begin_layout Standard
+Michigan's FIPS (federal information processing standard) state code is
+ 26.
+\end_layout
+
+\end_inset
+
+, but only to a depth of level 1.
  If you do not use these options, all you get is a deeply nested index.html.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Note Note
+status open
+
+\begin_layout Standard
+I'm having a shitter of a time adding a URL in the footnotes.
+ Bummer.
+ Anyway, add this URL to the bibliography.
+ It's for NIST, which defines the FIPS.
+ http://www.itl.nist.gov/fipspubs/fip5-2.htm
+\end_layout
+
+\end_inset
+
+
 \end_layout
 
 \begin_layout Standard
@@ -954,19 +1043,36 @@ This renders as two long lines.
 \end_layout
 
 \begin_layout Standard
-\begin_inset listings
-inline false
+\begin_inset ERT
 status open
 
 \begin_layout Standard
+
+
+\backslash
+begin{verbatim}
+\end_layout
+
+\begin_layout Standard
+
 C:
 \backslash
 Source
 \backslash
-TIGER>wget --recursive --level=1 http://www2.census.gov/geo/tiger/tiger2006se/MI
+TIGER>wget --recursive --level=1
 \end_layout
 
 \begin_layout Standard
+
+  http://www2.census.gov/geo/tiger/tiger2006se/MI
+\end_layout
+
+\begin_layout Standard
+
+\end_layout
+
+\begin_layout Standard
+
 C:
 \backslash
 Source
@@ -979,21 +1085,133 @@ tiger
 \backslash
 tiger2006se
 \backslash
-MI COUNTS26.TXT TGR26025.ZIP TGR26061.ZIP TGR26097.ZIP TGR26133.ZIP index.html
- TGR26027.ZIP TGR26063.ZIP TGR26099.ZIP TGR26135.ZIP index.html@C=D;O=A TGR26029.ZIP
- TGR26065.ZIP TGR26101.ZIP TGR26137.ZIP index.html@C=M;O=A TGR26031.ZIP TGR26067.ZIP
- TGR26103.ZIP TGR26139.ZIP index.html@C=N;O=D TGR26033.ZIP TGR26069.ZIP TGR26105.ZIP
- TGR26141.ZIP index.html@C=S;O=A TGR26035.ZIP TGR26071.ZIP TGR26107.ZIP TGR26143.ZIP
- TGR26001.ZIP TGR26037.ZIP TGR26073.ZIP TGR26109.ZIP TGR26145.ZIP TGR26003.ZIP
- TGR26039.ZIP TGR26075.ZIP TGR26111.ZIP TGR26147.ZIP TGR26005.ZIP TGR26041.ZIP
- TGR26077.ZIP TGR26113.ZIP TGR26149.ZIP TGR26007.ZIP TGR26043.ZIP TGR26079.ZIP
- TGR26115.ZIP TGR26151.ZIP TGR26009.ZIP TGR26045.ZIP TGR26081.ZIP TGR26117.ZIP
- TGR26153.ZIP TGR26011.ZIP TGR26047.ZIP TGR26083.ZIP TGR26119.ZIP TGR26155.ZIP
- TGR26013.ZIP TGR26049.ZIP TGR26085.ZIP TGR26121.ZIP TGR26157.ZIP TGR26015.ZIP
- TGR26051.ZIP TGR26087.ZIP TGR26123.ZIP TGR26159.ZIP TGR26017.ZIP TGR26053.ZIP
- TGR26089.ZIP TGR26125.ZIP TGR26161.ZIP TGR26019.ZIP TGR26055.ZIP TGR26091.ZIP
- TGR26127.ZIP TGR26163.ZIP TGR26021.ZIP TGR26057.ZIP TGR26093.ZIP TGR26129.ZIP
- TGR26165.ZIP TGR26023.ZIP TGR26059.ZIP TGR26095.ZIP TGR26131.ZIP
+MI
+\end_layout
+
+\begin_layout Standard
+
+\end_layout
+
+\begin_layout Standard
+
+COUNTS26.TXT index.html index.html@C=D;O=A
+\end_layout
+
+\begin_layout Standard
+
+index.html@C=M;O=A index.html@C=N;O=D index.html@C=S;O=A
+\end_layout
+
+\begin_layout Standard
+
+TGR26001.ZIP TGR26003.ZIP TGR26005.ZIP TGR26007.ZIP
+\end_layout
+
+\begin_layout Standard
+
+TGR26009.ZIP TGR26011.ZIP TGR26013.ZIP TGR26015.ZIP
+\end_layout
+
+\begin_layout Standard
+
+TGR26017.ZIP TGR26019.ZIP TGR26021.ZIP TGR26023.ZIP
+\end_layout
+
+\begin_layout Standard
+
+TGR26025.ZIP TGR26027.ZIP TGR26029.ZIP TGR26031.ZIP
+\end_layout
+
+\begin_layout Standard
+
+TGR26033.ZIP TGR26035.ZIP TGR26037.ZIP TGR26039.ZIP
+\end_layout
+
+\begin_layout Standard
+
+TGR26041.ZIP TGR26043.ZIP TGR26045.ZIP TGR26047.ZIP
+\end_layout
+
+\begin_layout Standard
+
+TGR26049.ZIP TGR26051.ZIP TGR26053.ZIP TGR26055.ZIP
+\end_layout
+
+\begin_layout Standard
+
+TGR26057.ZIP TGR26059.ZIP TGR26061.ZIP TGR26063.ZIP
+\end_layout
+
+\begin_layout Standard
+
+TGR26065.ZIP TGR26067.ZIP TGR26069.ZIP TGR26071.ZIP
+\end_layout
+
+\begin_layout Standard
+
+TGR26073.ZIP TGR26075.ZIP TGR26077.ZIP TGR26079.ZIP
+\end_layout
+
+\begin_layout Standard
+
+TGR26081.ZIP TGR26083.ZIP TGR26085.ZIP TGR26087.ZIP
+\end_layout
+
+\begin_layout Standard
+
+TGR26089.ZIP TGR26091.ZIP TGR26093.ZIP TGR26095.ZIP
+\end_layout
+
+\begin_layout Standard
+
+TGR26097.ZIP TGR26099.ZIP TGR26101.ZIP TGR26103.ZIP
+\end_layout
+
+\begin_layout Standard
+
+TGR26105.ZIP TGR26107.ZIP TGR26109.ZIP TGR26111.ZIP
+\end_layout
+
+\begin_layout Standard
+
+TGR26113.ZIP TGR26115.ZIP TGR26117.ZIP TGR26119.ZIP
+\end_layout
+
+\begin_layout Standard
+
+TGR26121.ZIP TGR26123.ZIP TGR26125.ZIP TGR26127.ZIP
+\end_layout
+
+\begin_layout Standard
+
+TGR26129.ZIP TGR26131.ZIP TGR26133.ZIP TGR26135.ZIP
+\end_layout
+
+\begin_layout Standard
+
+TGR26137.ZIP TGR26139.ZIP TGR26141.ZIP TGR26143.ZIP
+\end_layout
+
+\begin_layout Standard
+
+TGR26145.ZIP TGR26147.ZIP TGR26149.ZIP TGR26151.ZIP
+\end_layout
+
+\begin_layout Standard
+
+TGR26153.ZIP TGR26155.ZIP TGR26157.ZIP TGR26159.ZIP
+\end_layout
+
+\begin_layout Standard
+
+TGR26161.ZIP TGR26163.ZIP TGR26165.ZIP
+\end_layout
+
+\begin_layout Standard
+
+
+\backslash
+end{verbatim}
 \end_layout
 
 \end_inset
@@ -1002,10 +1220,190 @@ MI COUNTS26.TXT TGR26025.ZIP TGR26061.ZIP TGR26097.ZIP TGR26133.ZIP index.html
 \end_layout
 
 \begin_layout Standard
-It turns out that Michigan has more counties than many other states.
+The numbered ZIP files starting with 'TGR26" contain county data.
+ It turns out that Michigan has more counties than many other states.
  So it may not be a completely representative sample.
  Regardless, you will definitely want to use a download tool if you are
  planning on using multiple counties or states.
+\end_layout
+
+\begin_layout Section
+Looking at the raw TIGER data
+\end_layout
+
+\begin_layout Standard
+It may be instructive to look at the files, from the large to the small.
+ Starting with the collection of files that make up a state, we look at
+ the files that describe a county, and then look at the details that describe
+ a road segment somewhere within that county.
+\end_layout
+
+\begin_layout Standard
+The state and county files are numbered in a specific way.
+ Each state is identified by two digits, and each county of the state is
+ identified by the last three digits.
+ Michigan, for example, is state number 26.
+ So all Michigan TIGER files start with TGR26, followed by the three-digit
+ county code.
+ The county codes are not contiguous for some reason.
+ They tend to be mostly odd numbers.
+\end_layout
+
+\begin_layout Standard
+Working inward, here are the contents of a typical uncompressed county file
+ called TGR26001.
+ According to 
+\begin_inset ERT
+status open
+
+\begin_layout Standard
+
+\backslash
+ldots
+\end_layout
+
+\end_inset
+
+ this represents 
+\begin_inset ERT
+status open
+
+\begin_layout Standard
+
+\backslash
+ldots
+\end_layout
+
+\end_inset
+
+:
+\end_layout
+
+\begin_layout Standard
+\begin_inset Note Note
+status open
+
+\begin_layout Standard
+TODO add cxref to the TIGER txt doc above
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset ERT
+status open
+
+\begin_layout Standard
+
+
+\backslash
+begin{verbatim}
+\end_layout
+
+\begin_layout Standard
+
+>ls TGR26001
+\end_layout
+
+\begin_layout Standard
+
+TGR26001.MET TGR26001.RT5 TGR26001.RTA TGR26001.RTI TGR26001.RTS
+\end_layout
+
+\begin_layout Standard
+
+TGR26001.RT1 TGR26001.RT6 TGR26001.RTC TGR26001.RTM TGR26001.RTT
+\end_layout
+
+\begin_layout Standard
+
+TGR26001.RT2 TGR26001.RT7 TGR26001.RTE TGR26001.RTP TGR26001.RTZ
+\end_layout
+
+\begin_layout Standard
+
+TGR26001.RT4 TGR26001.RT8 TGR26001.RTH TGR26001.RTR
+\end_layout
+
+\begin_layout Standard
+
+
+\backslash
+end{verbatim}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Each county zip file contains a number of RT
+\begin_inset Foot
+status open
+
+\begin_layout Standard
+record type
+\end_layout
+
+\end_inset
+
+ files.
+ These files contain a variety of different landmarks, roads, bodies of
+ water, etc.
+ There is documentation at the TIGER site that describes them all [http://www.cen
+sus.gov/geo/www/tiger/tiger2006se/a6sech6.txt].
+ However, for the agents simulation, we are only using data from the RT1
+ and RT2 files.
+\end_layout
+
+\begin_layout Standard
+RT1 C:
+\backslash
+Documents and Settings
+\backslash
+Tim
+\backslash
+Desktop>head -1 TGR26001
+\backslash
+TGR26001.RT1 10906 135884517 K Wissmiller Rd A41 3169 3499 3168 35241011487454874
+5 26260010013482034820 98060098060010051012 -83395134+44569328 -83381740+4456930
+7
+\end_layout
+
+\begin_layout Standard
+RT2 C:
+\backslash
+Documents and Settings
+\backslash
+Tim
+\backslash
+Desktop>head -1 TGR26001
+\backslash
+TGR26001.RT2 20906 135884517 1 -83391780+44569334+000000000+00000000+000000000+00
+000000+000000000+00000000+000000000+00000000+000000000+00000000+000000000+000000
+00+000000000+00000000+000000000+00000000+000000000+00000000
+\end_layout
+
+\begin_layout Standard
+These records are a small part of the data that describes one section of
+ road somewhere in Michigan.
+ The basic unit in the RT1 and RT2 records are these line segments.
+ The endpoints of the road and the section of road itself, translate naturally
+ into the nodes and edge of a simple graph.
+ It may not be readily apparent, but the latitude and longitude for both
+ ends of the road segment are in there.
+ Those are one of the crucial pieces of the geograph puzzle.
+\end_layout
+
+\begin_layout Standard
+The next step is to prepare the data for importing into an SQL database.
+ Several tools were written specifically for this purpose.
+ We will look at them next.
+ 
 \end_layout
 
 \begin_layout Section
@@ -1717,6 +2115,10 @@ Source code
 \begin_layout Standard
 
 \clearpage
+
+\end_layout
+
+\begin_layout Standard
 
 \end_layout
 
