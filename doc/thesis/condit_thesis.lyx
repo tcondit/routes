@@ -857,24 +857,155 @@ copyright}}}
  data
 \end_layout
 
+\begin_layout Standard
+The U.S.
+ Census Bureau provides free access to the raw geographic data that is used
+ for the simulations.
+ It is called TIGER, which is an acronym for Topologically Integrated Geographic
+ Encoding and Referencing.
+ The Census Bureau provides data only -- there are no GIS or mapping tools
+ available with TIGER.
+ On the other hand, the data they provide is exhaustive.
+ There is much more detail here than is needed to generate geographical
+ graphs 
+\begin_inset Note Note
+status open
+
+\begin_layout Standard
+geographs?
+\end_layout
+
+\end_inset
+
+.
+ Several tools were developed to extract the necessary pieces and transform
+ the data into a form suitable for importing into an SQL database.
+\end_layout
+
 \begin_layout Section
 Getting the datasets
 \end_layout
 
 \begin_layout Standard
-Lorem ipsum dolor sit amet, consectetuer adipiscing elit.
- Pellentesque dignissim.
- Praesent tortor.
- In fringilla feugiat nisi.
- Fusce a elit.
- Maecenas placerat facilisis magna.
- Mauris dolor nisi, consequat quis, adipiscing et, consequat semper, odio.
- In eget lacus.
- Pellentesque mauris.
- Sed vestibulum quam ac mauris.
- Donec vehicula risus.
- Maecenas vitae arcu quis tellus fringilla porttitor.
- Donec enim nulla, ornare sit amet, lacinia id, bibendum scelerisque, sapien.
+This section only applies if you are planning on using the geographical
+ graphs for your simulations.
+ It's more work, but you get more realistic simulations.
+\end_layout
+
+\begin_layout Standard
+The first thing to decide is how much data you want, and from what region.
+ This is U.S.
+ Census bureau data, so it covers the United States of America, and four
+ U.S.
+ Island Areas: American Samoa, Guam, Northern Mariana Islands, and U.S.
+ Virgin Islands.
+\end_layout
+
+\begin_layout Standard
+For all practical purposes, you have two choices: county or state.
+ The geographic data is grouped by state, and within each state, by county.
+ The simplest way to get started is to download a single county.
+ If you have a specific county in mind, you can find the name of the file
+ by looking here: 
+\begin_inset LatexCommand htmlurl
+target "http://www.census.gov/geo/tigerline/app_a03.txt"
+
+\end_inset
+
+.
+ This is the 2006 Second Edition TIGER/Line Metadata in ASCII text format.
+ Similar documentation can be found here: 
+\begin_inset LatexCommand htmlurl
+target "http://www.census.gov/geo/www/tiger/tiger2006se/a6seapa.txt"
+
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+If you want to download all the files for a state, or even all the states,
+ you will need to automate the download step.
+ My recommendation is that you download wget.exe for Windows [http://users.ugent.be
+/~bpuype/wget/], and use that.
+ That's what I'll use for the examples.
+\end_layout
+
+\begin_layout Standard
+Here is the most direct and efficient way of downloading the TIGER files
+ that I have found.
+ This command says to fetch the files recursively for the state of Michigan,
+ but only to a depth of level 1.
+ If you do not use these options, all you get is a deeply nested index.html.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Note Note
+status open
+
+\begin_layout Standard
+This renders as two long lines.
+ Fix it.
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset listings
+inline false
+status open
+
+\begin_layout Standard
+C:
+\backslash
+Source
+\backslash
+TIGER>wget --recursive --level=1 http://www2.census.gov/geo/tiger/tiger2006se/MI
+\end_layout
+
+\begin_layout Standard
+C:
+\backslash
+Source
+\backslash
+TIGER>ls www2.census.gov
+\backslash
+geo
+\backslash
+tiger
+\backslash
+tiger2006se
+\backslash
+MI COUNTS26.TXT TGR26025.ZIP TGR26061.ZIP TGR26097.ZIP TGR26133.ZIP index.html
+ TGR26027.ZIP TGR26063.ZIP TGR26099.ZIP TGR26135.ZIP index.html@C=D;O=A TGR26029.ZIP
+ TGR26065.ZIP TGR26101.ZIP TGR26137.ZIP index.html@C=M;O=A TGR26031.ZIP TGR26067.ZIP
+ TGR26103.ZIP TGR26139.ZIP index.html@C=N;O=D TGR26033.ZIP TGR26069.ZIP TGR26105.ZIP
+ TGR26141.ZIP index.html@C=S;O=A TGR26035.ZIP TGR26071.ZIP TGR26107.ZIP TGR26143.ZIP
+ TGR26001.ZIP TGR26037.ZIP TGR26073.ZIP TGR26109.ZIP TGR26145.ZIP TGR26003.ZIP
+ TGR26039.ZIP TGR26075.ZIP TGR26111.ZIP TGR26147.ZIP TGR26005.ZIP TGR26041.ZIP
+ TGR26077.ZIP TGR26113.ZIP TGR26149.ZIP TGR26007.ZIP TGR26043.ZIP TGR26079.ZIP
+ TGR26115.ZIP TGR26151.ZIP TGR26009.ZIP TGR26045.ZIP TGR26081.ZIP TGR26117.ZIP
+ TGR26153.ZIP TGR26011.ZIP TGR26047.ZIP TGR26083.ZIP TGR26119.ZIP TGR26155.ZIP
+ TGR26013.ZIP TGR26049.ZIP TGR26085.ZIP TGR26121.ZIP TGR26157.ZIP TGR26015.ZIP
+ TGR26051.ZIP TGR26087.ZIP TGR26123.ZIP TGR26159.ZIP TGR26017.ZIP TGR26053.ZIP
+ TGR26089.ZIP TGR26125.ZIP TGR26161.ZIP TGR26019.ZIP TGR26055.ZIP TGR26091.ZIP
+ TGR26127.ZIP TGR26163.ZIP TGR26021.ZIP TGR26057.ZIP TGR26093.ZIP TGR26129.ZIP
+ TGR26165.ZIP TGR26023.ZIP TGR26059.ZIP TGR26095.ZIP TGR26131.ZIP
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+It turns out that Michigan has more counties than many other states.
+ So it may not be a completely representative sample.
+ Regardless, you will definitely want to use a download tool if you are
+ planning on using multiple counties or states.
 \end_layout
 
 \begin_layout Section
@@ -958,9 +1089,9 @@ target "http://en.wikipedia.org/wiki/INI_file"
 .
  The agents use conf/agents/defaults.ini and conf/agents/overrides.ini.
  Similarly, the graphs use conf/graphs/defaults.ini and conf/graphs/overrides.ini.
- defaults.ini defines the default settings for the simulations.
+ Both defaults.ini define default settings for the simulations.
  Nothing should be changed here.
- All changes should be made in overrides.ini.
+ All changes should be made in the appropriate overrides.ini.
 \end_layout
 
 \begin_layout Section
@@ -992,6 +1123,25 @@ Type: Boolean.
  Specifies whether or not to produce graphical results.
  This is a top-level option.
  If it is False, 
+\begin_inset ERT
+status open
+
+\begin_layout Standard
+
+
+\backslash
+ldots
+\end_layout
+
+\end_inset
+
+ is ignored.
+ 
+\emph on
+Default: False.
+
+\emph default
+ 
 \begin_inset Note Note
 status open
 
@@ -1001,10 +1151,7 @@ TODO: what is ignored?
 
 \end_inset
 
- is ignored.
- 
-\emph on
-Default: False.
+
 \end_layout
 
 \begin_layout Description
