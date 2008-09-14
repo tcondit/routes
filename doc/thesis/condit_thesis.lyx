@@ -563,6 +563,16 @@ See C:/Source/hg/tags/graphs_0.6/docs/daily_status/2006/10/18.txt for some
 
 \end_layout
 
+\begin_layout Standard
+\begin_inset LatexCommand bibtex
+options "bibtotoc,plain"
+bibfiles "sample"
+
+\end_inset
+
+
+\end_layout
+
 \begin_layout Chapter
 \start_of_appendix
 List of open source software
@@ -1481,7 +1491,13 @@ These records are a small part of the data that describes one section of
  into the nodes and edge of a simple graph.
  It may not be readily apparent, but the latitude and longitude for both
  ends of the road segment are in there.
- Those are one of the crucial pieces of the geograph puzzle.
+ Those are two
+\begin_inset LatexCommand cite
+key "colu92"
+
+\end_inset
+
+ of the crucial pieces of the geograph puzzle.
 \end_layout
 
 \begin_layout Standard
@@ -2195,6 +2211,50 @@ Default: False.
 
 \begin_layout Chapter
 Source code
+\end_layout
+
+\begin_layout Standard
+Lorem ipsum dolor sit amet, consectetuer adipiscing elit.
+ Pellentesque dignissim.
+ Praesent tortor.
+ In fringilla feugiat nisi.
+ Fusce a elit.
+ Maecenas placerat facilisis magna.
+ Mauris dolor nisi, consequat quis, adipiscing et, consequat semper, odio.
+ In eget lacus.
+ Pellentesque mauris.
+ Sed vestibulum quam ac mauris.
+ Donec vehicula risus.
+ Maecenas vitae arcu quis tellus fringilla porttitor.
+ Donec enim nulla, ornare sit amet, lacinia id, bibendum scelerisque, sapien.
+\end_layout
+
+\begin_layout Standard
+Duis ut sapien.
+ Proin sit amet magna et est pharetra vestibulum.
+ Pellentesque sed diam et erat sollicitudin pharetra.
+ Suspendisse potenti.
+ Sed fringilla sagittis urna.
+ Morbi ullamcorper aliquet leo.
+ Donec elit nunc, rutrum at, ultrices at, pretium a, est.
+ Etiam non dolor non enim malesuada condimentum.
+ Curabitur vitae sapien.
+ Nulla neque.
+\end_layout
+
+\begin_layout Standard
+Donec odio nibh, varius in, dictum nec, egestas in, nisl.
+ Mauris varius mi non nunc.
+ Praesent porta enim in nibh.
+ Donec ac mi varius ante malesuada dignissim.
+ Nunc aliquet tortor ac lectus.
+ Sed pede.
+ Donec lobortis, tellus vel vehicula tristique, lectus diam cursus sapien,
+ id ultricies odio metus sed ipsum.
+ Fusce sapien mauris, vehicula non, placerat at, rhoncus sed, sem.
+ Duis ullamcorper molestie mauris.
+ Sed eu ipsum nec eros luctus elementum.
+ Suspendisse ultrices sollicitudin nunc.
 \end_layout
 
 \begin_layout Standard
