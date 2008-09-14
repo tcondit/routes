@@ -2,7 +2,7 @@
 \lyxformat 276
 \begin_document
 \begin_header
-\textclass article
+\textclass report
 \language english
 \inputencoding auto
 \font_roman default
@@ -15,6 +15,7 @@
 \font_tt_scale 100
 \graphics default
 \paperfontsize default
+\spacing single
 \papersize default
 \use_geometry false
 \use_amsmath 1
@@ -33,9 +34,14 @@
 \tracking_changes false
 \output_changes false
 \author "" 
+\author "" 
 \end_header
 
 \begin_body
+
+\begin_layout Chapter
+Related work
+\end_layout
 
 \begin_layout Standard
 Lorem ipsum dolor sit amet, consectetuer adipiscing elit.
@@ -79,6 +85,10 @@ Donec odio nibh, varius in, dictum nec, egestas in, nisl.
  Duis ullamcorper molestie mauris.
  Sed eu ipsum nec eros luctus elementum.
  Suspendisse ultrices sollicitudin nunc.
+\end_layout
+
+\begin_layout Standard
+TEST related work.
 \end_layout
 
 \end_body

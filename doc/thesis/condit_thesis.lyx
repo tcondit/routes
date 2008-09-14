@@ -322,6 +322,51 @@ Chapter 5: Conclusion
 \end_layout
 
 \begin_layout Standard
+\begin_inset Include \include{condit_thesis_chapter_introduction.lyx}
+preview false
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Include \include{condit_thesis_chapter_relatedwork.lyx}
+preview false
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Include \include{condit_thesis_chapter_implementation.lyx}
+preview false
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Include \include{condit_thesis_chapter_results.lyx}
+preview false
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Include \include{condit_thesis_chapter_conclusion.lyx}
+preview false
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
 
 \clearpage
 
@@ -642,30 +687,13 @@ copyright}}
 \end_layout
 
 \begin_layout Standard
-\begin_inset Note Note
+\begin_inset Note Framed
 status open
 
 \begin_layout Standard
-TODO: figure out how to center this box.
- Maybe use a minipage instead.
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Standard
-\begin_inset ERT
-status open
-
-\begin_layout Standard
-
-
-\backslash
-parbox[b]{4in}{Note: This section only applies if you are planning on using
- the geographical graphs for your simulations.
- It's more work, but you get more realistic simulations.}
+Note: This section only applies if you are planning on using the geographical
+ graphs for your simulations.
+ It's more work, but you get more realistic simulations.
 \end_layout
 
 \end_inset
@@ -782,45 +810,20 @@ Here is the most direct and efficient way of downloading the TIGER files
 status open
 
 \begin_layout Standard
-Michigan's FIPS (federal information processing standard) state code is
- 26.
+Michigan's 
+\begin_inset LatexCommand htmlurl
+name "FIPS"
+target "http://www.itl.nist.gov/fipspubs/fip5-2.htm"
+
+\end_inset
+
+ (federal information processing standard) state code is 26.
 \end_layout
 
 \end_inset
 
 , but only to a depth of level 1.
  If you do not use these options, all you get is a deeply nested index.html.
-\end_layout
-
-\begin_layout Standard
-\begin_inset Note Note
-status open
-
-\begin_layout Standard
-I'm having a shitter of a time adding a URL in the footnotes.
- Bummer.
- Anyway, add this URL to the bibliography.
- It's for NIST, which defines the FIPS.
- http://www.itl.nist.gov/fipspubs/fip5-2.htm
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Standard
-\begin_inset Note Note
-status open
-
-\begin_layout Standard
-This renders as two long lines.
- Fix it.
-\end_layout
-
-\end_inset
-
-
 \end_layout
 
 \begin_layout Standard
