@@ -227,6 +227,7 @@ status open
 
 \begin_layout Standard
 
+
 \backslash
 "{u}
 \end_layout
@@ -277,56 +278,6 @@ that's corny
 \end_inset
 
 
-\clearpage
-
-\end_layout
-
-\begin_layout Chapter
-Introduction
-\end_layout
-
-\begin_layout Standard
-Lorem ipsum dolor sit amet, consectetuer adipiscing elit.
- Pellentesque dignissim.
- Praesent tortor.
- In fringilla feugiat nisi.
- Fusce a elit.
- Maecenas placerat facilisis magna.
- Mauris dolor nisi, consequat quis, adipiscing et, consequat semper, odio.
- In eget lacus.
- Pellentesque mauris.
- Sed vestibulum quam ac mauris.
- Donec vehicula risus.
- Maecenas vitae arcu quis tellus fringilla porttitor.
- Donec enim nulla, ornare sit amet, lacinia id, bibendum scelerisque, sapien.
-\end_layout
-
-\begin_layout Standard
-Duis ut sapien.
- Proin sit amet magna et est pharetra vestibulum.
- Pellentesque sed diam et erat sollicitudin pharetra.
- Suspendisse potenti.
- Sed fringilla sagittis urna.
- Morbi ullamcorper aliquet leo.
- Donec elit nunc, rutrum at, ultrices at, pretium a, est.
- Etiam non dolor non enim malesuada condimentum.
- Curabitur vitae sapien.
- Nulla neque.
-\end_layout
-
-\begin_layout Standard
-Donec odio nibh, varius in, dictum nec, egestas in, nisl.
- Mauris varius mi non nunc.
- Praesent porta enim in nibh.
- Donec ac mi varius ante malesuada dignissim.
- Nunc aliquet tortor ac lectus.
- Sed pede.
- Donec lobortis, tellus vel vehicula tristique, lectus diam cursus sapien,
- id ultricies odio metus sed ipsum.
- Fusce sapien mauris, vehicula non, placerat at, rhoncus sed, sem.
- Duis ullamcorper molestie mauris.
- Sed eu ipsum nec eros luctus elementum.
- Suspendisse ultrices sollicitudin nunc.
 \end_layout
 
 \begin_layout Standard
@@ -335,226 +286,39 @@ Donec odio nibh, varius in, dictum nec, egestas in, nisl.
 
 \end_layout
 
-\begin_layout Chapter
-Related Work
+\begin_layout Standard
+\begin_inset Note Note
+status open
+
+\begin_layout Standard
+For eventual inclusion into the main document.
+ For now, keep them separate.
+ Each should have it's own chapter heading in the individual file.
 \end_layout
 
 \begin_layout Standard
-Lorem ipsum dolor sit amet, consectetuer adipiscing elit.
- Pellentesque dignissim.
- Praesent tortor.
- In fringilla feugiat nisi.
- Fusce a elit.
- Maecenas placerat facilisis magna.
- Mauris dolor nisi, consequat quis, adipiscing et, consequat semper, odio.
- In eget lacus.
- Pellentesque mauris.
- Sed vestibulum quam ac mauris.
- Donec vehicula risus.
- Maecenas vitae arcu quis tellus fringilla porttitor.
- Donec enim nulla, ornare sit amet, lacinia id, bibendum scelerisque, sapien.
+Chapter 1: Introduction
 \end_layout
 
 \begin_layout Standard
-Duis ut sapien.
- Proin sit amet magna et est pharetra vestibulum.
- Pellentesque sed diam et erat sollicitudin pharetra.
- Suspendisse potenti.
- Sed fringilla sagittis urna.
- Morbi ullamcorper aliquet leo.
- Donec elit nunc, rutrum at, ultrices at, pretium a, est.
- Etiam non dolor non enim malesuada condimentum.
- Curabitur vitae sapien.
- Nulla neque.
+Chapter 2: Related work
 \end_layout
 
 \begin_layout Standard
-Donec odio nibh, varius in, dictum nec, egestas in, nisl.
- Mauris varius mi non nunc.
- Praesent porta enim in nibh.
- Donec ac mi varius ante malesuada dignissim.
- Nunc aliquet tortor ac lectus.
- Sed pede.
- Donec lobortis, tellus vel vehicula tristique, lectus diam cursus sapien,
- id ultricies odio metus sed ipsum.
- Fusce sapien mauris, vehicula non, placerat at, rhoncus sed, sem.
- Duis ullamcorper molestie mauris.
- Sed eu ipsum nec eros luctus elementum.
- Suspendisse ultrices sollicitudin nunc.
+Chapter 3: Implementation
 \end_layout
 
 \begin_layout Standard
-
-\clearpage
-
-\end_layout
-
-\begin_layout Chapter
-Implementation
+Chapter 4: Results
 \end_layout
 
 \begin_layout Standard
-Lorem ipsum dolor sit amet, consectetuer adipiscing elit.
- Pellentesque dignissim.
- Praesent tortor.
- In fringilla feugiat nisi.
- Fusce a elit.
- Maecenas placerat facilisis magna.
- Mauris dolor nisi, consequat quis, adipiscing et, consequat semper, odio.
- In eget lacus.
- Pellentesque mauris.
- Sed vestibulum quam ac mauris.
- Donec vehicula risus.
- Maecenas vitae arcu quis tellus fringilla porttitor.
- Donec enim nulla, ornare sit amet, lacinia id, bibendum scelerisque, sapien.
+Chapter 5: Conclusion
 \end_layout
 
-\begin_layout Standard
-Duis ut sapien.
- Proin sit amet magna et est pharetra vestibulum.
- Pellentesque sed diam et erat sollicitudin pharetra.
- Suspendisse potenti.
- Sed fringilla sagittis urna.
- Morbi ullamcorper aliquet leo.
- Donec elit nunc, rutrum at, ultrices at, pretium a, est.
- Etiam non dolor non enim malesuada condimentum.
- Curabitur vitae sapien.
- Nulla neque.
-\end_layout
+\end_inset
 
-\begin_layout Standard
-Donec odio nibh, varius in, dictum nec, egestas in, nisl.
- Mauris varius mi non nunc.
- Praesent porta enim in nibh.
- Donec ac mi varius ante malesuada dignissim.
- Nunc aliquet tortor ac lectus.
- Sed pede.
- Donec lobortis, tellus vel vehicula tristique, lectus diam cursus sapien,
- id ultricies odio metus sed ipsum.
- Fusce sapien mauris, vehicula non, placerat at, rhoncus sed, sem.
- Duis ullamcorper molestie mauris.
- Sed eu ipsum nec eros luctus elementum.
- Suspendisse ultrices sollicitudin nunc.
-\end_layout
 
-\begin_layout Standard
-
-\clearpage
-
-\end_layout
-
-\begin_layout Chapter
-Results
-\end_layout
-
-\begin_layout Standard
-Lorem ipsum dolor sit amet, consectetuer adipiscing elit.
- Pellentesque dignissim.
- Praesent tortor.
- In fringilla feugiat nisi.
- Fusce a elit.
- Maecenas placerat facilisis magna.
- Mauris dolor nisi, consequat quis, adipiscing et, consequat semper, odio.
- In eget lacus.
- Pellentesque mauris.
- Sed vestibulum quam ac mauris.
- Donec vehicula risus.
- Maecenas vitae arcu quis tellus fringilla porttitor.
- Donec enim nulla, ornare sit amet, lacinia id, bibendum scelerisque, sapien.
-\end_layout
-
-\begin_layout Standard
-Duis ut sapien.
- Proin sit amet magna et est pharetra vestibulum.
- Pellentesque sed diam et erat sollicitudin pharetra.
- Suspendisse potenti.
- Sed fringilla sagittis urna.
- Morbi ullamcorper aliquet leo.
- Donec elit nunc, rutrum at, ultrices at, pretium a, est.
- Etiam non dolor non enim malesuada condimentum.
- Curabitur vitae sapien.
- Nulla neque.
-\end_layout
-
-\begin_layout Standard
-Donec odio nibh, varius in, dictum nec, egestas in, nisl.
- Mauris varius mi non nunc.
- Praesent porta enim in nibh.
- Donec ac mi varius ante malesuada dignissim.
- Nunc aliquet tortor ac lectus.
- Sed pede.
- Donec lobortis, tellus vel vehicula tristique, lectus diam cursus sapien,
- id ultricies odio metus sed ipsum.
- Fusce sapien mauris, vehicula non, placerat at, rhoncus sed, sem.
- Duis ullamcorper molestie mauris.
- Sed eu ipsum nec eros luctus elementum.
- Suspendisse ultrices sollicitudin nunc.
-\end_layout
-
-\begin_layout Standard
-
-\clearpage
-
-\end_layout
-
-\begin_layout Chapter
-Conclusion
-\end_layout
-
-\begin_layout Standard
-Lorem ipsum dolor sit amet, consectetuer adipiscing elit.
- Pellentesque dignissim.
- Praesent tortor.
- In fringilla feugiat nisi.
- Fusce a elit.
- Maecenas placerat facilisis magna.
- Mauris dolor nisi, consequat quis, adipiscing et, consequat semper, odio.
- In eget lacus.
- Pellentesque mauris.
- Sed vestibulum quam ac mauris.
- Donec vehicula risus.
- Maecenas vitae arcu quis tellus fringilla porttitor.
- Donec enim nulla, ornare sit amet, lacinia id, bibendum scelerisque, sapien.
-\end_layout
-
-\begin_layout Standard
-Duis ut sapien.
- Proin sit amet magna et est pharetra vestibulum.
- Pellentesque sed diam et erat sollicitudin pharetra.
- Suspendisse potenti.
- Sed fringilla sagittis urna.
- Morbi ullamcorper aliquet leo.
- Donec elit nunc, rutrum at, ultrices at, pretium a, est.
- Etiam non dolor non enim malesuada condimentum.
- Curabitur vitae sapien.
- Nulla neque.
-\end_layout
-
-\begin_layout Standard
-Donec odio nibh, varius in, dictum nec, egestas in, nisl.
- Mauris varius mi non nunc.
- Praesent porta enim in nibh.
- Donec ac mi varius ante malesuada dignissim.
- Nunc aliquet tortor ac lectus.
- Sed pede.
- Donec lobortis, tellus vel vehicula tristique, lectus diam cursus sapien,
- id ultricies odio metus sed ipsum.
- Fusce sapien mauris, vehicula non, placerat at, rhoncus sed, sem.
- Duis ullamcorper molestie mauris.
- Sed eu ipsum nec eros luctus elementum.
- Suspendisse ultrices sollicitudin nunc.
-\end_layout
-
-\begin_layout Section
-Future work
-\end_layout
-
-\begin_layout Standard
-See C:/Source/hg/tags/graphs_0.6/docs/daily_status/2006/10/18.txt for some
- ideas.
- More generally, I should print the entire set of daily_status notes and
- scan them on paper.
- Reading the text files one at a time is just misery.
 \end_layout
 
 \begin_layout Standard
@@ -1385,38 +1149,35 @@ status open
 
 \begin_layout Standard
 
+
 \backslash
 begin{verbatim}
 \end_layout
 
 \begin_layout Standard
+
 >head -1 TGR26001
 \backslash
 TGR26001.RT1
 \end_layout
 
 \begin_layout Standard
-10906 135884517 K Wissmiller Rd
- 
-\lang english
-A41 3169 3499
- 
-\lang english
-3168
+
+10906 135884517 K Wissmiller Rd A41 3169 3499 3168
 \end_layout
 
 \begin_layout Standard
-352410114874548745 26260010013482034820
- 
-\lang english
-98060098060010051012
+
+352410114874548745 26260010013482034820 98060098060010051012
 \end_layout
 
 \begin_layout Standard
+
 -83395134+44569328 -83381740+44569307
 \end_layout
 
 \begin_layout Standard
+
 
 \backslash
 end{verbatim}

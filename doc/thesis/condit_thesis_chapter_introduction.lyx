@@ -1,0 +1,90 @@
+#LyX 1.5.6 created this file. For more info see http://www.lyx.org/
+\lyxformat 276
+\begin_document
+\begin_header
+\textclass article
+\language english
+\inputencoding auto
+\font_roman default
+\font_sans default
+\font_typewriter default
+\font_default_family default
+\font_sc false
+\font_osf false
+\font_sf_scale 100
+\font_tt_scale 100
+\graphics default
+\paperfontsize default
+\papersize default
+\use_geometry false
+\use_amsmath 1
+\use_esint 1
+\cite_engine basic
+\use_bibtopic false
+\paperorientation portrait
+\secnumdepth 3
+\tocdepth 3
+\paragraph_separation indent
+\defskip medskip
+\quotes_language english
+\papercolumns 1
+\papersides 1
+\paperpagestyle default
+\tracking_changes false
+\output_changes false
+\author "" 
+\author "" 
+\end_header
+
+\begin_body
+
+\begin_layout Standard
+Introduction
+\end_layout
+
+\begin_layout Standard
+Lorem ipsum dolor sit amet, consectetuer adipiscing elit.
+ Pellentesque dignissim.
+ Praesent tortor.
+ In fringilla feugiat nisi.
+ Fusce a elit.
+ Maecenas placerat facilisis magna.
+ Mauris dolor nisi, consequat quis, adipiscing et, consequat semper, odio.
+ In eget lacus.
+ Pellentesque mauris.
+ Sed vestibulum quam ac mauris.
+ Donec vehicula risus.
+ Maecenas vitae arcu quis tellus fringilla porttitor.
+ Donec enim nulla, ornare sit amet, lacinia id, bibendum scelerisque, sapien.
+\end_layout
+
+\begin_layout Standard
+Duis ut sapien.
+ Proin sit amet magna et est pharetra vestibulum.
+ Pellentesque sed diam et erat sollicitudin pharetra.
+ Suspendisse potenti.
+ Sed fringilla sagittis urna.
+ Morbi ullamcorper aliquet leo.
+ Donec elit nunc, rutrum at, ultrices at, pretium a, est.
+ Etiam non dolor non enim malesuada condimentum.
+ Curabitur vitae sapien.
+ Nulla neque.
+\end_layout
+
+\begin_layout Standard
+Donec odio nibh, varius in, dictum nec, egestas in, nisl.
+ Mauris varius mi non nunc.
+ Praesent porta enim in nibh.
+ Donec ac mi varius ante malesuada dignissim.
+ Nunc aliquet tortor ac lectus.
+ Sed pede.
+ Donec lobortis, tellus vel vehicula tristique, lectus diam cursus sapien,
+ id ultricies odio metus sed ipsum.
+ Fusce sapien mauris, vehicula non, placerat at, rhoncus sed, sem.
+ Duis ullamcorper molestie mauris.
+ Sed eu ipsum nec eros luctus elementum.
+ Suspendisse ultrices sollicitudin nunc.
+\end_layout
+
+\end_body
+\end_document
