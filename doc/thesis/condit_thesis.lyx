@@ -944,7 +944,7 @@ Lorem ipsum dolor sit amet, consectetuer adipiscing elit.
 \end_layout
 
 \begin_layout Chapter
-Annotated config file: agents
+Annotated config files
 \end_layout
 
 \begin_layout Standard
@@ -957,10 +957,26 @@ target "http://en.wikipedia.org/wiki/INI_file"
 
 .
  The agents use conf/agents/defaults.ini and conf/agents/overrides.ini.
- defaults.ini defines the default settings for the agent simulations.
- Simulation settings should not be changed here.
+ Similarly, the graphs use conf/graphs/defaults.ini and conf/graphs/overrides.ini.
+ defaults.ini defines the default settings for the simulations.
+ Nothing should be changed here.
  All changes should be made in overrides.ini.
- The agents configuration includes two sections: runtime and dev.
+\end_layout
+
+\begin_layout Section
+The agents default.ini
+\end_layout
+
+\begin_layout Standard
+The agents configuration includes the sections 
+\emph on
+runtime
+\emph default
+ and 
+\emph on
+dev
+\emph default
+.
 \end_layout
 
 \begin_layout Description
@@ -1306,60 +1322,42 @@ Type: Boolean.
 Default: False.
 \end_layout
 
-\begin_layout Standard
-
-\clearpage
-
-\end_layout
-
-\begin_layout Chapter
-Annotated config file: graphs
+\begin_layout Section
+The graphs default.ini
 \end_layout
 
 \begin_layout Standard
-Note: This section only applies if you are using the 
 \begin_inset ERT
 status open
 
 \begin_layout Standard
 
-TIGER/Line
+
+\backslash
+parbox[b]{4in}{Note: This section only applies if you are using the TIGER/Line
 \backslash
 textsuperscript{{
 \backslash
 tiny{
 \backslash
-copyright}}}
+copyright}}} Census data to generate geographic graphs for your simulations.
+ In that case, you should have already installed a database (SQLite 
+\backslash
+ref{ite:[http://www.sqlite.org/||SQLite]} or MySQL  
+\backslash
+ref{ite:[http://www.mysql.com/||MySQL]}), SQLAlchemy 
+\backslash
+ref{ite:[http://www.sqlalchemy.org/||SQLAlchemy]}, and NetworkX 
+\backslash
+ref{ite:[https://networkx.lanl.gov/wiki/||NetworkX]}.}
 \end_layout
 
 \end_inset
 
- Census data to generate geographic graphs for your simulations.
- In that case, you should have already installed a database (SQLite 
-\begin_inset LatexCommand ref
-reference "ite:[http://www.sqlite.org/||SQLite]"
 
-\end_inset
+\end_layout
 
-or MySQL 
-\begin_inset LatexCommand ref
-reference "ite:[http://www.mysql.com/||MySQL]"
-
-\end_inset
-
-), SQLAlchemy 
-\begin_inset LatexCommand eqref
-reference "ite:[http://www.sqlalchemy.org/||SQLAlchemy]"
-
-\end_inset
-
-, and NetworkX 
-\begin_inset LatexCommand eqref
-reference "ite:[https://networkx.lanl.gov/wiki/||NetworkX]"
-
-\end_inset
-
-.
+\begin_layout Standard
 \begin_inset Note Note
 status open
 
@@ -1371,6 +1369,380 @@ The cross-ref link works, but it looks strange (red box) in Adobe Reader.
 \end_inset
 
 
+\end_layout
+
+\begin_layout Standard
+The graphs configuration includes sections 
+\emph on
+dataprep
+\emph default
+ and 
+\emph on
+dev
+\emph default
+.
+\end_layout
+
+\begin_layout Standard
+# This is defaults.ini.
+\end_layout
+
+\begin_layout Standard
+#
+\end_layout
+
+\begin_layout Standard
+# This file defines the default settings for the geograph package.
+ It is the
+\end_layout
+
+\begin_layout Standard
+# first of the graph config files.
+ The second is overrides.ini.
+ If you want
+\end_layout
+
+\begin_layout Standard
+# to change some of these settings, please do it in overrides.ini.
+ 
+\end_layout
+
+\begin_layout Standard
+# NOTES:
+\end_layout
+
+\begin_layout Standard
+# * The form of strings representing operating system paths should look
+ like
+\end_layout
+
+\begin_layout Standard
+# this, without quotes:
+\end_layout
+
+\begin_layout Standard
+# C:/Source/TIGER/www2.census.gov/geo/tiger/tiger2006se
+\end_layout
+
+\begin_layout Standard
+#
+\end_layout
+
+\begin_layout Standard
+# * UNC (network) paths work as well:
+\end_layout
+
+\begin_layout Standard
+# //home-pc/C$/Source/TIGER/www2.census.gov/geo/tiger/tiger2006se
+\end_layout
+
+\begin_layout Standard
+#
+\end_layout
+
+\begin_layout Standard
+# * You can use either forward or backslashes.
+ The paths are normalized
+\end_layout
+
+\begin_layout Standard
+# before reading them.
+\end_layout
+
+\begin_layout Standard
+[dataprep]
+\end_layout
+
+\begin_layout Standard
+# fetchCommand: string (OS path + string option).
+ This is the path to a
+\end_layout
+
+\begin_layout Standard
+# download tool plus any options needed to download files nonrecursively.
+ The
+\end_layout
+
+\begin_layout Standard
+# graphs package includes wget.exe and I recommend using it, but you can
+ use a
+\end_layout
+
+\begin_layout Standard
+# different download tool.
+ If it's not on your PATH, you will have to specify
+\end_layout
+
+\begin_layout Standard
+# its location.
+ This option is used with tigerStates when a single state and
+\end_layout
+
+\begin_layout Standard
+# county are chosen.
+ Valid value is the path to a download utility.
+ The
+\end_layout
+
+\begin_layout Standard
+# default path is relative to the location of the config file in the hg
+\end_layout
+
+\begin_layout Standard
+# (Mercurial) working directory.
+\end_layout
+
+\begin_layout Standard
+#
+\end_layout
+
+\begin_layout Standard
+# Default: wget.exe.
+\end_layout
+
+\begin_layout Standard
+#
+\end_layout
+
+\begin_layout Standard
+# Note: This is a relative path.
+ Both wget.exe and the programs using it are
+\end_layout
+
+\begin_layout Standard
+# in the graphs/bin directory.
+ The path to the bin dir is specified in
+\end_layout
+
+\begin_layout Standard
+# tigerutils.py.
+\end_layout
+
+\begin_layout Standard
+fetchCommand = wget.exe
+\end_layout
+
+\begin_layout Standard
+# zipCommand: string (OS path + string option).
+ The path to a zip utility
+\end_layout
+
+\begin_layout Standard
+# plus the decompress option that extractTiger can use to decompress the
+\end_layout
+
+\begin_layout Standard
+# record type files from tigerRoot.
+ The graphs package includes 7z.exe and
+\end_layout
+
+\begin_layout Standard
+# I recommend using it, but you can use a different zip tool.
+ If it's not on
+\end_layout
+
+\begin_layout Standard
+# your PATH, you will have to specify its location.
+ Valid value is the path
+\end_layout
+
+\begin_layout Standard
+# to a zip utility.
+ The default path is relative to the location of the
+\end_layout
+
+\begin_layout Standard
+# config file in the hg (Mercurial) working directory.
+\end_layout
+
+\begin_layout Standard
+#
+\end_layout
+
+\begin_layout Standard
+# Default: 7z.exe x
+\end_layout
+
+\begin_layout Standard
+#
+\end_layout
+
+\begin_layout Standard
+# Note: This is a relative path.
+ Both wget.exe and the programs using it are
+\end_layout
+
+\begin_layout Standard
+# in the graphs/bin directory.
+ The path to the bin dir is specified in
+\end_layout
+
+\begin_layout Standard
+# tigerutils.py.
+\end_layout
+
+\begin_layout Standard
+zipCommand = 7z.exe x
+\end_layout
+
+\begin_layout Standard
+# fipsMetadataUrl: string (URL).
+ This is the URL for Appendix A of the
+\end_layout
+
+\begin_layout Standard
+# TIGER/Line Technical Documentation.
+ It contains the associated FIPS codes
+\end_layout
+
+\begin_layout Standard
+# for states and counties in ASCII text format.
+ This file is used for
+\end_layout
+
+\begin_layout Standard
+# generating the TIGER state and county chooser.
+ In most cases, this value
+\end_layout
+
+\begin_layout Standard
+# should not be changed.
+\end_layout
+
+\begin_layout Standard
+fipsMetadataUrl = http://www.census.gov/geo/tigerline/app_a03.txt
+\end_layout
+
+\begin_layout Standard
+# fipsZipfileRoot: string (URL).
+ This is the URL of the root of the
+\end_layout
+
+\begin_layout Standard
+# TIGER/Line ZIP files.
+ It contains a list of stateCode folders, each of
+\end_layout
+
+\begin_layout Standard
+# which contains a series of countyCode ZIP files.
+ This URL is intended to be
+\end_layout
+
+\begin_layout Standard
+# used with a stateCode and countyCode to identify a specific file to
+\end_layout
+
+\begin_layout Standard
+# download.
+\end_layout
+
+\begin_layout Standard
+#
+\end_layout
+
+\begin_layout Standard
+# NB: This URL MUST contain a trailing slash!
+\end_layout
+
+\begin_layout Standard
+fipsZipfileRoot = http://www2.census.gov/geo/tiger/tiger2006se/
+\end_layout
+
+\begin_layout Standard
+# excludePuertoRico: boolean.
+ There are several graves, accents, and other
+\end_layout
+
+\begin_layout Standard
+# things in county names in Puerto Rico that may cause problems when it
+ comes
+\end_layout
+
+\begin_layout Standard
+# time to parse the strings for import into the database.
+ Set this value to
+\end_layout
+
+\begin_layout Standard
+# True to strip it out from consideration when generating the set of states
+\end_layout
+
+\begin_layout Standard
+# and counties for either random sets or for populating the chooser.
+ Valid
+\end_layout
+
+\begin_layout Standard
+# values are True or False.
+\end_layout
+
+\begin_layout Standard
+#
+\end_layout
+
+\begin_layout Standard
+# Default: False.
+\end_layout
+
+\begin_layout Standard
+excludePuertoRico = False
+\end_layout
+
+\begin_layout Standard
+# tigerSandbox: string (OS path).
+ Base of the location where data and image
+\end_layout
+
+\begin_layout Standard
+# files are stored.
+ This may be a temporary location.
+ Valid values are OS
+\end_layout
+
+\begin_layout Standard
+# paths.
+ This config option MUST be set in overrides.ini
+\end_layout
+
+\begin_layout Standard
+#
+\end_layout
+
+\begin_layout Standard
+# Default: None.
+\end_layout
+
+\begin_layout Standard
+tigerSandbox = None
+\end_layout
+
+\begin_layout Standard
+[dev]
+\end_layout
+
+\begin_layout Standard
+# debug: boolean.
+ If True, prints a bunch of extra information to standard
+\end_layout
+
+\begin_layout Standard
+# output.
+\end_layout
+
+\begin_layout Standard
+#
+\end_layout
+
+\begin_layout Standard
+# Default: False
+\end_layout
+
+\begin_layout Standard
+debug = False
+\end_layout
+
+\begin_layout Standard
+# vim: tw=78
 \end_layout
 
 \begin_layout Standard
