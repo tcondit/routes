@@ -1327,6 +1327,17 @@ The graphs default.ini
 \end_layout
 
 \begin_layout Standard
+\begin_inset Note Note
+status open
+
+\begin_layout Standard
+TODO: figure out how to center this box.
+ Maybe use a minipage instead.
+\end_layout
+
+\end_inset
+
+
 \begin_inset ERT
 status open
 
@@ -1383,366 +1394,167 @@ dev
 .
 \end_layout
 
-\begin_layout Standard
-# This is defaults.ini.
-\end_layout
-
-\begin_layout Standard
-#
-\end_layout
-
-\begin_layout Standard
-# This file defines the default settings for the geograph package.
- It is the
-\end_layout
-
-\begin_layout Standard
-# first of the graph config files.
- The second is overrides.ini.
- If you want
-\end_layout
-
-\begin_layout Standard
-# to change some of these settings, please do it in overrides.ini.
- 
-\end_layout
-
-\begin_layout Standard
-# NOTES:
-\end_layout
-
-\begin_layout Standard
-# * The form of strings representing operating system paths should look
- like
-\end_layout
-
-\begin_layout Standard
-# this, without quotes:
-\end_layout
-
-\begin_layout Standard
-# C:/Source/TIGER/www2.census.gov/geo/tiger/tiger2006se
-\end_layout
-
-\begin_layout Standard
-#
-\end_layout
-
-\begin_layout Standard
-# * UNC (network) paths work as well:
-\end_layout
-
-\begin_layout Standard
-# //home-pc/C$/Source/TIGER/www2.census.gov/geo/tiger/tiger2006se
-\end_layout
-
-\begin_layout Standard
-#
-\end_layout
-
-\begin_layout Standard
-# * You can use either forward or backslashes.
- The paths are normalized
-\end_layout
-
-\begin_layout Standard
-# before reading them.
-\end_layout
-
-\begin_layout Standard
+\begin_layout Description
 [dataprep]
 \end_layout
 
-\begin_layout Standard
-# fetchCommand: string (OS path + string option).
- This is the path to a
-\end_layout
+\begin_layout Description
+fetchCommand: 
+\emph on
+Type: String (OS path + string option).
 
-\begin_layout Standard
-# download tool plus any options needed to download files nonrecursively.
- The
-\end_layout
-
-\begin_layout Standard
-# graphs package includes wget.exe and I recommend using it, but you can
- use a
-\end_layout
-
-\begin_layout Standard
-# different download tool.
- If it's not on your PATH, you will have to specify
-\end_layout
-
-\begin_layout Standard
-# its location.
- This option is used with tigerStates when a single state and
-\end_layout
-
-\begin_layout Standard
-# county are chosen.
+\emph default
+ This is the path to a download tool plus any options needed to download
+ files nonrecursively.
+ The graphs package includes wget.exe and I recommend using it, but you can
+ use a different download tool.
+ If it's not on your PATH, you will have to specify its location.
+ This option is used with tigerStates when a single state and county are
+ chosen.
  Valid value is the path to a download utility.
- The
+ The default path is relative to the location of the config file in the
+ hg (Mercurial) working directory.
+ 
+\emph on
+Default: wget.exe.
 \end_layout
 
-\begin_layout Standard
-# default path is relative to the location of the config file in the hg
-\end_layout
+\begin_layout Description
+zipCommand: 
+\emph on
+Type: String (OS path + string option).
+
+\emph default
+ The path to a zip utility plus the decompress option that extractTiger
+ 
+\begin_inset Note Note
+status open
 
 \begin_layout Standard
-# (Mercurial) working directory.
+Deprecation warning: whatever extractTiger was, it's gone now.
 \end_layout
 
-\begin_layout Standard
-#
-\end_layout
+\end_inset
+
+ can use to decompress the record type files from tigerRoot 
+\begin_inset Note Note
+status open
 
 \begin_layout Standard
-# Default: wget.exe.
+Deprecation warning: whatever tigerRoot was, it's gone now.
 \end_layout
 
-\begin_layout Standard
-#
+\end_inset
+
+.
+ The graphs package includes 7z.exe and I recommend using it, but you can
+ use a different zip tool.
+ If it's not on your PATH, you will have to specify its location.
+ Valid value is the path to a zip utility.
+ The default path is relative to the location of the config file in the
+ hg (Mercurial) working directory.
+ 
+\emph on
+Default: 7z.exe x.
 \end_layout
 
-\begin_layout Standard
-# Note: This is a relative path.
- Both wget.exe and the programs using it are
+\begin_layout Description
+fipsMetadataUrl: 
+\emph on
+Type: String (URL).
+
+\emph default
+ This is the URL for Appendix A of the TIGER/Line Technical Documentation.
+ It contains the associated FIPS codes for states and counties in ASCII
+ text format.
+ This file is used for generating the TIGER state and county chooser.
+ In most cases, this value should not be changed.
+ 
+\emph on
+Default: http://www.census.gov/geo/tigerline/app_a03.txt.
 \end_layout
 
-\begin_layout Standard
-# in the graphs/bin directory.
- The path to the bin dir is specified in
+\begin_layout Description
+fipsZipfileRoot: 
+\emph on
+Type: String (URL).
+
+\emph default
+ This is the URL of the root of the TIGER/Line ZIP files.
+ It contains a list of stateCode folders, each of which contains a series
+ of countyCode ZIP files.
+ This URL is intended to be used with a stateCode and countyCode to identify
+ a specific file to download.
+ 
+\emph on
+Default: http://www2.census.gov/geo/tiger/tiger2006se/.
 \end_layout
 
+\begin_deeper
 \begin_layout Standard
-# tigerutils.py.
+NB: This URL MUST contain a trailing slash!
 \end_layout
 
-\begin_layout Standard
-fetchCommand = wget.exe
+\end_deeper
+\begin_layout Description
+excludePuertoRico: 
+\emph on
+Type: Boolean.
+
+\emph default
+ There are several graves, accents, and other things in county names in
+ Puerto Rico that may cause problems when it comes time to parse the strings
+ for import into the database.
+ Set this value to True to strip it out from consideration when generating
+ the set of states and counties for either random sets or for populating
+ the chooser.
+ 
+\emph on
+Default: False.
 \end_layout
 
-\begin_layout Standard
-# zipCommand: string (OS path + string option).
- The path to a zip utility
-\end_layout
+\begin_layout Description
+tigerSandbox: 
+\emph on
+Type: String (OS path).
 
-\begin_layout Standard
-# plus the decompress option that extractTiger can use to decompress the
-\end_layout
-
-\begin_layout Standard
-# record type files from tigerRoot.
- The graphs package includes 7z.exe and
-\end_layout
-
-\begin_layout Standard
-# I recommend using it, but you can use a different zip tool.
- If it's not on
-\end_layout
-
-\begin_layout Standard
-# your PATH, you will have to specify its location.
- Valid value is the path
-\end_layout
-
-\begin_layout Standard
-# to a zip utility.
- The default path is relative to the location of the
-\end_layout
-
-\begin_layout Standard
-# config file in the hg (Mercurial) working directory.
-\end_layout
-
-\begin_layout Standard
-#
-\end_layout
-
-\begin_layout Standard
-# Default: 7z.exe x
-\end_layout
-
-\begin_layout Standard
-#
-\end_layout
-
-\begin_layout Standard
-# Note: This is a relative path.
- Both wget.exe and the programs using it are
-\end_layout
-
-\begin_layout Standard
-# in the graphs/bin directory.
- The path to the bin dir is specified in
-\end_layout
-
-\begin_layout Standard
-# tigerutils.py.
-\end_layout
-
-\begin_layout Standard
-zipCommand = 7z.exe x
-\end_layout
-
-\begin_layout Standard
-# fipsMetadataUrl: string (URL).
- This is the URL for Appendix A of the
-\end_layout
-
-\begin_layout Standard
-# TIGER/Line Technical Documentation.
- It contains the associated FIPS codes
-\end_layout
-
-\begin_layout Standard
-# for states and counties in ASCII text format.
- This file is used for
-\end_layout
-
-\begin_layout Standard
-# generating the TIGER state and county chooser.
- In most cases, this value
-\end_layout
-
-\begin_layout Standard
-# should not be changed.
-\end_layout
-
-\begin_layout Standard
-fipsMetadataUrl = http://www.census.gov/geo/tigerline/app_a03.txt
-\end_layout
-
-\begin_layout Standard
-# fipsZipfileRoot: string (URL).
- This is the URL of the root of the
-\end_layout
-
-\begin_layout Standard
-# TIGER/Line ZIP files.
- It contains a list of stateCode folders, each of
-\end_layout
-
-\begin_layout Standard
-# which contains a series of countyCode ZIP files.
- This URL is intended to be
-\end_layout
-
-\begin_layout Standard
-# used with a stateCode and countyCode to identify a specific file to
-\end_layout
-
-\begin_layout Standard
-# download.
-\end_layout
-
-\begin_layout Standard
-#
-\end_layout
-
-\begin_layout Standard
-# NB: This URL MUST contain a trailing slash!
-\end_layout
-
-\begin_layout Standard
-fipsZipfileRoot = http://www2.census.gov/geo/tiger/tiger2006se/
-\end_layout
-
-\begin_layout Standard
-# excludePuertoRico: boolean.
- There are several graves, accents, and other
-\end_layout
-
-\begin_layout Standard
-# things in county names in Puerto Rico that may cause problems when it
- comes
-\end_layout
-
-\begin_layout Standard
-# time to parse the strings for import into the database.
- Set this value to
-\end_layout
-
-\begin_layout Standard
-# True to strip it out from consideration when generating the set of states
-\end_layout
-
-\begin_layout Standard
-# and counties for either random sets or for populating the chooser.
- Valid
-\end_layout
-
-\begin_layout Standard
-# values are True or False.
-\end_layout
-
-\begin_layout Standard
-#
-\end_layout
-
-\begin_layout Standard
-# Default: False.
-\end_layout
-
-\begin_layout Standard
-excludePuertoRico = False
-\end_layout
-
-\begin_layout Standard
-# tigerSandbox: string (OS path).
- Base of the location where data and image
-\end_layout
-
-\begin_layout Standard
-# files are stored.
+\emph default
+ Base of the location where data and image files are stored.
  This may be a temporary location.
- Valid values are OS
+ Valid values are OS paths.
+ This config option MUST be set in agents
+\backslash
+conf
+\backslash
+graphs
+\backslash
+overrides.ini.
+ 
+\emph on
+Default: None.
 \end_layout
 
-\begin_layout Standard
-# paths.
- This config option MUST be set in overrides.ini
+\begin_layout Description
+\begin_inset VSpace defskip
+\end_inset
+
+
 \end_layout
 
-\begin_layout Standard
-#
-\end_layout
-
-\begin_layout Standard
-# Default: None.
-\end_layout
-
-\begin_layout Standard
-tigerSandbox = None
-\end_layout
-
-\begin_layout Standard
+\begin_layout Description
 [dev]
 \end_layout
 
-\begin_layout Standard
-# debug: boolean.
- If True, prints a bunch of extra information to standard
-\end_layout
+\begin_layout Description
+debug: 
+\emph on
+Type: Boolean.
 
-\begin_layout Standard
-# output.
-\end_layout
-
-\begin_layout Standard
-#
-\end_layout
-
-\begin_layout Standard
-# Default: False
-\end_layout
-
-\begin_layout Standard
-debug = False
-\end_layout
-
-\begin_layout Standard
-# vim: tw=78
+\emph default
+ If True, prints a bunch of extra information to standard output.
+ 
+\emph on
+Default: False.
 \end_layout
 
 \begin_layout Standard
