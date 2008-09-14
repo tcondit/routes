@@ -18,7 +18,7 @@
 \font_tt_scale 100
 \graphics default
 \paperfontsize default
-\spacing single
+\spacing double
 \papersize default
 \use_geometry false
 \use_amsmath 1
@@ -964,7 +964,14 @@ For all practical purposes, you have two choices: county (or county equivalent)
  If you have a specific county in mind, you can find the name of the file
  by looking here: 
 \begin_inset LatexCommand htmlurl
+name "TIGER/Line Metadata (ASCII)"
 target "http://www.census.gov/geo/tigerline/app_a03.txt"
+
+\end_inset
+
+
+\begin_inset LatexCommand label
+name "TIGER/Line Metadata (ASCII)"
 
 \end_inset
 
@@ -1086,10 +1093,6 @@ tiger
 tiger2006se
 \backslash
 MI
-\end_layout
-
-\begin_layout Standard
-
 \end_layout
 
 \begin_layout Standard
@@ -1253,30 +1256,12 @@ The state and county files are numbered in a specific way.
 Working inward, here are the contents of a typical uncompressed county file
  called TGR26001.
  According to 
-\begin_inset ERT
-status open
-
-\begin_layout Standard
-
-\backslash
-ldots
-\end_layout
+\begin_inset LatexCommand ref
+reference "TIGER/Line Metadata (ASCII)"
 
 \end_inset
 
- this represents 
-\begin_inset ERT
-status open
-
-\begin_layout Standard
-
-\backslash
-ldots
-\end_layout
-
-\end_inset
-
-:
+, this represents Alcona County, MI:
 \end_layout
 
 \begin_layout Standard
@@ -1354,38 +1339,138 @@ record type
  files.
  These files contain a variety of different landmarks, roads, bodies of
  water, etc.
- There is documentation at the TIGER site that describes them all [http://www.cen
-sus.gov/geo/www/tiger/tiger2006se/a6sech6.txt].
- However, for the agents simulation, we are only using data from the RT1
- and RT2 files.
+ There is documentation at the TIGER site that describes them all 
+\begin_inset LatexCommand htmlurl
+name "TIGER/Line Data Dictionary"
+target "http://www.census.gov/geo/www/tiger/tiger2006se/a6sech6.txt"
+
+\end_inset
+
+.
+ However, the agents simulation, only use data from the RT1 and RT2 files.
 \end_layout
 
 \begin_layout Standard
-RT1 C:
-\backslash
-Documents and Settings
-\backslash
-Tim
-\backslash
-Desktop>head -1 TGR26001
-\backslash
-TGR26001.RT1 10906 135884517 K Wissmiller Rd A41 3169 3499 3168 35241011487454874
-5 26260010013482034820 98060098060010051012 -83395134+44569328 -83381740+4456930
-7
+\begin_inset Note Note
+status open
+
+\begin_layout Standard
+The RT1 and RT2 records would be nice to have in a figure, but I can't fscking
+ figure it out yet.
+\end_layout
+
+\end_inset
+
+
 \end_layout
 
 \begin_layout Standard
-RT2 C:
+Here are sample records from RT1 and RT2.
+\end_layout
+
+\begin_layout Description
+RT1 
+\begin_inset ERT
+status open
+
+\begin_layout Standard
+
 \backslash
-Documents and Settings
+begin{verbatim}
+\end_layout
+
+\begin_layout Standard
+>head -1 TGR26001
 \backslash
-Tim
+TGR26001.RT1
+\end_layout
+
+\begin_layout Standard
+10906 135884517 K Wissmiller Rd
+ 
+\lang english
+A41 3169 3499
+ 
+\lang english
+3168
+\end_layout
+
+\begin_layout Standard
+352410114874548745 26260010013482034820
+ 
+\lang english
+98060098060010051012
+\end_layout
+
+\begin_layout Standard
+-83395134+44569328 -83381740+44569307
+\end_layout
+
+\begin_layout Standard
+
 \backslash
-Desktop>head -1 TGR26001
+end{verbatim}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Description
+RT2 
+\begin_inset ERT
+status open
+
+\begin_layout Standard
+
+
 \backslash
-TGR26001.RT2 20906 135884517 1 -83391780+44569334+000000000+00000000+000000000+00
-000000+000000000+00000000+000000000+00000000+000000000+00000000+000000000+000000
-00+000000000+00000000+000000000+00000000+000000000+00000000
+begin{verbatim}
+\end_layout
+
+\begin_layout Standard
+
+>head -1 TGR26001
+\backslash
+TGR26001.RT2
+\end_layout
+
+\begin_layout Standard
+
+20906 135884517 1 -83391780+44569334 +000000000
+\end_layout
+
+\begin_layout Standard
+
++00000000+000000000+00000000+000000000+00000000
+\end_layout
+
+\begin_layout Standard
+
++000000000+00000000+000000000+00000000+000000000
+\end_layout
+
+\begin_layout Standard
+
++00000000+000000000+00000000+000000000+00000000
+\end_layout
+
+\begin_layout Standard
+
++000000000+00000000
+\end_layout
+
+\begin_layout Standard
+
+
+\backslash
+end{verbatim}
+\end_layout
+
+\end_inset
+
+
 \end_layout
 
 \begin_layout Standard
