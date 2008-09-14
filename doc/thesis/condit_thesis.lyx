@@ -865,11 +865,11 @@ status open
 
 
 \backslash
-textsuperscript{{
+textsuperscript{
 \backslash
 scriptsize{
 \backslash
-copyright}}}
+copyright}}
 \end_layout
 
 \end_inset
@@ -1508,27 +1508,52 @@ The next step is to prepare the data for importing into an SQL database.
 \end_layout
 
 \begin_layout Section
-Parsing the records
+Munging the raw data
 \end_layout
 
 \begin_layout Standard
-Lorem ipsum dolor sit amet, consectetuer adipiscing elit.
- Pellentesque dignissim.
- Praesent tortor.
- In fringilla feugiat nisi.
- Fusce a elit.
- Maecenas placerat facilisis magna.
- Mauris dolor nisi, consequat quis, adipiscing et, consequat semper, odio.
- In eget lacus.
- Pellentesque mauris.
- Sed vestibulum quam ac mauris.
- Donec vehicula risus.
- Maecenas vitae arcu quis tellus fringilla porttitor.
- Donec enim nulla, ornare sit amet, lacinia id, bibendum scelerisque, sapien.
+\begin_inset Note Note
+status open
+
+\begin_layout Standard
+Notes
 \end_layout
 
-\begin_layout Section
-Munging the data
+\begin_layout Standard
+(1) The relevant rtf documentation (hg/tags/graphs_0.6/etc/ documentation/
+ tools-for-working-with-TIGER-data.rtf) is out of date.
+ It refers to an old shell script and a bunch of utilities that were developed
+ separately, before everything was unified into the tigerutils module.
+ TODO: figure out where to write the documentation for this section such
+ that it can be reused in multiple places.
+\end_layout
+
+\begin_layout Standard
+(2) This whole section (
+\begin_inset Quotes eld
+\end_inset
+
+Munging the raw data
+\begin_inset Quotes erd
+\end_inset
+
+) should be written from a tutorial point of view.
+ In other words, describe how to use the tools, and let the API speak for
+ itself.
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+A number of tools were written to extract the data, and transform it into
+ usable latitude and longitude coordinates, along with a large number of
+ other descriptive pieces.
+ Other tools were written to create the databases and import the data into
+ a database.
+ Here's a quick summary of the tools:
 \end_layout
 
 \begin_layout Standard
@@ -1549,6 +1574,37 @@ Lorem ipsum dolor sit amet, consectetuer adipiscing elit.
 
 \begin_layout Section
 Populating the database
+\end_layout
+
+\begin_layout Standard
+\begin_inset Note Note
+status open
+
+\begin_layout Standard
+This section 
+\begin_inset Quotes eld
+\end_inset
+
+Populating the database
+\begin_inset Quotes erd
+\end_inset
+
+ depends on the previous section 
+\begin_inset Quotes eld
+\end_inset
+
+Munging the raw data
+\begin_inset Quotes erd
+\end_inset
+
+.
+ TODO: start there.
+ Figure it out, then repeat the same steps with this content.
+\end_layout
+
+\end_inset
+
+
 \end_layout
 
 \begin_layout Standard
@@ -1667,7 +1723,9 @@ status open
 
 \begin_layout Standard
 
-TIGER/Line{
+TIGER/Line
+\backslash
+textsuperscript{
 \backslash
 tiny{
 \backslash
@@ -1993,11 +2051,11 @@ status open
 \backslash
 parbox[b]{4in}{Note: This section only applies if you are using the TIGER/Line
 \backslash
-textsuperscript{{
+textsuperscript{
 \backslash
 tiny{
 \backslash
-copyright}}} Census data to generate geographic graphs for your simulations.
+copyright}} Census data to generate geographic graphs for your simulations.
  In that case, you should have already installed a database (SQLite 
 \backslash
 ref{ite:[http://www.sqlite.org/||SQLite]} or MySQL  
@@ -2211,6 +2269,43 @@ Default: False.
 
 \begin_layout Chapter
 Source code
+\end_layout
+
+\begin_layout Standard
+\begin_inset Note Note
+status open
+
+\begin_layout Standard
+Maybe instead of a plain listing of the source code, instead I should make
+ it available for download and include an ePyDoc listing of the tigerutils
+ API instead.
+ That should be the focus in the TIGER/Line data appendix anyway.
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Note Note
+status open
+
+\begin_layout Standard
+Question: rename this appendix to 
+\begin_inset Quotes eld
+\end_inset
+
+The tigerutils module
+\begin_inset Quotes erd
+\end_inset
+
+ and focus on the API? It makes sense.
+\end_layout
+
+\end_inset
+
+
 \end_layout
 
 \begin_layout Standard
