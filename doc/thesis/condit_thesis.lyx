@@ -10,7 +10,7 @@
 \inputencoding auto
 \font_roman default
 \font_sans default
-\font_typewriter default
+\font_typewriter lmtt
 \font_default_family default
 \font_sc false
 \font_osf false
@@ -18,7 +18,7 @@
 \font_tt_scale 100
 \graphics default
 \paperfontsize default
-\spacing double
+\spacing single
 \papersize default
 \use_geometry false
 \use_amsmath 1
@@ -283,41 +283,6 @@ that's corny
 \begin_layout Standard
 
 \clearpage
-
-\end_layout
-
-\begin_layout Standard
-\begin_inset Note Note
-status open
-
-\begin_layout Standard
-For eventual inclusion into the main document.
- For now, keep them separate.
- Each should have it's own chapter heading in the individual file.
-\end_layout
-
-\begin_layout Standard
-Chapter 1: Introduction
-\end_layout
-
-\begin_layout Standard
-Chapter 2: Related work
-\end_layout
-
-\begin_layout Standard
-Chapter 3: Implementation
-\end_layout
-
-\begin_layout Standard
-Chapter 4: Results
-\end_layout
-
-\begin_layout Standard
-Chapter 5: Conclusion
-\end_layout
-
-\end_inset
-
 
 \end_layout
 
@@ -730,7 +695,7 @@ target "http://en.wikipedia.org/wiki/Backronym"
  On the other hand, the data they provide is exhaustive.
  There is much more detail here than is needed to generate geographical
  graphs 
-\begin_inset Note Note
+\begin_inset Foot
 status open
 
 \begin_layout Standard
@@ -1806,6 +1771,43 @@ TODO: figure out how to center this box.
 \end_inset
 
 
+\end_layout
+
+\begin_layout Standard
+\begin_inset Note Note
+status open
+
+\begin_layout Standard
+Three tries, three fails:
+\end_layout
+
+\begin_layout Standard
+(1) The framebox makes the cxrefs, but does not put the text in the box.
+ It just runs off the right side of the page.
+\end_layout
+
+\begin_layout Standard
+(2) The LyX Framed region looks great, but the cxrefs and copyright don't
+ work.
+\end_layout
+
+\begin_layout Standard
+(3) The minipage doesn't allow a framebox.
+ In fact, if I add the framebox it looks a lot like fail no.
+ 1.
+\end_layout
+
+\begin_layout Standard
+If it comes down to it, I'll use the Framed and forget about the cxrefs
+ and copyright.
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
 \begin_inset ERT
 status open
 
@@ -1813,7 +1815,7 @@ status open
 
 
 \backslash
-parbox[b]{4in}{Note: This section only applies if you are using the TIGER/Line
+framebox[1in]{Note: This section only applies if you are using the TIGER/Line
 \backslash
 textsuperscript{
 \backslash
@@ -1851,6 +1853,73 @@ The cross-ref link works, but it looks strange (red box) in Adobe Reader.
 \end_layout
 
 \begin_layout Standard
+\begin_inset Note Framed
+status open
+
+\begin_layout Standard
+Note: This section only applies if you are using the TIGER/Line
+\backslash
+textsuperscript{
+\backslash
+tiny{
+\backslash
+copyright}} Census data to generate geographic graphs for your simulations.
+ In that case, you should have already installed a database (SQLite 
+\backslash
+ref{ite:[http://www.sqlite.org/||SQLite]} or MySQL  
+\backslash
+ref{ite:[http://www.mysql.com/||MySQL]}), SQLAlchemy 
+\backslash
+ref{ite:[http://www.sqlalchemy.org/||SQLAlchemy]}, and NetworkX 
+\backslash
+ref{ite:[https://networkx.lanl.gov/wiki/||NetworkX]}.
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset ERT
+status open
+
+\begin_layout Standard
+
+
+\backslash
+begin{minipage}[2]{4in}{Note: This section only applies if you are using
+ the TIGER/Line
+\backslash
+textsuperscript{
+\backslash
+tiny{
+\backslash
+copyright}} Census data to generate geographic graphs for your simulations.
+ In that case, you should have already installed a database (SQLite 
+\backslash
+ref{ite:[http://www.sqlite.org/||SQLite]} or MySQL  
+\backslash
+ref{ite:[http://www.mysql.com/||MySQL]}), SQLAlchemy 
+\backslash
+ref{ite:[http://www.sqlalchemy.org/||SQLAlchemy]}, and NetworkX 
+\backslash
+ref{ite:[https://networkx.lanl.gov/wiki/||NetworkX]}.}
+\end_layout
+
+\begin_layout Standard
+
+
+\backslash
+end{minipage}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
 The graphs configuration includes sections 
 \emph on
 dataprep
@@ -1867,7 +1936,7 @@ dev
 \end_layout
 
 \begin_layout Description
-fetchCommand: 
+fetchCommand 
 \emph on
 Type: String (OS path + string option).
 
@@ -1888,7 +1957,7 @@ Default: wget.exe.
 \end_layout
 
 \begin_layout Description
-zipCommand: 
+zipCommand 
 \emph on
 Type: String (OS path + string option).
 
@@ -1927,7 +1996,7 @@ Default: 7z.exe x.
 \end_layout
 
 \begin_layout Description
-fipsMetadataUrl: 
+fipsMetadataUrl 
 \emph on
 Type: String (URL).
 
@@ -1943,7 +2012,7 @@ Default: http://www.census.gov/geo/tigerline/app_a03.txt.
 \end_layout
 
 \begin_layout Description
-fipsZipfileRoot: 
+fipsZipfileRoot 
 \emph on
 Type: String (URL).
 
@@ -1965,7 +2034,7 @@ NB: This URL MUST contain a trailing slash!
 
 \end_deeper
 \begin_layout Description
-excludePuertoRico: 
+excludePuertoRico 
 \emph on
 Type: Boolean.
 
@@ -1982,7 +2051,7 @@ Default: False.
 \end_layout
 
 \begin_layout Description
-tigerSandbox: 
+tigerSandbox 
 \emph on
 Type: String (OS path).
 
@@ -2014,7 +2083,7 @@ Default: None.
 \end_layout
 
 \begin_layout Description
-debug: 
+debug 
 \emph on
 Type: Boolean.
 
@@ -2040,10 +2109,23 @@ Source code
 status open
 
 \begin_layout Standard
-Maybe instead of a plain listing of the source code, instead I should make
- it available for download and include an ePyDoc listing of the tigerutils
+Notes
+\end_layout
+
+\begin_layout Standard
+(1) Maybe instead of a plain listing of the source code, instead I should
+ make it available for download and include an ePyDoc listing of the tigerutils
  API instead.
  That should be the focus in the TIGER/Line data appendix anyway.
+\end_layout
+
+\begin_layout Standard
+(2) Sphinx looks comprehensive and fabulous, but too much to learn.
+ 
+\end_layout
+
+\begin_layout Standard
+http://sphinx.pocoo.org/index.html
 \end_layout
 
 \end_inset
@@ -2122,8 +2204,65 @@ Donec odio nibh, varius in, dictum nec, egestas in, nisl.
 
 \end_layout
 
-\begin_layout Standard
+\begin_layout Chapter
+Transcript of interactive session
+\end_layout
 
+\begin_layout Standard
+\begin_inset Note Note
+status open
+
+\begin_layout Standard
+This is borderline gratuitous.
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Lorem ipsum dolor sit amet, consectetuer adipiscing elit.
+ Pellentesque dignissim.
+ Praesent tortor.
+ In fringilla feugiat nisi.
+ Fusce a elit.
+ Maecenas placerat facilisis magna.
+ Mauris dolor nisi, consequat quis, adipiscing et, consequat semper, odio.
+ In eget lacus.
+ Pellentesque mauris.
+ Sed vestibulum quam ac mauris.
+ Donec vehicula risus.
+ Maecenas vitae arcu quis tellus fringilla porttitor.
+ Donec enim nulla, ornare sit amet, lacinia id, bibendum scelerisque, sapien.
+\end_layout
+
+\begin_layout Standard
+Duis ut sapien.
+ Proin sit amet magna et est pharetra vestibulum.
+ Pellentesque sed diam et erat sollicitudin pharetra.
+ Suspendisse potenti.
+ Sed fringilla sagittis urna.
+ Morbi ullamcorper aliquet leo.
+ Donec elit nunc, rutrum at, ultrices at, pretium a, est.
+ Etiam non dolor non enim malesuada condimentum.
+ Curabitur vitae sapien.
+ Nulla neque.
+\end_layout
+
+\begin_layout Standard
+Donec odio nibh, varius in, dictum nec, egestas in, nisl.
+ Mauris varius mi non nunc.
+ Praesent porta enim in nibh.
+ Donec ac mi varius ante malesuada dignissim.
+ Nunc aliquet tortor ac lectus.
+ Sed pede.
+ Donec lobortis, tellus vel vehicula tristique, lectus diam cursus sapien,
+ id ultricies odio metus sed ipsum.
+ Fusce sapien mauris, vehicula non, placerat at, rhoncus sed, sem.
+ Duis ullamcorper molestie mauris.
+ Sed eu ipsum nec eros luctus elementum.
+ Suspendisse ultrices sollicitudin nunc.
 \end_layout
 
 \end_body
