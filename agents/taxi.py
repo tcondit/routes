@@ -328,13 +328,14 @@ Contrast with the cooperate() method.
         '''
         TODO UPDATE DOCSTRING
 
-Filter: return the Fare that is geographically closest to the calling Taxi.
+	Filter: return the Fare that is geographically closest to the calling
+	Taxi.
 
-NOTE: The Fare is returned as a single-element list, because that (a list) is
-what SimPy's yield is expecting.  This is a filter function for the Store, and
-should not be called directly.  This is the second of the Taxi's three
-negotiation protocols.
-'''
+	NOTE: The Fare is returned as a single-element list, because that (a
+	list) is what SimPy's yield is expecting.  This is a filter function
+	for the Store, and should not be called directly.  This is the second
+	of the Taxi's three negotiation protocols.
+	'''
         tmp=[]
         if not not_a_magic_buffer:
             not_a_magic_buffer=Agent.waitingFares.theBuffer

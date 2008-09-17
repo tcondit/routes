@@ -126,6 +126,97 @@ Donec odio nibh, varius in, dictum nec, egestas in, nisl.
  Suspendisse ultrices sollicitudin nunc.
 \end_layout
 
+\begin_layout Itemize
+software agents
+\end_layout
+
+\begin_layout Itemize
+Taxis, Fares
+\end_layout
+
+\begin_layout Itemize
+cooperative, competitive
+\end_layout
+
+\begin_layout Itemize
+simulations
+\end_layout
+
+\begin_layout Itemize
+grids & graphs
+\end_layout
+
+\begin_layout Itemize
+extremely configurable
+\end_layout
+
+\begin_layout Itemize
+Software agents, 
+\end_layout
+
+\begin_layout Itemize
+Groups of software agents, working cooperatively or in competition to solve
+ a specific class of problems, 
+\end_layout
+
+\begin_layout Itemize
+In this thesis we describe a simulation of two kinds of dependent agents.
+ The goal of the taxis is to deliver as many fares as efficiently as possible,
+ while the goal of the fares is to get to their destination as quickly as
+ possible.
+ The simulation is extensively configurable, and there are multiple different
+ operating modes: grid or graph 
+\begin_inset Note Note
+status open
+
+\begin_layout Standard
+environment? area? playing field? competition range?
+\end_layout
+
+\end_inset
+
+; cooperative or competitive simulation types; FIFO, closestfare and mixedmode
+ negotiation protocols.
+\end_layout
+
+\begin_layout Itemize
+The original motivation was to develop something along the lines of a distribute
+d constraint optimization protocol.
+ The results, while not optimal in many cases, still show 
+\begin_inset ERT
+status open
+
+\begin_layout Standard
+
+\backslash
+ldots
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Itemize
+In developing this simulation, we recognized the need to be able to experiment
+ with different configurations in real-time.
+ To this end, a wide range of variables are exposed to the user, along with
+ an interactive utility that takes care of required preparation to run both
+ grid and graph simulations.
+ 
+\begin_inset Note Note
+status open
+
+\begin_layout Standard
+Note that when running graph simulations, the RT files are cached for future
+ use, if so desired.
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
 \begin_layout Standard
 
 \clearpage
@@ -187,6 +278,11 @@ Susan Haynes
 \begin_deeper
 \begin_layout Itemize
 always encouraging, and helpful with ideas
+\end_layout
+
+\begin_layout Itemize
+did not hesitate to advise me even though this entire project was completed
+ entirely from out of state
 \end_layout
 
 \end_deeper
@@ -257,10 +353,13 @@ that's corny
 \end_layout
 
 \end_deeper
+\begin_layout Standard
+
+\newpage
+
+\end_layout
+
 \begin_layout Part*
-
-\clearpage
-
 \begin_inset LatexCommand tableofcontents
 
 \end_inset
@@ -1283,6 +1382,19 @@ A number of tools were written to extract the data, and transform it into
  Other tools were written to create the databases and import the data into
  a database.
  Here's a quick summary of the tools:
+\end_layout
+
+\begin_layout Standard
+\begin_inset Note Note
+status open
+
+\begin_layout Standard
+PICK UP RIGHT HERE
+\end_layout
+
+\end_inset
+
+
 \end_layout
 
 \begin_layout Standard
