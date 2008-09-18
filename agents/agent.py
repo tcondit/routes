@@ -1,5 +1,5 @@
 #!/usr/bin/env python
-'''DOCSTRING'''
+'''The Agent module, contains the Agent class'''
 
 import ConfigParser
 import os.path
@@ -23,7 +23,11 @@ else:
     from SimPy.Simulation import *
 
 class Agent(Process):
-    '''DOCSTRING'''
+    '''
+    Agent is a SimPy Process.
+    
+    Taxis and Fares are subclasses of the Agent class.
+    '''
     # Static (class) attributes!  Do NOT declare these in __init__ (or they
     # apparently won't be static).
     waiting=[]

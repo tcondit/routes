@@ -1,5 +1,5 @@
 #!/usr/bin/env python
-'''DOCSTRING'''
+'''The grid module, containing the Grid class.'''
 
 # TODO: edit this and put it in the module docstring.
 #
@@ -41,12 +41,12 @@ class Grid(object):
 
     def get_distance(self, point_a, point_b):
         '''
-Given a pair of coordinates, return the distance between them.
+	Given a pair of coordinates, return the distance between them.
 
-The distance calculation is set in the configuration option
-distanceCalculation.  Options are straight-line distance between the points
-(the default), or driving distance.
-'''
+	The distance calculation is set in the configuration option
+	distanceCalculation.  Options are straight-line distance between the
+	points (the default), or driving distance.
+	'''
         DC=config.get('runtime', 'distanceCalculation')
         if DC=='straightLine':    # use the hypotenuse
             return math.hypot((point_a[0]-point_b[0]), (point_a[1]-point_b[1]))
@@ -72,14 +72,14 @@ distanceCalculation.  Options are straight-line distance between the points
     # an update_location() method in graph.py.
     def update_location(self, point_a, point_b, time_delta):
         '''
-Update an Agent's current position.
+	Update an Agent's current position.
 
-This method is usually called from Taxi.compete(), after a Taxi has been
-interrupted while en'route to a Fare.  The interruption means that another
-Taxi (the one doing the interrupting) got to the Fare first, and this Taxi
-needs to figure out where he is, so he can set his loc['curr'], and compete
-for the next Fare.
-'''
+	This method is usually called from Taxi.compete(), after a Taxi has
+	been interrupted while en'route to a Fare.  The interruption means
+	that another Taxi (the one doing the interrupting) got to the Fare
+	first, and this Taxi needs to figure out where he is, so he can set
+	his loc['curr'], and compete for the next Fare.
+	'''
         # It doesn't happen very often, but sometimes two Taxis reach a Fare
         # at the same time.  In other words, both xdiff and ydiff are 0!  This
         # causes ZeroDivisionErrors.  But since one of them has already been

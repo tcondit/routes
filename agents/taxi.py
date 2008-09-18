@@ -1,5 +1,5 @@
 #!/usr/bin/env python
-'''DOCSTRING'''
+'''The taxi module'''
 
 from operator import itemgetter # itemgegger is new in Python 2.4
 from agent import Agent
@@ -37,24 +37,25 @@ taxi_loc = ()
 
 
 class Taxi(Agent):
-    '''DOCSTRING'''
+    '''Taxis are Agents (which are SimPy processes).'''
     def __init__(self, name, np): # negotiation protocol
+	'''DOCSTRING'''
         Agent.__init__(self, name)
         self.np=np
         self.lostFares=[]
 
     def cooperate(self):
         '''
-Coordinate pickups with other Taxis.  A SimPy PEM.
+	Coordinate pickups with other Taxis.  A SimPy PEM.
 
-This is the PEM for cooperative negotiation.  In this simulation, Taxis choose
-a Fare for pickup, and take a reference to the Fare at acknowledgment.  The
-Taxi effectively locks out other Taxis from competing for that Fare by
-removing it from the queue of waiting Fares just before yield'ing for the ride
-to the Fare.
+	This is the PEM for cooperative negotiation.  In this simulation,
+	Taxis choose a Fare for pickup, and take a reference to the Fare at
+	acknowledgment.  The Taxi effectively locks out other Taxis from
+	competing for that Fare by removing it from the queue of waiting Fares
+	just before yield'ing for the ride to the Fare.
 
-Contrast with the compete() method.
-'''
+	Contrast with the compete() method.
+	'''
         global taxi_loc
         while True:
             if len(Agent.waitingFares.theBuffer) > 0:
@@ -142,31 +143,33 @@ Contrast with the compete() method.
 
     def compete(self):
         '''
-Compete for Fares against other Taxis.  A SimPy PEM.
+	Compete for Fares against other Taxis.  A SimPy PEM.
 
-This method differs from cooperate() in a couple important ways.  First is
-that the Taxis are currently competing for Fares in an "every man for himself"
-sort of way.  Second is that compete uses the same negotiation protocols, but
-they work a little differently.  Instead of taking a reference to a Fare, and
-removing it from the queue of eligible Fares as soon as it is identified,
-these Taxis need to reach the Fare before they can claim it as their own.
-Also, the Taxis do not communicate with each other during the competition.
-They mainly communicate with each other when one of them claims a Fare, and
-alerts the others that that Fare is no longer available.
+	This method differs from cooperate() in a couple important ways.
+	First is that the Taxis are currently competing for Fares in an "every
+	man for himself" sort of way.  Second is that compete uses the same
+	negotiation protocols, but they work a little differently.  Instead of
+	taking a reference to a Fare, and removing it from the queue of
+	eligible Fares as soon as it is identified, these Taxis need to reach
+	the Fare before they can claim it as their own.  Also, the Taxis do
+	not communicate with each other during the competition.  They mainly
+	communicate with each other when one of them claims a Fare, and alerts
+	the others that that Fare is no longer available.
 
-Implementation detail: Every Taxi that competes for a particular Fare goes
-into that Fare's competeQ.  Then the Taxi yields for drive_dist time.  If the
-yield expires, that Taxi got there first, and wins the Fare!  The winning Taxi
-pulls the Fare from the queue, and interrupts all other members of that Fare's
-competeQ.   The remaining Taxis call self.interruptReset(), and go off to
-compete for another Fare.
+	Implementation detail: Every Taxi that competes for a particular Fare
+	goes into that Fare's competeQ.  Then the Taxi yields for drive_dist
+	time.  If the yield expires, that Taxi got there first, and wins the
+	Fare!  The winning Taxi pulls the Fare from the queue, and interrupts
+	all other members of that Fare's competeQ.   The remaining Taxis call
+	self.interruptReset(), and go off to compete for another Fare.
 
-Because the Fares stay in the queue until someone "wins" the right to go pick
-them up, latecomers should have a shot at them too.  If they are closer, they
-may get the Fare, even though others are already competing for that Fare.
+	Because the Fares stay in the queue until someone "wins" the right to
+	go pick them up, latecomers should have a shot at them too.  If they
+	are closer, they may get the Fare, even though others are already
+	competing for that Fare.
 
-Contrast with the cooperate() method.
-'''
+	Contrast with the cooperate() method.
+	'''
 
         global taxi_loc	# maybe I should use class G
 
@@ -393,25 +396,25 @@ Contrast with the cooperate() method.
     # ~/finalproject/agents/docs/daily_status/2007/04/08.txt
     def mixedmode_compete(self, not_a_magic_buffer=None):
         '''
-Find the Fare with the lowest aggregate score.
+	Find the Fare with the lowest aggregate score.
 
-The Taxi uses a combination of the Fare's time in the waitingFares buffer plus
-their distance from the Taxi to determine which Fares to inspect.  If there
-are any Fares in this list, then the one with the lowest score (cost) is
-returned to the caller.
+	The Taxi uses a combination of the Fare's time in the waitingFares
+	buffer plus their distance from the Taxi to determine which Fares to
+	inspect.  If there are any Fares in this list, then the one with the
+	lowest score (cost) is returned to the caller.
 
-If the list is empty, in other words, if there are no Fares which meet the
-time and space (distance) requirements of this Taxi, the Taxi goes into a
-getQ, and stays there until at least one suitable Fare comes along.
-Fortunately, there don't seem to be any restrictions from SimPy on when a Taxi
-can get out of the queue.  It's just a matter of satisfying the filter
-function.
+	If the list is empty, in other words, if there are no Fares which meet
+	the time and space (distance) requirements of this Taxi, the Taxi goes
+	into a getQ, and stays there until at least one suitable Fare comes
+	along.  Fortunately, there don't seem to be any restrictions from
+	SimPy on when a Taxi can get out of the queue.  It's just a matter of
+	satisfying the filter function.
 
-NOTE: This method is explicitly not a SimPy filter function.  It behaves
-similarly, but is used for competition only, which has different requirements,
-since only the first Taxi to reach the Fare may remove the Fare from the
-queue, and all others have to renege out.
-'''
+	NOTE: This method is explicitly not a SimPy filter function.  It
+	behaves similarly, but is used for competition only, which has
+	different requirements, since only the first Taxi to reach the Fare
+	may remove the Fare from the queue, and all others have to renege out.
+	'''
 
         def __printFareDetails(taxiRange):
             '''DOCSTRING'''
@@ -597,17 +600,17 @@ queue, and all others have to renege out.
 
 def closestfare_cooperate(buffer):
     '''
-Filter: return the Fare that is geographically closest to the calling Taxi.
+    Filter: return the Fare that is geographically closest to the calling Taxi.
 
-Implementation detail: I think the name 'buffer' is mentioned in the
-documentation as being a special trigger for SimPy, to ensure "magic
-behavior".
+    Implementation detail: I think the name 'buffer' is mentioned in the
+    documentation as being a special trigger for SimPy, to ensure "magic
+    behavior".
 
-NOTE: The Fare is returned as a single-element list, because that (a list) is
-what SimPy's yield is expecting.  This is a filter function for the Store, and
-should not be called directly.  This is the second of the Taxi's three
-negotiation protocols.
-'''
+    NOTE: The Fare is returned as a single-element list, because that (a list)
+    is what SimPy's yield is expecting.  This is a filter function for the
+    Store, and should not be called directly.  This is the second of the
+    Taxi's three negotiation protocols.
+    '''
     tmp=[]
     if not len(Agent.waitingFares.theBuffer) > 0:
         print 'Buffer is empty!'
@@ -631,25 +634,25 @@ negotiation protocols.
 # ~/finalproject/agents/docs/daily_status/2007/04/08.txt
 def mixedmode_cooperate(buffer):
     '''
-Filter: find the Fare with the lowest aggregate score.
+    Filter: find the Fare with the lowest aggregate score.
 
-The Taxi uses a combination of the Fare's time in the waitingFares buffer plus
-their distance from the Taxi to determine which Fares to inspect.  If there
-are any Fares in this list, then the one with the lowest score (cost) is
-returned to the caller.
+    The Taxi uses a combination of the Fare's time in the waitingFares buffer
+    plus their distance from the Taxi to determine which Fares to inspect.  If
+    there are any Fares in this list, then the one with the lowest score
+    (cost) is returned to the caller.
 
-If the list is empty, in other words, if there are no Fares which meet the
-time and space (distance) requirements of this Taxi, the Taxi goes into a
-getQ, and stays there until at least one suitable Fare comes along.
-Fortunately, there don't seem to be any restrictions from SimPy on when a Taxi
-can get out of the queue.  It's just a matter of satisfying the filter
-function.
+    If the list is empty, in other words, if there are no Fares which meet the
+    time and space (distance) requirements of this Taxi, the Taxi goes into a
+    getQ, and stays there until at least one suitable Fare comes along.
+    Fortunately, there don't seem to be any restrictions from SimPy on when a
+    Taxi can get out of the queue.  It's just a matter of satisfying the
+    filter function.
 
-NOTE: The Fare is returned as a single-element list, because that's what
-SimPy's yield is expecting.  This is a filter function for the Store, and
-should not be called directly.  This is the third of the Taxi's three
-negotiation protocols.
-'''
+    NOTE: The Fare is returned as a single-element list, because that's what
+    SimPy's yield is expecting.  This is a filter function for the Store, and
+    should not be called directly.  This is the third of the Taxi's three
+    negotiation protocols.
+    '''
     def __printFareDetails(taxiRange):
         '''DOCSTRING'''
         PRETTY_PRINT = config.getboolean('runtime', 'prettyPrint')
@@ -769,7 +772,7 @@ negotiation protocols.
 
 def fare_is_here(buffer):
     '''
-Filter: if there is a Fare at this location, return it, else None.
+    Filter: if there is a Fare at this location, return it, else None.
     '''
     tmp=[]
     for fare in buffer:

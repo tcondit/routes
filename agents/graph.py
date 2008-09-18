@@ -1,5 +1,7 @@
 #!/usr/bin/env python
 '''
+The graph module, containing the logic to run geographic simulations.
+
 This module is activated if mapType is set to 'graph' in
 agents/conf/agent/defaults.ini or overrides.ini.  The graph simulations need
 additional preparation that the grid simulations do not.  The bulk of the work
@@ -127,12 +129,12 @@ when you're done, and we'll continue.
 
     def get_distance(self, here, there):
         '''
-Given a pair of coordinates, return the driving distance between them.
+	Given a pair of coordinates, return the driving distance between them.
 
-The distance calculation is set in the configuration option
-distanceCalculation.  Options are straight-line distance between the points
-(the default), or driving distance.
-'''
+	The distance calculation is set in the configuration option
+	distanceCalculation.  Options are straight-line distance between the
+	points (the default), or driving distance.
+	'''
         # This distance is subject to the graphCoordinateMultiplier, to bring
         # it approximately in line with the grid simulation.  The multiplier
         # is used here in order to make this thing behave as much as possible
@@ -202,12 +204,13 @@ distanceCalculation.  Options are straight-line distance between the points
 
     def __get_vertex(self,connected=True):
         '''
-[private] Returns a single (x,y) coordinate point.
+	[private] Returns a single (x,y) coordinate point.
 
-Parameter connected specifies whether this vertex should come from the first
-and largest list of nodes.  This is important for the simulation to function
-properly, since Agents located on unconnected vertices are unreachable.
-'''
+	Parameter connected specifies whether this vertex should come from the
+	first and largest list of nodes.  This is important for the simulation
+	to function properly, since Agents located on unconnected vertices are
+	unreachable.
+	'''
         tmp=self.query.get_point()
         if connected is True:
             connected_vertices=self.mkgraph.get_connected()

@@ -1,5 +1,5 @@
 #!/usr/bin/env python
-'''DOCSTRING'''
+'''The fare module, contains the Fare and FareFactory classes'''
 
 import ConfigParser
 import os.path
@@ -30,11 +30,16 @@ else:
 
 
 class Fare(Agent):
-    '''DOCSTRING'''
+    '''
+    Fares are Agents (which are SimPy processes).
+    
+    TODO: explain this more.
+    '''
     # TODO [hipri] Monitor the time between when the fare was requested and
     # when the Fare was dropped off.  ylab should be ...
     waitMon=Monitor('All Fares total wait time')
     def __init__(self, name):
+	'''DOCSTRING'''
         Agent.__init__(self, name)
         # Fare maintains its own SimEvent, but Taxi uses it (look for
         # fareBeingDriven.doneSignal.signal(self.name) in the Taxi's
@@ -42,6 +47,7 @@ class Fare(Agent):
         self.doneSignal = SimEvent()
 
     def run(self):
+	'''DOCSTRING'''
         self.ts['mkreq'] = now()
 
         # request Taxi [add self to waitingFares queue]
@@ -71,7 +77,9 @@ class Fare(Agent):
 
 
 class FareFactory(Process):
+    '''DOCSTRING'''
     def generate(self):
+	'''DOCSTRING'''
         # TODO instead of saying 'while True:', I may want to pass in (via the
         # config) a specific number of Fares to be created.
         global numFaresCreated
