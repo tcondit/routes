@@ -1,11 +1,13 @@
 #!/usr/bin/env python
 '''
-The graph module, containing the logic to run geographic simulations.
+The graph module, containing the logic to run geographic
+simulations.
 
 This module is activated if mapType is set to 'graph' in
-agents/conf/agent/defaults.ini or overrides.ini.  The graph simulations need
-additional preparation that the grid simulations do not.  The bulk of the work
-is done by the tigerutils module, and used by the graph module.
+agents/conf/agent/defaults.ini or overrides.ini.  The graph
+simulations need additional preparation that the grid simulations
+do not.  The bulk of the work is done by the tigerutils module,
+and used by the graph module.
 '''
 
 # agents/Graph is polymorphic with agents/Grid
@@ -22,21 +24,24 @@ class Graph(object):
         greeting="""
 Greetings!
 
-Before running a geographical Agent simulation, we need to choose an area.
-I'll present a list of states and territories from the U.S. Census Bureau, and
-ask you to choose one.  Then I'll present a list of counties in that state,
-and again ask you to choose one of them.  At that time, you can choose whether
-to use the entire county for the simulation, or a specific ZIP code, which is
+Before running a geographical Agent simulation, we need to choose
+an area.  I'll present a list of states and territories from the
+U.S. Census Bureau, and ask you to choose one.  Then I'll present
+a list of counties in that state, and again ask you to choose one
+of them.  At that time, you can choose whether to use the entire
+county for the simulation, or a specific ZIP code, which is
 generally a smaller area.
 
-Note 1: The first time a new county is chosen, the file will be downloaded
-  from www.census.gov.  Subsequent runs of the simulation on the same county
-  will reuse the downloaded data to save bandwidth and preparation time.
+Note 1: The first time a new county is chosen, the file will be
+    downloaded from www.census.gov.  Subsequent runs of the
+    simulation on the same county will reuse the downloaded data
+    to save bandwidth and preparation time.
 
-Note 2: The smallest data file may be Denali county, Alaska: state code 02,
-  county code 068.  Some of the ZIP codes in this county are too small to use
-  for the map, with only have 3 or 4 disconnected nodes, but it's convenient
-  for doing a quick check that everything works end-to-end.
+Note 2: The smallest data file may be Denali county, Alaska: state
+    code 02, county code 068.  Some of the ZIP codes in this
+    county are too small to use for the map, with only have 3 or 4
+    disconnected nodes, but it's convenient for doing a quick
+    check that everything works end-to-end.
 """
 
         print greeting
@@ -114,7 +119,10 @@ when you're done, and we'll continue.
 
 
     def get_location(self):
-        '''Returns a pair of points (vertices) representing a location'''
+	'''
+	Returns a pair of points (vertices) representing a
+	location.
+	'''
         point_a=self.get_point()
         point_b=self.get_point()
         while point_a==point_b:
@@ -123,17 +131,21 @@ when you're done, and we'll continue.
 
 
     def get_point(self):
-        '''Generates a two-tuple representing an (x,y) location'''
+	'''
+	Generates a two-tuple representing an (x,y) location.
+	'''
         return self.__get_vertex()
 
 
     def get_distance(self, here, there):
         '''
-	Given a pair of coordinates, return the driving distance between them.
+	Given a pair of coordinates, return the driving distance
+	between them.
 
-	The distance calculation is set in the configuration option
-	distanceCalculation.  Options are straight-line distance between the
-	points (the default), or driving distance.
+	The distance calculation is set in the configuration
+	option distanceCalculation.  Options are straight-line
+	distance between the points (the default), or driving
+	distance.
 	'''
         # This distance is subject to the graphCoordinateMultiplier, to bring
         # it approximately in line with the grid simulation.  The multiplier
@@ -206,10 +218,10 @@ when you're done, and we'll continue.
         '''
 	[private] Returns a single (x,y) coordinate point.
 
-	Parameter connected specifies whether this vertex should come from the
-	first and largest list of nodes.  This is important for the simulation
-	to function properly, since Agents located on unconnected vertices are
-	unreachable.
+	Parameter connected specifies whether this vertex should
+	come from the first and largest list of nodes.  This is
+	important for the simulation to function properly, since
+	Agents located on unconnected vertices are unreachable.
 	'''
         tmp=self.query.get_point()
         if connected is True:

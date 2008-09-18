@@ -2,7 +2,8 @@
 '''
 The tigerutils module.
 
-It provides most of the functionality used by the geographic simulations.
+It provides most of the functionality used by the geographic
+simulations.
 '''
 
 # NOTES
@@ -11,7 +12,7 @@ It provides most of the functionality used by the geographic simulations.
 # * Where does this belong?
 #
 #The data dictionary used to generate these schemas is here
-#[http://www.census.gov/geo/www/tiger/tiger2006se/a6sech6.txt]'''
+#[http://www.census.gov/geo/www/tiger/tiger2006se/a6sech6.txt]
 #
 
 import ConfigParser
@@ -68,10 +69,12 @@ IMAGES_DIR=os.path.join(TIGER_SANDBOX,'images')
 
 class G(object):
     '''
-    A class that exists only to hold global variables used by tigerutils.
+    A class that exists only to hold global variables used by
+    tigerutils.
 
-    It holds only class variables, and only a very limited number of them.
-    All other classes should add their variables as they become available.
+    It holds only class variables, and only a very limited number
+    of them.  All other classes should add their variables as they
+    become available.
     '''
     statesPerRow=6
     countiesPerRow=2
@@ -207,7 +210,10 @@ class FipsMetadataParser(object):
 #        return self.FIPS_D
 
     def parseCodes(self):
-        '''Parse and return the state and county codes (concatenated).'''
+	'''
+	Parse and return the state and county codes
+	(concatenated).
+	'''
         for line in self.eligible:
             # find state code and county code
             iterator1, iterator2= \
@@ -224,26 +230,29 @@ class FipsMetadataParser(object):
     # This returns a list of tuples.  Think about how to make this easier to
     # work with.  It's at least consistent with getCounties.
     def getStates(self):
-        '''Return the list of states and territories in FIPS_METADATA_URL.'''
+        '''
+	Return the list of states and territories in
+	FIPS_METADATA_URL.
+	'''
         states=[]
         for key, value in self.FIPS_D.items():
             states.append((key, value[0]))
         return states
 
     def getStateAbbr(self, stateCode):
-        '''Returns the state abbreviation (SA) or None.'''
+        '''Return the state abbreviation (SA) or None.'''
         return self.FIPS_D.get(stateCode)
 
     # Currently unused?
     def getStateCode(self, stateAbbr):
-        '''Returns the state code (SC) or None.'''
+        '''Return the state code (SC) or None.'''
         for key, val in self.FIPS_D.iteritems():
             if stateAbbr==val[0]:
                 return key
         return None
 
     def isState(self,stateCode):
-        '''Returns True if stateCode is a valid FIPS state code.'''
+        '''Return True if stateCode is a valid FIPS state code.'''
         return self.FIPS_D.get(stateCode) is not None
 
     # This returns a list of tuples.  Think about how to make this easier to
@@ -251,7 +260,10 @@ class FipsMetadataParser(object):
     #
     # Currently unused?
     def getCounties(self, stateAbbr):
-        '''Return the counties in the given two-letter state abbreviation or None.'''
+        '''
+	Return the counties in the given two-letter state
+	abbreviation or None.
+	'''
         try:
             return self.FIPS_D.get(stateAbbr)[1]
         except TypeError:  # bogus state
@@ -267,11 +279,14 @@ class FipsMetadataParser(object):
     #
     # Late note 2: Do this later.  For now, just get the random zip file.
     def getCountyName(self,countyCode):
-        '''Returns the county name (CN) or None.'''
+        '''Return the county name (CN) or None.'''
         pass
 
     def isCounty(self,stateCode,countyCode):
-        '''Returns True if stateCode+countyCode is a valid FIPS county code.'''
+        '''
+	Return True if stateCode+countyCode is a valid FIPS county
+	code.
+	'''
         return stateCode+countyCode in self.FIPS_L
 
     def getRandomCounty(self):
@@ -354,7 +369,8 @@ class UserInput(object):
         '''
 	Query the user for which database engine to use.
 
-	Currently there are only two choices: SQLite (preferred) or MySQL.
+	Currently there are only two choices: SQLite (preferred)
+	or MySQL.
 	'''
         engineCode=None
         dbEngineNames=[(1,'SQLite'),(2,'MySQL')]
@@ -423,10 +439,10 @@ class GetFips(object):
     '''
     Help the user choose a county FIPS file.
 
-    Make it as simple as possible to choose a county FIPS zip file for use in
-    the graphs software.  Prompt the user for a state and county by name,
-    fetch the file and unzip it.  Then clean up extra files that are not used
-    by the graphs programs.
+    Make it as simple as possible to choose a county FIPS zip file
+    for use in the graphs software.  Prompt the user for a state
+    and county by name, fetch the file and unzip it.  Then clean
+    up extra files that are not used by the graphs programs.
     '''
 
     def __init__(self):
@@ -561,9 +577,10 @@ class ProcessFipsFiles(object):
     '''
     Prepare FIPS files for processing by the mungers.
 
-    Find and unzip all TGRxxxxx.ZIP files in-place to a temporary location
-    (G.srcPath).  Copy the RT1 and RT2 files to a staging area to make them
-    available for later.  Remove the files in the temporary location.
+    Find and unzip all TGRxxxxx.ZIP files in-place to a temporary
+    location (G.srcPath).  Copy the RT1 and RT2 files to a staging
+    area to make them available for later.  Remove the files in
+    the temporary location.
     '''
 
     def __init__(self):
@@ -583,8 +600,8 @@ class ProcessFipsFiles(object):
         '''
 	Unzip the chosen FIPS (TIGER) ZIP file.
 
-	The files are extracted to the same directory (from G.srcPath to
-	G.srcPath).
+	The files are extracted to the same directory (from
+	G.srcPath to G.srcPath).
 	'''
         # There should be only one ZIP file in G.srcPath for a particular
         # county.  One county, one zip file.
@@ -640,9 +657,9 @@ class RunMungers(object):
     '''
     Process the raw data in the RT1 and RT2 files.
 
-    This class exposes a single method, process() that transforms the record
-    type data and generates recordsets suitable for import into a SQL
-    database.
+    This class exposes a single method, process() that transforms
+    the record type data and generates recordsets suitable for
+    import into a SQL database.
     '''
     def __init__(self):
         print "\n====[ RunMungers ]===="
@@ -661,9 +678,10 @@ class RunMungers(object):
         '''
 	Generate a SQL recordset from TIGER RT files.
 
-	This loop processes all the RT1 and RT2 files, and generates a SQL
-	(SQLAlchemy?) recordset from them.  If other files are present in the
-	source directory, they are skipped with a message to STDOUT.
+	This loop processes all the RT1 and RT2 files, and
+	generates a SQL (SQLAlchemy?) recordset from them.  If
+	other files are present in the source directory, they are
+	skipped with a message to STDOUT.
 	'''
         for rtfile in os.listdir(G.rawPath):
             # TODO move this print statement into MungeRTx()
@@ -1039,7 +1057,8 @@ class MungeRT2(object):
 
 class QueryDatabase(object):
     '''
-    Open a db connection with SQLAlchemy and fetch/return a ResultProxy.
+    Open a db connection with SQLAlchemy and fetch/return a
+    ResultProxy.
     '''
 
     def __init__(self):
@@ -1067,8 +1086,8 @@ class QueryDatabase(object):
         '''
 	Choose the geographical area for the simulation.
 
-	The most common choices are either the area of a ZIP code, or an
-	entire county.
+	The most common choices are either the area of a ZIP code
+	or an entire county.
 	'''
         G.zipCodesResultProxy=self.getZipCodes()
 
@@ -1115,7 +1134,8 @@ class QueryDatabase(object):
     # into is creating a callable string, and executing it.
     def __rpZip(self,zip):
         '''
-	[private] Fetch a SQLAlchemy ResultProxy based on a zip code query.
+	[private] Fetch a SQLAlchemy ResultProxy based on a zip
+	code query.
 	'''
         return self.session.execute(select([
             G.tiger01_Table.c.tlid,
@@ -1135,7 +1155,8 @@ class QueryDatabase(object):
 
     def tuptotup(self):
         '''
-	DOCSTRING Describe (clearer than "Data format change method."
+	DOCSTRING Describe (clearer than "Data format change
+	method."
 	'''
         if G.zipCode is None:
            rp=self.__rpAll()
@@ -1164,7 +1185,8 @@ class QueryDatabase(object):
     # NOTE: this method is similar to agents.Agent mkcoords()
     def get_point(self):
         '''
-	Fetch a SQLAlchemy ResultProxy for a random point on the graph.
+	Fetch a SQLAlchemy ResultProxy for a random point on the
+	graph.
 	'''
         # TODO think about renaming this to get_vertices().  get_point() is
         # just plain wrong.  Update the docstring as well.

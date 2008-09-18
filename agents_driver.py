@@ -35,7 +35,8 @@ mon = Monitor('All fares wait time')
 
 def printHeader(verbose=False):
     '''
-    Print all the configuration data for this specific simulation run.
+    Print all the configuration data for this specific simulation
+    run.
     
     Useful for ensuring we're comparing apples to apples.
     '''
@@ -68,11 +69,12 @@ def model():
     The main method, where all simulations begin.
 
     TODO: Use config switch 'useGUI' to decide whether to use
-    SimPlot/plotHistogram, or just printHistogram.  There is no reason to
-    leave that important data out, even though I don't always want to incur
-    the cost/hassle of producing a GUI.  [Note: The plot code is in method
-    oooh_shiny().  The name of the method is a strong hint that it's intended
-    to be developed further.]
+    SimPlot/plotHistogram, or just printHistogram.  There is no
+    reason to leave that important data out, even though I don't
+    always want to incur the cost/hassle of producing a GUI.
+    [Note: The plot code is in method oooh_shiny().  The name of
+    the method is a strong hint that it's intended to be developed
+    further.]
     '''
     initialize()
     random.seed(SEED)
@@ -136,7 +138,8 @@ def model():
 
 def reportstats():
     '''
-    A summary report of various statistics for the current simulation run.
+    A summary report of various statistics for the current
+    simulation run.
     '''
 #    print
 #    print 'WTF are these stats anyway?'
@@ -168,9 +171,7 @@ def reportstats():
     print 'Fare.waitMon.timeAverage:', Fare.waitMon.timeAverage()
 
 def oooh_shiny():
-    '''
-    Make a histogram plot of Fare wait times.
-    '''
+    '''Make a histogram plot of Fare wait times.'''
 
     # TODO [hipri] Add this into the main proggy.  Use config switch 'useGUI'
     # to decide whether to use SimPlot/plotHistogram, or just printHistogram.
