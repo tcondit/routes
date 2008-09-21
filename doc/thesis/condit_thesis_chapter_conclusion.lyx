@@ -4,10 +4,10 @@
 \begin_header
 \textclass report
 \language english
-\inputencoding auto
+\inputencoding latin9
 \font_roman default
 \font_sans default
-\font_typewriter default
+\font_typewriter lmtt
 \font_default_family default
 \font_sc false
 \font_osf false
@@ -18,8 +18,8 @@
 \spacing single
 \papersize default
 \use_geometry false
-\use_amsmath 1
-\use_esint 1
+\use_amsmath 0
+\use_esint 0
 \cite_engine basic
 \use_bibtopic false
 \paperorientation portrait
@@ -29,11 +29,10 @@
 \defskip medskip
 \quotes_language english
 \papercolumns 1
-\papersides 1
+\papersides 2
 \paperpagestyle default
 \tracking_changes false
 \output_changes false
-\author "" 
 \author "" 
 \end_header
 

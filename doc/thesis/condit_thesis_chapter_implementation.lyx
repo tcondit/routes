@@ -4,10 +4,10 @@
 \begin_header
 \textclass report
 \language english
-\inputencoding auto
+\inputencoding latin9
 \font_roman default
 \font_sans default
-\font_typewriter default
+\font_typewriter lmtt
 \font_default_family default
 \font_sc false
 \font_osf false
@@ -18,8 +18,8 @@
 \spacing single
 \papersize default
 \use_geometry false
-\use_amsmath 1
-\use_esint 1
+\use_amsmath 0
+\use_esint 0
 \cite_engine basic
 \use_bibtopic false
 \paperorientation portrait
@@ -29,11 +29,10 @@
 \defskip medskip
 \quotes_language english
 \papercolumns 1
-\papersides 1
+\papersides 2
 \paperpagestyle default
 \tracking_changes false
 \output_changes false
-\author "" 
 \author "" 
 \end_header
 
@@ -89,6 +88,89 @@ Donec odio nibh, varius in, dictum nec, egestas in, nisl.
 
 \begin_layout Standard
 TEST implementation.
+\end_layout
+
+\begin_layout Enumerate
+data prep - grid
+\end_layout
+
+\begin_layout Enumerate
+data prep - graphs
+\end_layout
+
+\begin_deeper
+\begin_layout Enumerate
+get FIPS
+\end_layout
+
+\begin_layout Enumerate
+process lat/lon data
+\end_layout
+
+\begin_layout Enumerate
+make graph
+\end_layout
+
+\begin_deeper
+\begin_layout Enumerate
+describe algorithm for connecting nodes
+\end_layout
+
+\end_deeper
+\begin_layout Enumerate
+little bit of graph theory
+\end_layout
+
+\begin_deeper
+\begin_layout Enumerate
+streets and roads are [ 
+\begin_inset ERT
+status open
+
+\begin_layout Standard
+
+\backslash
+ldots
+\end_layout
+
+\end_inset
+
+ ]
+\end_layout
+
+\begin_layout Enumerate
+intersections are [ 
+\begin_inset ERT
+status open
+
+\begin_layout Standard
+
+\backslash
+ldots
+\end_layout
+
+\end_inset
+
+ ]
+\end_layout
+
+\begin_layout Enumerate
+slightly fuzzy math (but well within tolerance of size of intersection).
+ IOW, if lat/lon data is good to 6 decimal places, that equates to a length
+ of, say, 3 feet.
+ But an intersection is at least 20 feet across, so the accuracy is good
+ enough to correctly locate each [ node or vertex ] intersection as equating
+ to a geographical (street level) intersection.
+\end_layout
+
+\end_deeper
+\begin_layout Enumerate
+generating plots
+\end_layout
+
+\end_deeper
+\begin_layout Enumerate
+
 \end_layout
 
 \end_body

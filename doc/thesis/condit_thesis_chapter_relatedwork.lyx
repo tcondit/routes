@@ -4,10 +4,10 @@
 \begin_header
 \textclass report
 \language english
-\inputencoding auto
+\inputencoding latin9
 \font_roman default
 \font_sans default
-\font_typewriter default
+\font_typewriter lmtt
 \font_default_family default
 \font_sc false
 \font_osf false
@@ -18,8 +18,8 @@
 \spacing single
 \papersize default
 \use_geometry false
-\use_amsmath 1
-\use_esint 1
+\use_amsmath 0
+\use_esint 0
 \cite_engine basic
 \use_bibtopic false
 \paperorientation portrait
@@ -29,11 +29,10 @@
 \defskip medskip
 \quotes_language english
 \papercolumns 1
-\papersides 1
+\papersides 2
 \paperpagestyle default
 \tracking_changes false
 \output_changes false
-\author "" 
 \author "" 
 \end_header
 
@@ -89,6 +88,188 @@ Donec odio nibh, varius in, dictum nec, egestas in, nisl.
 
 \begin_layout Standard
 TEST related work.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Note Note
+status open
+
+\begin_layout Standard
+Okay, I've finally got some coherent topics for the related work section.
+ They are:
+\end_layout
+
+\begin_layout Itemize
+Centralized and distributed traffic simulations
+\end_layout
+
+\begin_layout Itemize
+Distributed constraint optimization protocols (that old chestnut)
+\end_layout
+
+\begin_layout Itemize
+Cooperative and competitive multi-agent systems
+\end_layout
+
+\begin_layout Standard
+The centralized/distributed v.
+ cooperative/competitive pairings have a nice symmetry that I really like.
+ Now it's time to get the citations in here, and do some reading and writing!
+\end_layout
+
+\begin_layout Standard
+This section can NOT go to press without including a citation for the review
+ 
+\begin_inset Quotes eld
+\end_inset
+
+Agent-Based Approaches to Transport Logistics.
+\begin_inset Quotes erd
+\end_inset
+
+ Just about every paper I'm referring to came from the tables at the end
+ of this fantastic review.
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsection
+Centralized and distributed traffic simulations
+\end_layout
+
+\begin_layout Standard
+Lorem ipsum dolor sit amet, consectetuer adipiscing elit.
+ Pellentesque dignissim.
+ Praesent tortor.
+ In fringilla feugiat nisi.
+ Fusce a elit.
+ Maecenas placerat facilisis magna.
+ Mauris dolor nisi, consequat quis, adipiscing et, consequat semper, odio.
+ In eget lacus.
+ Pellentesque mauris.
+ Sed vestibulum quam ac mauris.
+ Donec vehicula risus.
+ Maecenas vitae arcu quis tellus fringilla porttitor.
+ Donec enim nulla, ornare sit amet, lacinia id, bibendum scelerisque, sapien.
+\end_layout
+
+\begin_layout Itemize
+France - A Multiagent System for Optimizing Urban Traffic
+\end_layout
+
+\begin_layout Itemize
+Hernandez - On Multiagent Co-ordination Architectures: A Traffic Management
+ Case Study
+\begin_inset Note Note
+status open
+
+\begin_layout Standard
+TODO: Need a swishy thing over the a in Hernandez.
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsection
+Distributed constraint optimization protocols
+\end_layout
+
+\begin_layout Standard
+\begin_inset Note Note
+status open
+
+\begin_layout Standard
+This whole subsection may go away.
+ It no longer seems relevant.
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Lorem ipsum dolor sit amet, consectetuer adipiscing elit.
+ Pellentesque dignissim.
+ Praesent tortor.
+ In fringilla feugiat nisi.
+ Fusce a elit.
+ Maecenas placerat facilisis magna.
+ Mauris dolor nisi, consequat quis, adipiscing et, consequat semper, odio.
+ In eget lacus.
+ Pellentesque mauris.
+ Sed vestibulum quam ac mauris.
+ Donec vehicula risus.
+ Maecenas vitae arcu quis tellus fringilla porttitor.
+ Donec enim nulla, ornare sit amet, lacinia id, bibendum scelerisque, sapien.
+\end_layout
+
+\begin_layout Itemize
+Modi - ADOPT: Asynchronous Distributed Constraint Optimization with Quality
+ Guarantees
+\end_layout
+
+\begin_layout Itemize
+Mailler - Solving Distributed Constraint Optimization Problems Using Cooperative
+ Mediation
+\end_layout
+
+\begin_layout Subsection
+Cooperative and competitive multi-agent systems
+\end_layout
+
+\begin_layout Standard
+\begin_inset Note Note
+status open
+
+\begin_layout Standard
+The name of this subsection may be changed to 
+\begin_inset Quotes eld
+\end_inset
+
+Coordination and cooperation among software agents
+\begin_inset Quotes erd
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Lorem ipsum dolor sit amet, consectetuer adipiscing elit.
+ Pellentesque dignissim.
+ Praesent tortor.
+ In fringilla feugiat nisi.
+ Fusce a elit.
+ Maecenas placerat facilisis magna.
+ Mauris dolor nisi, consequat quis, adipiscing et, consequat semper, odio.
+ In eget lacus.
+ Pellentesque mauris.
+ Sed vestibulum quam ac mauris.
+ Donec vehicula risus.
+ Maecenas vitae arcu quis tellus fringilla porttitor.
+ Donec enim nulla, ornare sit amet, lacinia id, bibendum scelerisque, sapien.
+\end_layout
+
+\begin_layout Itemize
+Wu - Uncertainty Management Framework for Multi-Agent System
+\end_layout
+
+\begin_layout Itemize
+Far - Agent Based Software Engineering
+\end_layout
+
+\begin_layout Itemize
+TODO
 \end_layout
 
 \end_body
