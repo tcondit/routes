@@ -188,6 +188,7 @@ status open
 
 \begin_layout Standard
 
+
 \backslash
 ldots
 \end_layout
@@ -440,6 +441,230 @@ preview false
 \begin_inset LatexCommand bibtex
 options "bibtotoc,plain"
 bibfiles "sample"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Note Note
+status open
+
+\begin_layout Standard
+How to make a bibliography? The bibtex entries are included in separate
+ notes.
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Note Note
+status open
+
+\begin_layout Standard
+#cent-dist-01 (centralized-distributed)
+\end_layout
+
+\begin_layout Standard
+@article{ 10.1109/HICSS.2001.926331,
+\end_layout
+
+\begin_layout Standard
+author = {J.
+ Hernández and S.
+ Ossowski and A.
+ GarcÍa-Serrano},
+\end_layout
+
+\begin_layout Standard
+title = {On Multiagent Co-Ordination Architectures: A Traffic Management
+ Case Study},
+\end_layout
+
+\begin_layout Standard
+journal ={Hawaii International Conference on System Sciences},
+\end_layout
+
+\begin_layout Standard
+volume = {3},
+\end_layout
+
+\begin_layout Standard
+year = {2001},
+\end_layout
+
+\begin_layout Standard
+issn = {1530-1605},
+\end_layout
+
+\begin_layout Standard
+pages = {3036},
+\end_layout
+
+\begin_layout Standard
+doi = {http://doi.ieeecomputersociety.org/10.1109/HICSS.2001.926331},
+\end_layout
+
+\begin_layout Standard
+publisher = {IEEE Computer Society},
+\end_layout
+
+\begin_layout Standard
+address = {Los Alamitos, CA, USA},
+\end_layout
+
+\begin_layout Standard
+}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Note Note
+status open
+
+\begin_layout Standard
+#cent-dist-02
+\end_layout
+
+\begin_layout Standard
+@conference{france2003mso,
+\end_layout
+
+\begin_layout Standard
+title={{A Multiagent System for Optimizing Urban Traffic}},
+\end_layout
+
+\begin_layout Standard
+author={France, J.
+ and Ghorbani, A.A.},
+\end_layout
+
+\begin_layout Standard
+booktitle={Proceedings of the IEEE/WIC International Conference on Intelligent
+ Agent Technology},
+\end_layout
+
+\begin_layout Standard
+year={2003},
+\end_layout
+
+\begin_layout Standard
+organization={IEEE Computer Society Washington, DC, USA}
+\end_layout
+
+\begin_layout Standard
+}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Note Note
+status open
+
+\begin_layout Standard
+# co-co-01 (cooperative-competitive)
+\end_layout
+
+\begin_layout Standard
+@conference{wu2003umf,
+\end_layout
+
+\begin_layout Standard
+title={{Uncertainty Management Framework for Multi-Agent System}},
+\end_layout
+
+\begin_layout Standard
+author={Wu, W.
+ and Ekaette, E.
+ and Far, B.H.},
+\end_layout
+
+\begin_layout Standard
+booktitle={Proceedings of ATS},
+\end_layout
+
+\begin_layout Standard
+pages={122},
+\end_layout
+
+\begin_layout Standard
+year={2003}
+\end_layout
+
+\begin_layout Standard
+}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Note Note
+status open
+
+\begin_layout Standard
+#co-co-02
+\end_layout
+
+\begin_layout Standard
+@article{davidsson2005aab,
+\end_layout
+
+\begin_layout Standard
+title={{An analysis of agent-based approaches to transport logistics}},
+\end_layout
+
+\begin_layout Standard
+author={Davidsson, P.
+ and Henesey, L.
+ and Ramstedt, L.
+ and T{
+\backslash
+"o}rnquist, J.
+ and Wernstedt, F.},
+\end_layout
+
+\begin_layout Standard
+journal={Transportation Research Part C},
+\end_layout
+
+\begin_layout Standard
+volume={13},
+\end_layout
+
+\begin_layout Standard
+number={4},
+\end_layout
+
+\begin_layout Standard
+pages={255--271},
+\end_layout
+
+\begin_layout Standard
+year={2005},
+\end_layout
+
+\begin_layout Standard
+publisher={Elsevier}
+\end_layout
+
+\begin_layout Standard
+}
+\end_layout
 
 \end_inset
 
