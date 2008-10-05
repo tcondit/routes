@@ -43,6 +43,74 @@ Introduction
 \end_layout
 
 \begin_layout Standard
+\begin_inset Note Note
+status open
+
+\begin_layout Standard
+Is there supposed to be a t in 
+\backslash
+citetalias?
+\begin_inset ERT
+status open
+
+\begin_layout Standard
+
+
+\backslash
+citetalias{davidsson2005aab}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+THIS IS A TEST.
+\begin_inset LatexCommand cite
+key "davidsson2005aab"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+THIS IS A TEST.
+\begin_inset LatexCommand cite
+key "france2003mso"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+THIS IS A TEST.
+\begin_inset LatexCommand cite
+key "10.1109/HICSS.2001.926331"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+THIS IS A TEST.
+\begin_inset LatexCommand cite
+key "wu2003umf"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
 Lorem ipsum dolor sit amet, consectetuer adipiscing elit.
  Pellentesque dignissim.
  Praesent tortor.

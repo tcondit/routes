@@ -82,6 +82,140 @@ TODO: fix the page numbering
 
 \end_layout
 
+\begin_layout Standard
+\begin_inset Note Note
+status open
+
+\begin_layout Standard
+Wondering WTF this is? See section 
+\begin_inset Quotes eld
+\end_inset
+
+Abbreviation of author name in text
+\begin_inset Quotes erd
+\end_inset
+
+ in http://wiki.lyx.org/BibTeX/Tips
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Note Note
+status open
+
+\begin_layout Standard
+\begin_inset ERT
+status open
+
+\begin_layout Standard
+
+
+\backslash
+defcitealias{davidsson2005aab}{Davidsson}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Note Note
+status open
+
+\begin_layout Standard
+\begin_inset ERT
+status open
+
+\begin_layout Standard
+
+
+\backslash
+defcitealias{france2003mso}{France}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Note Note
+status open
+
+\begin_layout Standard
+TODO: Hernandez is spelled with a'
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Note Note
+status open
+
+\begin_layout Standard
+\begin_inset ERT
+status open
+
+\begin_layout Standard
+
+
+\backslash
+defcitealias{10.1109/HICSS.2001.926331}{Hernandez}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Note Note
+status open
+
+\begin_layout Standard
+\begin_inset ERT
+status open
+
+\begin_layout Standard
+
+
+\backslash
+defcitealias{wu2003umf}{Wu}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
 \begin_layout Abstract
 Lorem ipsum dolor sit amet, consectetuer adipiscing elit.
  Pellentesque dignissim.
@@ -439,8 +573,8 @@ preview false
 
 \begin_layout Standard
 \begin_inset LatexCommand bibtex
-options "bibtotoc,plain"
-bibfiles "sample"
+options "plain"
+bibfiles "agents"
 
 \end_inset
 
@@ -452,73 +586,11 @@ bibfiles "sample"
 status open
 
 \begin_layout Standard
-How to make a bibliography? The bibtex entries are included in separate
- notes.
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Standard
-\begin_inset Note Note
-status open
-
-\begin_layout Standard
-#cent-dist-01 (centralized-distributed)
-\end_layout
-
-\begin_layout Standard
-@article{ 10.1109/HICSS.2001.926331,
-\end_layout
-
-\begin_layout Standard
-author = {J.
- Hernández and S.
- Ossowski and A.
- GarcÍa-Serrano},
-\end_layout
-
-\begin_layout Standard
-title = {On Multiagent Co-Ordination Architectures: A Traffic Management
- Case Study},
-\end_layout
-
-\begin_layout Standard
-journal ={Hawaii International Conference on System Sciences},
-\end_layout
-
-\begin_layout Standard
-volume = {3},
-\end_layout
-
-\begin_layout Standard
-year = {2001},
-\end_layout
-
-\begin_layout Standard
-issn = {1530-1605},
-\end_layout
-
-\begin_layout Standard
-pages = {3036},
-\end_layout
-
-\begin_layout Standard
-doi = {http://doi.ieeecomputersociety.org/10.1109/HICSS.2001.926331},
-\end_layout
-
-\begin_layout Standard
-publisher = {IEEE Computer Society},
-\end_layout
-
-\begin_layout Standard
-address = {Los Alamitos, CA, USA},
-\end_layout
-
-\begin_layout Standard
-}
+I got the bibliography working with some help from http://wiki.lyx.org/Examples/Si
+mpleUseOfBibTeX.
+ Very nice.
+ My references are in agents.bib.
+ By the way, the citations seem to be sorted by first author's last name.
 \end_layout
 
 \end_inset
@@ -531,139 +603,13 @@ address = {Los Alamitos, CA, USA},
 status open
 
 \begin_layout Standard
-#cent-dist-02
-\end_layout
-
-\begin_layout Standard
-@conference{france2003mso,
-\end_layout
-
-\begin_layout Standard
-title={{A Multiagent System for Optimizing Urban Traffic}},
-\end_layout
-
-\begin_layout Standard
-author={France, J.
- and Ghorbani, A.A.},
-\end_layout
-
-\begin_layout Standard
-booktitle={Proceedings of the IEEE/WIC International Conference on Intelligent
- Agent Technology},
-\end_layout
-
-\begin_layout Standard
-year={2003},
-\end_layout
-
-\begin_layout Standard
-organization={IEEE Computer Society Washington, DC, USA}
-\end_layout
-
-\begin_layout Standard
-}
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Standard
-\begin_inset Note Note
-status open
-
-\begin_layout Standard
-# co-co-01 (cooperative-competitive)
-\end_layout
-
-\begin_layout Standard
-@conference{wu2003umf,
-\end_layout
-
-\begin_layout Standard
-title={{Uncertainty Management Framework for Multi-Agent System}},
-\end_layout
-
-\begin_layout Standard
-author={Wu, W.
- and Ekaette, E.
- and Far, B.H.},
-\end_layout
-
-\begin_layout Standard
-booktitle={Proceedings of ATS},
-\end_layout
-
-\begin_layout Standard
-pages={122},
-\end_layout
-
-\begin_layout Standard
-year={2003}
-\end_layout
-
-\begin_layout Standard
-}
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Standard
-\begin_inset Note Note
-status open
-
-\begin_layout Standard
-#co-co-02
-\end_layout
-
-\begin_layout Standard
-@article{davidsson2005aab,
-\end_layout
-
-\begin_layout Standard
-title={{An analysis of agent-based approaches to transport logistics}},
-\end_layout
-
-\begin_layout Standard
-author={Davidsson, P.
- and Henesey, L.
- and Ramstedt, L.
- and T{
-\backslash
-"o}rnquist, J.
- and Wernstedt, F.},
-\end_layout
-
-\begin_layout Standard
-journal={Transportation Research Part C},
-\end_layout
-
-\begin_layout Standard
-volume={13},
-\end_layout
-
-\begin_layout Standard
-number={4},
-\end_layout
-
-\begin_layout Standard
-pages={255--271},
-\end_layout
-
-\begin_layout Standard
-year={2005},
-\end_layout
-
-\begin_layout Standard
-publisher={Elsevier}
-\end_layout
-
-\begin_layout Standard
-}
+The references (obviously) must be present in the .bib file, but in order
+ to have them show up you must cite them in the text.
+ [That's brilliant.
+ It means I can drop in all sort of stuff, and only include the ones that
+ turn out to be useful when I'm writing.
+ Software that works with the user.
+ What a concept.]
 \end_layout
 
 \end_inset
