@@ -34,6 +34,7 @@
 \tracking_changes false
 \output_changes false
 \author "" 
+\author "" 
 \end_header
 
 \begin_body
@@ -73,6 +74,16 @@ citetalias{davidsson2005aab}
 \begin_layout Standard
 THIS IS A TEST.
 \begin_inset LatexCommand cite
+key "barth1999smp"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+THIS IS A TEST.
+\begin_inset LatexCommand cite
 key "davidsson2005aab"
 
 \end_inset
@@ -94,6 +105,16 @@ key "france2003mso"
 THIS IS A TEST.
 \begin_inset LatexCommand cite
 key "10.1109/HICSS.2001.926331"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+THIS IS A TEST.
+\begin_inset LatexCommand cite
+key "horn2002fsa"
 
 \end_inset
 
