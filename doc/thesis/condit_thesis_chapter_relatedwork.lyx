@@ -34,12 +34,24 @@
 \tracking_changes false
 \output_changes false
 \author "" 
+\author "" 
 \end_header
 
 \begin_body
 
 \begin_layout Chapter
 Related work
+\end_layout
+
+\begin_layout Standard
+In this section we examine three features that are found in different MASs
+ to see how they contrast with my system.
+ First we compare and contrast centralized versus distributed simulation
+ system.
+ Next we look at coordination and cooperation among agents as opposed to
+ competitive MASs.
+ Finally, we identify where my software would be classified according to
+ a recent review of MASs used for transport logistics.
 \end_layout
 
 \begin_layout Standard
