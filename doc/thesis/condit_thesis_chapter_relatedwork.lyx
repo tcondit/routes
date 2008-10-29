@@ -44,14 +44,43 @@ Related work
 \end_layout
 
 \begin_layout Standard
-In this section we examine three features that are found in different MASs
- to see how they contrast with my system.
- First we compare and contrast centralized versus distributed simulation
- system.
- Next we look at coordination and cooperation among agents as opposed to
- competitive MASs.
- Finally, we identify where my software would be classified according to
- a recent review of MASs used for transport logistics.
+In this section we examine features found in other MASs to see how they
+ contrast with my system.
+ The focus in the applied literature is on traffic and road network simulations.
+ First we review two papers that describe centralized versus distributed
+ simulation systems
+\begin_inset LatexCommand cite
+key "france2003mso,10.1109/HICSS.2001.926331"
+
+\end_inset
+
+.
+ One of them includes an implemented and installed system, while the other
+ is evaluted using a mathematical formula describing variable levels of
+ traffic congestion.
+ Even excluding the fact that one is applied and the other more theoretical,
+ their approaches are different enough to make a useful comparison.
+ Then we look at coordination and cooperation among agents as opposed to
+ competitive MASs
+\begin_inset LatexCommand cite
+key "wu2003umf"
+
+\end_inset
+
+.
+ This paper uses the Belief-Desire-Intention (BDI) agent model to formulate
+ a response to received inputs.
+ Finally, we look at a recent review of MASs used for transport logistics
+\begin_inset LatexCommand cite
+key "davidsson2005aab"
+
+\end_inset
+
+, and identify where my software would be classified according to this scheme.
+\end_layout
+
+\begin_layout Standard
+The traffic management solution 
 \end_layout
 
 \begin_layout Standard

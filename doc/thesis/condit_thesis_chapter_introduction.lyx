@@ -124,6 +124,16 @@ key "horn2002fsa"
 \begin_layout Standard
 THIS IS A TEST.
 \begin_inset LatexCommand cite
+key "roozemond2000act"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+THIS IS A TEST.
+\begin_inset LatexCommand cite
 key "wu2003umf"
 
 \end_inset
@@ -191,7 +201,41 @@ There are a wide variety of ways in which agents may be configured to
 
 \begin_layout Itemize
 in which the interoperating of autonomous agents may benefit each other
- (for a given value system) and their 
+ (for a given value system) and their
+\end_layout
+
+\begin_layout Itemize
+\begin_inset Note Note
+status open
+
+\begin_layout Standard
+TODO: Use 
+\begin_inset Quotes eld
+\end_inset
+
+What is intelligent agents
+\begin_inset Quotes erd
+\end_inset
+
+ from the Roozemond paper to 
+\begin_inset Quotes eld
+\end_inset
+
+set the stage
+\begin_inset Quotes erd
+\end_inset
+
+, so to speak.
+ It's very good.
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Itemize
+
 \end_layout
 
 \end_body
