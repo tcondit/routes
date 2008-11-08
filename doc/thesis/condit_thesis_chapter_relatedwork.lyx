@@ -217,7 +217,47 @@ And also to the traffic engineer?
 \end_layout
 
 \begin_layout Standard
-TEST related work.
+\begin_inset Note Note
+status open
+
+\begin_layout Standard
+Where does this paragraph belong???
+\end_layout
+
+\end_inset
+
+One superficial similarity of TRYS and TRYSA
+\begin_inset Formula $_{\text{2}}$
+\end_inset
+
+ with my system is in the representation of the physical structure of the
+ traffic network.
+ It uses a declarative description of the network as a graph with nodes
+ and links together with abstraction functions associated to components
+ (
+\begin_inset Quotes eld
+\end_inset
+
+static information about the topological structure of the problem area
+\begin_inset Quotes erd
+\end_inset
+
+).
+\end_layout
+
+\begin_layout Standard
+TRYSA
+\begin_inset Formula $_{\text{2}}$
+\end_inset
+
+ is a reformulation of TRYS using autonomous agents.
+ Whereas TRYS uses a more linear form of communication between the traffic
+ control agents and the coordinator, agents in TRYSA
+\begin_inset Formula $_{\text{2}}$
+\end_inset
+
+ communicate directly with one another which obviates the need for the coordinat
+or agent.
 \end_layout
 
 \begin_layout Standard
