@@ -261,6 +261,61 @@ or agent.
 \end_layout
 
 \begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Standard
+\begin_inset Graphics
+	filename figures/TRYS.png
+	scale 60
+
+\end_inset
+
+
+\begin_inset Graphics
+	filename figures/TRYSA2.png
+	scale 60
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Caption
+
+\begin_layout Standard
+Centralized (TRYS) and decentralized coordination (TRYSA
+\begin_inset Formula $_{\text{2}}$
+\end_inset
+
+).
+ Original images from 
+\begin_inset LatexCommand cite
+key "10.1109/HICSS.2001.926331"
+
+\end_inset
+
+.
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
 \begin_inset Note Note
 status open
 
