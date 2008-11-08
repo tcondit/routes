@@ -43,6 +43,10 @@
 Related work
 \end_layout
 
+\begin_layout Section
+Introduction
+\end_layout
+
 \begin_layout Standard
 In this section we examine features found in other MASs to see how they
  contrast with my system.
@@ -79,52 +83,109 @@ key "davidsson2005aab"
 , and identify where my software would be classified according to this scheme.
 \end_layout
 
-\begin_layout Standard
-The traffic management solution 
+\begin_layout Section
+Centralized and distributed multiagent traffic systems
 \end_layout
 
 \begin_layout Standard
-Lorem ipsum dolor sit amet, consectetuer adipiscing elit.
- Pellentesque dignissim.
- Praesent tortor.
- In fringilla feugiat nisi.
- Fusce a elit.
- Maecenas placerat facilisis magna.
- Mauris dolor nisi, consequat quis, adipiscing et, consequat semper, odio.
- In eget lacus.
- Pellentesque mauris.
- Sed vestibulum quam ac mauris.
- Donec vehicula risus.
- Maecenas vitae arcu quis tellus fringilla porttitor.
- Donec enim nulla, ornare sit amet, lacinia id, bibendum scelerisque, sapien.
+Here we describe decision support systems for traffic management.
+ Both systems partition a highly congested traffic network into a series
+ of overlapping problem areas, which are monitored by traffic control agents.
+ These agents collect data via vehicle detectors and telemetered sensors
+ (
+\begin_inset Quotes eld
+\end_inset
+
+loop detectors
+\begin_inset Quotes erd
+\end_inset
+
+).
+ The raw data is used to generate traffic control plans, but they are advisory
+ only.
+ A human operator makes the final decision on how the plans are used.
 \end_layout
 
 \begin_layout Standard
-Duis ut sapien.
- Proin sit amet magna et est pharetra vestibulum.
- Pellentesque sed diam et erat sollicitudin pharetra.
- Suspendisse potenti.
- Sed fringilla sagittis urna.
- Morbi ullamcorper aliquet leo.
- Donec elit nunc, rutrum at, ultrices at, pretium a, est.
- Etiam non dolor non enim malesuada condimentum.
- Curabitur vitae sapien.
- Nulla neque.
+These systems are fundamentally different from the approach I have taken
+ for several reasons.
+ The first, and most important difference is that these are not simulations.
+ Second, they are open systems in the sense that the outputs are 
+\begin_inset Quotes eld
+\end_inset
+
+processed
+\begin_inset Quotes erd
+\end_inset
+
+ by a traffic engineer, as opposed to a closed and terminal system, where
+ the final result is the end of the simulation, rather than inputs to an
+ 
+\begin_inset Quotes eld
+\end_inset
+
+offline
+\begin_inset Quotes erd
+\end_inset
+
+ system.
+ Finally, the focus here is on the traffic network exclusively, with zero
+ representation of the users of the network, i.e.
+ drivers and passengers.
+ Regardless, there are some interesting contrasts.
 \end_layout
 
 \begin_layout Standard
-Donec odio nibh, varius in, dictum nec, egestas in, nisl.
- Mauris varius mi non nunc.
- Praesent porta enim in nibh.
- Donec ac mi varius ante malesuada dignissim.
- Nunc aliquet tortor ac lectus.
- Sed pede.
- Donec lobortis, tellus vel vehicula tristique, lectus diam cursus sapien,
- id ultricies odio metus sed ipsum.
- Fusce sapien mauris, vehicula non, placerat at, rhoncus sed, sem.
- Duis ullamcorper molestie mauris.
- Sed eu ipsum nec eros luctus elementum.
- Suspendisse ultrices sollicitudin nunc.
+Hern
+\begin_inset ERT
+status open
+
+\begin_layout Standard
+
+
+\backslash
+'{a}
+\end_layout
+
+\end_inset
+
+ndez et al.
+ describes a pair of closely related intelligent traffic management system
+ (ITMS).
+ The TRYS
+\begin_inset Foot
+status open
+
+\begin_layout Standard
+The acronym is not expanded in this paper.
+\end_layout
+
+\end_inset
+
+ system is implemented and in use in Barcelona, Spain.
+ TRYSA
+\begin_inset Formula $_{\text{2}}$
+\end_inset
+
+
+\begin_inset Foot
+status open
+
+\begin_layout Standard
+TRYS Autonomous Agents
+\end_layout
+
+\end_inset
+
+ is developed only to the prototype level at time of publication, but was
+ validated with the same data as the first system.
+ The goal of both of these systems is 
+\end_layout
+
+\begin_layout Standard
+TRYS is a centralized multiagent system.
+ It is more coordinated than autonomous.
+ 
 \end_layout
 
 \begin_layout Standard
