@@ -185,7 +185,17 @@ offline
 \begin_layout Standard
 TRYS is a centralized multiagent system.
  It operates on inputs from more than 300 telemetered sensors and feed data
- to the local traffic control center.
+ to the 
+\begin_inset Marginal
+status open
+
+\begin_layout Standard
+TRYS
+\end_layout
+
+\end_inset
+
+local traffic control center.
  The goal of this system is to provide alternatives for traffic light coordinati
 on to traffic engineers.
  It is more coordinated than autonomous.
@@ -247,20 +257,6 @@ expected redistribution
 status open
 
 \begin_layout Standard
-Add something here about the mini-simulation that the coordinator runs when
- choosing the local signal plans?
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Standard
-\begin_inset Note Comment
-status open
-
-\begin_layout Standard
 Where does this paragraph (about the graph with nodes) belong???
 \end_layout
 
@@ -291,8 +287,21 @@ TRYSA
 \end_inset
 
  is a reformulation of TRYS using autonomous agents.
- Whereas TRYS uses a more linear form of communication between the traffic
- control agents and the coordinator, agents in TRYSA
+ Whereas TRYS uses a more linear form of communication 
+\begin_inset Marginal
+status open
+
+\begin_layout Standard
+TRYSA
+\begin_inset Formula $_{\text{2}}$
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+between the traffic control agents and the coordinator, agents in TRYSA
 \begin_inset Formula $_{\text{2}}$
 \end_inset
 
@@ -322,7 +331,10 @@ reference "fig:TRYS-and-TRYSA2"
 \end_inset
 
 .
- The partitioning of the road network into problem areas is slightly different
+\end_layout
+
+\begin_layout Standard
+The partitioning of the road network into problem areas is slightly different
  from that in TRYS, but problem detection, diagnosis and selection of control
  plans are similar.
  Each traffic control agent in TRYSA
@@ -344,20 +356,12 @@ This is where things get interesting in TRYSA
 \end_inset
 
 .
- The autonomous agents use 
-\begin_inset Quotes eld
-\end_inset
-
-structural cooperation
-\begin_inset Quotes erd
-\end_inset
-
-, whereby they take their own utility and the effects of their acquaintances'
- control plans on their own utiltiy into consideration when deciding what
- to do.
+ The autonomous agents use a strategy called structural cooperation, whereby
+ they take their own utility and the effects of their acquaintances' control
+ plans on their own utiltiy into consideration when deciding what to do.
  In short, the agents are no longer fully autonomous.
  The paper describes the situation and the response to it this way:
-\begin_inset VSpace defskip
+\begin_inset VSpace bigskip
 \end_inset
 
 
@@ -379,7 +383,7 @@ status open
 \begin_layout Standard
 There is a conflict of interest respecting the way in which local signal
  plans are adapted.
- The essential idea is that the more autonomous an agentis (i.e.
+ The essential idea is that the more autonomous an agent is (i.e.
  the less its local utility can be influenced by others), the more weight
  will have its opinion respecting which local plans to modify and how to
  adapt them.
@@ -400,7 +404,7 @@ biasing
 \end_layout
 
 \begin_layout Standard
-\begin_inset VSpace defskip
+\begin_inset VSpace bigskip
 \end_inset
 
 
@@ -438,16 +442,46 @@ This is referenced in Hernandez, but not in this paper.
  to find sets of compatible alternative signal plans.
  Stage 2 starts when one of the agents detects the completion of stage 1.
  This agent computes approximate probilities that each of the chosen sets
- of local signal plans would be enacted.
- In stage 3 a set of local signal plans are selected and the results are
- shared with all agents.
+ of local signal plans would be enacted, and from that attempts to maximize
+ the product of the local agent utilities.
+ In other words, lower quality plans are dropped from consideration.
+ In stage 3 a set of local signal plans are selected by lottery, and the
+ results are shared with all agents.
  This concludes the work of the autonomous agents in TRYSA
 \begin_inset Formula $_{\text{2}}$
 \end_inset
 
 .
- At this stage in both systems the selected control plans are ready for
- review by the traffic engineer.
+\end_layout
+
+\begin_layout Standard
+At this stage in both systems the selected control plans are ready for review
+ by the traffic engineer.
+\end_layout
+
+\begin_layout Standard
+There are several ways in which these systems differ from mine: they are
+ decision support systems, whereas mine are simulations; they are traffic
+ network-oriented, whereas mine are agent-oriented; one of them is in production
+ use and the other is a prototype, whereas mine is fully implemented but
+ on a smaller scale.
+ On the other hand, this paper provides something that was hard to come
+ by: a look at similar systems implemented on both a centralized and distributed
+ paradigms.
+ That and the fact that it was a multiagent traffic management study, made
+ it a useful choice.
+ Next up is a look at another multiagent system for optimizing an urban
+ traffic network.
+\begin_inset Note Comment
+status open
+
+\begin_layout Standard
+TODO: The France paper.
+\end_layout
+
+\end_inset
+
+
 \end_layout
 
 \begin_layout Standard
@@ -500,6 +534,71 @@ name "fig:TRYS-and-TRYSA2"
 \end_inset
 
 
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+The next paper
+\begin_inset LatexCommand cite
+key "france2003mso"
+
+\end_inset
+
+is similar to the previous one.
+ It is another distributed multiagent system for traffic 
+\begin_inset Marginal
+status open
+
+\begin_layout Standard
+LTA/CTA
+\end_layout
+
+\end_inset
+
+ management.
+ It also uses a coordinator agent.
+ But this paper uses traffic intersections as the problem area, rather than
+ larger regions.
+ The first goal is to design a traffic network that operates in real-time
+ and takes into account that traffic lights essentially operate in an infinite
+ loop, or as a non-finite process.
+ The second is to handle dynamically occuring events such as traffic accidents
+ or roadway congestion in a coordinated fashion.
+ With agents at each operating autonomously, neighboring intersections will
+ be unaware of traffic events, leading to detrimental traffic flow, e.g.
+ allowing traffic to continue toward a blocked intersection in the case
+ of an accident.
+ The final goal is to balance local and global concerns with respect to
+ traffic movement.
+ Local agents will typically have many alternative plans available, but
+ several of them are incompatible with the global goals of traffic management.
+ The problem then is to quickly figure out which ones to drop from consideration.
+ This was addressed in Hern
+\begin_inset ERT
+status open
+
+\begin_layout Standard
+
+
+\backslash
+'{a}
+\end_layout
+
+\end_inset
+
+ndez, but real-time performance data was not provided.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Note Note
+status open
+
+\begin_layout Standard
+PICK UP HERE TOMORROW (Sunday 11/09/2008)
 \end_layout
 
 \end_inset
@@ -639,7 +738,7 @@ Mailler - Solving Distributed Constraint Optimization Problems Using Cooperative
  Mediation
 \end_layout
 
-\begin_layout Subsection
+\begin_layout Section
 Cooperative and competitive multi-agent systems
 \end_layout
 
@@ -662,6 +761,10 @@ Coordination and cooperation among software agents
 \end_inset
 
 
+\end_layout
+
+\begin_layout Standard
+Here we investigate coordination and cooperation among software agents.
 \end_layout
 
 \begin_layout Standard
