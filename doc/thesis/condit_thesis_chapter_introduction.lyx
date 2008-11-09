@@ -44,7 +44,7 @@ Introduction
 \end_layout
 
 \begin_layout Standard
-\begin_inset Note Note
+\begin_inset Note Comment
 status open
 
 \begin_layout Standard
@@ -205,7 +205,7 @@ in which the interoperating of autonomous agents may benefit each other
 \end_layout
 
 \begin_layout Itemize
-\begin_inset Note Note
+\begin_inset Note Comment
 status open
 
 \begin_layout Standard

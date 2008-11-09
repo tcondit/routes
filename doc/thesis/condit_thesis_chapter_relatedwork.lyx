@@ -204,7 +204,7 @@ on to traffic engineers.
  The coordinator resolves any conflicts between the local control proposals
  then sends the globally consistent local signal plans back to the traffic
  agents.
-\begin_inset Note Note
+\begin_inset Note Comment
 status open
 
 \begin_layout Standard
@@ -217,7 +217,7 @@ And also to the traffic engineer?
 \end_layout
 
 \begin_layout Standard
-\begin_inset Note Note
+\begin_inset Note Comment
 status open
 
 \begin_layout Standard
@@ -333,7 +333,7 @@ key "10.1109/HICSS.2001.926331"
 \end_layout
 
 \begin_layout Standard
-\begin_inset Note Note
+\begin_inset Note Comment
 status open
 
 \begin_layout Standard
@@ -425,7 +425,7 @@ Distributed constraint optimization protocols
 \end_layout
 
 \begin_layout Standard
-\begin_inset Note Note
+\begin_inset Note Comment
 status open
 
 \begin_layout Standard
@@ -469,7 +469,7 @@ Cooperative and competitive multi-agent systems
 \end_layout
 
 \begin_layout Standard
-\begin_inset Note Note
+\begin_inset Note Comment
 status open
 
 \begin_layout Standard
