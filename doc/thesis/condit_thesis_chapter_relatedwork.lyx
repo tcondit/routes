@@ -88,7 +88,7 @@ Centralized and distributed multiagent traffic systems
 \end_layout
 
 \begin_layout Standard
-Here we investigate support systems for traffic management.
+Here we investigate multiagent decision support systems for traffic management.
 \end_layout
 
 \begin_layout Standard
@@ -217,11 +217,51 @@ And also to the traffic engineer?
 \end_layout
 
 \begin_layout Standard
+An interesting feature of this system is the way in which the agents decide
+ on which traffic control plans to forward to the coordinator.
+ The agents are provided with data about the traffic congestion (
+\begin_inset Quotes eld
+\end_inset
+
+demand knowledge
+\begin_inset Quotes erd
+\end_inset
+
+) and some expectation of how different actions will affect the flow of
+ traffic (
+\begin_inset Quotes eld
+\end_inset
+
+expected redistribution
+\begin_inset Quotes erd
+\end_inset
+
+).
+ Given these pieces of information, they run a macrosimulation to decide
+ if there will be an adequate decrease in the excess flow.
+ They forward the plan to the coordinator if appropriate, or reject it otherwise.
+\end_layout
+
+\begin_layout Standard
 \begin_inset Note Comment
 status open
 
 \begin_layout Standard
-Where does this paragraph belong???
+Add something here about the mini-simulation that the coordinator runs when
+ choosing the local signal plans?
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Note Comment
+status open
+
+\begin_layout Standard
+Where does this paragraph (about the graph with nodes) belong???
 \end_layout
 
 \end_inset
@@ -256,7 +296,7 @@ TRYSA
 \begin_inset Formula $_{\text{2}}$
 \end_inset
 
- communicate directly with one another, eliminating 
+ communicate with one another directly, eliminating 
 \begin_inset Foot
 status open
 
@@ -274,7 +314,140 @@ obviating
 
 \end_inset
 
-the need for the coordinator agent.
+the need for a coordinator agent.
+ See figure 
+\begin_inset LatexCommand ref
+reference "fig:TRYS-and-TRYSA2"
+
+\end_inset
+
+.
+ The partitioning of the road network into problem areas is slightly different
+ from that in TRYS, but problem detection, diagnosis and selection of control
+ plans are similar.
+ Each traffic control agent in TRYSA
+\begin_inset Formula $_{\text{2}}$
+\end_inset
+
+maintains its own set of alternative traffic control plans, along with expected
+ reductions in local traffic excesses associated with each of the plans.
+ This is called the plan's local
+\emph on
+ utility
+\emph default
+.
+\end_layout
+
+\begin_layout Standard
+This is where things get interesting in TRYSA
+\begin_inset Formula $_{\text{2}}$
+\end_inset
+
+.
+ The autonomous agents use 
+\begin_inset Quotes eld
+\end_inset
+
+structural cooperation
+\begin_inset Quotes erd
+\end_inset
+
+, whereby they take their own utility and the effects of their acquaintances'
+ control plans on their own utiltiy into consideration when deciding what
+ to do.
+ In short, the agents are no longer fully autonomous.
+ The paper describes the situation and the response to it this way:
+\begin_inset VSpace defskip
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Box Frameless
+position "t"
+hor_pos "c"
+has_inner_box 1
+inner_pos "t"
+use_parbox 0
+width "100col%"
+special "none"
+height "1in"
+height_special "totalheight"
+status open
+
+\begin_layout Standard
+There is a conflict of interest respecting the way in which local signal
+ plans are adapted.
+ The essential idea is that the more autonomous an agentis (i.e.
+ the less its local utility can be influenced by others), the more weight
+ will have its opinion respecting which local plans to modify and how to
+ adapt them.
+ Still, sometimes the resulting basic coordination does not lead to globally
+ optimal control plans, so the system designer can issue rights or prohibitions
+ for some agents to use control devices in certain ways.
+ By this, he modifies the degree of autonomy of some agents, 
+\emph on
+biasing
+\emph default
+ the outcome of coordination (i.e.
+ the resulting global signal plan) in a desired direction.
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset VSpace defskip
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+The agents choose local signal plans, but they still need to coordinate
+ with one another to settle on a globally consistent signal plan.
+ This is similar to the task of the coordinator agent in TRYS.
+ To do this the agents use a distributed constraint optimization protocol
+\begin_inset Foot
+status open
+
+\begin_layout Standard
+The original basis for my work, although it did not wind up in the final
+ product.
+\end_layout
+
+\end_inset
+
+ that implements weak commitment search.
+ 
+\begin_inset Note Comment
+status open
+
+\begin_layout Standard
+This is referenced in Hernandez, but not in this paper.
+ I should probably dig up the reference anyway.
+\end_layout
+
+\end_inset
+
+ This is three-stage process.
+ In stage 1 the local control agents repeatedly exchange utility information
+ to find sets of compatible alternative signal plans.
+ Stage 2 starts when one of the agents detects the completion of stage 1.
+ This agent computes approximate probilities that each of the chosen sets
+ of local signal plans would be enacted.
+ In stage 3 a set of local signal plans are selected and the results are
+ shared with all agents.
+ This concludes the work of the autonomous agents in TRYSA
+\begin_inset Formula $_{\text{2}}$
+\end_inset
+
+.
+ At this stage in both systems the selected control plans are ready for
+ review by the traffic engineer.
 \end_layout
 
 \begin_layout Standard
@@ -316,14 +489,16 @@ key "10.1109/HICSS.2001.926331"
 \end_inset
 
 .
-\end_layout
+\begin_inset LatexCommand label
+name "fig:TRYS-and-TRYSA2"
 
 \end_inset
 
 
 \end_layout
 
-\begin_layout Standard
+\end_inset
+
 
 \end_layout
 
