@@ -40,10 +40,12 @@
 \begin_body
 
 \begin_layout Chapter
+\paragraph_spacing double
 Results
 \end_layout
 
 \begin_layout Standard
+\paragraph_spacing double
 Lorem ipsum dolor sit amet, consectetuer adipiscing elit.
  Pellentesque dignissim.
  Praesent tortor.
@@ -60,6 +62,7 @@ Lorem ipsum dolor sit amet, consectetuer adipiscing elit.
 \end_layout
 
 \begin_layout Standard
+\paragraph_spacing double
 Duis ut sapien.
  Proin sit amet magna et est pharetra vestibulum.
  Pellentesque sed diam et erat sollicitudin pharetra.
@@ -73,6 +76,7 @@ Duis ut sapien.
 \end_layout
 
 \begin_layout Standard
+\paragraph_spacing double
 Donec odio nibh, varius in, dictum nec, egestas in, nisl.
  Mauris varius mi non nunc.
  Praesent porta enim in nibh.
@@ -88,6 +92,7 @@ Donec odio nibh, varius in, dictum nec, egestas in, nisl.
 \end_layout
 
 \begin_layout Standard
+\paragraph_spacing double
 TEST results.
 \end_layout
 

@@ -40,14 +40,17 @@
 \begin_body
 
 \begin_layout Chapter
+\paragraph_spacing double
 Related work
 \end_layout
 
 \begin_layout Section
+\paragraph_spacing double
 Introduction
 \end_layout
 
 \begin_layout Standard
+\paragraph_spacing double
 In this section we examine features found in other MASs to see how they
  contrast with my system.
  The focus in the applied literature is on traffic and road network simulations.
@@ -84,14 +87,17 @@ key "davidsson2005aab"
 \end_layout
 
 \begin_layout Section
+\paragraph_spacing double
 Centralized and distributed multiagent traffic systems
 \end_layout
 
 \begin_layout Standard
+\paragraph_spacing double
 Here we investigate multiagent decision support systems for traffic management.
 \end_layout
 
 \begin_layout Standard
+\paragraph_spacing double
 Hern
 \begin_inset ERT
 status open
@@ -154,6 +160,7 @@ loop detectors
 \end_layout
 
 \begin_layout Standard
+\paragraph_spacing double
 These systems are fundamentally different from the approach I have taken
  for several reasons.
  The first, and most important difference is that these are not simulations.
@@ -183,6 +190,7 @@ offline
 \end_layout
 
 \begin_layout Standard
+\paragraph_spacing double
 TRYS is a centralized multiagent system.
  It operates on inputs from more than 300 telemetered sensors and feed data
  to the 
@@ -227,6 +235,7 @@ And also to the traffic engineer?
 \end_layout
 
 \begin_layout Standard
+\paragraph_spacing double
 An interesting feature of this system is the way in which the agents decide
  on which traffic control plans to forward to the coordinator.
  The agents are provided with data about the traffic congestion (
@@ -253,6 +262,7 @@ expected redistribution
 \end_layout
 
 \begin_layout Standard
+\paragraph_spacing double
 \begin_inset Note Comment
 status open
 
@@ -282,6 +292,7 @@ static information about the topological structure of the problem area
 \end_layout
 
 \begin_layout Standard
+\paragraph_spacing double
 TRYSA
 \begin_inset Formula $_{\text{2}}$
 \end_inset
@@ -334,6 +345,7 @@ reference "fig:TRYS-and-TRYSA2"
 \end_layout
 
 \begin_layout Standard
+\paragraph_spacing double
 The partitioning of the road network into problem areas is slightly different
  from that in TRYS, but problem detection, diagnosis and selection of control
  plans are similar.
@@ -351,6 +363,7 @@ maintains its own set of alternative traffic control plans, along with expected
 \end_layout
 
 \begin_layout Standard
+\paragraph_spacing double
 This is where things get interesting in TRYSA
 \begin_inset Formula $_{\text{2}}$
 \end_inset
@@ -368,6 +381,7 @@ This is where things get interesting in TRYSA
 \end_layout
 
 \begin_layout Standard
+\paragraph_spacing double
 \begin_inset Box Frameless
 position "t"
 hor_pos "c"
@@ -404,6 +418,7 @@ biasing
 \end_layout
 
 \begin_layout Standard
+\paragraph_spacing double
 \begin_inset VSpace bigskip
 \end_inset
 
@@ -411,6 +426,7 @@ biasing
 \end_layout
 
 \begin_layout Standard
+\paragraph_spacing double
 The agents choose local signal plans, but they still need to coordinate
  with one another to settle on a globally consistent signal plan.
  This is similar to the task of the coordinator agent in TRYS.
@@ -455,11 +471,13 @@ This is referenced in Hernandez, but not in this paper.
 \end_layout
 
 \begin_layout Standard
+\paragraph_spacing double
 At this stage in both systems the selected control plans are ready for review
  by the traffic engineer.
 \end_layout
 
 \begin_layout Standard
+\paragraph_spacing double
 There are several ways in which these systems differ from mine: they are
  decision support systems, whereas mine are simulations; they are traffic
  network-oriented, whereas mine are agent-oriented; one of them is in production
@@ -485,6 +503,7 @@ TODO: The France paper.
 \end_layout
 
 \begin_layout Standard
+\paragraph_spacing double
 \begin_inset Float figure
 wide false
 sideways false
@@ -542,6 +561,7 @@ name "fig:TRYS-and-TRYSA2"
 \end_layout
 
 \begin_layout Standard
+\paragraph_spacing double
 The next paper
 \begin_inset LatexCommand cite
 key "france2003mso"
@@ -594,6 +614,7 @@ ndez, but real-time performance data was not provided.
 \end_layout
 
 \begin_layout Standard
+\paragraph_spacing double
 \begin_inset Note Note
 status open
 
@@ -607,6 +628,7 @@ PICK UP HERE TOMORROW (Sunday 11/09/2008)
 \end_layout
 
 \begin_layout Standard
+\paragraph_spacing double
 \begin_inset Note Comment
 status open
 
@@ -653,10 +675,12 @@ Agent-Based Approaches to Transport Logistics.
 \end_layout
 
 \begin_layout Subsection
+\paragraph_spacing double
 Centralized and distributed traffic simulations
 \end_layout
 
 \begin_layout Standard
+\paragraph_spacing double
 Lorem ipsum dolor sit amet, consectetuer adipiscing elit.
  Pellentesque dignissim.
  Praesent tortor.
@@ -673,10 +697,12 @@ Lorem ipsum dolor sit amet, consectetuer adipiscing elit.
 \end_layout
 
 \begin_layout Itemize
+\paragraph_spacing double
 France - A Multiagent System for Optimizing Urban Traffic
 \end_layout
 
 \begin_layout Itemize
+\paragraph_spacing double
 Hern
 \begin_inset ERT
 status open
@@ -695,10 +721,12 @@ ndez - On Multiagent Co-ordination Architectures: A Traffic Management Case
 \end_layout
 
 \begin_layout Subsection
+\paragraph_spacing double
 Distributed constraint optimization protocols
 \end_layout
 
 \begin_layout Standard
+\paragraph_spacing double
 \begin_inset Note Comment
 status open
 
@@ -713,6 +741,7 @@ This whole subsection may go away.
 \end_layout
 
 \begin_layout Standard
+\paragraph_spacing double
 Lorem ipsum dolor sit amet, consectetuer adipiscing elit.
  Pellentesque dignissim.
  Praesent tortor.
@@ -729,20 +758,24 @@ Lorem ipsum dolor sit amet, consectetuer adipiscing elit.
 \end_layout
 
 \begin_layout Itemize
+\paragraph_spacing double
 Modi - ADOPT: Asynchronous Distributed Constraint Optimization with Quality
  Guarantees
 \end_layout
 
 \begin_layout Itemize
+\paragraph_spacing double
 Mailler - Solving Distributed Constraint Optimization Problems Using Cooperative
  Mediation
 \end_layout
 
 \begin_layout Section
+\paragraph_spacing double
 Cooperative and competitive multi-agent systems
 \end_layout
 
 \begin_layout Standard
+\paragraph_spacing double
 \begin_inset Note Comment
 status open
 
@@ -764,10 +797,12 @@ Coordination and cooperation among software agents
 \end_layout
 
 \begin_layout Standard
+\paragraph_spacing double
 Here we investigate coordination and cooperation among software agents.
 \end_layout
 
 \begin_layout Standard
+\paragraph_spacing double
 Lorem ipsum dolor sit amet, consectetuer adipiscing elit.
  Pellentesque dignissim.
  Praesent tortor.
@@ -784,14 +819,17 @@ Lorem ipsum dolor sit amet, consectetuer adipiscing elit.
 \end_layout
 
 \begin_layout Itemize
+\paragraph_spacing double
 Wu - Uncertainty Management Framework for Multi-Agent System
 \end_layout
 
 \begin_layout Itemize
+\paragraph_spacing double
 Far - Agent Based Software Engineering
 \end_layout
 
 \begin_layout Itemize
+\paragraph_spacing double
 TODO
 \end_layout
 

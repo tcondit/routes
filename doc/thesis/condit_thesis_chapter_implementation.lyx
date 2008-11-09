@@ -34,15 +34,18 @@
 \tracking_changes false
 \output_changes false
 \author "" 
+\author "" 
 \end_header
 
 \begin_body
 
 \begin_layout Chapter
+\paragraph_spacing double
 Implementation
 \end_layout
 
 \begin_layout Standard
+\paragraph_spacing double
 Lorem ipsum dolor sit amet, consectetuer adipiscing elit.
  Pellentesque dignissim.
  Praesent tortor.
@@ -59,6 +62,7 @@ Lorem ipsum dolor sit amet, consectetuer adipiscing elit.
 \end_layout
 
 \begin_layout Standard
+\paragraph_spacing double
 Duis ut sapien.
  Proin sit amet magna et est pharetra vestibulum.
  Pellentesque sed diam et erat sollicitudin pharetra.
@@ -72,6 +76,7 @@ Duis ut sapien.
 \end_layout
 
 \begin_layout Standard
+\paragraph_spacing double
 Donec odio nibh, varius in, dictum nec, egestas in, nisl.
  Mauris varius mi non nunc.
  Praesent porta enim in nibh.
@@ -87,48 +92,58 @@ Donec odio nibh, varius in, dictum nec, egestas in, nisl.
 \end_layout
 
 \begin_layout Standard
+\paragraph_spacing double
 TEST implementation.
 \end_layout
 
 \begin_layout Enumerate
+\paragraph_spacing double
 data prep - grid
 \end_layout
 
 \begin_layout Enumerate
+\paragraph_spacing double
 data prep - graphs
 \end_layout
 
 \begin_deeper
 \begin_layout Enumerate
+\paragraph_spacing double
 get FIPS
 \end_layout
 
 \begin_layout Enumerate
+\paragraph_spacing double
 process lat/lon data
 \end_layout
 
 \begin_layout Enumerate
+\paragraph_spacing double
 make graph
 \end_layout
 
 \begin_deeper
 \begin_layout Enumerate
+\paragraph_spacing double
 describe algorithm for connecting nodes
 \end_layout
 
 \end_deeper
 \begin_layout Enumerate
+\paragraph_spacing double
 little bit of graph theory
 \end_layout
 
 \begin_deeper
 \begin_layout Enumerate
+\paragraph_spacing double
 streets and roads are [ 
 \begin_inset ERT
 status open
 
 \begin_layout Standard
 
+
 \backslash
 ldots
 \end_layout
@@ -139,12 +154,14 @@ ldots
 \end_layout
 
 \begin_layout Enumerate
+\paragraph_spacing double
 intersections are [ 
 \begin_inset ERT
 status open
 
 \begin_layout Standard
 
+
 \backslash
 ldots
 \end_layout
@@ -155,6 +172,7 @@ ldots
 \end_layout
 
 \begin_layout Enumerate
+\paragraph_spacing double
 slightly fuzzy math (but well within tolerance of size of intersection).
  IOW, if lat/lon data is good to 6 decimal places, that equates to a length
  of, say, 3 feet.
@@ -165,11 +183,13 @@ slightly fuzzy math (but well within tolerance of size of intersection).
 
 \end_deeper
 \begin_layout Enumerate
+\paragraph_spacing double
 generating plots
 \end_layout
 
 \end_deeper
 \begin_layout Enumerate
+\paragraph_spacing double
 
 \end_layout
 

@@ -356,16 +356,19 @@ Note that when running graph simulations, the RT files are cached for future
 \end_layout
 
 \begin_layout Standard
+\paragraph_spacing double
 
 \clearpage
 
 \end_layout
 
 \begin_layout Subsubsection*
+\paragraph_spacing double
 Acknowledgments
 \end_layout
 
 \begin_layout Standard
+\paragraph_spacing double
 Lorem ipsum dolor sit amet, consectetuer adipiscing elit.
  Pellentesque dignissim.
  Praesent tortor.
@@ -382,6 +385,7 @@ Lorem ipsum dolor sit amet, consectetuer adipiscing elit.
 \end_layout
 
 \begin_layout Standard
+\paragraph_spacing double
 Duis ut sapien.
  Proin sit amet magna et est pharetra vestibulum.
  Pellentesque sed diam et erat sollicitudin pharetra.
@@ -395,6 +399,7 @@ Duis ut sapien.
 \end_layout
 
 \begin_layout Standard
+\paragraph_spacing double
 Donec odio nibh, varius in, dictum nec, egestas in, nisl.
  Mauris varius mi non nunc.
  Praesent porta enim in nibh.
@@ -410,54 +415,65 @@ Donec odio nibh, varius in, dictum nec, egestas in, nisl.
 \end_layout
 
 \begin_layout Itemize
+\paragraph_spacing double
 Susan Haynes
 \end_layout
 
 \begin_deeper
 \begin_layout Itemize
+\paragraph_spacing double
 always encouraging, and helpful with ideas
 \end_layout
 
 \begin_layout Itemize
+\paragraph_spacing double
 did not hesitate to advise me even though this entire project was completed
  entirely from out of state
 \end_layout
 
 \begin_layout Itemize
+\paragraph_spacing double
 on top of that, it was a long process with lots of fits and starts
 \end_layout
 
 \end_deeper
 \begin_layout Itemize
+\paragraph_spacing double
 Julie
 \end_layout
 
 \begin_deeper
 \begin_layout Itemize
+\paragraph_spacing double
 she's waited a long time for this
 \end_layout
 
 \begin_layout Itemize
+\paragraph_spacing double
 I'm a lucky guy
 \end_layout
 
 \end_deeper
 \begin_layout Itemize
+\paragraph_spacing double
 Kate and Sarah
 \end_layout
 
 \begin_deeper
 \begin_layout Itemize
+\paragraph_spacing double
 my little turtles [but they're not so little anymore!]
 \end_layout
 
 \begin_layout Itemize
+\paragraph_spacing double
 it's been a fun trip so far.
  I'm looking forward to many more.
 \end_layout
 
 \end_deeper
 \begin_layout Itemize
+\paragraph_spacing double
 Klaus G.
  M
 \begin_inset ERT
@@ -477,10 +493,12 @@ ller
 
 \begin_deeper
 \begin_layout Itemize
+\paragraph_spacing double
 lead developer of SimPy
 \end_layout
 
 \begin_layout Itemize
+\paragraph_spacing double
 very helpful and all around nice guy
 \begin_inset Note Comment
 status open
@@ -908,6 +926,7 @@ name "ite:[http://www.selenic.com/mercurial/wiki/||Mercurial]"
 \end_layout
 
 \begin_layout Chapter
+\paragraph_spacing double
 Using TIGER/Line
 \begin_inset ERT
 status open
@@ -929,6 +948,7 @@ copyright}}
 \end_layout
 
 \begin_layout Standard
+\paragraph_spacing double
 \begin_inset Note Framed
 status open
 
@@ -944,6 +964,7 @@ Note: This section only applies if you are planning on using the geographical
 \end_layout
 
 \begin_layout Standard
+\paragraph_spacing double
 The U.S.
  Census Bureau provides free access to the raw geographic data that is used
  for the simulations.
@@ -988,10 +1009,12 @@ geographs?
 \end_layout
 
 \begin_layout Section
+\paragraph_spacing double
 Getting the datasets
 \end_layout
 
 \begin_layout Standard
+\paragraph_spacing double
 The first thing to decide is how much data you want, and from what region.
  This is U.S.
  Census bureau data, so it covers the United States of America, and four
@@ -1001,6 +1024,7 @@ The first thing to decide is how much data you want, and from what region.
 \end_layout
 
 \begin_layout Standard
+\paragraph_spacing double
 For all practical purposes, you have two choices: county (or county equivalent)
  or state.
  The geographic data is grouped by state, and within each state, by county.
@@ -1031,6 +1055,7 @@ target "http://www.census.gov/geo/www/tiger/tiger2006se/a6seapa.txt"
 \end_layout
 
 \begin_layout Standard
+\paragraph_spacing double
 If you want to download all the files for a state, or even all the states,
  you will need to automate the download step.
  My recommendation is that you download 
@@ -1045,6 +1070,7 @@ target "http://users.ugent.be/~bpuype/wget/"
 \end_layout
 
 \begin_layout Standard
+\paragraph_spacing double
 Here is the most direct and efficient way of downloading the TIGER files
  that I have found.
  This command says to fetch the files recursively for the state of Michigan
@@ -1242,6 +1268,7 @@ end{verbatim}
 \end_layout
 
 \begin_layout Standard
+\paragraph_spacing double
 The numbered ZIP files starting with 'TGR26" contain county data.
  It turns out that Michigan has more counties than many other states.
  So it may not be a completely representative sample.
@@ -1250,10 +1277,12 @@ The numbered ZIP files starting with 'TGR26" contain county data.
 \end_layout
 
 \begin_layout Section
+\paragraph_spacing double
 Looking at the raw TIGER data
 \end_layout
 
 \begin_layout Standard
+\paragraph_spacing double
 It may be instructive to look at the files, from the large to the small.
  Starting with the collection of files that make up a state, we look at
  the files that describe a county, and then look at the details that describe
@@ -1261,6 +1290,7 @@ It may be instructive to look at the files, from the large to the small.
 \end_layout
 
 \begin_layout Standard
+\paragraph_spacing double
 The state and county files are numbered in a specific way.
  Each state is identified by two digits, and each county of the state is
  identified by the last three digits.
@@ -1272,6 +1302,7 @@ The state and county files are numbered in a specific way.
 \end_layout
 
 \begin_layout Standard
+\paragraph_spacing double
 Working inward, here are the contents of a typical uncompressed county file
  called TGR26001.
  According to 
@@ -1345,6 +1376,7 @@ end{verbatim}
 \end_layout
 
 \begin_layout Standard
+\paragraph_spacing double
 Each county zip file contains a number of RT
 \begin_inset Foot
 status open
@@ -1370,6 +1402,7 @@ target "http://www.census.gov/geo/www/tiger/tiger2006se/a6sech6.txt"
 \end_layout
 
 \begin_layout Standard
+\paragraph_spacing double
 \begin_inset Note Comment
 status open
 
@@ -1384,6 +1417,7 @@ The RT1 and RT2 records would be nice to have in a figure, but I can't fscking
 \end_layout
 
 \begin_layout Standard
+\paragraph_spacing double
 Here are sample records from RT1 and RT2.
 \end_layout
 
@@ -1490,6 +1524,7 @@ end{verbatim}
 \end_layout
 
 \begin_layout Standard
+\paragraph_spacing double
 These records are a small part of the data that describes one section of
  road somewhere in Michigan.
  The basic unit in the RT1 and RT2 records are these line segments.
@@ -1507,6 +1542,7 @@ key "colu92"
 \end_layout
 
 \begin_layout Standard
+\paragraph_spacing double
 The next step is to prepare the data for importing into an SQL database.
  Several tools were written specifically for this purpose.
  We will look at them next.
@@ -1514,10 +1550,12 @@ The next step is to prepare the data for importing into an SQL database.
 \end_layout
 
 \begin_layout Section
+\paragraph_spacing double
 Munging the raw data
 \end_layout
 
 \begin_layout Standard
+\paragraph_spacing double
 \begin_inset Note Comment
 status open
 
@@ -1554,6 +1592,7 @@ Munging the raw data
 \end_layout
 
 \begin_layout Standard
+\paragraph_spacing double
 A number of tools were written to extract the data, and transform it into
  usable latitude and longitude coordinates, along with a large number of
  other descriptive pieces.
@@ -1563,6 +1602,7 @@ A number of tools were written to extract the data, and transform it into
 \end_layout
 
 \begin_layout Standard
+\paragraph_spacing double
 \begin_inset Note Comment
 status open
 
@@ -1576,6 +1616,7 @@ PICK UP RIGHT HERE
 \end_layout
 
 \begin_layout Standard
+\paragraph_spacing double
 Lorem ipsum dolor sit amet, consectetuer adipiscing elit.
  Pellentesque dignissim.
  Praesent tortor.
@@ -1592,10 +1633,12 @@ Lorem ipsum dolor sit amet, consectetuer adipiscing elit.
 \end_layout
 
 \begin_layout Section
+\paragraph_spacing double
 Populating the database
 \end_layout
 
 \begin_layout Standard
+\paragraph_spacing double
 \begin_inset Note Comment
 status open
 
@@ -1627,6 +1670,7 @@ Munging the raw data
 \end_layout
 
 \begin_layout Standard
+\paragraph_spacing double
 Lorem ipsum dolor sit amet, consectetuer adipiscing elit.
  Pellentesque dignissim.
  Praesent tortor.
@@ -2391,10 +2435,12 @@ Default: False.
 \end_layout
 
 \begin_layout Chapter
+\paragraph_spacing double
 Source code
 \end_layout
 
 \begin_layout Standard
+\paragraph_spacing double
 \begin_inset Note Comment
 status open
 
@@ -2424,6 +2470,7 @@ http://sphinx.pocoo.org/index.html
 \end_layout
 
 \begin_layout Standard
+\paragraph_spacing double
 \begin_inset Note Comment
 status open
 
@@ -2445,6 +2492,7 @@ The tigerutils module
 \end_layout
 
 \begin_layout Standard
+\paragraph_spacing double
 Lorem ipsum dolor sit amet, consectetuer adipiscing elit.
  Pellentesque dignissim.
  Praesent tortor.
@@ -2461,6 +2509,7 @@ Lorem ipsum dolor sit amet, consectetuer adipiscing elit.
 \end_layout
 
 \begin_layout Standard
+\paragraph_spacing double
 Duis ut sapien.
  Proin sit amet magna et est pharetra vestibulum.
  Pellentesque sed diam et erat sollicitudin pharetra.
@@ -2474,6 +2523,7 @@ Duis ut sapien.
 \end_layout
 
 \begin_layout Standard
+\paragraph_spacing double
 Donec odio nibh, varius in, dictum nec, egestas in, nisl.
  Mauris varius mi non nunc.
  Praesent porta enim in nibh.
@@ -2489,16 +2539,19 @@ Donec odio nibh, varius in, dictum nec, egestas in, nisl.
 \end_layout
 
 \begin_layout Standard
+\paragraph_spacing double
 
 \clearpage
 
 \end_layout
 
 \begin_layout Chapter
+\paragraph_spacing double
 Transcript of interactive session
 \end_layout
 
 \begin_layout Standard
+\paragraph_spacing double
 \begin_inset Note Comment
 status open
 
@@ -2512,6 +2565,7 @@ This is borderline gratuitous.
 \end_layout
 
 \begin_layout Standard
+\paragraph_spacing double
 Lorem ipsum dolor sit amet, consectetuer adipiscing elit.
  Pellentesque dignissim.
  Praesent tortor.
@@ -2528,6 +2582,7 @@ Lorem ipsum dolor sit amet, consectetuer adipiscing elit.
 \end_layout
 
 \begin_layout Standard
+\paragraph_spacing double
 Duis ut sapien.
  Proin sit amet magna et est pharetra vestibulum.
  Pellentesque sed diam et erat sollicitudin pharetra.
@@ -2541,6 +2596,7 @@ Duis ut sapien.
 \end_layout
 
 \begin_layout Standard
+\paragraph_spacing double
 Donec odio nibh, varius in, dictum nec, egestas in, nisl.
  Mauris varius mi non nunc.
  Praesent porta enim in nibh.
