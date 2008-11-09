@@ -64,7 +64,10 @@ today
 \end_inset
 
 
-\begin_inset Note Note
+\end_layout
+
+\begin_layout Standard
+\begin_inset Note Comment
 status open
 
 \begin_layout Standard
@@ -83,7 +86,7 @@ TODO: fix the page numbering
 \end_layout
 
 \begin_layout Standard
-\begin_inset Note Note
+\begin_inset Note Comment
 status open
 
 \begin_layout Standard
@@ -104,7 +107,7 @@ Abbreviation of author name in text
 \end_layout
 
 \begin_layout Standard
-\begin_inset Note Note
+\begin_inset Note Comment
 status open
 
 \begin_layout Standard
@@ -129,7 +132,7 @@ defcitealias{davidsson2005aab}{Davidsson}
 \end_layout
 
 \begin_layout Standard
-\begin_inset Note Note
+\begin_inset Note Comment
 status open
 
 \begin_layout Standard
@@ -154,7 +157,7 @@ defcitealias{france2003mso}{France}
 \end_layout
 
 \begin_layout Standard
-\begin_inset Note Note
+\begin_inset Note Comment
 status open
 
 \begin_layout Standard
@@ -168,7 +171,7 @@ TODO: Hernandez is spelled with a'.
 \end_layout
 
 \begin_layout Standard
-\begin_inset Note Note
+\begin_inset Note Comment
 status open
 
 \begin_layout Standard
@@ -193,7 +196,7 @@ defcitealias{10.1109/HICSS.2001.926331}{Hernandez}
 \end_layout
 
 \begin_layout Standard
-\begin_inset Note Note
+\begin_inset Note Comment
 status open
 
 \begin_layout Standard
@@ -301,7 +304,7 @@ In this thesis we describe a simulation of two kinds of dependent agents.
  possible.
  The simulation is extensively configurable, and there are multiple different
  operating modes: grid or graph 
-\begin_inset Note Note
+\begin_inset Note Comment
 status open
 
 \begin_layout Standard
@@ -339,8 +342,7 @@ In developing this simulation, we recognized the need to be able to experiment
  To this end, a wide range of variables are exposed to the user, along with
  an interactive utility that takes care of required preparation to run both
  grid and graph simulations.
- 
-\begin_inset Note Note
+\begin_inset Note Comment
 status open
 
 \begin_layout Standard
@@ -480,7 +482,7 @@ lead developer of SimPy
 
 \begin_layout Itemize
 very helpful and all around nice guy
-\begin_inset Note Note
+\begin_inset Note Comment
 status open
 
 \begin_layout Standard
@@ -587,7 +589,7 @@ bibfiles "agents"
 \end_layout
 
 \begin_layout Standard
-\begin_inset Note Note
+\begin_inset Note Comment
 status open
 
 \begin_layout Standard
@@ -604,7 +606,7 @@ mpleUseOfBibTeX.
 \end_layout
 
 \begin_layout Standard
-\begin_inset Note Note
+\begin_inset Note Comment
 status open
 
 \begin_layout Standard
@@ -663,7 +665,7 @@ name "ite:[http://simpy.sourceforge.net/||SimPy]"
 \end_inset
 
 
-\begin_inset Note Note
+\begin_inset Note Comment
 status open
 
 \begin_layout Standard
@@ -689,7 +691,7 @@ name "ite:[https://networkx.lanl.gov/wiki/||NetworkX]"
 \end_inset
 
 
-\begin_inset Note Note
+\begin_inset Note Comment
 status open
 
 \begin_layout Standard
@@ -715,7 +717,7 @@ name "ite:[http://matplotlib.sourceforge.net/||Matplotlib/PyLab]"
 \end_inset
 
 
-\begin_inset Note Note
+\begin_inset Note Comment
 status open
 
 \begin_layout Standard
@@ -741,7 +743,7 @@ name "ite:[http://www.sqlite.org/||SQLite]"
 \end_inset
 
 
-\begin_inset Note Note
+\begin_inset Note Comment
 status open
 
 \begin_layout Standard
@@ -767,7 +769,7 @@ name "ite:[http://www.mysql.com/||MySQL]"
 \end_inset
 
 
-\begin_inset Note Note
+\begin_inset Note Comment
 status open
 
 \begin_layout Standard
@@ -793,7 +795,7 @@ name "ite:[http://www.sqlalchemy.org/||SQLAlchemy]"
 \end_inset
 
 
-\begin_inset Note Note
+\begin_inset Note Comment
 status open
 
 \begin_layout Standard
@@ -819,7 +821,7 @@ name "ite:[http://www.ctan.org/||TeX]"
 \end_inset
 
 
-\begin_inset Note Note
+\begin_inset Note Comment
 status open
 
 \begin_layout Standard
@@ -845,7 +847,7 @@ name "ite:[http://www.latex-project.org/||LaTeX2e]"
 \end_inset
 
 
-\begin_inset Note Note
+\begin_inset Note Comment
 status open
 
 \begin_layout Standard
@@ -871,7 +873,7 @@ name "ite:[http://www.lyx.org/||LyX]"
 \end_inset
 
 
-\begin_inset Note Note
+\begin_inset Note Comment
 status open
 
 \begin_layout Standard
@@ -1282,7 +1284,7 @@ reference "TIGER/Line Metadata (ASCII)"
 \end_layout
 
 \begin_layout Standard
-\begin_inset Note Note
+\begin_inset Note Comment
 status open
 
 \begin_layout Standard
@@ -1368,7 +1370,7 @@ target "http://www.census.gov/geo/www/tiger/tiger2006se/a6sech6.txt"
 \end_layout
 
 \begin_layout Standard
-\begin_inset Note Note
+\begin_inset Note Comment
 status open
 
 \begin_layout Standard
@@ -1516,7 +1518,7 @@ Munging the raw data
 \end_layout
 
 \begin_layout Standard
-\begin_inset Note Note
+\begin_inset Note Comment
 status open
 
 \begin_layout Standard
@@ -1561,7 +1563,7 @@ A number of tools were written to extract the data, and transform it into
 \end_layout
 
 \begin_layout Standard
-\begin_inset Note Note
+\begin_inset Note Comment
 status open
 
 \begin_layout Standard
@@ -1594,7 +1596,7 @@ Populating the database
 \end_layout
 
 \begin_layout Standard
-\begin_inset Note Note
+\begin_inset Note Comment
 status open
 
 \begin_layout Standard
@@ -1714,7 +1716,7 @@ Default: False.
 
 \emph default
  
-\begin_inset Note Note
+\begin_inset Note Comment
 status open
 
 \begin_layout Standard
@@ -2048,7 +2050,7 @@ The graphs default.ini
 \end_layout
 
 \begin_layout Standard
-\begin_inset Note Note
+\begin_inset Note Comment
 status open
 
 \begin_layout Standard
@@ -2062,7 +2064,7 @@ TODO: figure out how to center this box.
 \end_layout
 
 \begin_layout Standard
-\begin_inset Note Note
+\begin_inset Note Comment
 status open
 
 \begin_layout Standard
@@ -2127,7 +2129,7 @@ ref{ite:[https://networkx.lanl.gov/wiki/||NetworkX]}.}
 \end_layout
 
 \begin_layout Standard
-\begin_inset Note Note
+\begin_inset Note Comment
 status open
 
 \begin_layout Standard
@@ -2252,7 +2254,7 @@ Type: String (OS path + string option).
 \emph default
  The path to a zip utility plus the decompress option that extractTiger
  
-\begin_inset Note Note
+\begin_inset Note Comment
 status open
 
 \begin_layout Standard
@@ -2262,7 +2264,7 @@ Deprecation warning: whatever extractTiger was, it's gone now.
 \end_inset
 
  can use to decompress the record type files from tigerRoot 
-\begin_inset Note Note
+\begin_inset Note Comment
 status open
 
 \begin_layout Standard
@@ -2393,7 +2395,7 @@ Source code
 \end_layout
 
 \begin_layout Standard
-\begin_inset Note Note
+\begin_inset Note Comment
 status open
 
 \begin_layout Standard
@@ -2422,7 +2424,7 @@ http://sphinx.pocoo.org/index.html
 \end_layout
 
 \begin_layout Standard
-\begin_inset Note Note
+\begin_inset Note Comment
 status open
 
 \begin_layout Standard
@@ -2497,7 +2499,7 @@ Transcript of interactive session
 \end_layout
 
 \begin_layout Standard
-\begin_inset Note Note
+\begin_inset Note Comment
 status open
 
 \begin_layout Standard
