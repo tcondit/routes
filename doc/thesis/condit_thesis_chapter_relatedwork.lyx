@@ -381,14 +381,13 @@ This is where things get interesting in TRYSA
 \end_layout
 
 \begin_layout Standard
-\paragraph_spacing double
 \begin_inset Box Frameless
 position "t"
 hor_pos "c"
 has_inner_box 1
 inner_pos "t"
 use_parbox 0
-width "100col%"
+width "90col%"
 special "none"
 height "1in"
 height_special "totalheight"
@@ -418,7 +417,6 @@ biasing
 \end_layout
 
 \begin_layout Standard
-\paragraph_spacing double
 \begin_inset VSpace bigskip
 \end_inset
 
