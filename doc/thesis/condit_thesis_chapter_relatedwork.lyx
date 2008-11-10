@@ -590,8 +590,15 @@ ndez, but real-time performance data was not provided.
 \begin_layout Standard
 \paragraph_spacing double
 The Local Traffic Agents (LTA) and the Coordinator Traffic Agent (CTA) behave
- almost identically the same agents in TRYS.
- But this system was not designed for a specific traffic network.
+ almost identically the same agents in TRYS (see figure 
+\begin_inset LatexCommand ref
+reference "fig:LTAs-and-CTA"
+
+\end_inset
+
+).
+ But this is a more general system that was not designed for a specific
+ traffic network.
  It may be used on larger roadways where multiple CTAs are needed.
  In this case, a Global Traffic Agent (GTA) is added to the hierarchy, and
  all CTAs report to it.
@@ -608,6 +615,51 @@ The Local Traffic Agents (LTA) and the Coordinator Traffic Agent (CTA) behave
  any data.
  Its only purpose it to store traffic data and provide immediate feedback
  to the other agents.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Standard
+\begin_inset Graphics
+	filename figures/LTAs-and-CTA-smaller.PNG
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Caption
+
+\begin_layout Standard
+Layout of Local and Coordinator Traffic Agents.
+ Original image from 
+\begin_inset LatexCommand cite
+key "france2003mso"
+
+\end_inset
+
+.
+\begin_inset LatexCommand label
+name "fig:LTAs-and-CTA"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
 \end_layout
 
 \begin_layout Standard
@@ -630,7 +682,7 @@ PICK UP HERE TOMORROW AFTERNOON (Sunday 11/09/2008).
 status open
 
 \begin_layout Standard
-Image?
+Image? Yes.
 \end_layout
 
 \end_inset
@@ -643,7 +695,7 @@ Image?
 status open
 
 \begin_layout Standard
-CTAs only communicate with GTA, or with each other as well?
+CTAs only communicate with GTA, or with each other as well? GTA only.
 \end_layout
 
 \end_inset
@@ -656,7 +708,7 @@ CTAs only communicate with GTA, or with each other as well?
 status open
 
 \begin_layout Standard
-Multiple ITAs?
+Multiple ITAs? There are no indications of it.
 \end_layout
 
 \end_inset
