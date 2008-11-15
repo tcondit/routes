@@ -51,8 +51,8 @@ Introduction
 
 \begin_layout Standard
 \paragraph_spacing double
-In this section we examine features found in other MASs to see how they
- contrast with my system.
+In this section we examine features found in other multiagent systems to
+ see how they contrast with my system.
  The focus in the applied literature is on traffic and road network simulations.
  We review two papers that describe centralized versus distributed simulation
  systems
@@ -253,36 +253,6 @@ expected redistribution
 
 \begin_layout Standard
 \paragraph_spacing double
-\begin_inset Note Comment
-status open
-
-\begin_layout Standard
-Where does this paragraph (about the graph with nodes) belong???
-\end_layout
-
-\end_inset
-
-One superficial similarity of TRYS and TRYSA
-\begin_inset Formula $_{\text{2}}$
-\end_inset
-
- with my system is in the representation of the physical structure of the
- traffic network.
- It uses a declarative description of the network as a graph with nodes
- and links together with abstraction functions associated to components
- (
-\begin_inset Quotes eld
-\end_inset
-
-static information about the topological structure of the problem area
-\begin_inset Quotes erd
-\end_inset
-
-).
-\end_layout
-
-\begin_layout Standard
-\paragraph_spacing double
 TRYSA
 \begin_inset Formula $_{\text{2}}$
 \end_inset
@@ -330,8 +300,9 @@ The partitioning of the road network into problem areas is slightly different
 \begin_inset Formula $_{\text{2}}$
 \end_inset
 
-maintains its own set of alternative traffic control plans, along with expected
- reductions in local traffic excesses associated with each of the plans.
+ maintains its own set of alternative traffic control plans, along with
+ expected reductions in local traffic excesses associated with each of the
+ plans.
  This is called the plan's local
 \emph on
  utility
@@ -346,9 +317,19 @@ This is where things get interesting in TRYSA
 \end_inset
 
 .
- The autonomous agents use a strategy called structural cooperation, whereby
- they take their own utility and the effects of their acquaintances' control
- plans on their own utiltiy into consideration when deciding what to do.
+ The autonomous agents use a strategy called structural cooperation 
+\begin_inset Note Note
+status open
+
+\begin_layout Standard
+CITE THIS
+\end_layout
+
+\end_inset
+
+, whereby they take their own utility and the effects of their acquaintances'
+ control plans on their own utiltiy into consideration when deciding what
+ to do.
  In short, the agents are no longer fully autonomous.
 \end_layout
 
@@ -410,11 +391,22 @@ The agents choose local signal plans, but they still need to coordinate
  with one another to settle on a globally consistent signal plan.
  This is similar to the task of the coordinator agent in TRYS.
  To do this the agents use a distributed constraint optimization protocol
+ 
+\begin_inset Note Note
+status open
+
+\begin_layout Standard
+CITE THIS?
+\end_layout
+
+\end_inset
+
+
 \begin_inset Foot
 status open
 
 \begin_layout Standard
-The original basis for my work, although it did not wind up in the final
+The original basis for my work, although it did not make it into the final
  product.
 \end_layout
 
@@ -434,7 +426,7 @@ This is referenced in Hernandez, but not in this paper.
 
  This is three-stage process.
  In stage 1 the local control agents repeatedly exchange utility information
- to find sets of compatible alternative signal plans.
+ to find sets of globally compatible alternative signal plans.
  Stage 2 starts when one of the agents detects the completion of stage 1.
  This agent computes approximate probilities that each of the chosen sets
  of local signal plans would be enacted, and from that attempts to maximize
@@ -467,8 +459,32 @@ There are several ways in which these systems differ from mine: they are
  paradigms.
  That and the fact that it was a multiagent traffic management study, made
  it a useful choice.
- Next up is a look at another multiagent system for optimizing an urban
+\end_layout
+
+\begin_layout Standard
+\paragraph_spacing double
+One superficial similarity of TRYS and TRYSA
+\begin_inset Formula $_{\text{2}}$
+\end_inset
+
+ with my system is in the representation of the physical structure of the
  traffic network.
+ It uses a declarative description of the network as a graph with nodes
+ and links together with abstraction functions associated to components,
+ described here as 
+\begin_inset Quotes eld
+\end_inset
+
+static information about the topological structure of the problem area
+\begin_inset Quotes erd
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+Next we look at another multiagent system for optimizing an urban traffic
+ network.
 \begin_inset Note Comment
 status open
 
@@ -541,13 +557,13 @@ name "fig:TRYS-and-TRYSA2"
 
 \begin_layout Standard
 \paragraph_spacing double
-The next paper
+This paper
 \begin_inset LatexCommand cite
 key "france2003mso"
 
 \end_inset
 
-is similar to the previous one.
+is similar in many ways to the previous one.
  It is another centralized multiagent system for traffic management that
  uses local traffic agents and one or more coordinator agents.
  But this paper uses traffic intersections as the problem area, rather than
@@ -566,6 +582,24 @@ The first goal of this system is to design a traffic network that operates
 ons will be unaware of traffic events, leading to detrimental traffic flow,
  e.g., allowing traffic to continue toward a blocked intersection in the case
  of an accident.
+ 
+\begin_inset Note Comment
+status open
+
+\begin_layout Standard
+Does this sentence 
+\begin_inset Quotes eld
+\end_inset
+
+With agents at each intersection ..
+\begin_inset Quotes erd
+\end_inset
+
+ break the flow?
+\end_layout
+
+\end_inset
+
  The final goal is to balance local and global concerns with respect to
  traffic movement.
  Local agents will typically have many alternative plans available, but
@@ -590,7 +624,7 @@ ndez, but real-time performance data was not provided.
 \begin_layout Standard
 \paragraph_spacing double
 The Local Traffic Agents (LTA) and the Coordinator Traffic Agent (CTA) behave
- almost identically the same agents in TRYS (see figure 
+ almost identically to the analogous agents in TRYS (see figure 
 \begin_inset LatexCommand ref
 reference "fig:LTAs-and-CTA"
 
@@ -607,9 +641,9 @@ reference "fig:LTAs-and-CTA"
  Likewise, if a traffic network is large enough that a GTA is needed, it
  is subdivided into regions controlled by a single CTA, with a top-level
  GTA linking the CTAs together.
- The final piece of the agent hierarchy are the Information Traffic Agents
- (ITAs).
- As the name suggests, the ITAs store and distribute all information detailing
+ The final piece of the agent hierarchy is the Information Traffic Agent
+ (ITA).
+ As the name suggests, the ITA stores and distributes all information detailing
  the state of each intersection.
  Each LTA and CTA communicate directly with the ITA, but it does not process
  any data.
@@ -664,56 +698,124 @@ name "fig:LTAs-and-CTA"
 
 \begin_layout Standard
 \paragraph_spacing double
-\begin_inset Note Note
-status open
-
-\begin_layout Standard
-PICK UP HERE TOMORROW AFTERNOON (Sunday 11/09/2008).
- Topic is Section 3.2: Communication protocols.
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Standard
+When deciding on a traffic light pattern, most communication takes place
+ between the LTAs and the CTAs, with the ITAs providing stored data as necessary.
+ In order for the CTA to calculate a global optimum for a given intersection,
+ it must collect data from all neighbors of that intersection's LTA.
+ The ITA provides data about traffic levels, congestion, accidents, etc.
+ at each of the intersections requested by the CTA.
+ The CTA calculates a traffic light pattern and compares it to that proposed
+ by the LTA.
 \begin_inset Note Comment
 status open
 
 \begin_layout Standard
-Image? Yes.
+Do I need something here about the LTAs generating their own proposed traffic
+ light pattern for review by the CTA?
 \end_layout
 
 \end_inset
 
-
-\end_layout
-
-\begin_layout Standard
-\begin_inset Note Comment
+ If there is a significant difference between them, a balance between the
+ local and global optimums must be reached, and communicated to the LTA
+\begin_inset Foot
 status open
 
 \begin_layout Standard
-CTAs only communicate with GTA, or with each other as well? GTA only.
+The authors do not describe how they negotiate this balance.
 \end_layout
 
 \end_inset
 
-
+.
 \end_layout
 
 \begin_layout Standard
-\begin_inset Note Comment
+\paragraph_spacing double
+Traffic sensors provide data to the ITAs.
+ Collected data includes the current state of each traffic light, the direction
+ of traffic movement, e.g.
+ North heading North or West, or South going East, and the time remaining
+ for the light in its current state.
+ The LTAs include an expert system that uses this data to calculate a locally
+ optimal light pattern, without regard to other intersections.
+ Following this the LTA sends a message to the CTA, which may adjust the
+ LTA's light pattern, based on the recommendation of its own expert system,
+ to accomodate the needs of the global network.
+\end_layout
+
+\begin_layout Standard
+\paragraph_spacing double
+The communication protocols described earlier are also used by the CTAs
+ to send real-time updates of events occuring within the system.
+ The events described in this paper are traffic accidents and roadway congestion.
+ Most events affect only a small number of LTAs, and only directly affected
+ agents are notified of the events.
+\end_layout
+
+\begin_layout Standard
+\paragraph_spacing double
+An agent is considered affected by a traffic accident if the accident occurs
+ at a neighboring intersection, a connecting roadway, or within agent's
+ intersection.
+ When an LTA is notified by the CTA that it is affected by a traffic accident
+\begin_inset Foot
 status open
 
 \begin_layout Standard
-Multiple ITAs? There are no indications of it.
+The CTA receives the notification manually from a human operator.
+ In other words, this part of the application was not implemented at the
+ time of publication.
 \end_layout
 
 \end_inset
 
+, it overrides the state of the traffic light pattern provided by the CTA,
+ for the duration of the event.
+ Essentially, the agent regains its autonomy, and decides for itself what
+ action to take during the disruption.
+ Reading between the lines, it seems that the LTA recalculates its own local
+ traffic light pattern, and uses that until further notice from the CTA.
+ When the LTA is notified that the event has passed, the light returns to
+ standard operation.
+\end_layout
 
+\begin_layout Standard
+\paragraph_spacing double
+In the case of traffic congestion at a neighboring intersection, the CTA
+ will look for an alternate route to redirect incoming traffic.
+ If none is found, the soon-to-be affected LTA is sent the red signal, effective
+ly halting incoming traffic.
+ If an alternate is found, the CTA will send a message to the LTA that is
+ experiencing the congestion.
+ The LTA will again override the traffic light pattern, but this time it
+ is only for a single cycle of the traffic light pattern, after which it
+ reverts to the pattern provided by the CTA.
+ The CTA has the option to recall the pattern event, leaving the overridden
+ pattern active at the LTA.
+ This cycle could then be repeated by the CTA for as long as necessary,
+ based on updated sensor data.
+\end_layout
+
+\begin_layout Standard
+\paragraph_spacing double
+By way of comparison with my work, this system is traffic network-oriented
+ rather than agent-oriented.
+ It is also more hierarchical, with little in the way of true autonomy at
+ any level.
+ The LTAs are not allowed to communicate directly with one another.
+ In larger systems with multiple CTAs, they are not allowed to communicate
+ with one another either.
+ On the other hand, this is an applied approach at solving a specific problem,
+ rather than exploring the nature of agent-based simulations.
+ The first priority here is to find something that works, whereas my system
+ is geared toward exploration, with optimality a nice side-effect, but not
+ the primary goal.
+\end_layout
+
+\begin_layout Standard
+It is time to change direction and look at a framework for driving agent
+ behavior.
 \end_layout
 
 \begin_layout Standard
