@@ -814,77 +814,9 @@ By way of comparison with my work, this system is traffic network-oriented
 \end_layout
 
 \begin_layout Standard
+\paragraph_spacing double
 It is time to change direction and look at a framework for driving agent
  behavior.
-\end_layout
-
-\begin_layout Standard
-\paragraph_spacing double
-\begin_inset Note Comment
-status open
-
-\begin_layout Standard
-Okay, I've finally got some coherent topics for the related work section.
- They are:
-\end_layout
-
-\begin_layout Itemize
-Centralized and distributed traffic simulations
-\end_layout
-
-\begin_layout Itemize
-Distributed constraint optimization protocols (that old chestnut)
-\end_layout
-
-\begin_layout Itemize
-Cooperative and competitive multi-agent systems
-\end_layout
-
-\begin_layout Standard
-The centralized/distributed v.
- cooperative/competitive pairings have a nice symmetry that I really like.
- Now it's time to get the citations in here, and do some reading and writing!
-\end_layout
-
-\begin_layout Standard
-This section can NOT go to press without including a citation for the review
- 
-\begin_inset Quotes eld
-\end_inset
-
-Agent-Based Approaches to Transport Logistics.
-\begin_inset Quotes erd
-\end_inset
-
- Just about every paper I'm referring to came from the tables at the end
- of this fantastic review.
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Subsection
-\paragraph_spacing double
-Centralized and distributed traffic simulations
-\end_layout
-
-\begin_layout Standard
-\paragraph_spacing double
-Lorem ipsum dolor sit amet, consectetuer adipiscing elit.
- Pellentesque dignissim.
- Praesent tortor.
- In fringilla feugiat nisi.
- Fusce a elit.
- Maecenas placerat facilisis magna.
- Mauris dolor nisi, consequat quis, adipiscing et, consequat semper, odio.
- In eget lacus.
- Pellentesque mauris.
- Sed vestibulum quam ac mauris.
- Donec vehicula risus.
- Maecenas vitae arcu quis tellus fringilla porttitor.
- Donec enim nulla, ornare sit amet, lacinia id, bibendum scelerisque, sapien.
 \end_layout
 
 \begin_layout Itemize
@@ -909,55 +841,6 @@ status open
 
 ndez - On Multiagent Co-ordination Architectures: A Traffic Management Case
  Study
-\end_layout
-
-\begin_layout Subsection
-\paragraph_spacing double
-Distributed constraint optimization protocols
-\end_layout
-
-\begin_layout Standard
-\paragraph_spacing double
-\begin_inset Note Comment
-status open
-
-\begin_layout Standard
-This whole subsection may go away.
- It no longer seems relevant.
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Standard
-\paragraph_spacing double
-Lorem ipsum dolor sit amet, consectetuer adipiscing elit.
- Pellentesque dignissim.
- Praesent tortor.
- In fringilla feugiat nisi.
- Fusce a elit.
- Maecenas placerat facilisis magna.
- Mauris dolor nisi, consequat quis, adipiscing et, consequat semper, odio.
- In eget lacus.
- Pellentesque mauris.
- Sed vestibulum quam ac mauris.
- Donec vehicula risus.
- Maecenas vitae arcu quis tellus fringilla porttitor.
- Donec enim nulla, ornare sit amet, lacinia id, bibendum scelerisque, sapien.
-\end_layout
-
-\begin_layout Itemize
-\paragraph_spacing double
-Modi - ADOPT: Asynchronous Distributed Constraint Optimization with Quality
- Guarantees
-\end_layout
-
-\begin_layout Itemize
-\paragraph_spacing double
-Mailler - Solving Distributed Constraint Optimization Problems Using Cooperative
- Mediation
 \end_layout
 
 \begin_layout Section
@@ -1022,6 +905,55 @@ Far - Agent Based Software Engineering
 \begin_layout Itemize
 \paragraph_spacing double
 TODO
+\end_layout
+
+\begin_layout Section
+\paragraph_spacing double
+Distributed constraint optimization protocols
+\end_layout
+
+\begin_layout Standard
+\paragraph_spacing double
+\begin_inset Note Comment
+status open
+
+\begin_layout Standard
+This whole subsection may go away.
+ It no longer seems relevant.
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\paragraph_spacing double
+Lorem ipsum dolor sit amet, consectetuer adipiscing elit.
+ Pellentesque dignissim.
+ Praesent tortor.
+ In fringilla feugiat nisi.
+ Fusce a elit.
+ Maecenas placerat facilisis magna.
+ Mauris dolor nisi, consequat quis, adipiscing et, consequat semper, odio.
+ In eget lacus.
+ Pellentesque mauris.
+ Sed vestibulum quam ac mauris.
+ Donec vehicula risus.
+ Maecenas vitae arcu quis tellus fringilla porttitor.
+ Donec enim nulla, ornare sit amet, lacinia id, bibendum scelerisque, sapien.
+\end_layout
+
+\begin_layout Itemize
+\paragraph_spacing double
+Modi - ADOPT: Asynchronous Distributed Constraint Optimization with Quality
+ Guarantees
+\end_layout
+
+\begin_layout Itemize
+\paragraph_spacing double
+Mailler - Solving Distributed Constraint Optimization Problems Using Cooperative
+ Mediation
 \end_layout
 
 \end_body
