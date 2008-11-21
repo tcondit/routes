@@ -112,6 +112,11 @@ status open
 \end_inset
 
 ndez et al.
+\begin_inset LatexCommand cite
+key "10.1109/HICSS.2001.926331"
+
+\end_inset
+
  describes a pair of closely related intelligent traffic management system
  (ITMS).
  The TRYS
@@ -322,7 +327,7 @@ This is where things get interesting in TRYSA
 status open
 
 \begin_layout Standard
-CITE THIS
+CITE THIS? Hernandez p2, cite 6
 \end_layout
 
 \end_inset
@@ -392,16 +397,6 @@ The agents choose local signal plans, but they still need to coordinate
  This is similar to the task of the coordinator agent in TRYS.
  To do this the agents use a distributed constraint optimization protocol
  
-\begin_inset Note Note
-status open
-
-\begin_layout Standard
-CITE THIS?
-\end_layout
-
-\end_inset
-
-
 \begin_inset Foot
 status open
 
@@ -413,6 +408,15 @@ The original basis for my work, although it did not make it into the final
 \end_inset
 
  that implements weak commitment search.
+\begin_inset Note Note
+status open
+
+\begin_layout Standard
+CITE THIS? Hernandez p6, cite 11
+\end_layout
+
+\end_inset
+
  
 \begin_inset Note Comment
 status open
@@ -485,16 +489,6 @@ static information about the topological structure of the problem area
 \begin_layout Standard
 Next we look at another multiagent system for optimizing an urban traffic
  network.
-\begin_inset Note Comment
-status open
-
-\begin_layout Standard
-TODO: The France paper.
-\end_layout
-
-\end_inset
-
-
 \end_layout
 
 \begin_layout Standard
@@ -563,7 +557,7 @@ key "france2003mso"
 
 \end_inset
 
-is similar in many ways to the previous one.
+ is similar in many ways to the previous one.
  It is another centralized multiagent system for traffic management that
  uses local traffic agents and one or more coordinator agents.
  But this paper uses traffic intersections as the problem area, rather than
@@ -872,24 +866,115 @@ Coordination and cooperation among software agents
 
 \begin_layout Standard
 \paragraph_spacing double
-Here we investigate coordination and cooperation among software agents.
+Here we investigate coordination, cooperation and competition among software
+ agents.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Note Note
+status open
+
+\begin_layout Standard
+\paragraph_spacing double
+using the belief-desire-intention agent model
+\end_layout
+
+\end_inset
+
+
 \end_layout
 
 \begin_layout Standard
 \paragraph_spacing double
-Lorem ipsum dolor sit amet, consectetuer adipiscing elit.
- Pellentesque dignissim.
- Praesent tortor.
- In fringilla feugiat nisi.
- Fusce a elit.
- Maecenas placerat facilisis magna.
- Mauris dolor nisi, consequat quis, adipiscing et, consequat semper, odio.
- In eget lacus.
- Pellentesque mauris.
- Sed vestibulum quam ac mauris.
- Donec vehicula risus.
- Maecenas vitae arcu quis tellus fringilla porttitor.
- Donec enim nulla, ornare sit amet, lacinia id, bibendum scelerisque, sapien.
+A well-known agent decision model called belief-desire-intention (BDI)
+\begin_inset Note Note
+status open
+
+\begin_layout Standard
+CITE? co-co-01 in many places
+\end_layout
+
+\end_inset
+
+ is expanded in the Wu paper
+\begin_inset LatexCommand cite
+key "wu2003umf"
+
+\end_inset
+
+ to include the notion of a knowledge base, which represents the relationships
+ between agents.
+ Belief is the information available to an agent about the state of the
+ environment.
+ It is a frequently updated attribute described by the function
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula \[
+\wp(Belief)\times P\to\wp(Belief)\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\paragraph_spacing double
+where 
+\begin_inset Formula $P$
+\end_inset
+
+ is the agent's current precept and current beliefs.
+ Desire is the set of options an agent can use to achieve its intentions.
+ It is derived from the agent's belief and intentions and is described as
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula \[
+\wp(Belief)\times\wp(Intentions)\to\wp(Desire)\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\paragraph_spacing double
+The agent's intention is simply what it wants to do or accomplish.
+ The new piece, the knowledge base, expands on the concept of the agent's
+ intention.
+ It is a database of related information on a particular subject that describes
+ how to do a certain task.
+\end_layout
+
+\begin_layout Standard
+\paragraph_spacing double
+The four attributes in the extended BDI agent model are not sufficient to
+ model an agent's relationships with its cohorts.
+ The authors add three states -- public, private and protected -- to each
+ of these attributes.
+ Public properties are visible to all, and private properties are visible
+ only to the agent.
+ If an attribute is protected, its probability distribution is visible to
+ others.
+\end_layout
+
+\begin_layout Standard
+\paragraph_spacing double
+Now we can describe the uncertainty management framework with respect to
+ cooperation, coordination, and competition, and again, it starts with another
+ set of definitions.
+ A cooperating agent in this system is defined one that reveals its beliefs,
+ desires, intentions and knowledge base to others.
+ In addition, all cooperating agents must have the same goal.
+ Coordination is defined as revealing an agent's intentions and knowledge
+ base to others, but the agents have differing goals.
+ In loose competition an agent's goal is revealed, but not his knowledge
+ base.
+ In strict competition an agent reveals neither his goal or knowledge base.
+ In either case, the agent's belief and desire may be public, private or
+ protected (this is a function of the how much uncertainty exists in the
+ system) and agents may have the same or different goals as others.
 \end_layout
 
 \begin_layout Itemize
