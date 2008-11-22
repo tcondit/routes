@@ -997,7 +997,20 @@ status open
 \begin_inset Caption
 
 \begin_layout Standard
-This is a test.
+Modeling agents' interactions using BDI & three types of decision making.
+ Original image from 
+\begin_inset LatexCommand cite
+key "wu2003umf"
+
+\end_inset
+
+.
+\begin_inset LatexCommand label
+name "fig:uncertainty-management"
+
+\end_inset
+
+
 \end_layout
 
 \end_inset
