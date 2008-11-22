@@ -67,8 +67,8 @@ key "france2003mso,10.1109/HICSS.2001.926331"
  traffic congestion.
  Even excluding the fact that one is applied and the other more theoretical,
  their approaches are different enough to make a useful comparison.
- Then we look at coordination and cooperation among agents as opposed to
- competitive MASs
+ Then we investigate an uncertainty management framework for relationships
+ between agents in a multiagent sytem
 \begin_inset LatexCommand cite
 key "wu2003umf"
 
@@ -975,6 +975,43 @@ Now we can describe the uncertainty management framework with respect to
  In either case, the agent's belief and desire may be public, private or
  protected (this is a function of the how much uncertainty exists in the
  system) and agents may have the same or different goals as others.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Standard
+\begin_inset Graphics
+	filename figures/uncertainty-management.png
+	scale 70
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Caption
+
+\begin_layout Standard
+This is a test.
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+
+\end_layout
+
+\end_inset
+
+
 \end_layout
 
 \begin_layout Itemize
