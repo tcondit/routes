@@ -17,7 +17,7 @@
 \font_sf_scale 100
 \font_tt_scale 100
 \graphics default
-\paperfontsize default
+\paperfontsize 12
 \spacing single
 \papersize default
 \use_geometry false
