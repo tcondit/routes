@@ -807,36 +807,6 @@ By way of comparison with my work, this system is traffic network-oriented
  the primary goal.
 \end_layout
 
-\begin_layout Standard
-\paragraph_spacing double
-It is time to change direction and look at a framework for driving agent
- behavior.
-\end_layout
-
-\begin_layout Itemize
-\paragraph_spacing double
-France - A Multiagent System for Optimizing Urban Traffic
-\end_layout
-
-\begin_layout Itemize
-\paragraph_spacing double
-Hern
-\begin_inset ERT
-status open
-
-\begin_layout Standard
-
-
-\backslash
-'{a}
-\end_layout
-
-\end_inset
-
-ndez - On Multiagent Co-ordination Architectures: A Traffic Management Case
- Study
-\end_layout
-
 \begin_layout Section
 \paragraph_spacing double
 Cooperative and competitive multi-agent systems
@@ -886,26 +856,51 @@ using the belief-desire-intention agent model
 
 \begin_layout Standard
 \paragraph_spacing double
-A well-known agent decision model called belief-desire-intention (BDI)
-\begin_inset Note Note
-status open
-
-\begin_layout Standard
-CITE? co-co-01 in many places
-\end_layout
-
-\end_inset
-
- is expanded in the Wu paper
+The Wu paper
 \begin_inset LatexCommand cite
 key "wu2003umf"
 
 \end_inset
 
- to include the notion of a knowledge base, which represents the relationships
- between agents.
- Belief is the information available to an agent about the state of the
- environment.
+ develops a system for identifying agent uncertainty in relation to other
+ agents in a MAS.
+ They build upon the existing agent model BDI (belief-desire-intention),
+ adding a new attribute, KB (knowledge base), and attribute properties 
+\begin_inset Note Note
+status open
+
+\begin_layout Standard
+TODO: call these state modifiers?
+\end_layout
+
+\end_inset
+
+public, private and protected.
+ This enhanced model is intended for use within a decision support system.
+ It gives individual agents a better understanding of their position relative
+ to other agents.
+ This should allow the agents to make better informed decisions.
+ BDI is described elsewhere.
+\begin_inset Note Note
+status open
+
+\begin_layout Standard
+TODO: need a citation!
+\end_layout
+
+\end_inset
+
+ It is included here as part of the overall definition of the uncertainty
+ management framework.
+\end_layout
+
+\begin_layout Standard
+\paragraph_spacing double
+
+\emph on
+Belief 
+\emph default
+is the information available to an agent about the state of the environment.
  It is a frequently updated attribute described by the function
 \end_layout
 
@@ -925,7 +920,14 @@ where
 \end_inset
 
  is the agent's current precept and current beliefs.
- Desire is the set of options an agent can use to achieve its intentions.
+\end_layout
+
+\begin_layout Standard
+
+\emph on
+Desire 
+\emph default
+is the set of options an agent can use to achieve its intentions.
  It is derived from the agent's belief and intentions and is described as
 \end_layout
 
@@ -940,9 +942,26 @@ where
 
 \begin_layout Standard
 \paragraph_spacing double
-The agent's intention is simply what it wants to do or accomplish.
- The new piece, the knowledge base, expands on the concept of the agent's
- intention.
+The agent's 
+\emph on
+intention 
+\emph default
+is simply what it wants to do or accomplish
+\begin_inset Foot
+status open
+
+\begin_layout Standard
+This paper does not include a precise definiton of intention.
+\end_layout
+
+\end_inset
+
+.
+ The new piece, the 
+\emph on
+knowledge base
+\emph default
+, expands on the concept of the agent's intention.
  It is a database of related information on a particular subject that describes
  how to do a certain task.
 \end_layout
@@ -951,12 +970,12 @@ The agent's intention is simply what it wants to do or accomplish.
 \paragraph_spacing double
 The four attributes in the extended BDI agent model are not sufficient to
  model an agent's relationships with its cohorts.
- The authors add three states -- public, private and protected -- to each
- of these attributes.
- Public properties are visible to all, and private properties are visible
+ The authors add three state modifiers -- public, private and protected
+ -- to each of these attributes.
+ Public properties are visible to all, while private properties are visible
  only to the agent.
- If an attribute is protected, its probability distribution is visible to
- others.
+ A protected attribute, on the other hand, is one where its probability
+ distribution is visible to others.
 \end_layout
 
 \begin_layout Standard
@@ -964,17 +983,133 @@ The four attributes in the extended BDI agent model are not sufficient to
 Now we can describe the uncertainty management framework with respect to
  cooperation, coordination, and competition, and again, it starts with another
  set of definitions.
- A cooperating agent in this system is defined one that reveals its beliefs,
- desires, intentions and knowledge base to others.
+ A 
+\emph on
+cooperating agent 
+\emph default
+in this system is defined one that reveals its beliefs, desires, intentions
+ and knowledge base to others.
  In addition, all cooperating agents must have the same goal.
- Coordination is defined as revealing an agent's intentions and knowledge
- base to others, but the agents have differing goals.
- In loose competition an agent's goal is revealed, but not his knowledge
- base.
- In strict competition an agent reveals neither his goal or knowledge base.
- In either case, the agent's belief and desire may be public, private or
- protected (this is a function of the how much uncertainty exists in the
- system) and agents may have the same or different goals as others.
+ 
+\emph on
+Coordination 
+\emph default
+is defined as revealing an agent's intentions and knowledge base to others,
+ but the agents have differing goals.
+ In 
+\emph on
+loose competition 
+\emph default
+an agent's goal is revealed, but not his knowledge base.
+ In 
+\emph on
+strict competition 
+\emph default
+an agent reveals neither his goal or knowledge base.
+ In either of the latter cases, the agent's beliefs and desires may be public,
+ private or protected (this is a function of the how much uncertainty exists
+ in the system) and agents may have the same or different goals as others.
+\end_layout
+
+\begin_layout Standard
+\paragraph_spacing double
+Taken together, the attributes plus properties lead to a series of actionable
+ decision-making states.
+ The variable attributes are beliefs and desires.
+ The intentions may be public or private for any of these agent interactions,
+ but it does not affect the decision making classification.
+ In every case, the agent's KB is private.
+\end_layout
+
+\begin_layout Standard
+\paragraph_spacing double
+With 
+\emph on
+decision making under certainty
+\emph default
+, between any pair of agents, both agents beliefs and desires are public
+ and readable by the other.
+ In 
+\emph on
+decision making under risk
+\emph default
+, both agents' beliefs and desires are protected, so their exact state is
+ not known, but their probability distributions are available, which should
+ allow the agents to make some reasonable predictions about each other's
+ expected actions.
+ Finally, with 
+\emph on
+decision making under uncertainty
+\emph default
+, neither agent knows anything about the other agent's beliefs or desires.
+ Data collection is entirely speculative.
+ See 
+\begin_inset LatexCommand ref
+reference "fig:uncertainty-management"
+
+\end_inset
+
+ for a summary.
+\end_layout
+
+\begin_layout Standard
+\paragraph_spacing double
+By way of comparison, in my cooperative simulations, the Taxis communicate
+ with the Fares soon after the initial pickup request is made.
+ This is similar in practice to decision making under certainty, as both
+ kinds of agents (or maybe more accurately, the agents with different goals)
+ are communicating openly with one another.
+ The Fare receives an acknowledgment before pickup, and the other Taxis
+ are notified that a particular Fare is no longer eligible.
+\end_layout
+
+\begin_layout Standard
+\paragraph_spacing double
+In my competitive simulations, the Taxis make decisions under something
+ approximating risk in the Wu model.
+ Whereas their system allows agents to share probability data with one another,
+ in my system there are only a few decisions that a Taxi is likely to make,
+ and they are made in private.
+ When any two or more agents (Taxis) compete for a Fare, there will be exactly
+ one winner, and all other competitors will lose that Fare.
+ But until a Taxi announces publicly that he has reached the Fare first,
+ all movement is private.
+ Note also that the Fares do not communicate with one another, but only
+ because it adds nothing to the simulation as designed.
+ There are certainly enhancements where communication between potential
+ Fares would raise their attractiveness to Taxis, thereby increasing their
+ fitness for pickup, resulting in better (faster) responses from the Taxis.
+\end_layout
+
+\begin_layout Standard
+\paragraph_spacing double
+One additional note: although I have no plans currently to include it in
+ this paper, I have run some Taxi 
+\begin_inset Quotes eld
+\end_inset
+
+team
+\begin_inset Quotes erd
+\end_inset
+
+ simulations with the current system.
+ The Taxis in these simulations behave similarly to agents making decisions
+ under risk.
+ For any two agents, there are two possible scenarios: they are cooperating,
+ meaning they are on the same 
+\begin_inset Quotes eld
+\end_inset
+
+team
+\begin_inset Quotes erd
+\end_inset
+
+, or they are coordinating, meaning they are on different teams.
+ Both scenarios assume a SimType of cooperative.
+ A SimType of competitive does not make much sense here, since the Taxis
+ would be competing with their teammates and with the Taxis on the other
+ team or teams.
+ The whole program would have to be modified to make a useful team competition.
 \end_layout
 
 \begin_layout Standard
@@ -1027,19 +1162,26 @@ name "fig:uncertainty-management"
 
 \end_layout
 
-\begin_layout Itemize
+\begin_layout Standard
 \paragraph_spacing double
-Wu - Uncertainty Management Framework for Multi-Agent System
+\begin_inset Note Comment
+status open
+
+\begin_layout Standard
+TODO: 
+\begin_inset Quotes eld
+\end_inset
+
+Agent-based approaches to transport logistics
+\begin_inset Quotes erd
+\end_inset
+
+ paper summary goes here
 \end_layout
 
-\begin_layout Itemize
-\paragraph_spacing double
-Far - Agent Based Software Engineering
-\end_layout
+\end_inset
 
-\begin_layout Itemize
-\paragraph_spacing double
-TODO
+
 \end_layout
 
 \begin_layout Section
