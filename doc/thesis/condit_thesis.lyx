@@ -6,6 +6,7 @@
 \begin_preamble
 \usepackage{hyperref}
 \end_preamble
+\options draft
 \language english
 \inputencoding auto
 \font_roman default
@@ -1345,22 +1346,27 @@ begin{verbatim}
 
 \begin_layout Standard
 
-TGR26001.MET TGR26001.RT5 TGR26001.RTA TGR26001.RTI TGR26001.RTS
+TGR26001.MET TGR26001.RT5 TGR26001.RTA TGR26001.RTI
 \end_layout
 
 \begin_layout Standard
 
-TGR26001.RT1 TGR26001.RT6 TGR26001.RTC TGR26001.RTM TGR26001.RTT
+TGR26001.RTS TGR26001.RT1 TGR26001.RT6 TGR26001.RTC
 \end_layout
 
 \begin_layout Standard
 
-TGR26001.RT2 TGR26001.RT7 TGR26001.RTE TGR26001.RTP TGR26001.RTZ
+TGR26001.RTM TGR26001.RTT TGR26001.RT2 TGR26001.RT7
 \end_layout
 
 \begin_layout Standard
 
-TGR26001.RT4 TGR26001.RT8 TGR26001.RTH TGR26001.RTR
+TGR26001.RTE TGR26001.RTP TGR26001.RTZ TGR26001.RT4
+\end_layout
+
+\begin_layout Standard
+
+TGR26001.RT8 TGR26001.RTH TGR26001.RTR
 \end_layout
 
 \begin_layout Standard
