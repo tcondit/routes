@@ -6,7 +6,6 @@
 \begin_preamble
 \usepackage{hyperref}
 \end_preamble
-\options draft
 \language english
 \inputencoding auto
 \font_roman default
@@ -1711,7 +1710,22 @@ target "http://en.wikipedia.org/wiki/INI_file"
 \end_inset
 
 .
- The agents use conf/agents/defaults.ini and conf/agents/overrides.ini.
+ The agents use 
+\begin_inset ERT
+status open
+
+\begin_layout Standard
+
+
+\backslash
+
+\backslash
+
+\end_layout
+
+\end_inset
+
+conf/agents/defaults.ini and conf/agents/overrides.ini.
  Similarly, the graphs use conf/graphs/defaults.ini and conf/graphs/overrides.ini.
  Both defaults.ini define default settings for the simulations.
  Nothing should be changed here.

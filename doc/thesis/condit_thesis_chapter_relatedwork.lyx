@@ -1153,10 +1153,6 @@ name "fig:uncertainty-management"
 
 \end_layout
 
-\begin_layout Standard
-
-\end_layout
-
 \end_inset
 
 
@@ -1177,6 +1173,204 @@ Agent-based approaches to transport logistics
 \end_inset
 
  paper summary goes here
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\paragraph_spacing double
+The last paper in this series is a review of agent-based approaches to transport
+ation and traffic management.
+ The authors have developed a classification system that is used to organize
+ the large number of papers in the review.
+ While the focus is primarily on logistics, I classify my work as it fits
+ into their system.
+\end_layout
+
+\begin_layout Standard
+\paragraph_spacing double
+The article defines the concepts of logistics in some depth.
+ Here they are talking about transport logistics, or the movement of goods
+ from one place to another, often through multiple means, for example rail
+ to ship to rail.
+ The most succint definition of logistics that I found is 
+\begin_inset Quotes eld
+\end_inset
+
+Logistics means having the right thing, at the right place, at the right
+ time.
+\begin_inset Quotes erd
+\end_inset
+
+
+\begin_inset Foot
+status open
+
+\begin_layout Standard
+http://www.logisticsworld.com/logistics.htm
+\end_layout
+
+\end_inset
+
+ My system is neither a traffic management nor a logistics flow model, unless
+ you consider the Fares as product to be moved from place to place.
+ Nevertheless, there are parallels and the classification is enlightening.
+\end_layout
+
+\begin_layout Standard
+\paragraph_spacing double
+The evaluation framework consists of several pieces.
+ The full list is shown in 
+\begin_inset LatexCommand ref
+reference "fig:evaluation-framework-summary"
+
+\end_inset
+
+.
+ Most of them will be clear from the context, but I will expand on some
+ of them.
+ Under 
+\emph on
+Approach
+\emph default
+ 
+\begin_inset ERT
+status open
+
+\begin_layout Standard
+
+
+\backslash
+rightarrow
+\end_layout
+
+\end_inset
+
+ 
+\emph on
+Usage
+\emph default
+ are the categories Automation System and Decision support system (DSS).
+ This is a recurring theme in multi-agent systems, at least where logistics
+ and traffic management systems are concerned.
+ This is the first time I've seen the term automation system used to describe
+ the alternative to DSS.
+ It is defined as 
+\begin_inset Quotes eld
+\end_inset
+
+having a self-acting mechanism that performs a required act at a predetermined
+ time or in response to certain conditions.
+\begin_inset Quotes erd
+\end_inset
+
+ That's a reasonable, if general, description of my system.
+ 
+\emph on
+Approach
+\emph default
+ 
+\begin_inset ERT
+status open
+
+\begin_layout Standard
+
+
+\backslash
+rightarrow
+\end_layout
+
+\end_inset
+
+ 
+\emph on
+MAS structure
+\emph default
+ corresponds to the interactions of the agents, whether it is static, meaning
+ the agents have the same roles throughout the simulation, or dynamic, where
+ roles may change over time.
+ 
+\emph on
+Approach
+\emph default
+ 
+\begin_inset ERT
+status open
+
+\begin_layout Standard
+
+
+\backslash
+rightarrow
+\end_layout
+
+\end_inset
+
+ 
+\emph on
+Agent attitude
+\emph default
+ splits the agent interactions into two categories.
+ All agents are classified as either benevolent (cooperative) or selfish
+ (competitive).
+ They do not make the distinction between cooperative and coordinative agents.
+ In any event, my system includes both cooperative and competitive agents.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Standard
+\begin_inset Graphics
+	filename figures/tranport-logistics-part-1.PNG
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Graphics
+	filename figures/tranport-logistics-part-2.PNG
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Caption
+
+\begin_layout Standard
+Summary of transportation logistics evaluation framework.
+ Original images from 
+\begin_inset LatexCommand cite
+key "davidsson2005aab"
+
+\end_inset
+
+
+\begin_inset LatexCommand label
+name "fig:evaluation-framework-summary"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+
 \end_layout
 
 \end_inset
