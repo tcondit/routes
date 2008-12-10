@@ -496,7 +496,7 @@ Next we look at another multiagent system for optimizing an urban traffic
 \begin_inset Float figure
 wide false
 sideways false
-status open
+status collapsed
 
 \begin_layout Standard
 \begin_inset Graphics
@@ -649,7 +649,7 @@ reference "fig:LTAs-and-CTA"
 \begin_inset Float figure
 wide false
 sideways false
-status open
+status collapsed
 
 \begin_layout Standard
 \begin_inset Graphics
@@ -1043,7 +1043,7 @@ decision making under uncertainty
 \emph default
 , neither agent knows anything about the other agent's beliefs or desires.
  Data collection is entirely speculative.
- See 
+ See figure 
 \begin_inset LatexCommand ref
 reference "fig:uncertainty-management"
 
@@ -1116,7 +1116,7 @@ team
 \begin_inset Float figure
 wide false
 sideways false
-status open
+status collapsed
 
 \begin_layout Standard
 \begin_inset Graphics
@@ -1223,7 +1223,7 @@ http://www.logisticsworld.com/logistics.htm
 \begin_layout Standard
 \paragraph_spacing double
 The evaluation framework consists of several pieces.
- The full list is shown in 
+ The full list is shown in figure 
 \begin_inset LatexCommand ref
 reference "fig:evaluation-framework-summary"
 
@@ -1236,17 +1236,11 @@ reference "fig:evaluation-framework-summary"
 \emph on
 Approach
 \emph default
- 
-\begin_inset Note Note
-status open
 
-\begin_layout Standard
-ARROW
-\end_layout
-
+\begin_inset Formula $\to$
 \end_inset
 
- 
+
 \emph on
 Usage
 \emph default
@@ -1268,19 +1262,9 @@ having a self-acting mechanism that performs a required act at a predetermined
  
 \emph on
 Approach
-\emph default
- 
-\begin_inset Note Note
-status open
-
-\begin_layout Standard
-ARROW
-\end_layout
-
+\begin_inset Formula $\to$
 \end_inset
 
- 
-\emph on
 MAS structure
 \emph default
  corresponds to the interactions of the agents, whether it is static, meaning
@@ -1289,20 +1273,10 @@ MAS structure
  
 \emph on
 Approach
-\emph default
- 
-\begin_inset Note Note
-status open
-
-\begin_layout Standard
-ARROW
-\end_layout
-
+\begin_inset Formula $\to$
 \end_inset
 
-
-\emph on
- Agent attitude
+Agent attitude
 \emph default
  splits the agent interactions into two categories.
  All agents are classified as either benevolent (cooperative) or selfish
@@ -1332,7 +1306,9 @@ The article mentions Multi Agent Based Simulations (MABS), a term that simply
 \end_layout
 
 \begin_layout Standard
-The Taxis and Fares system is 
+\paragraph_spacing double
+The Taxis and Fares system is ...
+ 
 \begin_inset Note Note
 status open
 
@@ -1342,7 +1318,7 @@ PICK UP HERE
 
 \end_inset
 
-
+ in table 
 \begin_inset LatexCommand ref
 reference "tab:classifying-taxis-and-fares-sim"
 
@@ -1404,7 +1380,7 @@ name "fig:evaluation-framework-summary"
 \begin_inset Float table
 wide false
 sideways false
-status collapsed
+status open
 
 \begin_layout Standard
 \begin_inset Tabular
@@ -1835,16 +1811,7 @@ Control type
 \begin_inset Text
 
 \begin_layout Standard
-\begin_inset Note Note
-status open
-
-\begin_layout Standard
 TODO
-\end_layout
-
-\end_inset
-
-
 \end_layout
 
 \end_inset
@@ -1853,16 +1820,7 @@ TODO
 \begin_inset Text
 
 \begin_layout Standard
-\begin_inset Note Note
-status open
-
-\begin_layout Standard
 TODO
-\end_layout
-
-\end_inset
-
-
 \end_layout
 
 \end_inset
@@ -1871,16 +1829,7 @@ TODO
 \begin_inset Text
 
 \begin_layout Standard
-\begin_inset Note Note
-status open
-
-\begin_layout Standard
 TODO
-\end_layout
-
-\end_inset
-
-
 \end_layout
 
 \end_inset
@@ -1889,16 +1838,7 @@ TODO
 \begin_inset Text
 
 \begin_layout Standard
-\begin_inset Note Note
-status open
-
-\begin_layout Standard
 TODO
-\end_layout
-
-\end_inset
-
-
 \end_layout
 
 \end_inset
@@ -1907,16 +1847,7 @@ TODO
 \begin_inset Text
 
 \begin_layout Standard
-\begin_inset Note Note
-status open
-
-\begin_layout Standard
 TODO
-\end_layout
-
-\end_inset
-
-
 \end_layout
 
 \end_inset
@@ -1925,16 +1856,7 @@ TODO
 \begin_inset Text
 
 \begin_layout Standard
-\begin_inset Note Note
-status open
-
-\begin_layout Standard
 TODO
-\end_layout
-
-\end_inset
-
-
 \end_layout
 
 \end_inset
@@ -2111,16 +2033,7 @@ Agent architecture
 \begin_inset Text
 
 \begin_layout Standard
-\begin_inset Note Note
-status open
-
-\begin_layout Standard
 TODO
-\end_layout
-
-\end_inset
-
-
 \end_layout
 
 \end_inset
@@ -2129,16 +2042,7 @@ TODO
 \begin_inset Text
 
 \begin_layout Standard
-\begin_inset Note Note
-status open
-
-\begin_layout Standard
 TODO
-\end_layout
-
-\end_inset
-
-
 \end_layout
 
 \end_inset
@@ -2147,16 +2051,7 @@ TODO
 \begin_inset Text
 
 \begin_layout Standard
-\begin_inset Note Note
-status open
-
-\begin_layout Standard
 TODO
-\end_layout
-
-\end_inset
-
-
 \end_layout
 
 \end_inset
@@ -2165,16 +2060,7 @@ TODO
 \begin_inset Text
 
 \begin_layout Standard
-\begin_inset Note Note
-status open
-
-\begin_layout Standard
 TODO
-\end_layout
-
-\end_inset
-
-
 \end_layout
 
 \end_inset
@@ -2183,16 +2069,7 @@ TODO
 \begin_inset Text
 
 \begin_layout Standard
-\begin_inset Note Note
-status open
-
-\begin_layout Standard
 TODO
-\end_layout
-
-\end_inset
-
-
 \end_layout
 
 \end_inset
@@ -2201,16 +2078,7 @@ TODO
 \begin_inset Text
 
 \begin_layout Standard
-\begin_inset Note Note
-status open
-
-\begin_layout Standard
 TODO
-\end_layout
-
-\end_inset
-
-
 \end_layout
 
 \end_inset
@@ -2313,16 +2181,7 @@ Evaluation comparison
 \begin_inset Text
 
 \begin_layout Standard
-\begin_inset Note Note
-status open
-
-\begin_layout Standard
 TODO
-\end_layout
-
-\end_inset
-
-
 \end_layout
 
 \end_inset
@@ -2331,16 +2190,7 @@ TODO
 \begin_inset Text
 
 \begin_layout Standard
-\begin_inset Note Note
-status open
-
-\begin_layout Standard
 TODO
-\end_layout
-
-\end_inset
-
-
 \end_layout
 
 \end_inset
@@ -2349,16 +2199,7 @@ TODO
 \begin_inset Text
 
 \begin_layout Standard
-\begin_inset Note Note
-status open
-
-\begin_layout Standard
 TODO
-\end_layout
-
-\end_inset
-
-
 \end_layout
 
 \end_inset
@@ -2367,16 +2208,7 @@ TODO
 \begin_inset Text
 
 \begin_layout Standard
-\begin_inset Note Note
-status open
-
-\begin_layout Standard
 TODO
-\end_layout
-
-\end_inset
-
-
 \end_layout
 
 \end_inset
@@ -2385,16 +2217,7 @@ TODO
 \begin_inset Text
 
 \begin_layout Standard
-\begin_inset Note Note
-status open
-
-\begin_layout Standard
 TODO
-\end_layout
-
-\end_inset
-
-
 \end_layout
 
 \end_inset
@@ -2403,16 +2226,7 @@ TODO
 \begin_inset Text
 
 \begin_layout Standard
-\begin_inset Note Note
-status open
-
-\begin_layout Standard
 TODO
-\end_layout
-
-\end_inset
-
-
 \end_layout
 
 \end_inset
@@ -2445,18 +2259,15 @@ name "tab:classifying-taxis-and-fares-sim"
 
 \end_layout
 
-\begin_layout Section
-Distributed constraint optimization protocols
-\end_layout
-
 \begin_layout Standard
 \paragraph_spacing double
 \begin_inset Note Comment
 status open
 
 \begin_layout Standard
-This whole subsection may go away.
- It no longer seems relevant.
+\paragraph_spacing double
+Modi - ADOPT: Asynchronous Distributed Constraint Optimization with Quality
+ Guarantees
 \end_layout
 
 \end_inset
@@ -2466,31 +2277,18 @@ This whole subsection may go away.
 
 \begin_layout Standard
 \paragraph_spacing double
-Lorem ipsum dolor sit amet, consectetuer adipiscing elit.
- Pellentesque dignissim.
- Praesent tortor.
- In fringilla feugiat nisi.
- Fusce a elit.
- Maecenas placerat facilisis magna.
- Mauris dolor nisi, consequat quis, adipiscing et, consequat semper, odio.
- In eget lacus.
- Pellentesque mauris.
- Sed vestibulum quam ac mauris.
- Donec vehicula risus.
- Maecenas vitae arcu quis tellus fringilla porttitor.
- Donec enim nulla, ornare sit amet, lacinia id, bibendum scelerisque, sapien.
-\end_layout
+\begin_inset Note Comment
+status open
 
-\begin_layout Itemize
-\paragraph_spacing double
-Modi - ADOPT: Asynchronous Distributed Constraint Optimization with Quality
- Guarantees
-\end_layout
-
-\begin_layout Itemize
+\begin_layout Standard
 \paragraph_spacing double
 Mailler - Solving Distributed Constraint Optimization Problems Using Cooperative
  Mediation
+\end_layout
+
+\end_inset
+
+
 \end_layout
 
 \end_body
