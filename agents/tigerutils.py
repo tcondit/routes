@@ -17,8 +17,8 @@ simulations.
 
 import ConfigParser
 import networkx
-import networkx.component
-import networkx.path
+#import networkx.component
+#import networkx.path
 import os, os.path
 import pylab
 import random, re
