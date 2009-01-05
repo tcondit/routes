@@ -1,28 +1,34 @@
 ::
-:: Some of the folders in REPO_ROOT are Mercurial repositories, some of them
-:: are not.
+:: This only works if the hg repos already exist at DROP_ROOT
 ::
 
+@echo off
 set REPO_ROOT=C:\Source\hg
 set DROP_ROOT=C:\Documents and Settings\Tim\My Documents\My Dropbox\hg
+set OLDDIR=%CD%
 
+:: push ...
 set REPO=envision
-echo Pushing updates to Mercurial repository at %REPO_ROOT%\%REPO%
+echo pushing repository [%REPO%] at %REPO_ROOT%\%REPO% to Dropbox
 cd "%REPO_ROOT%\%REPO%"
-hg push "%DROP%"
-echo done.
+hg push "%DROP_ROOT%\%REPO%"
+:: ... and update
+echo changing to directory %DROP_ROOT%\%REPO%
+cd "%DROP_ROOT%\%REPO%"
+hg up
 
+echo.
+
+:: push ...
 set REPO=unified
-echo Pushing updates to Mercurial repository at %REPO_ROOT%\%REPO%
+echo pushing repository [%REPO%] at %REPO_ROOT%\%REPO% to Dropbox
 cd "%REPO_ROOT%\%REPO%"
-hg push "%DROP%"
-echo done.
+hg push "%DROP_ROOT%\%REPO%"
+:: ... and update
+echo changing to directory %DROP_ROOT%\%REPO%
+cd "%DROP_ROOT%\%REPO%"
+hg up
 
-::
-:: This is rude and crude.
-::
-::set CP=cp -priv
-::set CP=cp -priv --reply=yes
-::%CP% "%REPO_ROOT%\django" "%DROP_ROOT%"
-::%CP% "%REPO_ROOT%\tags" "%DROP_ROOT%"
-::%CP% "%REPO_ROOT%\zipfiles" "%DROP_ROOT%"
+:: back where we started
+cd %OLDDIR%
+
