@@ -246,11 +246,7 @@ defcitealias{wu2003umf}{Wu}
 \end_inset
 
 
-\end_layout
-
-\begin_layout Standard
-
-\newpage
+\clearpage
 
 \end_layout
 
@@ -1600,6 +1596,12 @@ conf/agents/defaults.ini and conf/agents/overrides.ini.
 
 \begin_layout Section
 The agents default.ini
+\begin_inset LatexCommand label
+name "sec:The-agents-default.ini"
+
+\end_inset
+
+
 \end_layout
 
 \begin_layout Standard
@@ -1977,6 +1979,12 @@ Default: False.
 
 \begin_layout Section
 The graphs default.ini
+\begin_inset LatexCommand label
+name "sec:The-graphs-default.ini"
+
+\end_inset
+
+
 \end_layout
 
 \begin_layout Standard

@@ -88,6 +88,31 @@ reference "sec:The-agents-default.ini"
  It collects timestamped event data starting with the initial request for
  pickup; then again when it is picked up; and finally when it is dropped
  off.
+\begin_inset Foot
+status open
+
+\begin_layout Standard
+One of the difficulties that came up during data collection for analysis
+ was accounting for Fares that are left in the wait queue at the end of
+ the simulation.
+ This is covered in the results section.
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+The Taxi class is more complex than the Fares, as it holds most of the logic
+ for using the different negotiation protocols and simulation types.
+ Leaving the NPs and simtypes aside for now, the lifecycle of the Taxis
+ is similar to that of the Fares.
+ 
+\end_layout
+
+\begin_layout Standard
+I'll describe the NPs and simtypes later.
 \end_layout
 
 \begin_layout Standard
@@ -106,22 +131,6 @@ One of the interesting things about working with autonomous agents is seeing
  Taxi's acknowledgment would be considered an error, based on his limited
  knowledge of the other Agents.
  
-\end_layout
-
-\begin_layout Standard
-\begin_inset Foot
-status open
-
-\begin_layout Standard
-One of the difficulties that came up during data collection for analysis
- was accounting for Fares that are left in the wait queue at the end of
- the simulation.
- This is covered in the results section.
-\end_layout
-
-\end_inset
-
-
 \end_layout
 
 \begin_layout Standard

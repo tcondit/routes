@@ -809,7 +809,7 @@ By way of comparison with my work, this system is traffic network-oriented
 
 \begin_layout Section
 \paragraph_spacing double
-Cooperative and competitive multi-agent systems
+Cooperative and competitive multiagent systems
 \end_layout
 
 \begin_layout Standard
@@ -1245,7 +1245,7 @@ Approach
 Usage
 \emph default
  are the categories Automation System and Decision support system (DSS).
- This is a recurring theme in multi-agent systems, at least where logistics
+ This is a recurring theme in multiagent systems, at least where logistics
  and traffic management systems are concerned.
  This is the first time I've seen the term automation system used to describe
  the alternative to DSS.
