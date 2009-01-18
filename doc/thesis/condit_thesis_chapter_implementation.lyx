@@ -15,7 +15,7 @@
 \font_tt_scale 100
 \graphics default
 \paperfontsize default
-\spacing single
+\spacing double
 \papersize default
 \use_geometry false
 \use_amsmath 0
@@ -44,8 +44,11 @@
 Implementation
 \end_layout
 
+\begin_layout Section
+bla bla bla
+\end_layout
+
 \begin_layout Standard
-\paragraph_spacing double
 Lorem ipsum dolor sit amet, consectetuer adipiscing elit.
  Pellentesque dignissim.
  Praesent tortor.

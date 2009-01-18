@@ -15,7 +15,7 @@
 \font_tt_scale 100
 \graphics default
 \paperfontsize default
-\spacing single
+\spacing double
 \papersize default
 \use_geometry false
 \use_amsmath 0
@@ -71,6 +71,11 @@ citetalias{davidsson2005aab}
 \end_inset
 
 
+\end_layout
+
+\begin_layout Standard
+Routes is a simulation of a taxi service.
+ 
 \end_layout
 
 \begin_layout Standard
@@ -253,6 +258,29 @@ set the stage
 
 \begin_layout Itemize
 \paragraph_spacing double
+\begin_inset Note Comment
+status open
+
+\begin_layout Standard
+cite: http://en.wikipedia.org/wiki/Multi-agent_system, accessed 1/11/2009
+\end_layout
+
+\begin_layout Itemize
+Autonomy: the agents are at least partially autonomous
+\end_layout
+
+\begin_layout Itemize
+Local views: no agent has a full global view of the system, or the system
+ is too complex for an agent to make practical use of such knowledge
+\end_layout
+
+\begin_layout Itemize
+Decentralization: there is no one controlling agent (or the system is effectivel
+y reduced to a monolithic system)
+\end_layout
+
+\end_inset
+
 
 \end_layout
 

@@ -33,7 +33,7 @@
 \quotes_language english
 \papercolumns 1
 \papersides 2
-\paperpagestyle default
+\paperpagestyle headings
 \tracking_changes false
 \output_changes false
 \author "" 
@@ -43,7 +43,7 @@
 \begin_body
 
 \begin_layout Title
-Coordination of autonomous agents applied to a transport logistics simulation
+Routes: A multiagent Taxi simulation
 \end_layout
 
 \begin_layout Author
@@ -67,6 +67,22 @@ today
 \end_layout
 
 \begin_layout Standard
+\begin_inset ERT
+status open
+
+\begin_layout Standard
+
+
+\backslash
+pagenumbering{roman}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
 \begin_inset Note Comment
 status open
 
@@ -80,8 +96,20 @@ TODO: fix the page numbering
 \end_layout
 
 \begin_layout Standard
+\begin_inset LatexCommand tableofcontents
 
-\clearpage
+\end_inset
+
+
+\begin_inset FloatList figure
+
+\end_inset
+
+
+\begin_inset FloatList table
+
+\end_inset
+
 
 \end_layout
 
@@ -220,6 +248,28 @@ defcitealias{wu2003umf}{Wu}
 
 \end_layout
 
+\begin_layout Standard
+
+\newpage
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset ERT
+status open
+
+\begin_layout Standard
+
+
+\backslash
+pagenumbering{arabic}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
 \begin_layout Abstract
 Lorem ipsum dolor sit amet, consectetuer adipiscing elit.
  Pellentesque dignissim.
@@ -349,190 +399,6 @@ status open
 Note that when running graph simulations, the RT files are cached for future
  use, if so desired.
 \end_layout
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Standard
-\paragraph_spacing double
-
-\clearpage
-
-\end_layout
-
-\begin_layout Subsubsection*
-\paragraph_spacing double
-Acknowledgments
-\end_layout
-
-\begin_layout Standard
-\paragraph_spacing double
-Lorem ipsum dolor sit amet, consectetuer adipiscing elit.
- Pellentesque dignissim.
- Praesent tortor.
- In fringilla feugiat nisi.
- Fusce a elit.
- Maecenas placerat facilisis magna.
- Mauris dolor nisi, consequat quis, adipiscing et, consequat semper, odio.
- In eget lacus.
- Pellentesque mauris.
- Sed vestibulum quam ac mauris.
- Donec vehicula risus.
- Maecenas vitae arcu quis tellus fringilla porttitor.
- Donec enim nulla, ornare sit amet, lacinia id, bibendum scelerisque, sapien.
-\end_layout
-
-\begin_layout Standard
-\paragraph_spacing double
-Duis ut sapien.
- Proin sit amet magna et est pharetra vestibulum.
- Pellentesque sed diam et erat sollicitudin pharetra.
- Suspendisse potenti.
- Sed fringilla sagittis urna.
- Morbi ullamcorper aliquet leo.
- Donec elit nunc, rutrum at, ultrices at, pretium a, est.
- Etiam non dolor non enim malesuada condimentum.
- Curabitur vitae sapien.
- Nulla neque.
-\end_layout
-
-\begin_layout Standard
-\paragraph_spacing double
-Donec odio nibh, varius in, dictum nec, egestas in, nisl.
- Mauris varius mi non nunc.
- Praesent porta enim in nibh.
- Donec ac mi varius ante malesuada dignissim.
- Nunc aliquet tortor ac lectus.
- Sed pede.
- Donec lobortis, tellus vel vehicula tristique, lectus diam cursus sapien,
- id ultricies odio metus sed ipsum.
- Fusce sapien mauris, vehicula non, placerat at, rhoncus sed, sem.
- Duis ullamcorper molestie mauris.
- Sed eu ipsum nec eros luctus elementum.
- Suspendisse ultrices sollicitudin nunc.
-\end_layout
-
-\begin_layout Itemize
-\paragraph_spacing double
-Susan Haynes
-\end_layout
-
-\begin_deeper
-\begin_layout Itemize
-\paragraph_spacing double
-always encouraging, and helpful with ideas
-\end_layout
-
-\begin_layout Itemize
-\paragraph_spacing double
-did not hesitate to advise me even though this entire project was completed
- entirely from out of state
-\end_layout
-
-\begin_layout Itemize
-\paragraph_spacing double
-on top of that, it was a long process with lots of fits and starts
-\end_layout
-
-\end_deeper
-\begin_layout Itemize
-\paragraph_spacing double
-Julie
-\end_layout
-
-\begin_deeper
-\begin_layout Itemize
-\paragraph_spacing double
-she's waited a long time for this
-\end_layout
-
-\begin_layout Itemize
-\paragraph_spacing double
-I'm a lucky guy
-\end_layout
-
-\end_deeper
-\begin_layout Itemize
-\paragraph_spacing double
-Kate and Sarah
-\end_layout
-
-\begin_deeper
-\begin_layout Itemize
-\paragraph_spacing double
-my little turtles [but they're not so little anymore!]
-\end_layout
-
-\begin_layout Itemize
-\paragraph_spacing double
-it's been a fun trip so far.
- I'm looking forward to many more.
-\end_layout
-
-\end_deeper
-\begin_layout Itemize
-\paragraph_spacing double
-Klaus G.
- M
-\begin_inset ERT
-status open
-
-\begin_layout Standard
-
-
-\backslash
-"{u}
-\end_layout
-
-\end_inset
-
-ller
-\end_layout
-
-\begin_deeper
-\begin_layout Itemize
-\paragraph_spacing double
-lead developer of SimPy
-\end_layout
-
-\begin_layout Itemize
-\paragraph_spacing double
-very helpful and all around nice guy
-\begin_inset Note Comment
-status open
-
-\begin_layout Standard
-that's corny
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\end_deeper
-\begin_layout Standard
-
-\newpage
-
-\end_layout
-
-\begin_layout Part*
-\begin_inset LatexCommand tableofcontents
-
-\end_inset
-
-
-\clearpage
-
-\begin_inset FloatList figure
-
-\end_inset
-
-
-\begin_inset FloatList table
 
 \end_inset
 
