@@ -45,53 +45,106 @@ Implementation
 \end_layout
 
 \begin_layout Section
-bla bla bla
+The Agents
 \end_layout
 
 \begin_layout Standard
-Lorem ipsum dolor sit amet, consectetuer adipiscing elit.
- Pellentesque dignissim.
- Praesent tortor.
- In fringilla feugiat nisi.
- Fusce a elit.
- Maecenas placerat facilisis magna.
- Mauris dolor nisi, consequat quis, adipiscing et, consequat semper, odio.
- In eget lacus.
- Pellentesque mauris.
- Sed vestibulum quam ac mauris.
- Donec vehicula risus.
- Maecenas vitae arcu quis tellus fringilla porttitor.
- Donec enim nulla, ornare sit amet, lacinia id, bibendum scelerisque, sapien.
+Taxis and Fares are subclasses of a common Agent class.
+ The Agent class sets a mapping type to either grid or graph and sets the
+ subclassed Agent's initial location on the grid or graph, respectively.
+ The Agent also defines a queue to hold waiting Fares.
+ It is a static class attribute that holds only Fares, but it is used by
+ both Agent types.
+ The Taxi queries this list when it decides what to do next.
+ Exactly what the Taxi is looking for is dependent on which negotiation
+ protocol (FIFO, closestFare or mixedMode) and which simulation type (competitiv
+e or cooperative) is running.
 \end_layout
 
 \begin_layout Standard
-\paragraph_spacing double
-Duis ut sapien.
- Proin sit amet magna et est pharetra vestibulum.
- Pellentesque sed diam et erat sollicitudin pharetra.
- Suspendisse potenti.
- Sed fringilla sagittis urna.
- Morbi ullamcorper aliquet leo.
- Donec elit nunc, rutrum at, ultrices at, pretium a, est.
- Etiam non dolor non enim malesuada condimentum.
- Curabitur vitae sapien.
- Nulla neque.
+But the Agent also subclasses SimPy's Process class, which provides a means
+ for SimPy to manipulate the Agents during discrete-event simulation.
+ Process objects must provide a method called the Process Execution Method
+ (PEM) that is invoked by the simulation toolkit to activate the object.
+ When the PEM exits, the Process object is destroyed.
+ The PEM is where the simulated object's behaviors are defined.
+ 
 \end_layout
 
 \begin_layout Standard
-\paragraph_spacing double
-Donec odio nibh, varius in, dictum nec, egestas in, nisl.
- Mauris varius mi non nunc.
- Praesent porta enim in nibh.
- Donec ac mi varius ante malesuada dignissim.
- Nunc aliquet tortor ac lectus.
- Sed pede.
- Donec lobortis, tellus vel vehicula tristique, lectus diam cursus sapien,
- id ultricies odio metus sed ipsum.
- Fusce sapien mauris, vehicula non, placerat at, rhoncus sed, sem.
- Duis ullamcorper molestie mauris.
- Sed eu ipsum nec eros luctus elementum.
- Suspendisse ultrices sollicitudin nunc.
+The lifecycle of a Fare is simple.
+ It begins when the Fare is created, and ends when it is dropped off at
+ its destination by a Taxi, or the simulation ends, whichever comes first.
+ Fares are created throughout the simulation.
+ Their generation rate is configurable; it is the inverse of an exponential
+ distribution (see meanFareGenerationRate in 
+\begin_inset LatexCommand ref
+reference "sec:The-agents-default.ini"
+
+\end_inset
+
+).
+ The Fare uses the same PEM for all simulations.
+ It collects timestamped event data starting with the initial request for
+ pickup; then again when it is picked up; and finally when it is dropped
+ off.
+\end_layout
+
+\begin_layout Standard
+One of the interesting things about working with autonomous agents is seeing
+ what happens when an Agent has incomplete system knowledge.
+ An earlier version of the program had an additional signal event when the
+ Fare received an acknowledgment of pending pickup from the Taxi.
+ This only made sense with cooperative simulations due to the way the Taxis
+ process pickup requests, so I left it out.
+ While a Taxi is en-route with a Fare, it may receive requests for pickup,
+ but may not act on them.
+ So while a Taxi may be the first one available for hire, he may not necessarily
+ be the first one to reach the Fare, since another Taxi may be closer to
+ the Fare, but currently ineligible to respond.
+ If the second Taxi drops off his Fare and reaches the Fare first, the first
+ Taxi's acknowledgment would be considered an error, based on his limited
+ knowledge of the other Agents.
+ 
+\end_layout
+
+\begin_layout Standard
+\begin_inset Foot
+status open
+
+\begin_layout Standard
+One of the difficulties that came up during data collection for analysis
+ was accounting for Fares that are left in the wait queue at the end of
+ the simulation.
+ This is covered in the results section.
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+The Taxis, on the other hand, are created at the start of the simulation,
+ and are active until the simulation ends.
+\end_layout
+
+\begin_layout Standard
+The Fare's PEM is run().
+ 
+\end_layout
+
+\begin_layout Standard
+The Fare is 
+\end_layout
+
+\begin_layout Standard
+In order to for the Taxis and Fares to participate in discrete-event simulation,
+ they must subclass SimPy's Process class.
+ But Taxis and Fares have some common functionality, so they both subclass
+ a small Agent class, which contains no methods and does little more than
+ set some environmental options.
+ This Agent class is a subclass of SimPy's Process.
 \end_layout
 
 \begin_layout Standard
