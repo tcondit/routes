@@ -53,16 +53,16 @@ Taxis and Fares are subclasses of a common Agent class.
  The Agent class sets a mapping type to either grid or graph and sets the
  subclassed Agent's initial location on the grid or graph, respectively.
  The Agent also defines a queue to hold waiting Fares.
- It is a static class attribute that holds only Fares, but it is used by
- both Agent types.
+ It is a class attribute that holds only Fares, but it is used by both Agent
+ types.
  The Taxi queries this list when it decides what to do next.
  Exactly what the Taxi is looking for is dependent on which negotiation
  protocol (FIFO, closestFare or mixedMode) and which simulation type (competitiv
-e or cooperative) is running.
+e or cooperative) are running.
 \end_layout
 
 \begin_layout Standard
-But the Agent also subclasses SimPy's Process class, which provides a means
+The Agent also subclasses SimPy's Process class, which provides a means
  for SimPy to manipulate the Agents during discrete-event simulation.
  Process objects must provide a method called the Process Execution Method
  (PEM) that is invoked by the simulation toolkit to activate the object.
@@ -104,15 +104,46 @@ One of the difficulties that came up during data collection for analysis
 \end_layout
 
 \begin_layout Standard
-The Taxi class is more complex than the Fares, as it holds most of the logic
- for using the different negotiation protocols and simulation types.
+The Taxi class is more complex than the Fares, as it defines multiple SimPy
+ PEMs corresponding to the different negotiation protocols and simulation
+ types.
  Leaving the NPs and simtypes aside for now, the lifecycle of the Taxis
- is similar to that of the Fares.
- 
+ is complementary to that of the Fares.
+ Taxis are created at the beginning of the simulation, and persist until
+ the simulation ends.
+ They normally pick up several Fares, but only one at a time.
+ They do the kind of things you'd expect: wait for a request for pickup;
+ either negotiate or compete to pick up the Fare; pick up the Fare; drive
+ to the requested destination; update the location of both Agents; notify
+ the Fare when the destination is reached; and then start the whole cycle
+ over again.
 \end_layout
 
 \begin_layout Standard
-I'll describe the NPs and simtypes later.
+\begin_inset Note Comment
+status open
+
+\begin_layout Standard
+TODO Add something about possible enhancements (maybe in the results section?)
+ about picking up multiple Fares at more than one stop during a Taxi run.
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Note Note
+status open
+
+\begin_layout Standard
+PICK UP HERE
+\end_layout
+
+\end_inset
+
+
 \end_layout
 
 \begin_layout Standard
@@ -130,8 +161,11 @@ One of the interesting things about working with autonomous agents is seeing
  If the second Taxi drops off his Fare and reaches the Fare first, the first
  Taxi's acknowledgment would be considered an error, based on his limited
  knowledge of the other Agents.
- 
 \end_layout
+
+\begin_layout Standard
+\begin_inset Note Comment
+status open
 
 \begin_layout Standard
 The Taxis, on the other hand, are created at the start of the simulation,
@@ -154,6 +188,11 @@ In order to for the Taxis and Fares to participate in discrete-event simulation,
  a small Agent class, which contains no methods and does little more than
  set some environmental options.
  This Agent class is a subclass of SimPy's Process.
+\end_layout
+
+\end_inset
+
+
 \end_layout
 
 \begin_layout Standard
