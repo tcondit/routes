@@ -134,16 +134,63 @@ TODO Add something about possible enhancements (maybe in the results section?)
 \end_layout
 
 \begin_layout Standard
-\begin_inset Note Note
+The details of the cooperating Taxis is mostly independent of which negotiation
+ protocol is used.
+ What matters is that at some point the Taxi identifies a Fare for pickup.
+ The Taxi takes a reference to the Fare, and removes it from the waitingFares
+ queue.
+ Note, this is before the Taxi has 
+\begin_inset Quotes eld
+\end_inset
+
+driven
+\begin_inset Quotes erd
+\end_inset
+
+ to the Fare.
+ This scheme does not work with the competing Taxis, which handle Fare pickups
+ differently.
+\end_layout
+
+\begin_layout Standard
+Competing Taxis have a different set of issues.
+ Again leaving aside details about the NPs, eventually a competing Taxi
+ will identify a Fare for which he would like to compete.
+ Naturally there are other Taxis that are also competing for the same Fare.
+ Taxis identify themselves as competing for a specific target Fare by entering
+ a compete queue that is maintained by the system on behalf of a Fare.
+ Taxis are eligible to enter one compete queue at a time 
+\begin_inset Foot
 status open
 
 \begin_layout Standard
-PICK UP HERE
+In other words, a Taxi may not compete for more than one Fare at a time.
 \end_layout
 
 \end_inset
 
+, and may enter a compete queue at any time until the Fare is 
+\begin_inset Quotes eld
+\end_inset
 
+won
+\begin_inset Quotes erd
+\end_inset
+
+ or claimed by a Taxi.
+ The negotiation protocols largely dictate the partitioning of competing
+ Taxis to eligible Fares.
+ Taxis have only partial knowledge of their world.
+ This is most noticeable during competition.
+ Taxis are essentially blind to the number and location of their competitors.
+\end_layout
+
+\begin_layout Standard
+to self-identify as 
+\end_layout
+
+\begin_layout Standard
+queue up separately, in order to
 \end_layout
 
 \begin_layout Standard
@@ -161,38 +208,6 @@ One of the interesting things about working with autonomous agents is seeing
  If the second Taxi drops off his Fare and reaches the Fare first, the first
  Taxi's acknowledgment would be considered an error, based on his limited
  knowledge of the other Agents.
-\end_layout
-
-\begin_layout Standard
-\begin_inset Note Comment
-status open
-
-\begin_layout Standard
-The Taxis, on the other hand, are created at the start of the simulation,
- and are active until the simulation ends.
-\end_layout
-
-\begin_layout Standard
-The Fare's PEM is run().
- 
-\end_layout
-
-\begin_layout Standard
-The Fare is 
-\end_layout
-
-\begin_layout Standard
-In order to for the Taxis and Fares to participate in discrete-event simulation,
- they must subclass SimPy's Process class.
- But Taxis and Fares have some common functionality, so they both subclass
- a small Agent class, which contains no methods and does little more than
- set some environmental options.
- This Agent class is a subclass of SimPy's Process.
-\end_layout
-
-\end_inset
-
-
 \end_layout
 
 \begin_layout Standard
