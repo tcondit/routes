@@ -23,13 +23,13 @@
 \cite_engine basic
 \use_bibtopic false
 \paperorientation portrait
-\secnumdepth 3
-\tocdepth 3
+\secnumdepth 2
+\tocdepth 2
 \paragraph_separation indent
 \defskip medskip
 \quotes_language english
 \papercolumns 1
-\papersides 2
+\papersides 1
 \paperpagestyle default
 \tracking_changes false
 \output_changes false
@@ -154,12 +154,11 @@ driven
 
 \begin_layout Standard
 Competing Taxis have a different set of issues.
- Again leaving aside details about the NPs, eventually a competing Taxi
- will identify a Fare for which he would like to compete.
- Naturally there are other Taxis that are also competing for the same Fare.
+ Again leaving aside details about the NPs, eventually a Taxi will identify
+ a Fare for which he would like to compete.
  Taxis identify themselves as competing for a specific target Fare by entering
  a compete queue that is maintained by the system on behalf of a Fare.
- Taxis are eligible to enter one compete queue at a time 
+ Taxis are eligible to enter one compete queue at a time, 
 \begin_inset Foot
 status open
 
@@ -169,7 +168,8 @@ In other words, a Taxi may not compete for more than one Fare at a time.
 
 \end_inset
 
-, and may enter a compete queue at any time until the Fare is 
+ and may enter a compete queue at any time after the Fare's initial request
+ for pickup, until the Fare is 
 \begin_inset Quotes eld
 \end_inset
 
@@ -178,24 +178,28 @@ won
 \end_inset
 
  or claimed by a Taxi.
- The negotiation protocols largely dictate the partitioning of competing
- Taxis to eligible Fares.
- Taxis have only partial knowledge of their world.
+ The winning Taxi announces his arrival to the other competitors, who then
+ look for another Fare for which to compete.
+ Meanwhile, the winning Taxi drives to the Fare's destination.
+\end_layout
+
+\begin_layout Standard
+Taxis have only partial knowledge of their world.
  This is most noticeable during competition.
- Taxis are essentially blind to the number and location of their competitors.
+ The negotiation protocols largely dictate which Taxis receive pickup requests
+ from the Fares.
+ In addition, Taxis are essentially blind to the number and location of
+ their competitors, and stay that way the whole time.
+ A winning Taxi sends a broadcast to announce he's won, but he does not
+ know who receives it.
+ Likewise, the receiving Taxis don't know who else has received it, or even
+ who sent it.
+ All they know is that they did or did not win the Fare.
 \end_layout
 
 \begin_layout Standard
-to self-identify as 
-\end_layout
-
-\begin_layout Standard
-queue up separately, in order to
-\end_layout
-
-\begin_layout Standard
-One of the interesting things about working with autonomous agents is seeing
- what happens when an Agent has incomplete system knowledge.
+Other interesting things occur as a result of the autonomous agent's incomplete
+ system knowledge.
  An earlier version of the program had an additional signal event when the
  Fare received an acknowledgment of pending pickup from the Taxi.
  This only made sense with cooperative simulations due to the way the Taxis
@@ -210,9 +214,28 @@ One of the interesting things about working with autonomous agents is seeing
  knowledge of the other Agents.
 \end_layout
 
+\begin_layout Section
+Negotiation Protocols
+\end_layout
+
 \begin_layout Standard
-\paragraph_spacing double
-TEST implementation.
+[LIMERICK 1] There once was a man from Ghent
+\end_layout
+
+\begin_layout Section
+Cooperative and Competitive Simulations
+\end_layout
+
+\begin_layout Standard
+[LIMERICK 2] Who had a penis so long it bent
+\end_layout
+
+\begin_layout Section
+Grids and Graphs
+\end_layout
+
+\begin_layout Standard
+[LIMERICK 3] It was so much trouble
 \end_layout
 
 \begin_layout Enumerate
@@ -307,9 +330,20 @@ generating plots
 \end_layout
 
 \end_deeper
-\begin_layout Enumerate
-\paragraph_spacing double
+\begin_layout Section
+Config parser
+\end_layout
 
+\begin_layout Standard
+[LIMERICK 4] That he kept it double
+\end_layout
+
+\begin_layout Section
+Some other section
+\end_layout
+
+\begin_layout Standard
+[LIMERICK 5] And instead of coming he went.
 \end_layout
 
 \end_body
