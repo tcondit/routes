@@ -52,6 +52,7 @@ The Agents
 \end_layout
 
 \begin_layout Standard
+\paragraph_spacing double
 Taxis and Fares are subclasses of a common Agent class.
  The Agent class sets a mapping type to either grid or graph and sets the
  Agent's initial location on the grid or graph, respectively.
@@ -65,6 +66,7 @@ e or cooperative) are running.
 \end_layout
 
 \begin_layout Standard
+\paragraph_spacing double
 The Agent also subclasses SimPy's Process class, which provides a means
  for SimPy to manipulate the Agents during discrete-event simulation.
  Process objects must provide a method called the Process Execution Method
@@ -75,6 +77,7 @@ The Agent also subclasses SimPy's Process class, which provides a means
 \end_layout
 
 \begin_layout Standard
+\paragraph_spacing double
 The lifecycle of a Fare is simple.
  It begins when the Fare is created, and ends when it is dropped off at
  its destination by a Taxi, or the simulation ends, whichever comes first.
@@ -95,6 +98,7 @@ reference "sec:The-agents-default.ini"
 \end_layout
 
 \begin_layout Standard
+\paragraph_spacing double
 The waitingFares queue holds references to Fare objects.
  But when referring to the contents of the queue, I use Fare and request
  interchangeably.
@@ -103,6 +107,7 @@ The waitingFares queue holds references to Fare objects.
 status open
 
 \begin_layout Plain Layout
+\paragraph_spacing double
 One of the difficulties that came up during data collection for analysis
  was accounting for Fares that are left in the wait queue at the end of
  the simulation.
@@ -115,6 +120,7 @@ One of the difficulties that came up during data collection for analysis
 \end_layout
 
 \begin_layout Standard
+\paragraph_spacing double
 The Taxi class is more complex than the Fares, as it defines multiple SimPy
  PEMs corresponding to the different negotiation protocols and simulation
  types.
@@ -145,6 +151,7 @@ TODO Add something about possible enhancements (maybe in the results section?)
 \end_layout
 
 \begin_layout Standard
+\paragraph_spacing double
 The details of the cooperating Taxis is mostly independent of which negotiation
  protocol is used.
  What matters is that at some point the Taxi identifies a Fare for pickup.
@@ -164,6 +171,7 @@ driven
 \end_layout
 
 \begin_layout Standard
+\paragraph_spacing double
 Competing Taxis have a different set of issues.
  Again leaving aside details about the NPs, eventually a Taxi will identify
  a Fare for which he would like to compete.
@@ -195,6 +203,7 @@ won
 \end_layout
 
 \begin_layout Standard
+\paragraph_spacing double
 Taxis have only partial knowledge of their world.
  This is most noticeable during competition.
  The negotiation protocols largely dictate which Taxis receive pickup requests
@@ -209,6 +218,7 @@ Taxis have only partial knowledge of their world.
 \end_layout
 
 \begin_layout Standard
+\paragraph_spacing double
 Other interesting things occur as a result of the autonomous agent's incomplete
  system knowledge.
  An earlier version of the program had an additional signal event when the
@@ -230,6 +240,7 @@ Negotiation Protocols
 \end_layout
 
 \begin_layout Standard
+\paragraph_spacing double
 There are three negotiation protocols (my phrase).
  They are similar in concept, but with different implementations, for the
  cooperative and competitive simulations.
@@ -258,6 +269,7 @@ This sounds like intro material.
 \end_layout
 
 \begin_layout Standard
+\paragraph_spacing double
 The simplest NP is FIFO, or first-in, first-out, for cooperative simulations.
  As Fares enter the simulation and broadcast pickup requests, they are pushed
  onto the queue.
@@ -279,6 +291,7 @@ At the start of the simulation there are generally more Taxis than Fares,
 \end_layout
 
 \begin_layout Standard
+\paragraph_spacing double
 FIFO turns out to be a good baseline for comparison with other simulations.
  It is simple but inefficient.
  The distances that the Taxis drive to make pickups is not taken into considerat
@@ -296,10 +309,12 @@ This sounds like conclusion material.
 \end_layout
 
 \begin_layout Standard
+\paragraph_spacing double
 On the other hand, it is easy to trace
 \end_layout
 
 \begin_layout Standard
+\paragraph_spacing double
 they regardless of thierare freed up to make another They are removed from
  the queue in the order in which they are entered.
  A Fare is taken to it's destination after being 
@@ -315,6 +330,7 @@ picked up
 \end_layout
 
 \begin_layout Standard
+\paragraph_spacing double
 [LIMERICK 1] There once was a man from Ghent
 \end_layout
 
@@ -323,6 +339,7 @@ Cooperative and Competitive Simulations
 \end_layout
 
 \begin_layout Standard
+\paragraph_spacing double
 [LIMERICK 2] Who had a penis so long it bent
 \end_layout
 
@@ -331,6 +348,7 @@ Grids and Graphs
 \end_layout
 
 \begin_layout Standard
+\paragraph_spacing double
 [LIMERICK 3] It was so much trouble
 \end_layout
 
@@ -431,6 +449,7 @@ Config parser
 \end_layout
 
 \begin_layout Standard
+\paragraph_spacing double
 [LIMERICK 4] That he kept it double
 \end_layout
 
@@ -439,6 +458,7 @@ Some other section
 \end_layout
 
 \begin_layout Standard
+\paragraph_spacing double
 [LIMERICK 5] And instead of coming he went.
 \end_layout
 
