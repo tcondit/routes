@@ -1,8 +1,9 @@
-#LyX 1.5.6 created this file. For more info see http://www.lyx.org/
-\lyxformat 276
+#LyX 1.6.1 created this file. For more info see http://www.lyx.org/
+\lyxformat 345
 \begin_document
 \begin_header
 \textclass report
+\use_default_options false
 \language english
 \inputencoding latin9
 \font_roman default
@@ -13,9 +14,11 @@
 \font_osf false
 \font_sf_scale 100
 \font_tt_scale 100
+
 \graphics default
 \paperfontsize default
 \spacing double
+\use_hyperref false
 \papersize default
 \use_geometry false
 \use_amsmath 0
@@ -51,7 +54,7 @@ The Agents
 \begin_layout Standard
 Taxis and Fares are subclasses of a common Agent class.
  The Agent class sets a mapping type to either grid or graph and sets the
- subclassed Agent's initial location on the grid or graph, respectively.
+ Agent's initial location on the grid or graph, respectively.
  The Agent also defines a queue to hold waiting Fares.
  It is a class attribute that holds only Fares, but it is used by both Agent
  types.
@@ -78,7 +81,8 @@ The lifecycle of a Fare is simple.
  Fares are created throughout the simulation.
  Their generation rate is configurable; it is the inverse of an exponential
  distribution (see meanFareGenerationRate in 
-\begin_inset LatexCommand ref
+\begin_inset CommandInset ref
+LatexCommand ref
 reference "sec:The-agents-default.ini"
 
 \end_inset
@@ -88,10 +92,17 @@ reference "sec:The-agents-default.ini"
  It collects timestamped event data starting with the initial request for
  pickup; then again when it is picked up; and finally when it is dropped
  off.
+\end_layout
+
+\begin_layout Standard
+The waitingFares queue holds references to Fare objects.
+ But when referring to the contents of the queue, I use Fare and request
+ interchangeably.
+ They are equivalent for documentation purposes.
 \begin_inset Foot
 status open
 
-\begin_layout Standard
+\begin_layout Plain Layout
 One of the difficulties that came up during data collection for analysis
  was accounting for Fares that are left in the wait queue at the end of
  the simulation.
@@ -123,7 +134,7 @@ The Taxi class is more complex than the Fares, as it defines multiple SimPy
 \begin_inset Note Comment
 status open
 
-\begin_layout Standard
+\begin_layout Plain Layout
 TODO Add something about possible enhancements (maybe in the results section?)
  about picking up multiple Fares at more than one stop during a Taxi run.
 \end_layout
@@ -162,7 +173,7 @@ Competing Taxis have a different set of issues.
 \begin_inset Foot
 status open
 
-\begin_layout Standard
+\begin_layout Plain Layout
 In other words, a Taxi may not compete for more than one Fare at a time.
 \end_layout
 
@@ -216,6 +227,91 @@ Other interesting things occur as a result of the autonomous agent's incomplete
 
 \begin_layout Section
 Negotiation Protocols
+\end_layout
+
+\begin_layout Standard
+There are three negotiation protocols (my phrase).
+ They are similar in concept, but with different implementations, for the
+ cooperative and competitive simulations.
+ A simulation must use exactly one of them.
+ It is specified in the agent configuration file 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "sec:The-agents-default.ini"
+
+\end_inset
+
+.
+ The NPs control how the Fares broadcast their pickup requests, and how
+ the Taxis decide who will make the pickup.
+ 
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+This sounds like intro material.
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+The simplest NP is FIFO, or first-in, first-out, for cooperative simulations.
+ As Fares enter the simulation and broadcast pickup requests, they are pushed
+ onto the queue.
+ Taxis take Fares in the order in which they become available to accept
+ requests, typically after dropping off their current Fare.
+ 
+\begin_inset Foot
+status open
+
+\begin_layout Plain Layout
+At the start of the simulation there are generally more Taxis than Fares,
+ so some Taxis wind up waiting around for something to do while the system
+ generates work for all.
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+FIFO turns out to be a good baseline for comparison with other simulations.
+ It is simple but inefficient.
+ The distances that the Taxis drive to make pickups is not taken into considerat
+ion at all.
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+This sounds like conclusion material.
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+On the other hand, it is easy to trace
+\end_layout
+
+\begin_layout Standard
+they regardless of thierare freed up to make another They are removed from
+ the queue in the order in which they are entered.
+ A Fare is taken to it's destination after being 
+\begin_inset Quotes eld
+\end_inset
+
+picked up
+\begin_inset Quotes erd
+\end_inset
+
+, as signalled by being removed from the queue.
+ FIFO does not 
 \end_layout
 
 \begin_layout Standard
@@ -283,7 +379,7 @@ streets and roads are [
 \begin_inset ERT
 status open
 
-\begin_layout Standard
+\begin_layout Plain Layout
 
 
 \backslash
@@ -301,7 +397,7 @@ intersections are [
 \begin_inset ERT
 status open
 
-\begin_layout Standard
+\begin_layout Plain Layout
 
 
 \backslash

@@ -1,8 +1,9 @@
-#LyX 1.5.6 created this file. For more info see http://www.lyx.org/
-\lyxformat 276
+#LyX 1.6.1 created this file. For more info see http://www.lyx.org/
+\lyxformat 345
 \begin_document
 \begin_header
 \textclass report
+\use_default_options false
 \language english
 \inputencoding latin9
 \font_roman default
@@ -13,9 +14,11 @@
 \font_osf false
 \font_sf_scale 100
 \font_tt_scale 100
+
 \graphics default
 \paperfontsize default
 \spacing single
+\use_hyperref false
 \papersize default
 \use_geometry false
 \use_amsmath 0
@@ -56,7 +59,8 @@ In this section we examine features found in other multiagent systems to
  The focus in the applied literature is on traffic and road network simulations.
  We review two papers that describe centralized versus distributed simulation
  systems
-\begin_inset LatexCommand cite
+\begin_inset CommandInset citation
+LatexCommand cite
 key "france2003mso,10.1109/HICSS.2001.926331"
 
 \end_inset
@@ -69,7 +73,8 @@ key "france2003mso,10.1109/HICSS.2001.926331"
  their approaches are different enough to make a useful comparison.
  Then we investigate an uncertainty management framework for relationships
  between agents in a multiagent sytem
-\begin_inset LatexCommand cite
+\begin_inset CommandInset citation
+LatexCommand cite
 key "wu2003umf"
 
 \end_inset
@@ -78,7 +83,8 @@ key "wu2003umf"
  This paper uses the Belief-Desire-Intention (BDI) agent model to formulate
  a response to received inputs.
  Finally, we look at a recent review of MASs used for transport logistics
-\begin_inset LatexCommand cite
+\begin_inset CommandInset citation
+LatexCommand cite
 key "davidsson2005aab"
 
 \end_inset
@@ -102,7 +108,7 @@ Hern
 \begin_inset ERT
 status open
 
-\begin_layout Standard
+\begin_layout Plain Layout
 
 
 \backslash
@@ -112,7 +118,8 @@ status open
 \end_inset
 
 ndez et al.
-\begin_inset LatexCommand cite
+\begin_inset CommandInset citation
+LatexCommand cite
 key "10.1109/HICSS.2001.926331"
 
 \end_inset
@@ -123,7 +130,7 @@ key "10.1109/HICSS.2001.926331"
 \begin_inset Foot
 status open
 
-\begin_layout Standard
+\begin_layout Plain Layout
 The acronym is not expanded in this paper.
 \end_layout
 
@@ -138,7 +145,7 @@ The acronym is not expanded in this paper.
 \begin_inset Foot
 status open
 
-\begin_layout Standard
+\begin_layout Plain Layout
 TRYS Autonomous Agents
 \end_layout
 
@@ -220,7 +227,7 @@ on to traffic engineers.
 \begin_inset Note Comment
 status open
 
-\begin_layout Standard
+\begin_layout Plain Layout
 And also to the traffic engineer?
 \end_layout
 
@@ -272,7 +279,7 @@ TRYSA
 \begin_inset Foot
 status open
 
-\begin_layout Standard
+\begin_layout Plain Layout
 I wanted to use the word 
 \begin_inset Quotes eld
 \end_inset
@@ -288,7 +295,8 @@ obviating
 
 the need for a coordinator agent.
  See figure 
-\begin_inset LatexCommand ref
+\begin_inset CommandInset ref
+LatexCommand ref
 reference "fig:TRYS-and-TRYSA2"
 
 \end_inset
@@ -326,7 +334,7 @@ This is where things get interesting in TRYSA
 \begin_inset Note Note
 status open
 
-\begin_layout Standard
+\begin_layout Plain Layout
 CITE THIS? Hernandez p2, cite 6
 \end_layout
 
@@ -360,7 +368,7 @@ height "1in"
 height_special "totalheight"
 status open
 
-\begin_layout Standard
+\begin_layout Plain Layout
 There is a conflict of interest respecting the way in which local signal
  plans are adapted.
  The essential idea is that the more autonomous an agent is (i.e.
@@ -400,7 +408,7 @@ The agents choose local signal plans, but they still need to coordinate
 \begin_inset Foot
 status open
 
-\begin_layout Standard
+\begin_layout Plain Layout
 The original basis for my work, although it did not make it into the final
  product.
 \end_layout
@@ -411,7 +419,7 @@ The original basis for my work, although it did not make it into the final
 \begin_inset Note Note
 status open
 
-\begin_layout Standard
+\begin_layout Plain Layout
 CITE THIS? Hernandez p6, cite 11
 \end_layout
 
@@ -421,7 +429,7 @@ CITE THIS? Hernandez p6, cite 11
 \begin_inset Note Comment
 status open
 
-\begin_layout Standard
+\begin_layout Plain Layout
 This is referenced in Hernandez, but not in this paper.
  I should probably dig up the reference anyway.
 \end_layout
@@ -498,7 +506,7 @@ wide false
 sideways false
 status collapsed
 
-\begin_layout Standard
+\begin_layout Plain Layout
 \begin_inset Graphics
 	filename figures/TRYS.png
 	scale 60
@@ -515,28 +523,15 @@ status collapsed
 
 \end_layout
 
-\begin_layout Standard
+\begin_layout Plain Layout
 \begin_inset Caption
 
-\begin_layout Standard
+\begin_layout Plain Layout
 Centralized (TRYS) and decentralized coordination (TRYSA
 \begin_inset Formula $_{\text{2}}$
 \end_inset
 
 ).
- Original images from 
-\begin_inset LatexCommand cite
-key "10.1109/HICSS.2001.926331"
-
-\end_inset
-
-.
-\begin_inset LatexCommand label
-name "fig:TRYS-and-TRYSA2"
-
-\end_inset
-
-
 \end_layout
 
 \end_inset
@@ -551,8 +546,32 @@ name "fig:TRYS-and-TRYSA2"
 
 \begin_layout Standard
 \paragraph_spacing double
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+Snipped from float: Figure > Original images from 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "10.1109/HICSS.2001.926331"
+
+\end_inset
+
+.
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:TRYS-and-TRYSA2"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
 This paper
-\begin_inset LatexCommand cite
+\begin_inset CommandInset citation
+LatexCommand cite
 key "france2003mso"
 
 \end_inset
@@ -580,7 +599,7 @@ ons will be unaware of traffic events, leading to detrimental traffic flow,
 \begin_inset Note Comment
 status open
 
-\begin_layout Standard
+\begin_layout Plain Layout
 Does this sentence 
 \begin_inset Quotes eld
 \end_inset
@@ -603,7 +622,7 @@ With agents at each intersection ..
 \begin_inset ERT
 status open
 
-\begin_layout Standard
+\begin_layout Plain Layout
 
 
 \backslash
@@ -619,7 +638,8 @@ ndez, but real-time performance data was not provided.
 \paragraph_spacing double
 The Local Traffic Agents (LTA) and the Coordinator Traffic Agent (CTA) behave
  almost identically to the analogous agents in TRYS (see figure 
-\begin_inset LatexCommand ref
+\begin_inset CommandInset ref
+LatexCommand ref
 reference "fig:LTAs-and-CTA"
 
 \end_inset
@@ -651,7 +671,7 @@ wide false
 sideways false
 status collapsed
 
-\begin_layout Standard
+\begin_layout Plain Layout
 \begin_inset Graphics
 	filename figures/LTAs-and-CTA-smaller.PNG
 
@@ -660,24 +680,11 @@ status collapsed
 
 \end_layout
 
-\begin_layout Standard
+\begin_layout Plain Layout
 \begin_inset Caption
 
-\begin_layout Standard
+\begin_layout Plain Layout
 Layout of Local and Coordinator Traffic Agents.
- Original image from 
-\begin_inset LatexCommand cite
-key "france2003mso"
-
-\end_inset
-
-.
-\begin_inset LatexCommand label
-name "fig:LTAs-and-CTA"
-
-\end_inset
-
-
 \end_layout
 
 \end_inset
@@ -692,6 +699,29 @@ name "fig:LTAs-and-CTA"
 
 \begin_layout Standard
 \paragraph_spacing double
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+Snipped from float: Figure > Original image from 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "france2003mso"
+
+\end_inset
+
+.
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:LTAs-and-CTA"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
 When deciding on a traffic light pattern, most communication takes place
  between the LTAs and the CTAs, with the ITAs providing stored data as necessary.
  In order for the CTA to calculate a global optimum for a given intersection,
@@ -703,7 +733,7 @@ When deciding on a traffic light pattern, most communication takes place
 \begin_inset Note Comment
 status open
 
-\begin_layout Standard
+\begin_layout Plain Layout
 Do I need something here about the LTAs generating their own proposed traffic
  light pattern for review by the CTA?
 \end_layout
@@ -715,7 +745,7 @@ Do I need something here about the LTAs generating their own proposed traffic
 \begin_inset Foot
 status open
 
-\begin_layout Standard
+\begin_layout Plain Layout
 The authors do not describe how they negotiate this balance.
 \end_layout
 
@@ -756,7 +786,7 @@ An agent is considered affected by a traffic accident if the accident occurs
 \begin_inset Foot
 status open
 
-\begin_layout Standard
+\begin_layout Plain Layout
 The CTA receives the notification manually from a human operator.
  In other words, this part of the application was not implemented at the
  time of publication.
@@ -817,7 +847,7 @@ Cooperative and competitive multiagent systems
 \begin_inset Note Comment
 status open
 
-\begin_layout Standard
+\begin_layout Plain Layout
 The name of this subsection may be changed to 
 \begin_inset Quotes eld
 \end_inset
@@ -844,7 +874,7 @@ Here we investigate coordination, cooperation and competition among software
 \begin_inset Note Note
 status open
 
-\begin_layout Standard
+\begin_layout Plain Layout
 \paragraph_spacing double
 using the belief-desire-intention agent model
 \end_layout
@@ -857,7 +887,8 @@ using the belief-desire-intention agent model
 \begin_layout Standard
 \paragraph_spacing double
 The Wu paper
-\begin_inset LatexCommand cite
+\begin_inset CommandInset citation
+LatexCommand cite
 key "wu2003umf"
 
 \end_inset
@@ -869,7 +900,7 @@ key "wu2003umf"
 \begin_inset Note Note
 status open
 
-\begin_layout Standard
+\begin_layout Plain Layout
 TODO: call these state modifiers?
 \end_layout
 
@@ -884,7 +915,7 @@ public, private and protected.
 \begin_inset Note Note
 status open
 
-\begin_layout Standard
+\begin_layout Plain Layout
 TODO: need a citation!
 \end_layout
 
@@ -950,7 +981,7 @@ is simply what it wants to do or accomplish
 \begin_inset Foot
 status open
 
-\begin_layout Standard
+\begin_layout Plain Layout
 This paper does not include a precise definiton of intention.
 \end_layout
 
@@ -1044,7 +1075,8 @@ decision making under uncertainty
 , neither agent knows anything about the other agent's beliefs or desires.
  Data collection is entirely speculative.
  See figure 
-\begin_inset LatexCommand ref
+\begin_inset CommandInset ref
+LatexCommand ref
 reference "fig:uncertainty-management"
 
 \end_inset
@@ -1118,7 +1150,7 @@ wide false
 sideways false
 status collapsed
 
-\begin_layout Standard
+\begin_layout Plain Layout
 \begin_inset Graphics
 	filename figures/uncertainty-management.png
 	scale 70
@@ -1128,24 +1160,11 @@ status collapsed
 
 \end_layout
 
-\begin_layout Standard
+\begin_layout Plain Layout
 \begin_inset Caption
 
-\begin_layout Standard
+\begin_layout Plain Layout
 Modeling agents' interactions using BDI & three types of decision making.
- Original image from 
-\begin_inset LatexCommand cite
-key "wu2003umf"
-
-\end_inset
-
-.
-\begin_inset LatexCommand label
-name "fig:uncertainty-management"
-
-\end_inset
-
-
 \end_layout
 
 \end_inset
@@ -1160,10 +1179,34 @@ name "fig:uncertainty-management"
 
 \begin_layout Standard
 \paragraph_spacing double
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+Snipped from float: Figure > Original image from 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "wu2003umf"
+
+\end_inset
+
+.
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:uncertainty-management"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
 \begin_inset Note Comment
 status open
 
-\begin_layout Standard
+\begin_layout Plain Layout
 TODO: 
 \begin_inset Quotes eld
 \end_inset
@@ -1209,7 +1252,7 @@ Logistics means having the right thing, at the right place, at the right
 \begin_inset Foot
 status open
 
-\begin_layout Standard
+\begin_layout Plain Layout
 http://www.logisticsworld.com/logistics.htm
 \end_layout
 
@@ -1224,7 +1267,8 @@ http://www.logisticsworld.com/logistics.htm
 \paragraph_spacing double
 The evaluation framework consists of several pieces.
  The full list is shown in figure 
-\begin_inset LatexCommand ref
+\begin_inset CommandInset ref
+LatexCommand ref
 reference "fig:evaluation-framework-summary"
 
 \end_inset
@@ -1288,9 +1332,9 @@ Agent attitude
 \begin_layout Standard
 \paragraph_spacing double
 \begin_inset Note Comment
-status open
+status collapsed
 
-\begin_layout Standard
+\begin_layout Plain Layout
 Drop this paragraph?
 \end_layout
 
@@ -1312,14 +1356,15 @@ The Taxis and Fares system is ...
 \begin_inset Note Note
 status open
 
-\begin_layout Standard
+\begin_layout Plain Layout
 PICK UP HERE
 \end_layout
 
 \end_inset
 
  in table 
-\begin_inset LatexCommand ref
+\begin_inset CommandInset ref
+LatexCommand ref
 reference "tab:classifying-taxis-and-fares-sim"
 
 \end_inset
@@ -1333,7 +1378,7 @@ wide false
 sideways false
 status collapsed
 
-\begin_layout Standard
+\begin_layout Plain Layout
 \begin_inset Graphics
 	filename figures/tranport-logistics-combined.PNG
 
@@ -1342,19 +1387,42 @@ status collapsed
 
 \end_layout
 
-\begin_layout Standard
+\begin_layout Plain Layout
 \begin_inset Caption
 
-\begin_layout Standard
+\begin_layout Plain Layout
 Summary of transportation logistics evaluation framework.
- Original images from 
-\begin_inset LatexCommand cite
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+Snipped from float: Figure > Original images from 
+\begin_inset CommandInset citation
+LatexCommand cite
 key "davidsson2005aab"
 
 \end_inset
 
 
-\begin_inset LatexCommand label
+\begin_inset CommandInset label
+LatexCommand label
 name "fig:evaluation-framework-summary"
 
 \end_inset
@@ -1365,115 +1433,127 @@ name "fig:evaluation-framework-summary"
 \end_inset
 
 
-\end_layout
-
-\begin_layout Standard
-
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Standard
 \begin_inset Float table
 wide false
 sideways false
-status open
+status collapsed
 
-\begin_layout Standard
+\begin_layout Plain Layout
 \begin_inset Tabular
 <lyxtabular version="3" rows="11" columns="8">
 <features booktabs="true">
-<column alignment="center" valignment="top" leftline="true" width="0.8in">
-<column alignment="center" valignment="top" leftline="true" rightline="true" width="0.8in">
-<column alignment="center" valignment="top" leftline="true" width="0.5in">
-<column alignment="center" valignment="top" leftline="true" width="0.5in">
-<column alignment="center" valignment="top" leftline="true" width="0.5in">
-<column alignment="center" valignment="top" leftline="true" width="0.5in">
-<column alignment="center" valignment="top" leftline="true" width="0.5in">
-<column alignment="center" valignment="top" leftline="true" rightline="true" width="0.5in">
-<row topline="true" bottomline="true">
-<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+<column alignment="center" valignment="top" width="0.8in">
+<column alignment="center" valignment="top" width="0.8in">
+<column alignment="center" valignment="top" width="0.5in">
+<column alignment="center" valignment="top" width="0.5in">
+<column alignment="center" valignment="top" width="0.5in">
+<column alignment="center" valignment="top" width="0.5in">
+<column alignment="center" valignment="top" width="0.5in">
+<column alignment="center" valignment="top" width="0.5in">
+<row>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
 \begin_inset Text
 
-\begin_layout Standard
+\begin_layout Plain Layout
 
 \end_layout
 
 \end_inset
 </cell>
-<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" rightline="true" usebox="none">
 \begin_inset Text
 
-\begin_layout Standard
+\begin_layout Plain Layout
 
 \end_layout
 
 \end_inset
 </cell>
-<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
 \begin_inset Text
 
-\begin_layout Standard
+\begin_layout Plain Layout
 Coop/
 \end_layout
 
-\begin_layout Standard
+\begin_layout Plain Layout
 FIFO
 \end_layout
 
 \end_inset
 </cell>
-<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
 \begin_inset Text
 
-\begin_layout Standard
+\begin_layout Plain Layout
 Coop/
 \end_layout
 
-\begin_layout Standard
+\begin_layout Plain Layout
 CF
 \end_layout
 
 \end_inset
 </cell>
-<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
 \begin_inset Text
 
-\begin_layout Standard
+\begin_layout Plain Layout
 Coop/
 \end_layout
 
-\begin_layout Standard
+\begin_layout Plain Layout
 MM
 \end_layout
 
 \end_inset
 </cell>
-<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
 \begin_inset Text
 
-\begin_layout Standard
+\begin_layout Plain Layout
 Comp/
 \end_layout
 
-\begin_layout Standard
+\begin_layout Plain Layout
 FIFO
 \end_layout
 
 \end_inset
 </cell>
-<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
 \begin_inset Text
 
-\begin_layout Standard
+\begin_layout Plain Layout
 Comp/
 \end_layout
 
-\begin_layout Standard
+\begin_layout Plain Layout
 CF
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Comp/
+\end_layout
+
+\begin_layout Plain Layout
+MM
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Problem Description
 \end_layout
 
 \end_inset
@@ -1481,31 +1561,7 @@ CF
 <cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
 \begin_inset Text
 
-\begin_layout Standard
-Comp/
-\end_layout
-
-\begin_layout Standard
-MM
-\end_layout
-
-\end_inset
-</cell>
-</row>
-<row topline="true">
-<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Standard
-Problem Description
-\end_layout
-
-\end_inset
-</cell>
-<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Standard
+\begin_layout Plain Layout
 Domain
 \end_layout
 
@@ -1514,7 +1570,7 @@ Domain
 <cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
 \begin_inset Text
 
-\begin_layout Standard
+\begin_layout Plain Layout
 Traffic
 \end_layout
 
@@ -1523,7 +1579,7 @@ Traffic
 <cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
 \begin_inset Text
 
-\begin_layout Standard
+\begin_layout Plain Layout
 Traffic
 \end_layout
 
@@ -1532,7 +1588,7 @@ Traffic
 <cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
 \begin_inset Text
 
-\begin_layout Standard
+\begin_layout Plain Layout
 Traffic
 \end_layout
 
@@ -1541,7 +1597,7 @@ Traffic
 <cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
 \begin_inset Text
 
-\begin_layout Standard
+\begin_layout Plain Layout
 Traffic
 \end_layout
 
@@ -1550,7 +1606,7 @@ Traffic
 <cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
 \begin_inset Text
 
-\begin_layout Standard
+\begin_layout Plain Layout
 Traffic
 \end_layout
 
@@ -1559,27 +1615,27 @@ Traffic
 <cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
 \begin_inset Text
 
-\begin_layout Standard
+\begin_layout Plain Layout
 Traffic
 \end_layout
 
 \end_inset
 </cell>
 </row>
-<row topline="true">
+<row>
 <cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
 \begin_inset Text
 
-\begin_layout Standard
+\begin_layout Plain Layout
 
 \end_layout
 
 \end_inset
 </cell>
-<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
 \begin_inset Text
 
-\begin_layout Standard
+\begin_layout Plain Layout
 Mode of transportation
 \end_layout
 
@@ -1588,7 +1644,7 @@ Mode of transportation
 <cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
 \begin_inset Text
 
-\begin_layout Standard
+\begin_layout Plain Layout
 Road
 \end_layout
 
@@ -1597,7 +1653,7 @@ Road
 <cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
 \begin_inset Text
 
-\begin_layout Standard
+\begin_layout Plain Layout
 Road
 \end_layout
 
@@ -1606,7 +1662,7 @@ Road
 <cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
 \begin_inset Text
 
-\begin_layout Standard
+\begin_layout Plain Layout
 Road
 \end_layout
 
@@ -1615,7 +1671,7 @@ Road
 <cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
 \begin_inset Text
 
-\begin_layout Standard
+\begin_layout Plain Layout
 Road
 \end_layout
 
@@ -1624,7 +1680,7 @@ Road
 <cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
 \begin_inset Text
 
-\begin_layout Standard
+\begin_layout Plain Layout
 Road
 \end_layout
 
@@ -1633,73 +1689,93 @@ Road
 <cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
 \begin_inset Text
 
-\begin_layout Standard
+\begin_layout Plain Layout
 Road
 \end_layout
 
 \end_inset
 </cell>
 </row>
-<row topline="true" bottomline="true">
-<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+<row>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
 \begin_inset Text
 
-\begin_layout Standard
+\begin_layout Plain Layout
 
 \end_layout
 
 \end_inset
 </cell>
-<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" rightline="true" usebox="none">
 \begin_inset Text
 
-\begin_layout Standard
+\begin_layout Plain Layout
 Time horizon
 \end_layout
 
 \end_inset
 </cell>
-<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
 \begin_inset Text
 
-\begin_layout Standard
+\begin_layout Plain Layout
 Opera-tional
 \end_layout
 
 \end_inset
 </cell>
-<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
 \begin_inset Text
 
-\begin_layout Standard
+\begin_layout Plain Layout
 Opera-tional
 \end_layout
 
 \end_inset
 </cell>
-<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
 \begin_inset Text
 
-\begin_layout Standard
+\begin_layout Plain Layout
 Opera-tional
 \end_layout
 
 \end_inset
 </cell>
-<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
 \begin_inset Text
 
-\begin_layout Standard
+\begin_layout Plain Layout
 Opera-tional
 \end_layout
 
 \end_inset
 </cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Opera-tional
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Opera-tional
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
 <cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
 \begin_inset Text
 
-\begin_layout Standard
-Opera-tional
+\begin_layout Plain Layout
+Approach
 \end_layout
 
 \end_inset
@@ -1707,27 +1783,7 @@ Opera-tional
 <cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
 \begin_inset Text
 
-\begin_layout Standard
-Opera-tional
-\end_layout
-
-\end_inset
-</cell>
-</row>
-<row topline="true">
-<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Standard
-Approach
-\end_layout
-
-\end_inset
-</cell>
-<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Standard
+\begin_layout Plain Layout
 Usage
 \end_layout
 
@@ -1736,7 +1792,7 @@ Usage
 <cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
 \begin_inset Text
 
-\begin_layout Standard
+\begin_layout Plain Layout
 Auto-mation system
 \end_layout
 
@@ -1745,7 +1801,7 @@ Auto-mation system
 <cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
 \begin_inset Text
 
-\begin_layout Standard
+\begin_layout Plain Layout
 Auto-mation system
 \end_layout
 
@@ -1754,7 +1810,7 @@ Auto-mation system
 <cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
 \begin_inset Text
 
-\begin_layout Standard
+\begin_layout Plain Layout
 Auto-mation system
 \end_layout
 
@@ -1763,7 +1819,7 @@ Auto-mation system
 <cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
 \begin_inset Text
 
-\begin_layout Standard
+\begin_layout Plain Layout
 Auto-mation system
 \end_layout
 
@@ -1772,7 +1828,7 @@ Auto-mation system
 <cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
 \begin_inset Text
 
-\begin_layout Standard
+\begin_layout Plain Layout
 Auto-mation system
 \end_layout
 
@@ -1781,27 +1837,27 @@ Auto-mation system
 <cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
 \begin_inset Text
 
-\begin_layout Standard
+\begin_layout Plain Layout
 Auto-mation system
 \end_layout
 
 \end_inset
 </cell>
 </row>
-<row topline="true">
+<row>
 <cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
 \begin_inset Text
 
-\begin_layout Standard
+\begin_layout Plain Layout
 
 \end_layout
 
 \end_inset
 </cell>
-<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
 \begin_inset Text
 
-\begin_layout Standard
+\begin_layout Plain Layout
 Control type
 \end_layout
 
@@ -1810,7 +1866,7 @@ Control type
 <cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
 \begin_inset Text
 
-\begin_layout Standard
+\begin_layout Plain Layout
 TODO
 \end_layout
 
@@ -1819,7 +1875,7 @@ TODO
 <cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
 \begin_inset Text
 
-\begin_layout Standard
+\begin_layout Plain Layout
 TODO
 \end_layout
 
@@ -1828,7 +1884,7 @@ TODO
 <cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
 \begin_inset Text
 
-\begin_layout Standard
+\begin_layout Plain Layout
 TODO
 \end_layout
 
@@ -1837,7 +1893,7 @@ TODO
 <cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
 \begin_inset Text
 
-\begin_layout Standard
+\begin_layout Plain Layout
 TODO
 \end_layout
 
@@ -1846,7 +1902,7 @@ TODO
 <cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
 \begin_inset Text
 
-\begin_layout Standard
+\begin_layout Plain Layout
 TODO
 \end_layout
 
@@ -1855,27 +1911,27 @@ TODO
 <cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
 \begin_inset Text
 
-\begin_layout Standard
+\begin_layout Plain Layout
 TODO
 \end_layout
 
 \end_inset
 </cell>
 </row>
-<row topline="true">
+<row>
 <cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
 \begin_inset Text
 
-\begin_layout Standard
+\begin_layout Plain Layout
 
 \end_layout
 
 \end_inset
 </cell>
-<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
 \begin_inset Text
 
-\begin_layout Standard
+\begin_layout Plain Layout
 MAS structure
 \end_layout
 
@@ -1884,7 +1940,7 @@ MAS structure
 <cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
 \begin_inset Text
 
-\begin_layout Standard
+\begin_layout Plain Layout
 Static
 \end_layout
 
@@ -1893,7 +1949,7 @@ Static
 <cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
 \begin_inset Text
 
-\begin_layout Standard
+\begin_layout Plain Layout
 Static
 \end_layout
 
@@ -1902,7 +1958,7 @@ Static
 <cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
 \begin_inset Text
 
-\begin_layout Standard
+\begin_layout Plain Layout
 Static
 \end_layout
 
@@ -1911,7 +1967,7 @@ Static
 <cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
 \begin_inset Text
 
-\begin_layout Standard
+\begin_layout Plain Layout
 Static
 \end_layout
 
@@ -1920,7 +1976,7 @@ Static
 <cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
 \begin_inset Text
 
-\begin_layout Standard
+\begin_layout Plain Layout
 Static
 \end_layout
 
@@ -1929,27 +1985,27 @@ Static
 <cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
 \begin_inset Text
 
-\begin_layout Standard
+\begin_layout Plain Layout
 Static
 \end_layout
 
 \end_inset
 </cell>
 </row>
-<row topline="true">
+<row>
 <cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
 \begin_inset Text
 
-\begin_layout Standard
+\begin_layout Plain Layout
 
 \end_layout
 
 \end_inset
 </cell>
-<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
 \begin_inset Text
 
-\begin_layout Standard
+\begin_layout Plain Layout
 Agent attitude
 \end_layout
 
@@ -1958,7 +2014,7 @@ Agent attitude
 <cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
 \begin_inset Text
 
-\begin_layout Standard
+\begin_layout Plain Layout
 Benevo-lent
 \end_layout
 
@@ -1967,7 +2023,7 @@ Benevo-lent
 <cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
 \begin_inset Text
 
-\begin_layout Standard
+\begin_layout Plain Layout
 Benevo-lent
 \end_layout
 
@@ -1976,7 +2032,7 @@ Benevo-lent
 <cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
 \begin_inset Text
 
-\begin_layout Standard
+\begin_layout Plain Layout
 Benevo-lent
 \end_layout
 
@@ -1985,7 +2041,7 @@ Benevo-lent
 <cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
 \begin_inset Text
 
-\begin_layout Standard
+\begin_layout Plain Layout
 Selfish
 \end_layout
 
@@ -1994,7 +2050,7 @@ Selfish
 <cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
 \begin_inset Text
 
-\begin_layout Standard
+\begin_layout Plain Layout
 Selfish
 \end_layout
 
@@ -2003,73 +2059,93 @@ Selfish
 <cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
 \begin_inset Text
 
-\begin_layout Standard
+\begin_layout Plain Layout
 Selfish
 \end_layout
 
 \end_inset
 </cell>
 </row>
-<row topline="true" bottomline="true">
-<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+<row>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
 \begin_inset Text
 
-\begin_layout Standard
+\begin_layout Plain Layout
 
 \end_layout
 
 \end_inset
 </cell>
-<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" rightline="true" usebox="none">
 \begin_inset Text
 
-\begin_layout Standard
+\begin_layout Plain Layout
 Agent architecture
 \end_layout
 
 \end_inset
 </cell>
-<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
 \begin_inset Text
 
-\begin_layout Standard
+\begin_layout Plain Layout
 TODO
 \end_layout
 
 \end_inset
 </cell>
-<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
 \begin_inset Text
 
-\begin_layout Standard
+\begin_layout Plain Layout
 TODO
 \end_layout
 
 \end_inset
 </cell>
-<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
 \begin_inset Text
 
-\begin_layout Standard
+\begin_layout Plain Layout
 TODO
 \end_layout
 
 \end_inset
 </cell>
-<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
 \begin_inset Text
 
-\begin_layout Standard
+\begin_layout Plain Layout
 TODO
 \end_layout
 
 \end_inset
 </cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+TODO
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+TODO
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
 <cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
 \begin_inset Text
 
-\begin_layout Standard
-TODO
+\begin_layout Plain Layout
+Results
 \end_layout
 
 \end_inset
@@ -2077,27 +2153,7 @@ TODO
 <cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
 \begin_inset Text
 
-\begin_layout Standard
-TODO
-\end_layout
-
-\end_inset
-</cell>
-</row>
-<row topline="true">
-<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Standard
-Results
-\end_layout
-
-\end_inset
-</cell>
-<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Standard
+\begin_layout Plain Layout
 Maturity
 \end_layout
 
@@ -2106,7 +2162,7 @@ Maturity
 <cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
 \begin_inset Text
 
-\begin_layout Standard
+\begin_layout Plain Layout
 2.2.1
 \end_layout
 
@@ -2115,7 +2171,7 @@ Maturity
 <cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
 \begin_inset Text
 
-\begin_layout Standard
+\begin_layout Plain Layout
 2.2.1
 \end_layout
 
@@ -2124,7 +2180,7 @@ Maturity
 <cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
 \begin_inset Text
 
-\begin_layout Standard
+\begin_layout Plain Layout
 2.2.1
 \end_layout
 
@@ -2133,7 +2189,7 @@ Maturity
 <cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
 \begin_inset Text
 
-\begin_layout Standard
+\begin_layout Plain Layout
 2.2.1
 \end_layout
 
@@ -2142,7 +2198,7 @@ Maturity
 <cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
 \begin_inset Text
 
-\begin_layout Standard
+\begin_layout Plain Layout
 2.2.1
 \end_layout
 
@@ -2151,81 +2207,81 @@ Maturity
 <cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
 \begin_inset Text
 
-\begin_layout Standard
+\begin_layout Plain Layout
 2.2.1
 \end_layout
 
 \end_inset
 </cell>
 </row>
-<row topline="true" bottomline="true">
-<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+<row>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
 \begin_inset Text
 
-\begin_layout Standard
+\begin_layout Plain Layout
 
 \end_layout
 
 \end_inset
 </cell>
-<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" rightline="true" usebox="none">
 \begin_inset Text
 
-\begin_layout Standard
+\begin_layout Plain Layout
 Evaluation comparison
 \end_layout
 
 \end_inset
 </cell>
-<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
 \begin_inset Text
 
-\begin_layout Standard
+\begin_layout Plain Layout
 TODO
 \end_layout
 
 \end_inset
 </cell>
-<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
 \begin_inset Text
 
-\begin_layout Standard
+\begin_layout Plain Layout
 TODO
 \end_layout
 
 \end_inset
 </cell>
-<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
 \begin_inset Text
 
-\begin_layout Standard
+\begin_layout Plain Layout
 TODO
 \end_layout
 
 \end_inset
 </cell>
-<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
 \begin_inset Text
 
-\begin_layout Standard
+\begin_layout Plain Layout
 TODO
 \end_layout
 
 \end_inset
 </cell>
-<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
 \begin_inset Text
 
-\begin_layout Standard
+\begin_layout Plain Layout
 TODO
 \end_layout
 
 \end_inset
 </cell>
-<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" rightline="true" usebox="none">
 \begin_inset Text
 
-\begin_layout Standard
+\begin_layout Plain Layout
 TODO
 \end_layout
 
@@ -2239,14 +2295,15 @@ TODO
 
 \begin_inset Caption
 
-\begin_layout Standard
+\begin_layout Plain Layout
 Classifying the Taxis and Fares simulation
 \end_layout
 
 \end_inset
 
 
-\begin_inset LatexCommand label
+\begin_inset CommandInset label
+LatexCommand label
 name "tab:classifying-taxis-and-fares-sim"
 
 \end_inset
@@ -2264,7 +2321,7 @@ name "tab:classifying-taxis-and-fares-sim"
 \begin_inset Note Comment
 status open
 
-\begin_layout Standard
+\begin_layout Plain Layout
 \paragraph_spacing double
 Modi - ADOPT: Asynchronous Distributed Constraint Optimization with Quality
  Guarantees
@@ -2280,7 +2337,7 @@ Modi - ADOPT: Asynchronous Distributed Constraint Optimization with Quality
 \begin_inset Note Comment
 status open
 
-\begin_layout Standard
+\begin_layout Plain Layout
 \paragraph_spacing double
 Mailler - Solving Distributed Constraint Optimization Problems Using Cooperative
  Mediation
