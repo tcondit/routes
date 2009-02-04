@@ -1,8 +1,9 @@
-#LyX 1.5.6 created this file. For more info see http://www.lyx.org/
-\lyxformat 276
+#LyX 1.6.1 created this file. For more info see http://www.lyx.org/
+\lyxformat 345
 \begin_document
 \begin_header
 \textclass report
+\use_default_options false
 \language english
 \inputencoding latin9
 \font_roman default
@@ -13,9 +14,11 @@
 \font_osf false
 \font_sf_scale 100
 \font_tt_scale 100
+
 \graphics default
 \paperfontsize default
 \spacing single
+\use_hyperref false
 \papersize default
 \use_geometry false
 \use_amsmath 0
@@ -108,6 +111,28 @@ See C:/Source/hg/tags/graphs_0.6/docs/daily_status/2006/10/18.txt for some
  More generally, I should print the entire set of daily_status notes and
  scan them on paper.
  Reading the text files one at a time is just misery.
+\end_layout
+
+\begin_layout Standard
+Also this: 
+\begin_inset Flex URL
+status collapsed
+
+\begin_layout Plain Layout
+http://gato.sourceforge.net/
+\end_layout
+
+\end_inset
+
+.
+ See this footnote 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fn:Gato-footnote"
+
+\end_inset
+
+ for a (tiny) bit of background.
 \end_layout
 
 \end_body

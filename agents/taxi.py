@@ -71,6 +71,7 @@ class Taxi(Agent):
                 if self.np == 'FIFO':
                     yield get, self, Agent.waitingFares, 1
                 elif self.np == 'closestfare':
+                    # What's the point of numAgents here? --timc 1/24/2009
                     numAgents=len(Agent.waitingFares.theBuffer)
                     yield get, self, Agent.waitingFares, closestfare_cooperate
                 elif self.np == 'mixedmode':

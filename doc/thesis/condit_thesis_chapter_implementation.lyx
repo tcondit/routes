@@ -48,6 +48,107 @@ Implementation
 \end_layout
 
 \begin_layout Section
+Grids and Graphs
+\end_layout
+
+\begin_layout Standard
+\paragraph_spacing double
+[LIMERICK 1] There once was a man from Ghent
+\end_layout
+
+\begin_layout Enumerate
+\paragraph_spacing double
+data prep - grid
+\end_layout
+
+\begin_layout Enumerate
+\paragraph_spacing double
+data prep - graphs
+\end_layout
+
+\begin_deeper
+\begin_layout Enumerate
+\paragraph_spacing double
+get FIPS
+\end_layout
+
+\begin_layout Enumerate
+\paragraph_spacing double
+process lat/lon data
+\end_layout
+
+\begin_layout Enumerate
+\paragraph_spacing double
+make graph
+\end_layout
+
+\begin_deeper
+\begin_layout Enumerate
+\paragraph_spacing double
+describe algorithm for connecting nodes
+\end_layout
+
+\end_deeper
+\begin_layout Enumerate
+\paragraph_spacing double
+little bit of graph theory
+\end_layout
+
+\begin_deeper
+\begin_layout Enumerate
+\paragraph_spacing double
+streets and roads are [ 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+ldots
+\end_layout
+
+\end_inset
+
+ ]
+\end_layout
+
+\begin_layout Enumerate
+\paragraph_spacing double
+intersections are [ 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+ldots
+\end_layout
+
+\end_inset
+
+ ]
+\end_layout
+
+\begin_layout Enumerate
+\paragraph_spacing double
+slightly fuzzy math (but well within tolerance of size of intersection).
+ IOW, if lat/lon data is good to 6 decimal places, that equates to a length
+ of, say, 3 feet.
+ But an intersection is at least 20 feet across, so the accuracy is good
+ enough to correctly locate each [ node or vertex ] intersection as equating
+ to a geographical (street level) intersection.
+\end_layout
+
+\end_deeper
+\begin_layout Enumerate
+\paragraph_spacing double
+generating plots
+\end_layout
+
+\end_deeper
+\begin_layout Section
 The Agents
 \end_layout
 
@@ -236,7 +337,7 @@ Other interesting things occur as a result of the autonomous agent's incomplete
 \end_layout
 
 \begin_layout Section
-Negotiation Protocols
+Negotiation Protocols and Simulation Types
 \end_layout
 
 \begin_layout Standard
@@ -310,28 +411,81 @@ This sounds like conclusion material.
 
 \begin_layout Standard
 \paragraph_spacing double
-On the other hand, it is easy to trace
+The competitive FIFO is similar, but here the Taxis queue up to try and
+ pick up the Fare.
+ This simulation is probably more inefficient most of the time than it's
+ cooperative counterpart, since most of the Taxis are going after the same
+ Fares.
+ When one gets there, they all start over and go after the next Fare in
+ the waitingFares queue.
+\begin_inset Foot
+status open
+
+\begin_layout Plain Layout
+I talk about a possible future enhancement using Gato, the graph animation
+ toolbox in the conclusion.
+ This is one of the simulations I'd most like to see animated in real time.
+\begin_inset CommandInset label
+LatexCommand label
+name "fn:Gato-footnote"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
 \end_layout
 
 \begin_layout Standard
 \paragraph_spacing double
-they regardless of thierare freed up to make another They are removed from
- the queue in the order in which they are entered.
- A Fare is taken to it's destination after being 
+Next up is closestFare.
+ The name pretty much sums it up for the cooperative simulations.
+ Each Taxi queries the list of waiting Fares, and finds the geographically
+ closest Fare available at that time.
+ Note that distance is measured either 
 \begin_inset Quotes eld
 \end_inset
 
-picked up
+as the crow flies
 \begin_inset Quotes erd
 \end_inset
 
-, as signalled by being removed from the queue.
- FIFO does not 
+, or by surface street distance.
+ This is a configurable setting.
+ See distanceCalculation in 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "sec:The-agents-default.ini"
+
+\end_inset
+
+.
 \end_layout
 
 \begin_layout Standard
-\paragraph_spacing double
-[LIMERICK 1] There once was a man from Ghent
+The competitive closestFare simulation is similar, except for once again
+ the Taxis have no knowledge of one another, but only one of them will pick
+ up any given Fare.
+ So the chosen Fare must be the one that is closest to them, and they must
+ be closest to the Fare relative to the other Taxis as well.
+\end_layout
+
+\begin_layout Standard
+The mixedMode simulations are more complex.
+ 
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+PICK UP HERE
+\end_layout
+
+\end_inset
+
+
 \end_layout
 
 \begin_layout Section
@@ -343,107 +497,11 @@ Cooperative and Competitive Simulations
 [LIMERICK 2] Who had a penis so long it bent
 \end_layout
 
-\begin_layout Section
-Grids and Graphs
-\end_layout
-
 \begin_layout Standard
 \paragraph_spacing double
 [LIMERICK 3] It was so much trouble
 \end_layout
 
-\begin_layout Enumerate
-\paragraph_spacing double
-data prep - grid
-\end_layout
-
-\begin_layout Enumerate
-\paragraph_spacing double
-data prep - graphs
-\end_layout
-
-\begin_deeper
-\begin_layout Enumerate
-\paragraph_spacing double
-get FIPS
-\end_layout
-
-\begin_layout Enumerate
-\paragraph_spacing double
-process lat/lon data
-\end_layout
-
-\begin_layout Enumerate
-\paragraph_spacing double
-make graph
-\end_layout
-
-\begin_deeper
-\begin_layout Enumerate
-\paragraph_spacing double
-describe algorithm for connecting nodes
-\end_layout
-
-\end_deeper
-\begin_layout Enumerate
-\paragraph_spacing double
-little bit of graph theory
-\end_layout
-
-\begin_deeper
-\begin_layout Enumerate
-\paragraph_spacing double
-streets and roads are [ 
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-
-\backslash
-ldots
-\end_layout
-
-\end_inset
-
- ]
-\end_layout
-
-\begin_layout Enumerate
-\paragraph_spacing double
-intersections are [ 
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-
-\backslash
-ldots
-\end_layout
-
-\end_inset
-
- ]
-\end_layout
-
-\begin_layout Enumerate
-\paragraph_spacing double
-slightly fuzzy math (but well within tolerance of size of intersection).
- IOW, if lat/lon data is good to 6 decimal places, that equates to a length
- of, say, 3 feet.
- But an intersection is at least 20 feet across, so the accuracy is good
- enough to correctly locate each [ node or vertex ] intersection as equating
- to a geographical (street level) intersection.
-\end_layout
-
-\end_deeper
-\begin_layout Enumerate
-\paragraph_spacing double
-generating plots
-\end_layout
-
-\end_deeper
 \begin_layout Section
 Config parser
 \end_layout

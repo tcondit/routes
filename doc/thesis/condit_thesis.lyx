@@ -652,12 +652,6 @@ matplotlib is a python 2D plotting library which produces publication quality
  user interface toolkits.
 \end_layout
 
-\begin_layout Quotation
-matplotlib tries to make easy things easy and hard things possible.
- You can generate plots, histograms, power spectra, bar charts, errorcharts,
- scatterplots, etc, with just a few lines of code.
-\end_layout
-
 \begin_layout Itemize
 SQLite 
 \begin_inset Flex URL
@@ -709,11 +703,7 @@ name "ite:[http://www.mysql.com/||MySQL]"
 \end_layout
 
 \begin_layout Quotation
-MySQL, the most popular open source SQL database, is developed and provided
- by MySQL AB.
- MySQL AB is a commercial company the builds its business providing services
- around the MySQL database.
- The MySQL software delivers a very fast, multi-threaded, multi-user, and
+The MySQL software delivers a very fast, multi-threaded, multi-user, and
  robust SQL database server.
  It is intended for mission-critical, heavy-load production systems as well
  as for embedding into mass-deployed software.
