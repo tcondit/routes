@@ -365,6 +365,7 @@ mixedMode/cooperative & mixedMode/competitive
 \end_layout
 
 \begin_layout Standard
+\paragraph_spacing double
 Any simulation uses exactly one of them.
  It is specified in the agent configuration file 
 \begin_inset CommandInset ref
@@ -387,6 +388,10 @@ This sounds like intro material.
 \end_inset
 
 
+\end_layout
+
+\begin_layout Subsection
+FIFO
 \end_layout
 
 \begin_layout Standard
@@ -471,6 +476,10 @@ name "fn:Gato-footnote"
 
 \end_layout
 
+\begin_layout Subsection
+closestFare
+\end_layout
+
 \begin_layout Standard
 \paragraph_spacing double
 Next up is closestFare.
@@ -501,6 +510,7 @@ reference "sec:The-agents-default.ini"
 \end_layout
 
 \begin_layout Standard
+\paragraph_spacing double
 The competitive closestFare simulation is similar, except for once again
  the Taxis have no knowledge of one another, and only one of them will pick
  up any given Fare.
@@ -510,7 +520,12 @@ The competitive closestFare simulation is similar, except for once again
  of the compete queue to try again.
 \end_layout
 
+\begin_layout Subsection
+mixedMode
+\end_layout
+
 \begin_layout Standard
+\paragraph_spacing double
 mixedMode simulations are more complex.
  Fares broadcast their pickup requests to widening areas until a Taxi either
  acknowledges them in the cooperative simulation, or arrives to pick them
@@ -522,6 +537,7 @@ mixedMode simulations are more complex.
 \end_layout
 
 \begin_layout Standard
+\paragraph_spacing double
 An eligible Taxi uses a combination of the Fare's time in the waitingFares
  buffer plus their distance from the Taxi to determine which Fares to inspect.
  If there are any Fares in the buffer, the one with the lowest score (cost)
@@ -529,6 +545,7 @@ An eligible Taxi uses a combination of the Fare's time in the waitingFares
 \end_layout
 
 \begin_layout Standard
+\paragraph_spacing double
 If the list is empty, in other words, if there are no Fares which meet the
  time and space (distance) requirements of this Taxi, the Taxi goes into
  a getQ, and stays there until at least one suitable Fare comes along.
@@ -539,6 +556,7 @@ If the list is empty, in other words, if there are no Fares which meet the
 \end_layout
 
 \begin_layout Standard
+\paragraph_spacing double
 For the cooperative simulations, the Taxi will have acknowledge the Fare
  and make the pickup.
  For mixedMode competitive, all Fares that receive the same Fare data attempt
