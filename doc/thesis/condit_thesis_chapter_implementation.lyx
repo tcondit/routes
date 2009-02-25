@@ -52,6 +52,26 @@ Grids and Graphs
 \end_layout
 
 \begin_layout Standard
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+TODO Add something in here about Python duck-typing in the grid and graph
+ classes.
+ They are considered something like equivalent because they have the same
+ set of methods.
+ There's no need to mess around with interfaces or extending the same base
+ class.
+ (Use that too.
+ That's good.)
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
 \paragraph_spacing double
 [LIMERICK 1] There once was a man from Ghent
 \end_layout
@@ -174,7 +194,10 @@ The Agent also subclasses SimPy's Process class, which provides a means
  (PEM) that is invoked by the simulation toolkit to activate the object.
  When the PEM exits, the Process object is destroyed.
  The PEM is where the simulated object's behaviors are defined.
- 
+\end_layout
+
+\begin_layout Subsection
+Fares
 \end_layout
 
 \begin_layout Standard
@@ -198,9 +221,66 @@ reference "sec:The-agents-default.ini"
  off.
 \end_layout
 
+\begin_layout Subsection
+Background: Resources, Levels and Stores
+\end_layout
+
+\begin_layout Standard
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+Where does this belong? Above subsection 
+\begin_inset Quotes eld
+\end_inset
+
+Fares
+\begin_inset Quotes erd
+\end_inset
+
+? Break it out into it's own section? What is the right heading title?
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
 \begin_layout Standard
 \paragraph_spacing double
-The waitingFares queue holds references to Fare objects.
+There are three types of resources in SimPy that are available for working
+ with the actors in your simulation: Resources, Levels and Stores.
+ You may use one or more of them in a simulation, but any individual piece
+ is modelled using only one.
+\end_layout
+
+\begin_layout Standard
+A Resource is useful if you have multiple identical tasks that are modelled
+ as SimPy objects, and one or more required elements.
+ The example most often given here is waiting in line at a bank.
+ The tellers are the required elements (a SimPy Resource), and the customers
+ waiting to perform some task (also a Resource) wait in a shared line for
+ a teller to become available.
+ The waiting customers are stored in a wait queue, while the customers who
+ are at the teller stations are stored in an active queue.
+ I originally wrote my program to use Resources, but later rewrote it because
+ ...
+ 
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+WHY??
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+The waitingFares queue is a SimPy Store.
+ It holds references to Fare objects.
  But when referring to the contents of the queue, I use Fare and request
  interchangeably.
  They are equivalent for documentation purposes.
@@ -221,7 +301,42 @@ One of the difficulties that came up during data collection for analysis
 \end_layout
 
 \begin_layout Standard
-\paragraph_spacing double
+The second resource type is the Level.
+ It is used when you want to model something of a more 
+\begin_inset Quotes eld
+\end_inset
+
+continuous
+\begin_inset Quotes erd
+\end_inset
+
+ nature, like amount of plastic pellets, by weight, available to an injection
+ molding machine.
+ Instead of having discrete units, the simulation usually tracks the volume
+ or weight of some resource.
+ This type of resource can be described using a scalar value.
+\end_layout
+
+\begin_layout Standard
+The last resource type is the Store.
+ 
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+PICKUP HERE
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsection
+Taxis
+\end_layout
+
+\begin_layout Standard
 The Taxi class is more complex than the Fares, as it defines multiple SimPy
  PEMs corresponding to the different negotiation protocols and simulation
  types.
@@ -344,6 +459,26 @@ Negotiation Protocols and Simulation Types
 
 \begin_layout Standard
 \paragraph_spacing double
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+TODO Add something about the NPs being SimPy filter functions, and how they
+ behave.
+\end_layout
+
+\end_inset
+
+
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+TODO Add a big leading chunk about ...
+\end_layout
+
+\end_inset
+
 There are three negotiation protocols (NPs, my phrase).
  They are similar in concept, but with different implementations, for the
  cooperative and competitive simulations.
@@ -563,7 +698,7 @@ For the cooperative simulations, the Taxi will have acknowledge the Fare
  to make the pickup.
  Taxis will enter the queue at different times.
  It's possible, based on their relative locations, that a Taxi that entered
- the getQ after other Taxis are already en route to the Fare may be the
+ the getQ after other Taxis are already en-route to the Fare may be the
  one to make the pickup.
 \end_layout
 
