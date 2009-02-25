@@ -155,8 +155,8 @@ The Agents
 \begin_layout Standard
 \paragraph_spacing double
 Taxis and Fares are subclasses of a common Agent class.
- The Agent class sets a mapping type to either grid or graph and sets the
- Agent's initial location on the grid or graph, respectively.
+ The Agent class sets a mapping type to either grid or graph and randomly
+ generates the Agent's initial location on the grid or graph, respectively.
  The Agent also defines a queue to hold waiting Fares.
  It is a class attribute that holds only Fares, but it is used by both Agent
  types.
@@ -179,7 +179,7 @@ The Agent also subclasses SimPy's Process class, which provides a means
 
 \begin_layout Standard
 \paragraph_spacing double
-The lifecycle of a Fare is simple.
+The lifecycle of a Fare is relatively simple.
  It begins when the Fare is created, and ends when it is dropped off at
  its destination by a Taxi, or the simulation ends, whichever comes first.
  Fares are created throughout the simulation.
@@ -210,8 +210,8 @@ status open
 \begin_layout Plain Layout
 \paragraph_spacing double
 One of the difficulties that came up during data collection for analysis
- was accounting for Fares that are left in the wait queue at the end of
- the simulation.
+ was accounting for Fares that are left in the waitingFares queue at the
+ end of the simulation.
  This is covered in the results section.
 \end_layout
 
@@ -229,7 +229,8 @@ The Taxi class is more complex than the Fares, as it defines multiple SimPy
  is complementary to that of the Fares.
  Taxis are created at the beginning of the simulation, and persist until
  the simulation ends.
- They normally pick up several Fares, but only one at a time.
+ They normally pick up several Fares over the course of a simulation, but
+ only one at a time.
  They do the kind of things you'd expect: wait for a request for pickup;
  either negotiate or compete to pick up the Fare; pick up the Fare; drive
  to the requested destination; update the location of both Agents; notify
@@ -299,7 +300,8 @@ won
 
  or claimed by a Taxi.
  The winning Taxi announces his arrival to the other competitors, who then
- look for another Fare for which to compete.
+ renege (exit) from the compete queue and look for another Fare for which
+ to compete.
  Meanwhile, the winning Taxi drives to the Fare's destination.
 \end_layout
 
@@ -342,10 +344,28 @@ Negotiation Protocols and Simulation Types
 
 \begin_layout Standard
 \paragraph_spacing double
-There are three negotiation protocols (my phrase).
+There are three negotiation protocols (NPs, my phrase).
  They are similar in concept, but with different implementations, for the
  cooperative and competitive simulations.
- A simulation must use exactly one of them.
+ The combination of negotiation protocol and simType identifies the major
+ characteristics of a simulation.
+ The combinations are
+\end_layout
+
+\begin_layout Itemize
+FIFO/cooperative & FIFO/competitive
+\end_layout
+
+\begin_layout Itemize
+closestFare/cooperative & closestFare/competitive
+\end_layout
+
+\begin_layout Itemize
+mixedMode/cooperative & mixedMode/competitive
+\end_layout
+
+\begin_layout Standard
+Any simulation uses exactly one of them.
  It is specified in the agent configuration file 
 \begin_inset CommandInset ref
 LatexCommand ref
@@ -373,9 +393,9 @@ This sounds like intro material.
 \paragraph_spacing double
 The simplest NP is FIFO, or first-in, first-out, for cooperative simulations.
  As Fares enter the simulation and broadcast pickup requests, they are pushed
- onto the queue.
- Taxis take Fares in the order in which they become available to accept
- requests, typically after dropping off their current Fare.
+ onto the waitingFares queue.
+ Taxis pop Fares off the queue in the order in which they become available
+ to accept requests, typically after dropping off their current Fare.
  
 \begin_inset Foot
 status open
@@ -393,8 +413,9 @@ At the start of the simulation there are generally more Taxis than Fares,
 
 \begin_layout Standard
 \paragraph_spacing double
-FIFO turns out to be a good baseline for comparison with other simulations.
- It is simple but inefficient.
+Because it is so simple, FIFO turns out to be a good baseline for comparison
+ with other simulations.
+ On the other hand, it is inefficient.
  The distances that the Taxis drive to make pickups is not taken into considerat
 ion at all.
 \begin_inset Note Note
@@ -411,13 +432,24 @@ This sounds like conclusion material.
 
 \begin_layout Standard
 \paragraph_spacing double
-The competitive FIFO is similar, but here the Taxis queue up to try and
- pick up the Fare.
- This simulation is probably more inefficient most of the time than it's
- cooperative counterpart, since most of the Taxis are going after the same
- Fares.
- When one gets there, they all start over and go after the next Fare in
- the waitingFares queue.
+FIFO for competitions is similar, but here the Taxis queue up (in a separate
+ competeQ) to try and pick up the Fare.
+ This simulation may behave inefficiently in another way, since most of
+ the Taxis will be going after the same Fares.
+ 
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+COME BACK TO THIS.
+ During data collection and analysis, find out if my assertion is true and
+ update this section based on reality.
+\end_layout
+
+\end_inset
+
+ When one gets there, the losing Taxis start over and go after the next
+ Fare in the waitingFares queue.
 \begin_inset Foot
 status open
 
@@ -444,8 +476,12 @@ name "fn:Gato-footnote"
 Next up is closestFare.
  The name pretty much sums it up for the cooperative simulations.
  Each Taxi queries the list of waiting Fares, and finds the geographically
- closest Fare available at that time.
- Note that distance is measured either 
+ closest available Fare that has not already been acknowledged by another
+ Taxi.
+ Unless the waiting Fares queue is empty, the Taxi should always get a Fare
+ in the cooperative simulation.
+ Distance is a configurable setting.
+ It is measured either 
 \begin_inset Quotes eld
 \end_inset
 
@@ -454,7 +490,6 @@ as the crow flies
 \end_inset
 
 , or by surface street distance.
- This is a configurable setting.
  See distanceCalculation in 
 \begin_inset CommandInset ref
 LatexCommand ref
@@ -467,25 +502,51 @@ reference "sec:The-agents-default.ini"
 
 \begin_layout Standard
 The competitive closestFare simulation is similar, except for once again
- the Taxis have no knowledge of one another, but only one of them will pick
+ the Taxis have no knowledge of one another, and only one of them will pick
  up any given Fare.
  So the chosen Fare must be the one that is closest to them, and they must
  be closest to the Fare relative to the other Taxis as well.
+ The first Taxi to reach the Fare makes the pickup and the rest renege out
+ of the compete queue to try again.
 \end_layout
 
 \begin_layout Standard
-The mixedMode simulations are more complex.
- 
-\begin_inset Note Note
-status open
-
-\begin_layout Plain Layout
-PICK UP HERE
+mixedMode simulations are more complex.
+ Fares broadcast their pickup requests to widening areas until a Taxi either
+ acknowledges them in the cooperative simulation, or arrives to pick them
+ up in the competitive simulations.
+ There are three configurable ratios: taxiRangeLow, taxiRangeMedium, and
+ taxiRangeHigh.
+ Their starting values are 0.25, 0.5 and 1.0, representing the time the Fare
+ has been waiting for a pickup.
 \end_layout
 
-\end_inset
+\begin_layout Standard
+An eligible Taxi uses a combination of the Fare's time in the waitingFares
+ buffer plus their distance from the Taxi to determine which Fares to inspect.
+ If there are any Fares in the buffer, the one with the lowest score (cost)
+ is returned to the caller.
+\end_layout
 
+\begin_layout Standard
+If the list is empty, in other words, if there are no Fares which meet the
+ time and space (distance) requirements of this Taxi, the Taxi goes into
+ a getQ, and stays there until at least one suitable Fare comes along.
+ There don't seem to be any restrictions from SimPy on when a Taxi can get
+ out of the queue.
+ A Taxi will stay in the getQ until a Fare is close enough for him to pick
+ up.
+\end_layout
 
+\begin_layout Standard
+For the cooperative simulations, the Taxi will have acknowledge the Fare
+ and make the pickup.
+ For mixedMode competitive, all Fares that receive the same Fare data attempt
+ to make the pickup.
+ Taxis will enter the queue at different times.
+ It's possible, based on their relative locations, that a Taxi that entered
+ the getQ after other Taxis are already en route to the Fare may be the
+ one to make the pickup.
 \end_layout
 
 \begin_layout Section
