@@ -169,6 +169,147 @@ generating plots
 
 \end_deeper
 \begin_layout Section
+SimPy Resource Types: Resources, Levels and Stores
+\end_layout
+
+\begin_layout Standard
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+Where does this belong? Above subsection 
+\begin_inset Quotes eld
+\end_inset
+
+Fares
+\begin_inset Quotes erd
+\end_inset
+
+? Break it out into it's own section? What is the right heading title?
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\paragraph_spacing double
+There are three types of resources in SimPy that are available for working
+ with the actors in your simulation: Resources, Levels and Stores.
+ You may use one or more of them in a simulation, but any individual piece
+ is modelled using only one.
+\end_layout
+
+\begin_layout Standard
+\paragraph_spacing double
+A Resource is useful if you have multiple identical tasks that are modelled
+ as SimPy objects, and one or more required elements.
+ The example most often given here is waiting in line at a bank.
+ The tellers are the required elements (a SimPy Resource), and the customers
+ waiting to perform some task (also a Resource) wait in a shared line for
+ a teller to become available.
+ The waiting customers are stored in a wait queue, while the customers who
+ are at the teller stations are stored in an active queue.
+ I originally wrote my program to use Resources, but later rewrote it because
+ ...
+ 
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+WHY??
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\paragraph_spacing double
+The second resource type is the Level.
+ It is used when you want to model something of a more 
+\begin_inset Quotes eld
+\end_inset
+
+continuous
+\begin_inset Quotes erd
+\end_inset
+
+ nature.
+ Instead of having discrete units, the simulation usually tracks the volume
+ or weight of some resource, like water in a bathtub for example.
+ This type of resource is described using a scalar value, and is useful
+ for simulations where you're concerned with the supply of something, like
+ gasoline in a gas station.
+ A key consideration is that you don't need to model the resource as an
+ object with behavior and state.
+\end_layout
+
+\begin_layout Standard
+\paragraph_spacing double
+The last resource type is the Store.
+ Stores model the production and consumption of individual items, but a
+ key difference is that Stores do maintain object state.
+ This makes it a good choice for modeling Agents.
+ Stores insert or remove any Python type.
+ In particular, they may use SimPy Process objects.
+ They also provide put and get queues, and make nice systems with which
+ to model Master/Slave relationships, like a Taxi/Fare simulation for example.
+\end_layout
+
+\begin_layout Standard
+\paragraph_spacing double
+The waitingFares queue is a SimPy Store.
+ It is an attribute of the Agent class, which is itself a SimPy Process
+ object.
+ As the name suggests, it holds references to Fare objects.
+ Fares add themselves to the queue, and Taxis remove the Fares from it.
+ To ensure that there is only one waitingFares queue, it is a static (class)
+ attribute that is shared by all Agent types.
+ Putting Fares into the queue is simple enough.
+ In the Fare's 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+texttt{run()}
+\end_layout
+
+\end_inset
+
+ method, 
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+P/U HERE
+\end_layout
+
+\end_inset
+
+ 
+\begin_inset Foot
+status open
+
+\begin_layout Plain Layout
+\paragraph_spacing double
+One of the difficulties that came up during data collection for analysis
+ was accounting for Fares that are left in the waitingFares queue at the
+ end of the simulation.
+ This is covered in the results section.
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Section
 The Agents
 \end_layout
 
@@ -222,121 +363,11 @@ reference "sec:The-agents-default.ini"
 \end_layout
 
 \begin_layout Subsection
-Background: Resources, Levels and Stores
-\end_layout
-
-\begin_layout Standard
-\begin_inset Note Note
-status open
-
-\begin_layout Plain Layout
-Where does this belong? Above subsection 
-\begin_inset Quotes eld
-\end_inset
-
-Fares
-\begin_inset Quotes erd
-\end_inset
-
-? Break it out into it's own section? What is the right heading title?
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Standard
-\paragraph_spacing double
-There are three types of resources in SimPy that are available for working
- with the actors in your simulation: Resources, Levels and Stores.
- You may use one or more of them in a simulation, but any individual piece
- is modelled using only one.
-\end_layout
-
-\begin_layout Standard
-A Resource is useful if you have multiple identical tasks that are modelled
- as SimPy objects, and one or more required elements.
- The example most often given here is waiting in line at a bank.
- The tellers are the required elements (a SimPy Resource), and the customers
- waiting to perform some task (also a Resource) wait in a shared line for
- a teller to become available.
- The waiting customers are stored in a wait queue, while the customers who
- are at the teller stations are stored in an active queue.
- I originally wrote my program to use Resources, but later rewrote it because
- ...
- 
-\begin_inset Note Note
-status open
-
-\begin_layout Plain Layout
-WHY??
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Standard
-The waitingFares queue is a SimPy Store.
- It holds references to Fare objects.
- But when referring to the contents of the queue, I use Fare and request
- interchangeably.
- They are equivalent for documentation purposes.
-\begin_inset Foot
-status open
-
-\begin_layout Plain Layout
-\paragraph_spacing double
-One of the difficulties that came up during data collection for analysis
- was accounting for Fares that are left in the waitingFares queue at the
- end of the simulation.
- This is covered in the results section.
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Standard
-The second resource type is the Level.
- It is used when you want to model something of a more 
-\begin_inset Quotes eld
-\end_inset
-
-continuous
-\begin_inset Quotes erd
-\end_inset
-
- nature, like amount of plastic pellets, by weight, available to an injection
- molding machine.
- Instead of having discrete units, the simulation usually tracks the volume
- or weight of some resource.
- This type of resource can be described using a scalar value.
-\end_layout
-
-\begin_layout Standard
-The last resource type is the Store.
- 
-\begin_inset Note Note
-status open
-
-\begin_layout Plain Layout
-PICKUP HERE
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Subsection
 Taxis
 \end_layout
 
 \begin_layout Standard
+\paragraph_spacing double
 The Taxi class is more complex than the Fares, as it defines multiple SimPy
  PEMs corresponding to the different negotiation protocols and simulation
  types.
