@@ -173,37 +173,16 @@ SimPy Resource Types: Resources, Levels and Stores
 \end_layout
 
 \begin_layout Standard
-\begin_inset Note Note
-status open
-
-\begin_layout Plain Layout
-Where does this belong? Above subsection 
-\begin_inset Quotes eld
-\end_inset
-
-Fares
-\begin_inset Quotes erd
-\end_inset
-
-? Break it out into it's own section? What is the right heading title?
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Standard
 \paragraph_spacing double
 There are three types of resources in SimPy that are available for working
  with the actors in your simulation: Resources, Levels and Stores.
  You may use one or more of them in a simulation, but any individual piece
- is modelled using only one.
+ is modeled using only one.
 \end_layout
 
 \begin_layout Standard
 \paragraph_spacing double
-A Resource is useful if you have multiple identical tasks that are modelled
+A Resource is useful if you have multiple identical tasks that are modeled
  as SimPy objects, and one or more required elements.
  The example most often given here is waiting in line at a bank.
  The tellers are the required elements (a SimPy Resource), and the customers
@@ -253,46 +232,23 @@ The last resource type is the Store.
  Stores model the production and consumption of individual items, but a
  key difference is that Stores do maintain object state.
  This makes it a good choice for modeling Agents.
- Stores insert or remove any Python type.
- In particular, they may use SimPy Process objects.
- They also provide put and get queues, and make nice systems with which
- to model Master/Slave relationships, like a Taxi/Fare simulation for example.
+ Stores insert or remove any Python type, but most simulations will probably
+ use SimPy Process objects.
+ These are the main active elements in SimPy simulations.
+ Stores also provide put and get queues, and are well suited to modeling
+ Master/Slave relationships, like this Taxi/Fare simulation.
 \end_layout
 
 \begin_layout Standard
 \paragraph_spacing double
-The waitingFares queue is a SimPy Store.
- It is an attribute of the Agent class, which is itself a SimPy Process
- object.
+The waitingFares queue of the Agents class is a SimPy Store.
  As the name suggests, it holds references to Fare objects.
- Fares add themselves to the queue, and Taxis remove the Fares from it.
+ The usage is different here though, as Agents is a Process, and it contains
+ a Store attribute.
  To ensure that there is only one waitingFares queue, it is a static (class)
  attribute that is shared by all Agent types.
- Putting Fares into the queue is simple enough.
- In the Fare's 
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-
-\backslash
-texttt{run()}
-\end_layout
-
-\end_inset
-
- method, 
-\begin_inset Note Note
-status open
-
-\begin_layout Plain Layout
-P/U HERE
-\end_layout
-
-\end_inset
-
- 
+ So the Fares share a Store object that is maintained by the group for the
+ use of all Agents, including the Taxis.
 \begin_inset Foot
 status open
 
@@ -307,6 +263,92 @@ One of the difficulties that came up during data collection for analysis
 \end_inset
 
 
+\end_layout
+
+\begin_layout Standard
+\paragraph_spacing double
+Fares add themselves to the queue, and Taxis remove the Fares from it.
+ When a Fare is created, it's 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+texttt{run()}
+\end_layout
+
+\end_inset
+
+ method is called to activate the Fare.
+ One of the first things that happens in the 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+texttt{run()}
+\end_layout
+
+\end_inset
+
+ method is a 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+texttt{yield}
+\end_layout
+
+\end_inset
+
+ call, which pushes the Fare onto the waitingFares queue:
+\end_layout
+
+\begin_layout Standard
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+texttt{yield put, self, Agent.waitingFares, [self]}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\paragraph_spacing double
+This is the first example of Python's 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+texttt{yield}
+\end_layout
+
+\end_inset
+
+ statement, which all Process objects use to turn PEMs into Python generators.
+ This allows the method to be paused and resume later without losing its
+ current state.
+ All Process objects must have a PEM with at least one yield statement.
+ Here it is putting itself onto the waitingFares queue by first putting
+ itself into a one-element list ([self]), and then putting the contents
+ of that list onto the waitingFares queue.
 \end_layout
 
 \begin_layout Section
