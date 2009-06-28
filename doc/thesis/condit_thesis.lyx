@@ -1,4 +1,4 @@
-#LyX 1.6.1 created this file. For more info see http://www.lyx.org/
+#LyX 1.6.3 created this file. For more info see http://www.lyx.org/
 \lyxformat 345
 \begin_document
 \begin_header
@@ -1795,11 +1795,11 @@ Default: False.
 
 \emph default
  
-\begin_inset Note Comment
+\begin_inset Note Note
 status open
 
 \begin_layout Plain Layout
-TODO: what is ignored?
+TODO: what is ignored? Leave that comment out?
 \end_layout
 
 \end_inset
@@ -1980,7 +1980,11 @@ Type: Float.
 \emph default
  When running in mixedmode, the Taxi uses this value to determine if the
  Fares have been in the queue only long enough to send local broadcasts.
- Valid values are (0.0 to taxiRangeMedium) 
+ Valid values are (0.0 to
+\begin_inset Newline newline
+\end_inset
+
+taxiRangeMedium) 
 \emph on
 Default: 0.25.
 \end_layout
@@ -2136,136 +2140,7 @@ name "sec:The-graphs-default.ini"
 \end_layout
 
 \begin_layout Standard
-\begin_inset Note Comment
-status open
-
-\begin_layout Plain Layout
-TODO: figure out how to center this box.
- Maybe use a minipage instead.
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Standard
-\begin_inset Note Comment
-status open
-
-\begin_layout Plain Layout
-Three tries, three fails:
-\end_layout
-
-\begin_layout Plain Layout
-(1) The framebox makes the cxrefs, but does not put the text in the box.
- It just runs off the right side of the page.
-\end_layout
-
-\begin_layout Plain Layout
-(2) The LyX Framed region looks great, but the cxrefs and copyright don't
- work.
-\end_layout
-
-\begin_layout Plain Layout
-(3) The minipage doesn't allow a framebox.
- In fact, if I add the framebox it looks a lot like fail no.
- 1.
-\end_layout
-
-\begin_layout Plain Layout
-If it comes down to it, I'll use the Framed and forget about the cxrefs
- and copyright.
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Standard
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-
-\backslash
-framebox[1in]{Note: This section only applies if you are using the TIGER/Line
-\backslash
-textsuperscript{
-\backslash
-tiny{
-\backslash
-copyright}} Census data to generate geographic graphs for your simulations.
- In that case, you should have already installed a database (SQLite 
-\backslash
-ref{ite:[http://www.sqlite.org/||SQLite]} or MySQL  
-\backslash
-ref{ite:[http://www.mysql.com/||MySQL]}), SQLAlchemy 
-\backslash
-ref{ite:[http://www.sqlalchemy.org/||SQLAlchemy]}, and NetworkX 
-\backslash
-ref{ite:[https://networkx.lanl.gov/wiki/||NetworkX]}.}
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Standard
-\begin_inset Note Comment
-status open
-
-\begin_layout Plain Layout
-The cross-ref link works, but it looks strange (red box) in Adobe Reader.
- Is that how it's supposed to look?
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Standard
-\begin_inset Box Framed
-position "t"
-hor_pos "c"
-has_inner_box 0
-inner_pos "t"
-use_parbox 0
-width "100col%"
-special "none"
-height "1in"
-height_special "totalheight"
-status open
-
-\begin_layout Plain Layout
-Note: This section only applies if you are using the TIGER/Line
-\backslash
-textsuperscript{
-\backslash
-tiny{
-\backslash
-copyright}} Census data to generate geographic graphs for your simulations.
- In that case, you should have already installed a database (SQLite 
-\backslash
-ref{ite:[http://www.sqlite.org/||SQLite]} or MySQL  
-\backslash
-ref{ite:[http://www.mysql.com/||MySQL]}), SQLAlchemy 
-\backslash
-ref{ite:[http://www.sqlalchemy.org/||SQLAlchemy]}, and NetworkX 
-\backslash
-ref{ite:[https://networkx.lanl.gov/wiki/||NetworkX]}.
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Standard
+\align center
 \begin_inset ERT
 status open
 
@@ -2285,7 +2160,7 @@ copyright}} Census data to generate geographic graphs for your simulations.
 \backslash
 ref{ite:[http://www.sqlite.org/||SQLite]} or MySQL  
 \backslash
-ref{ite:[http://www.mysql.com/||MySQL]}), SQLAlchemy 
+ref{ite:[http://www.mysql.com/||MySQL]}), plus SQLAlchemy 
 \backslash
 ref{ite:[http://www.sqlalchemy.org/||SQLAlchemy]}, and NetworkX 
 \backslash
@@ -2299,6 +2174,10 @@ ref{ite:[https://networkx.lanl.gov/wiki/||NetworkX]}.}
 end{minipage}
 \end_layout
 
+\end_inset
+
+
+\begin_inset VSpace 0.3in
 \end_inset
 
 
@@ -2347,30 +2226,9 @@ zipCommand
 Type: String (OS path + string option).
 
 \emph default
- The path to a zip utility plus the decompress option that extractTiger
- 
-\begin_inset Note Comment
-status open
-
-\begin_layout Plain Layout
-Deprecation warning: whatever extractTiger was, it's gone now.
-\end_layout
-
-\end_inset
-
- can use to decompress the record type files from tigerRoot 
-\begin_inset Note Comment
-status open
-
-\begin_layout Plain Layout
-Deprecation warning: whatever tigerRoot was, it's gone now.
-\end_layout
-
-\end_inset
-
-.
- The graphs package includes 7z.exe and I recommend using it, but you can
- use a different zip tool.
+ The path to a zip utility used to decompress the TIGER data files.
+ The graphs package includes (and I recommend) 7z.exe, but you can use a
+ different zip tool.
  If it's not on your PATH, you will have to specify its location.
  Valid value is the path to a zip utility.
  The default path is relative to the location of the config file in the
@@ -2393,7 +2251,11 @@ Type: String (URL).
  In most cases, this value should not be changed.
  
 \emph on
-Default: http://www.census.gov/geo/tigerline/app_a03.txt.
+Default:
+\begin_inset Newline newline
+\end_inset
+
+http://www.census.gov/geo/tigerline/app_a03.txt.
 \end_layout
 
 \begin_layout Description
@@ -2444,7 +2306,11 @@ Type: String (OS path).
  Base of the location where data and image files are stored.
  This may be a temporary location.
  Valid values are OS paths.
- This config option MUST be set in agents
+ This config option MUST be set in
+\begin_inset Newline newline
+\end_inset
+
+agents
 \backslash
 conf
 \backslash
