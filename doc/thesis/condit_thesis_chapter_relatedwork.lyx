@@ -285,14 +285,14 @@ TRYSA
 
  communicate with one another directly, eliminating the need for a coordinator
  agent.
- See 
+ See figure 
 \begin_inset CommandInset ref
 LatexCommand vref
 reference "fig:TRYS-and-TRYSA2"
 
 \end_inset
 
-
+.
 \end_layout
 
 \begin_layout Standard
@@ -634,7 +634,7 @@ ndez, but real-time performance data was not provided.
 \begin_layout Standard
 \paragraph_spacing double
 The LTAs and the CTAs behave almost identically to the analogous agents
- in TRYS (see 
+ in TRYS (see figure 
 \begin_inset CommandInset ref
 LatexCommand vref
 reference "fig:LTAs-and-CTA"
@@ -1035,7 +1035,7 @@ decision making under uncertainty
 \emph default
 , neither agent knows anything about the other agent's beliefs or desires.
  Data collection is entirely speculative.
- See 
+ See figure 
 \begin_inset CommandInset ref
 LatexCommand vref
 reference "fig:uncertainty-management"
@@ -1049,7 +1049,7 @@ reference "fig:uncertainty-management"
 \begin_inset Float figure
 wide false
 sideways false
-status collapsed
+status open
 
 \begin_layout Plain Layout
 \begin_inset Graphics
@@ -1196,10 +1196,10 @@ http://www.logisticsworld.com/logistics.htm
 \begin_layout Standard
 \paragraph_spacing double
 The evaluation framework consists of several pieces.
- The full list is shown in figure 
+ The full list is shown in table 
 \begin_inset CommandInset ref
 LatexCommand vref
-reference "fig:evaluation-framework-summary"
+reference "tab:transport-logistics-eval-framework"
 
 \end_inset
 
@@ -1296,49 +1296,6 @@ PICK UP HERE
 \begin_inset CommandInset ref
 LatexCommand ref
 reference "tab:classifying-taxis-and-fares-sim"
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Standard
-\begin_inset Float figure
-wide false
-sideways false
-status open
-
-\begin_layout Plain Layout
-\begin_inset Graphics
-	filename figures/tranport-logistics-combined.PNG
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Plain Layout
-\begin_inset Caption
-
-\begin_layout Plain Layout
-Summary of transportation logistics evaluation framework.
-\end_layout
-
-\end_inset
-
-
-\begin_inset CommandInset label
-LatexCommand label
-name "fig:evaluation-framework-summary"
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Plain Layout
-
-\end_layout
 
 \end_inset
 
@@ -2598,6 +2555,13 @@ Evaluation comparison
 \begin_layout Plain Layout
 Summary of transportation logistics evaluation framework
 \end_layout
+
+\end_inset
+
+
+\begin_inset CommandInset label
+LatexCommand label
+name "tab:transport-logistics-eval-framework"
 
 \end_inset
 
