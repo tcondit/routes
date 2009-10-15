@@ -126,7 +126,7 @@ class FipsMetadataParser(object):
 
     # I should think about using this ...
     def greet(self):
-	'''DOCSTRING'''
+        '''DOCSTRING'''
         print "This is the FIPS county data download tool."
         print
         print "This utility will help you choose a county on which to run"
@@ -210,10 +210,10 @@ class FipsMetadataParser(object):
 #        return self.FIPS_D
 
     def parseCodes(self):
-	'''
-	Parse and return the state and county codes
-	(concatenated).
-	'''
+        '''
+        Parse and return the state and county codes
+        (concatenated).
+        '''
         for line in self.eligible:
             # find state code and county code
             iterator1, iterator2= \
@@ -231,9 +231,9 @@ class FipsMetadataParser(object):
     # work with.  It's at least consistent with getCounties.
     def getStates(self):
         '''
-	Return the list of states and territories in
-	FIPS_METADATA_URL.
-	'''
+        Return the list of states and territories in
+        FIPS_METADATA_URL.
+        '''
         states=[]
         for key, value in self.FIPS_D.items():
             states.append((key, value[0]))
@@ -261,9 +261,9 @@ class FipsMetadataParser(object):
     # Currently unused?
     def getCounties(self, stateAbbr):
         '''
-	Return the counties in the given two-letter state
-	abbreviation or None.
-	'''
+        Return the counties in the given two-letter state
+        abbreviation or None.
+        '''
         try:
             return self.FIPS_D.get(stateAbbr)[1]
         except TypeError:  # bogus state
@@ -284,13 +284,13 @@ class FipsMetadataParser(object):
 
     def isCounty(self,stateCode,countyCode):
         '''
-	Return True if stateCode+countyCode is a valid FIPS county
-	code.
-	'''
+        Return True if stateCode+countyCode is a valid FIPS county
+        code.
+        '''
         return stateCode+countyCode in self.FIPS_L
 
     def getRandomCounty(self):
-	'''Return a random county from the current FIPS list.'''
+        '''Return a random county from the current FIPS list.'''
         try:
             return random.choice(self.FIPS_L)
         except IndexError:
@@ -308,7 +308,7 @@ class FipsMetadataParser(object):
     #
     # Currently unused.
     def showStates(self):
-	'''DOCSTRING'''
+        '''DOCSTRING'''
         states=self.FIPS_D.keys()
         count=0
         for state in states:
@@ -321,7 +321,7 @@ class FipsMetadataParser(object):
     # Like showStates, this method breaks the rules slightly, by printing to
     # STDOUT.
     def showCounties(self,stateCode):
-	'''DOCSTRING'''
+        '''DOCSTRING'''
         try:
             counties=self.FIPS_D.get(stateCode)[1]
             count=0
@@ -340,7 +340,7 @@ class FipsMetadataParser(object):
 class UserInput(object):
     '''DOCSTRING'''
     def __init__(self):
-	'''DOCSTRING'''
+        '''DOCSTRING'''
         print "\n====[ UserInput ]===="
 
     # TODO Maybe allow the user to pass in the range or exact values that are
@@ -367,11 +367,11 @@ class UserInput(object):
 
     def getDbEngine(self):
         '''
-	Query the user for which database engine to use.
+        Query the user for which database engine to use.
 
-	Currently there are only two choices: SQLite (preferred)
-	or MySQL.
-	'''
+        Currently there are only two choices: SQLite (preferred)
+        or MySQL.
+        '''
         engineCode=None
         dbEngineNames=[(1,'SQLite'),(2,'MySQL')]
 
@@ -401,7 +401,7 @@ class UserInput(object):
             sys.exit(0)
 
     def __MySQLCreds(self):
-	'''[private] DOCSTRING'''
+        '''[private] DOCSTRING'''
         # TODO Be sneaky and use some cloaking method for password (later)
         G.dbUsername=raw_input('Enter the username: ')
         G.dbPassword=raw_input('Enter the password: ')
@@ -411,7 +411,7 @@ class UserInput(object):
         G.dbName=raw_input('Enter the database name: ')
 
     def __MySQLUri(self):
-	'''[private] DOCSTRING'''
+        '''[private] DOCSTRING'''
         # Assemble the uri for SQLAlchemy.  Looks like
         #mysql://username:password@host/database_name
         G.dbUri='mysql://%s:%s@%s/%s' % \
@@ -420,7 +420,7 @@ class UserInput(object):
             print '[DEBUG] G.dbUri: %s' % G.dbUri
 
     def __SQLiteUri(self):
-	'''[private] DOCSTRING'''
+        '''[private] DOCSTRING'''
         G.dbName='TGR'+G.stateCountyCode+'.db'
         # Assemble the uri for SQLAlchemy.  Looks like
         # sqlite:///tgr53033.db.
@@ -446,7 +446,7 @@ class GetFips(object):
     '''
 
     def __init__(self):
-	'''DOCSTRING'''
+        '''DOCSTRING'''
         print "\n====[ GetFips ]===="
         # Maybe we shouldn't go to all this trouble up front.  The user may
         # want to exit without running the program.  But doing it here is
@@ -461,7 +461,7 @@ class GetFips(object):
         self.u=UserInput()
 
     def getSelection(self):
-	'''DOCSTRING'''
+        '''DOCSTRING'''
         # get the user's initial choice
         while True:
             print 'See the list of states, make a random selection, or quit?'
@@ -524,7 +524,7 @@ class GetFips(object):
             break
 
     def getFipsZipFile(self):
-	'''DOCSTRING'''
+        '''DOCSTRING'''
         while True:
             confirm=self.u.getDigit(min=1,max=1,
                             msg="(1) download ZIP file (2) quit: ")
@@ -584,7 +584,7 @@ class ProcessFipsFiles(object):
     '''
 
     def __init__(self):
-	'''DOCSTRING'''
+        '''DOCSTRING'''
         print "\n====[ ProcessFipsFiles ]===="
 
         # should look like G.srcPath
@@ -598,11 +598,11 @@ class ProcessFipsFiles(object):
 
     def unzip(self):
         '''
-	Unzip the chosen FIPS (TIGER) ZIP file.
+        Unzip the chosen FIPS (TIGER) ZIP file.
 
-	The files are extracted to the same directory (from
-	G.srcPath to G.srcPath).
-	'''
+        The files are extracted to the same directory (from
+        G.srcPath to G.srcPath).
+        '''
         # There should be only one ZIP file in G.srcPath for a particular
         # county.  One county, one zip file.
         for candidate_file in os.listdir(G.srcPath):
@@ -638,10 +638,10 @@ class ProcessFipsFiles(object):
 
     def cleanup(self):
         '''
-	Remove all extracted files from G.srcPath.
+        Remove all extracted files from G.srcPath.
 
-	Do not delete the ZIP file.
-	'''
+        Do not delete the ZIP file.
+        '''
         for rtfile in os.listdir(G.srcPath):
             tmp=rtfile.upper()
             if tmp.endswith('ZIP'):
@@ -676,13 +676,13 @@ class RunMungers(object):
 
     def process(self):
         '''
-	Generate a SQL recordset from TIGER RT files.
+        Generate a SQL recordset from TIGER RT files.
 
-	This loop processes all the RT1 and RT2 files, and
-	generates a SQL (SQLAlchemy?) recordset from them.  If
-	other files are present in the source directory, they are
-	skipped with a message to STDOUT.
-	'''
+        This loop processes all the RT1 and RT2 files, and
+        generates a SQL (SQLAlchemy?) recordset from them.  If
+        other files are present in the source directory, they are
+        skipped with a message to STDOUT.
+        '''
         for rtfile in os.listdir(G.rawPath):
             # TODO move this print statement into MungeRTx()
             #print "  Reading file %s" % rtfile
@@ -709,7 +709,7 @@ class CreateDatabase(object):
     This class has no methods.  Everything happens in __init__.
     '''
     def __init__(self):
-	'''DOCSTRING'''
+        '''DOCSTRING'''
         print "\n====[ CreateDatabase ]===="
         G.engine=sqlalchemy.create_engine(G.dbUri,echo=False)
         meta=MetaData()
@@ -788,7 +788,7 @@ class CreateDatabase(object):
 class LoadDatabase(object):
     '''DOCSTRING'''
     def __init__(self):
-	'''DOCSTRING'''
+        '''DOCSTRING'''
         print "\n====[ LoadDatabase ]===="
 
         # Create a Session object.  In SQLAlchemy terms, this is the ORM's
@@ -850,7 +850,7 @@ class RecordType1(object):
         fetype=None,fedirs=None,fraddl=None,toaddl=None,
         fraddr=None,toaddr=None,zipl=None,zipr=None,
         frlong=0,frlat=0,tolong=0,tolat=0):
-	'''DOCSTRING'''
+        '''DOCSTRING'''
 
         #print "\n====[ RecordType1 ]===="
         self.rt=rt
@@ -873,7 +873,7 @@ class RecordType1(object):
         self.tolat=tolat
 
     def __repr__(self):
-	'''DOCSTRING'''
+        '''DOCSTRING'''
         return "<RecordType1('%s', '%s', '%s', '%s', '%s','%s', '%s', '%s', '%s', '%s','%s', '%s', '%s', '%s', '%s','%s','%s')>" % \
             (self.rt,self.version,self.tlid,self.fedirp,
                 self.fename,self.fetype,self.fedirs,
@@ -887,7 +887,7 @@ class RecordType2(object):
     def __init__(self,rtid,version,tlid,rtsq,long1,lat1,long2,lat2,
         long3,lat3,long4,lat4,long5,lat5,long6,lat6,long7,lat7,long8,lat8,
         long9,lat9,long10,lat10):
-	'''DOCSTRING'''
+        '''DOCSTRING'''
 
         #print "\n====[ RecordType2 ]===="
         self.rtid=rtid
@@ -918,7 +918,7 @@ class RecordType2(object):
         self.lat10=lat10
 
     def __repr__(self):
-	'''DOCSTRING'''
+        '''DOCSTRING'''
         return "<RecordType2('%s','%s','%s','%s','%s','%s','%s','%s','%s','%s','%s','%s','%s','%s','%s','%s','%s','%s','%s','%s','%s','%s','%s','%s')>" % \
             (self.rtid,self.version,self.tlid,self.rtsq,
                 self.long1,self.lat1,self.long2,self.lat2,
@@ -932,12 +932,12 @@ class MungeRT1(object):
     '''DOCSTRING'''
     #def __init__(self,rawIn,mungedOut):
     def __init__(self,rawIn):
-	'''DOCSTRING'''
+        '''DOCSTRING'''
         print "\n====[ MungeRT1 ]===="
         print 'Reading raw data from %s' % rawIn
 
     def munge(self,infile):
-	'''DOCSTRING'''
+        '''DOCSTRING'''
         rtnum=1
         if not check_filename(infile,rtnum):
             print "Error: invalid input %s" % os.path.basename(infile)
@@ -990,13 +990,13 @@ class MungeRT2(object):
     '''DOCSTRING'''
     #def __init__(self,rawIn,mungedOut):
     def __init__(self,rawIn):
-	'''DOCSTRING'''
+        '''DOCSTRING'''
         print "\n====[ MungeRT2 ]===="
         print 'Reading raw data from %s' % rawIn
 
 
     def munge(self,infile):
-	'''DOCSTRING'''
+        '''DOCSTRING'''
         rtnum=2
         if not check_filename(infile,rtnum):
             print "Error: invalid input %s" % os.path.basename(infile)
@@ -1062,7 +1062,7 @@ class QueryDatabase(object):
     '''
 
     def __init__(self):
-	'''DOCSTRING'''
+        '''DOCSTRING'''
         print "\n====[ QueryDatabase ]===="
         self.session=G.Session()
 
@@ -1084,11 +1084,11 @@ class QueryDatabase(object):
 
     def chooseGraphArea(self):
         '''
-	Choose the geographical area for the simulation.
+        Choose the geographical area for the simulation.
 
-	The most common choices are either the area of a ZIP code
-	or an entire county.
-	'''
+        The most common choices are either the area of a ZIP code
+        or an entire county.
+        '''
         G.zipCodesResultProxy=self.getZipCodes()
 
         # TODO experiment with how to pair up numbers (01, 02, ...) with ZIP
@@ -1134,9 +1134,9 @@ class QueryDatabase(object):
     # into is creating a callable string, and executing it.
     def __rpZip(self,zip):
         '''
-	[private] Fetch a SQLAlchemy ResultProxy based on a zip
-	code query.
-	'''
+        [private] Fetch a SQLAlchemy ResultProxy based on a zip
+        code query.
+        '''
         return self.session.execute(select([
             G.tiger01_Table.c.tlid,
             G.tiger01_Table.c.frlong,
@@ -1147,17 +1147,17 @@ class QueryDatabase(object):
 
     def __rpAll(self):
         '''
-	[private] Fetch a SQLAlchemy ResultProxy for all records.
-	'''
+        [private] Fetch a SQLAlchemy ResultProxy for all records.
+        '''
         return self.session.execute(select([G.tiger01_Table]).distinct())
 
     # TODO I want to see some self.rt2.da_da_da in here!
 
     def tuptotup(self):
         '''
-	DOCSTRING Describe (clearer than "Data format change
-	method."
-	'''
+        DOCSTRING Describe (clearer than "Data format change
+        method.)"
+        '''
         if G.zipCode is None:
            rp=self.__rpAll()
         else:
@@ -1185,9 +1185,9 @@ class QueryDatabase(object):
     # NOTE: this method is similar to agents.Agent mkcoords()
     def get_point(self):
         '''
-	Fetch a SQLAlchemy ResultProxy for a random point on the
-	graph.
-	'''
+        Fetch a SQLAlchemy ResultProxy for a random point on the
+        graph.
+        '''
         # TODO think about renaming this to get_vertices().  get_point() is
         # just plain wrong.  Update the docstring as well.
         randomRow=random.randint(1,self.getRecordCount())
@@ -1206,12 +1206,12 @@ class QueryDatabase(object):
 class MakeGraph(object):
     '''DOCSTRING'''
     def __init__(self):
-	'''DOCSTRING'''
+        '''DOCSTRING'''
         print "\n====[ MakeGraph ]===="
         self.q=QueryDatabase()
 
     def makeGraph(self):
-	'''DOCSTRING'''
+        '''DOCSTRING'''
         self.uniqlist=[]
         # TODO name the graph according to the county code and zipcode if
         # used.  The generated graphic should be named the same way.
@@ -1266,7 +1266,7 @@ class MakeGraph(object):
         print 'done\n'
 
     def shortest_path(self,point1,point2):
-	'''DOCSTRING'''
+        '''DOCSTRING'''
         point1=list(point1)
         point2=list(point2)
         point1[0],point1[1]=int(point1[0]),int(point1[1])
@@ -1276,7 +1276,7 @@ class MakeGraph(object):
         return networkx.path.shortest_path(self.G,point1,point2)
 
     def get_connected(self):
-	'''DOCSTRING'''
+        '''DOCSTRING'''
         return networkx.component.connected_components(self.G)[0]
 
 
