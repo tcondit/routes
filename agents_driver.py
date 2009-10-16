@@ -37,10 +37,10 @@ def printHeader(verbose=False):
     '''
     Print all the configuration data for this specific simulation
     run.
-    
+
     Useful for ensuring we're comparing apples to apples.
     '''
-    
+
     # TODO [later] Flag items that are changed from the default, or
     # (conversely, but basically equivalently), flag default items.
 

@@ -119,10 +119,10 @@ when you're done, and we'll continue.
 
 
     def get_location(self):
-	'''
-	Returns a pair of points (vertices) representing a
-	location.
-	'''
+        '''
+        Returns a pair of points (vertices) representing a
+        location.
+        '''
         point_a=self.get_point()
         point_b=self.get_point()
         while point_a==point_b:
@@ -131,22 +131,22 @@ when you're done, and we'll continue.
 
 
     def get_point(self):
-	'''
-	Generates a two-tuple representing an (x,y) location.
-	'''
+        '''
+        Generates a two-tuple representing an (x,y) location.
+        '''
         return self.__get_vertex()
 
 
     def get_distance(self, here, there):
         '''
-	Given a pair of coordinates, return the driving distance
-	between them.
+        Given a pair of coordinates, return the driving distance
+        between them.
 
-	The distance calculation is set in the configuration
-	option distanceCalculation.  Options are straight-line
-	distance between the points (the default), or driving
-	distance.
-	'''
+        The distance calculation is set in the configuration
+        option distanceCalculation.  Options are straight-line
+        distance between the points (the default), or driving
+        distance.
+        '''
         # This distance is subject to the graphCoordinateMultiplier, to bring
         # it approximately in line with the grid simulation.  The multiplier
         # is used here in order to make this thing behave as much as possible
@@ -187,7 +187,7 @@ when you're done, and we'll continue.
 
         #
         #Traceback (most recent call last):
-        #	...
+        #   ...
         #  File "C:\Source\hg\unified\agents\graph.py", line 229, in get_distance
         #    for lon,lat in self.mkgraph.shortest_path(here,there):
         #TypeError: 'int' object is not iterable
@@ -216,13 +216,13 @@ when you're done, and we'll continue.
 
     def __get_vertex(self,connected=True):
         '''
-	[private] Returns a single (x,y) coordinate point.
+        [private] Returns a single (x,y) coordinate point.
 
-	Parameter connected specifies whether this vertex should
-	come from the first and largest list of nodes.  This is
-	important for the simulation to function properly, since
-	Agents located on unconnected vertices are unreachable.
-	'''
+        Parameter connected specifies whether this vertex should
+        come from the first and largest list of nodes.  This is
+        important for the simulation to function properly, since
+        Agents located on unconnected vertices are unreachable.
+        '''
         tmp=self.query.get_point()
         if connected is True:
             connected_vertices=self.mkgraph.get_connected()

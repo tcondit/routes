@@ -25,7 +25,7 @@ else:
 class Agent(Process):
     '''
     Agent is a SimPy Process.
-    
+
     Taxis and Fares are subclasses of the Agent class.
     '''
     # Static (class) attributes!  Do NOT declare these in __init__ (or they
