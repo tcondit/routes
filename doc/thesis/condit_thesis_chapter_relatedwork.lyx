@@ -102,6 +102,14 @@ Centralized and distributed multiagent traffic systems
 Here we investigate multiagent decision support systems for traffic management.
 \end_layout
 
+\begin_layout Subsection
+Regional agent coordination with TRYS and TRYSA
+\begin_inset Formula $_{\text{2}}$
+\end_inset
+
+
+\end_layout
+
 \begin_layout Standard
 \paragraph_spacing double
 Hern
@@ -275,33 +283,16 @@ TRYSA
 \begin_inset Formula $_{\text{2}}$
 \end_inset
 
- communicate with one another directly, eliminating 
-\begin_inset Foot
-status open
-
-\begin_layout Plain Layout
-I wanted to use the word 
-\begin_inset Quotes eld
-\end_inset
-
-obviating
-\begin_inset Quotes erd
-\end_inset
-
- here, but that makes you sound like a pompous ass.
-\end_layout
-
-\end_inset
-
-the need for a coordinator agent.
- See figure 
+ communicate with one another directly, eliminating the need for a coordinator
+ agent.
+ See 
 \begin_inset CommandInset ref
-LatexCommand ref
+LatexCommand vref
 reference "fig:TRYS-and-TRYSA2"
 
 \end_inset
 
-.
+
 \end_layout
 
 \begin_layout Standard
@@ -465,6 +456,10 @@ At this stage in both systems the selected control plans are ready for review
  by the traffic engineer.
 \end_layout
 
+\begin_layout Subsection
+Comparison with Routes
+\end_layout
+
 \begin_layout Standard
 \paragraph_spacing double
 There are several ways in which these systems differ from mine: they are
@@ -518,23 +513,15 @@ Next we look at another multiagent system for optimizing an urban traffic
 \end_layout
 
 \begin_layout Standard
-\paragraph_spacing double
 \begin_inset Float figure
 wide false
 sideways false
-status collapsed
+status open
 
 \begin_layout Plain Layout
 \begin_inset Graphics
-	filename figures/TRYS.png
-	scale 60
-
-\end_inset
-
-
-\begin_inset Graphics
-	filename figures/TRYSA2.png
-	scale 60
+	filename figures/TRYS-and-TRYSA2.PNG
+	width 66page%
 
 \end_inset
 
@@ -555,27 +542,6 @@ Centralized (TRYS) and decentralized coordination (TRYSA
 \end_inset
 
 
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Standard
-\paragraph_spacing double
-\begin_inset Note Note
-status open
-
-\begin_layout Plain Layout
-Snipped from float: Figure > Original images from 
-\begin_inset CommandInset citation
-LatexCommand cite
-key "10.1109/HICSS.2001.926331"
-
-\end_inset
-
-.
 \begin_inset CommandInset label
 LatexCommand label
 name "fig:TRYS-and-TRYSA2"
@@ -587,6 +553,16 @@ name "fig:TRYS-and-TRYSA2"
 
 \end_inset
 
+
+\end_layout
+
+\begin_layout Subsection
+\paragraph_spacing double
+Local and global agent coordination
+\end_layout
+
+\begin_layout Standard
+\paragraph_spacing double
 This paper
 \begin_inset CommandInset citation
 LatexCommand cite
@@ -690,7 +666,7 @@ reference "fig:LTAs-and-CTA"
 \begin_inset Float figure
 wide false
 sideways false
-status collapsed
+status open
 
 \begin_layout Plain Layout
 \begin_inset Graphics
@@ -720,29 +696,6 @@ Layout of Local and Coordinator Traffic Agents.
 
 \begin_layout Standard
 \paragraph_spacing double
-\begin_inset Note Note
-status open
-
-\begin_layout Plain Layout
-Snipped from float: Figure > Original image from 
-\begin_inset CommandInset citation
-LatexCommand cite
-key "france2003mso"
-
-\end_inset
-
-.
-\begin_inset CommandInset label
-LatexCommand label
-name "fig:LTAs-and-CTA"
-
-\end_inset
-
-
-\end_layout
-
-\end_inset
-
 When deciding on a traffic light pattern, most communication takes place
  between the LTAs and the CTAs, with the ITAs providing stored data as necessary.
  In order for the CTA to calculate a global optimum for a given intersection,
@@ -842,6 +795,10 @@ ly halting incoming traffic.
  based on updated sensor data.
 \end_layout
 
+\begin_layout Subsection
+Comparison with Routes
+\end_layout
+
 \begin_layout Standard
 \paragraph_spacing double
 By way of comparison with my work, this system is traffic network-oriented
@@ -864,44 +821,12 @@ Cooperative and competitive multiagent systems
 
 \begin_layout Standard
 \paragraph_spacing double
-\begin_inset Note Comment
-status open
-
-\begin_layout Plain Layout
-The name of this subsection may be changed to 
-\begin_inset Quotes eld
-\end_inset
-
-Coordination and cooperation among software agents
-\begin_inset Quotes erd
-\end_inset
-
-
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Standard
-\paragraph_spacing double
 Here we investigate coordination, cooperation and competition among software
  agents.
 \end_layout
 
-\begin_layout Standard
-\begin_inset Note Note
-status open
-
-\begin_layout Plain Layout
-\paragraph_spacing double
-using the belief-desire-intention agent model
-\end_layout
-
-\end_inset
-
-
+\begin_layout Subsection
+Extending the Belief-Desire-Intention Model
 \end_layout
 
 \begin_layout Standard
@@ -915,7 +840,7 @@ key "wu2003umf"
 
  develops a system for identifying agent uncertainty in relation to other
  agents in a MAS.
- They build upon the existing agent model BDI (belief-desire-intention),
+ They build upon the existing BDI (belief-desire-intention) agent model,
  adding a new attribute, KB (knowledge base), and attribute properties
 \begin_inset Note Note
 status open
