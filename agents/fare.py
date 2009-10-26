@@ -45,6 +45,10 @@ class Fare(Agent):
         # fareBeingDriven.doneSignal.signal(self.name) in the Taxi's
         # cooperate() and compete() methods.)
         self.doneSignal = SimEvent()
+	# This variable is set after a Taxi interrupts all other competitors,
+	# and the Fare is basically out of the game.  All competition for this
+	# Fare is OVER.
+	self.pickedUp=False
 
     def run(self):
 	'''DOCSTRING'''
@@ -53,6 +57,7 @@ class Fare(Agent):
         # request Taxi [add self to waitingFares queue]
         yield put, self, Agent.waitingFares, [self]
         self.ts['pickup'] = now()
+        yield waitevent, self, self.doneSignal
 
         # TODO get the name of the Taxi that picked up this Fare.  Add to the
         # final report for this Fare.
@@ -60,9 +65,11 @@ class Fare(Agent):
         # Also, if this is a compete simulation, it would be nice (but maybe
         # not easy) to collect the identifiers for all Taxis that are
         # competing for a given Fare.
+#	# competeQ.
+#	print ".. %.4f setting %s.pickedUp=True in fare.py ..." % (now(), self.name)
+#	self.pickedUp=True
 
         # picked up [received signal]
-        yield waitevent, self, self.doneSignal
         self.ts['dropoff'] = now()
 
         # dropped off [received signal]

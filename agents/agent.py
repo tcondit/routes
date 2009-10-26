@@ -5,6 +5,9 @@ import ConfigParser
 import os.path
 from grid import Grid
 from graph import Graph
+#
+# Late note: or do the right thing, and put all these files into a single
+# directory.
 
 config = ConfigParser.SafeConfigParser()
 config.read(os.path.join('agents','conf','agents','defaults.ini'))
