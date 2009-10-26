@@ -1,4 +1,4 @@
-#LyX 1.6.1 created this file. For more info see http://www.lyx.org/
+#LyX 1.6.3 created this file. For more info see http://www.lyx.org/
 \lyxformat 345
 \begin_document
 \begin_header
@@ -69,7 +69,7 @@ key "france2003mso,10.1109/HICSS.2001.926331"
  One of them includes an implemented and installed system, while the other
  is evaluted using a mathematical formula describing variable levels of
  traffic congestion.
- Even excluding the fact that one is applied and the other more theoretical,
+ Aside from the fact that one is applied and the other more theoretical,
  their approaches are different enough to make a useful comparison.
  Then we investigate an uncertainty management framework for relationships
  between agents in a multiagent sytem
@@ -102,6 +102,14 @@ Centralized and distributed multiagent traffic systems
 Here we investigate multiagent decision support systems for traffic management.
 \end_layout
 
+\begin_layout Subsection
+Regional agent coordination with TRYS and TRYSA
+\begin_inset Formula $_{\text{2}}$
+\end_inset
+
+
+\end_layout
+
 \begin_layout Standard
 \paragraph_spacing double
 Hern
@@ -124,7 +132,7 @@ key "10.1109/HICSS.2001.926331"
 
 \end_inset
 
- describes a pair of closely related intelligent traffic management system
+ describes a pair of closely related intelligent traffic management systems
  (ITMS).
  The TRYS
 \begin_inset Foot
@@ -206,11 +214,10 @@ offline
 TRYS is a centralized multiagent system.
  It operates on inputs from more than 300 telemetered sensors and feed data
  to the local traffic control center.
- The goal of this system is to provide alternatives for traffic light coordinati
-on to traffic engineers.
- It is more coordinated than autonomous.
- The agents have to take their neighbor's state into account when designing
- a traffic control plan.
+ The goal of this system is to provide traffic engineers with alternatives
+ for traffic light coordination.
+ It is more coordinated than autonomous; each agent has to take its neighbor's
+ state into account when designing their traffic control plan.
  Imagine a series of traffic lights that are not coordinated with each other
  in some way.
  The individual agents would still generate plans based on the inputs they
@@ -260,7 +267,8 @@ expected redistribution
 ).
  Given these pieces of information, they run a macrosimulation to decide
  if there will be an adequate decrease in the excess flow.
- They forward the plan to the coordinator if appropriate, or reject it otherwise.
+ They forward the plan to the coordinator if appropriate, and reject it
+ otherwise.
 \end_layout
 
 \begin_layout Standard
@@ -275,28 +283,11 @@ TRYSA
 \begin_inset Formula $_{\text{2}}$
 \end_inset
 
- communicate with one another directly, eliminating 
-\begin_inset Foot
-status open
-
-\begin_layout Plain Layout
-I wanted to use the word 
-\begin_inset Quotes eld
-\end_inset
-
-obviating
-\begin_inset Quotes erd
-\end_inset
-
- here, but that makes you sound like a pompous ass.
-\end_layout
-
-\end_inset
-
-the need for a coordinator agent.
+ communicate with one another directly, eliminating the need for a coordinator
+ agent.
  See figure 
 \begin_inset CommandInset ref
-LatexCommand ref
+LatexCommand vref
 reference "fig:TRYS-and-TRYSA2"
 
 \end_inset
@@ -330,13 +321,10 @@ This is where things get interesting in TRYSA
 \end_inset
 
 .
- The autonomous agents use a strategy called structural cooperation 
-\begin_inset Note Note
-status open
-
-\begin_layout Plain Layout
-CITE THIS? Hernandez p2, cite 6
-\end_layout
+ The autonomous agents use a strategy called structural cooperation
+\begin_inset CommandInset citation
+LatexCommand cite
+key "ossowski1999"
 
 \end_inset
 
@@ -415,16 +403,14 @@ The original basis for my work, although it did not make it into the final
 
 \end_inset
 
- that implements weak commitment search.
-\begin_inset Note Note
-status open
-
-\begin_layout Plain Layout
-CITE THIS? Hernandez p6, cite 11
-\end_layout
+ that implements weak commitment search
+\begin_inset CommandInset citation
+LatexCommand cite
+key "yokoo1999"
 
 \end_inset
 
+.
  
 \begin_inset Note Comment
 status open
@@ -436,11 +422,11 @@ This is referenced in Hernandez, but not in this paper.
 
 \end_inset
 
- This is three-stage process.
+ This is a three-stage process.
  In stage 1 the local control agents repeatedly exchange utility information
  to find sets of globally compatible alternative signal plans.
  Stage 2 starts when one of the agents detects the completion of stage 1.
- This agent computes approximate probilities that each of the chosen sets
+ This agent computes approximate probabilities that each of the chosen sets
  of local signal plans would be enacted, and from that attempts to maximize
  the product of the local agent utilities.
  In other words, lower quality plans are dropped from consideration.
@@ -451,12 +437,27 @@ This is referenced in Hernandez, but not in this paper.
 \end_inset
 
 .
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+TODO need something here to break up the flow and signal that we're starting
+ a new section
+\end_layout
+
+\end_inset
+
+
 \end_layout
 
 \begin_layout Standard
 \paragraph_spacing double
 At this stage in both systems the selected control plans are ready for review
  by the traffic engineer.
+\end_layout
+
+\begin_layout Subsection
+Comparison with Routes
 \end_layout
 
 \begin_layout Standard
@@ -492,6 +493,18 @@ static information about the topological structure of the problem area
 \end_inset
 
 .
+ 
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+TODO need something here to break up the flow and signal that we're starting
+ a new section
+\end_layout
+
+\end_inset
+
+
 \end_layout
 
 \begin_layout Standard
@@ -500,23 +513,15 @@ Next we look at another multiagent system for optimizing an urban traffic
 \end_layout
 
 \begin_layout Standard
-\paragraph_spacing double
 \begin_inset Float figure
 wide false
 sideways false
-status collapsed
+status open
 
 \begin_layout Plain Layout
 \begin_inset Graphics
-	filename figures/TRYS.png
-	scale 60
-
-\end_inset
-
-
-\begin_inset Graphics
-	filename figures/TRYSA2.png
-	scale 60
+	filename figures/TRYS-and-TRYSA2.PNG
+	width 66page%
 
 \end_inset
 
@@ -537,27 +542,6 @@ Centralized (TRYS) and decentralized coordination (TRYSA
 \end_inset
 
 
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Standard
-\paragraph_spacing double
-\begin_inset Note Note
-status open
-
-\begin_layout Plain Layout
-Snipped from float: Figure > Original images from 
-\begin_inset CommandInset citation
-LatexCommand cite
-key "10.1109/HICSS.2001.926331"
-
-\end_inset
-
-.
 \begin_inset CommandInset label
 LatexCommand label
 name "fig:TRYS-and-TRYSA2"
@@ -569,6 +553,16 @@ name "fig:TRYS-and-TRYSA2"
 
 \end_inset
 
+
+\end_layout
+
+\begin_layout Subsection
+\paragraph_spacing double
+Local and global agent coordination
+\end_layout
+
+\begin_layout Standard
+\paragraph_spacing double
 This paper
 \begin_inset CommandInset citation
 LatexCommand cite
@@ -589,12 +583,13 @@ key "france2003mso"
 The first goal of this system is to design a traffic network that operates
  in real-time and takes into account that traffic lights essentially operate
  in an infinite loop, or as a non-finite process.
- The second is to handle dynamically occuring events such as traffic accidents
- or roadway congestion in a coordinated fashion.
- With agents at each intersection operating autonomously, neighboring intersecti
-ons will be unaware of traffic events, leading to detrimental traffic flow,
- e.g., allowing traffic to continue toward a blocked intersection in the case
- of an accident.
+ The second goal is to handle dynamically occuring events such as traffic
+ accidents or roadway congestion in a coordinated fashion.
+ With autonomous agents at each intersection, agents at neighboring intersection
+s are unaware of traffic events occuring elsewhere, leading to detrimental
+ traffic flow.
+ For instance, this system would allow traffic to continue toward a blocked
+ intersection in the case of an accident.
  
 \begin_inset Note Comment
 status open
@@ -615,9 +610,11 @@ With agents at each intersection ..
 
  The final goal is to balance local and global concerns with respect to
  traffic movement.
- Local agents will typically have many alternative plans available, but
- several of them are incompatible with the global goals of traffic management.
- The task is to quickly figure out which ones to drop from consideration.
+ Local traffic agents (LTA) will typically have many alternative plans available
+, but several of them are incompatible with the global goals of traffic
+ management.
+ A major task is for the coordinator traffic agents (CTA) to quickly figure
+ out which ones to drop from consideration.
  This was addressed in Hern
 \begin_inset ERT
 status open
@@ -636,10 +633,10 @@ ndez, but real-time performance data was not provided.
 
 \begin_layout Standard
 \paragraph_spacing double
-The Local Traffic Agents (LTA) and the Coordinator Traffic Agent (CTA) behave
- almost identically to the analogous agents in TRYS (see figure 
+The LTAs and the CTAs behave almost identically to the analogous agents
+ in TRYS (see figure 
 \begin_inset CommandInset ref
-LatexCommand ref
+LatexCommand vref
 reference "fig:LTAs-and-CTA"
 
 \end_inset
@@ -669,7 +666,7 @@ reference "fig:LTAs-and-CTA"
 \begin_inset Float figure
 wide false
 sideways false
-status collapsed
+status open
 
 \begin_layout Plain Layout
 \begin_inset Graphics
@@ -690,27 +687,6 @@ Layout of Local and Coordinator Traffic Agents.
 \end_inset
 
 
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Standard
-\paragraph_spacing double
-\begin_inset Note Note
-status open
-
-\begin_layout Plain Layout
-Snipped from float: Figure > Original image from 
-\begin_inset CommandInset citation
-LatexCommand cite
-key "france2003mso"
-
-\end_inset
-
-.
 \begin_inset CommandInset label
 LatexCommand label
 name "fig:LTAs-and-CTA"
@@ -722,6 +698,11 @@ name "fig:LTAs-and-CTA"
 
 \end_inset
 
+
+\end_layout
+
+\begin_layout Standard
+\paragraph_spacing double
 When deciding on a traffic light pattern, most communication takes place
  between the LTAs and the CTAs, with the ITAs providing stored data as necessary.
  In order for the CTA to calculate a global optimum for a given intersection,
@@ -821,12 +802,15 @@ ly halting incoming traffic.
  based on updated sensor data.
 \end_layout
 
+\begin_layout Subsection
+Comparison with Routes
+\end_layout
+
 \begin_layout Standard
 \paragraph_spacing double
 By way of comparison with my work, this system is traffic network-oriented
  rather than agent-oriented.
- It is also more hierarchical, with little in the way of true autonomy at
- any level.
+ It is also more hierarchical, with little autonomy for agents.
  The LTAs are not allowed to communicate directly with one another.
  In larger systems with multiple CTAs, they are not allowed to communicate
  with one another either.
@@ -844,44 +828,12 @@ Cooperative and competitive multiagent systems
 
 \begin_layout Standard
 \paragraph_spacing double
-\begin_inset Note Comment
-status open
-
-\begin_layout Plain Layout
-The name of this subsection may be changed to 
-\begin_inset Quotes eld
-\end_inset
-
-Coordination and cooperation among software agents
-\begin_inset Quotes erd
-\end_inset
-
-
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Standard
-\paragraph_spacing double
 Here we investigate coordination, cooperation and competition among software
  agents.
 \end_layout
 
-\begin_layout Standard
-\begin_inset Note Note
-status open
-
-\begin_layout Plain Layout
-\paragraph_spacing double
-using the belief-desire-intention agent model
-\end_layout
-
-\end_inset
-
-
+\begin_layout Subsection
+Extending the Belief-Desire-Intention Model
 \end_layout
 
 \begin_layout Standard
@@ -895,34 +847,32 @@ key "wu2003umf"
 
  develops a system for identifying agent uncertainty in relation to other
  agents in a MAS.
- They build upon the existing agent model BDI (belief-desire-intention),
- adding a new attribute, KB (knowledge base), and attribute properties 
+ They build upon the existing BDI (belief-desire-intention) agent model,
+ adding a new attribute, KB (knowledge base), and attribute properties
 \begin_inset Note Note
 status open
 
 \begin_layout Plain Layout
-TODO: call these state modifiers?
+should I mention in a footnote that I use the terms properties and 
+\begin_inset Quotes eld
+\end_inset
+
+state modifiers
+\begin_inset Quotes erd
+\end_inset
+
+ interchangably?
 \end_layout
 
 \end_inset
 
-public, private and protected.
+ public, private and protected.
  This enhanced model is intended for use within a decision support system.
  It gives individual agents a better understanding of their position relative
  to other agents.
  This should allow the agents to make better informed decisions.
- BDI is described elsewhere.
-\begin_inset Note Note
-status open
-
-\begin_layout Plain Layout
-TODO: need a citation!
-\end_layout
-
-\end_inset
-
- It is included here as part of the overall definition of the uncertainty
- management framework.
+ BDI is described here to put it into context as part of the overall definition
+ of the uncertainty management framework.
 \end_layout
 
 \begin_layout Standard
@@ -982,7 +932,7 @@ is simply what it wants to do or accomplish
 status open
 
 \begin_layout Plain Layout
-This paper does not include a precise definiton of intention.
+This paper does not include a precise definition of intention.
 \end_layout
 
 \end_inset
@@ -1005,15 +955,15 @@ The four attributes in the extended BDI agent model are not sufficient to
  -- to each of these attributes.
  Public properties are visible to all, while private properties are visible
  only to the agent.
- A protected attribute, on the other hand, is one where its probability
- distribution is visible to others.
+ An attribute with protected properties, on the other hand, is one where
+ its probability distribution is visible to others.
 \end_layout
 
 \begin_layout Standard
 \paragraph_spacing double
 Now we can describe the uncertainty management framework with respect to
- cooperation, coordination, and competition, and again, it starts with another
- set of definitions.
+ cooperation, coordination, and competition, and again, it starts with definitio
+ns.
  A 
 \emph on
 cooperating agent 
@@ -1050,6 +1000,17 @@ Taken together, the attributes plus properties lead to a series of actionable
  The intentions may be public or private for any of these agent interactions,
  but it does not affect the decision making classification.
  In every case, the agent's KB is private.
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+TODO need something here to break up the flow and signal that we're starting
+ a new section
+\end_layout
+
+\end_inset
+
+
 \end_layout
 
 \begin_layout Standard
@@ -1076,12 +1037,56 @@ decision making under uncertainty
  Data collection is entirely speculative.
  See figure 
 \begin_inset CommandInset ref
-LatexCommand ref
+LatexCommand vref
 reference "fig:uncertainty-management"
 
 \end_inset
 
  for a summary.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\begin_inset Graphics
+	filename figures/uncertainty-management.png
+	scale 70
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption
+
+\begin_layout Plain Layout
+Modeling agents' interactions using BDI & three types of decision making.
+\end_layout
+
+\end_inset
+
+
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:uncertainty-management"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsection
+Comparison with Routes
 \end_layout
 
 \begin_layout Standard
@@ -1144,83 +1149,8 @@ team
  The whole program would have to be modified to make a useful team competition.
 \end_layout
 
-\begin_layout Standard
-\begin_inset Float figure
-wide false
-sideways false
-status collapsed
-
-\begin_layout Plain Layout
-\begin_inset Graphics
-	filename figures/uncertainty-management.png
-	scale 70
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Plain Layout
-\begin_inset Caption
-
-\begin_layout Plain Layout
-Modeling agents' interactions using BDI & three types of decision making.
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Standard
-\paragraph_spacing double
-\begin_inset Note Note
-status open
-
-\begin_layout Plain Layout
-Snipped from float: Figure > Original image from 
-\begin_inset CommandInset citation
-LatexCommand cite
-key "wu2003umf"
-
-\end_inset
-
-.
-\begin_inset CommandInset label
-LatexCommand label
-name "fig:uncertainty-management"
-
-\end_inset
-
-
-\end_layout
-
-\end_inset
-
-
-\begin_inset Note Comment
-status open
-
-\begin_layout Plain Layout
-TODO: 
-\begin_inset Quotes eld
-\end_inset
-
-Agent-based approaches to transport logistics
-\begin_inset Quotes erd
-\end_inset
-
- paper summary goes here
-\end_layout
-
-\end_inset
-
-
+\begin_layout Subsection
+Putting this project into context
 \end_layout
 
 \begin_layout Standard
@@ -1266,10 +1196,10 @@ http://www.logisticsworld.com/logistics.htm
 \begin_layout Standard
 \paragraph_spacing double
 The evaluation framework consists of several pieces.
- The full list is shown in figure 
+ The full list is shown in table 
 \begin_inset CommandInset ref
-LatexCommand ref
-reference "fig:evaluation-framework-summary"
+LatexCommand vref
+reference "tab:transport-logistics-eval-framework"
 
 \end_inset
 
@@ -1332,7 +1262,7 @@ Agent attitude
 \begin_layout Standard
 \paragraph_spacing double
 \begin_inset Note Comment
-status collapsed
+status open
 
 \begin_layout Plain Layout
 Drop this paragraph?
@@ -1373,14 +1303,1246 @@ reference "tab:classifying-taxis-and-fares-sim"
 \end_layout
 
 \begin_layout Standard
-\begin_inset Float figure
+\begin_inset Float table
 wide false
 sideways false
-status collapsed
+status open
 
 \begin_layout Plain Layout
-\begin_inset Graphics
-	filename figures/tranport-logistics-combined.PNG
+\begin_inset Tabular
+<lyxtabular version="3" rows="38" columns="3">
+<features>
+<column alignment="left" valignment="bottom" width="0">
+<column alignment="left" valignment="top" width="0">
+<column alignment="left" valignment="top" width="0">
+<row>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Aspect
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Categories
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Problem Description
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Domain
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+1.
+ Transport
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+2.
+ Traffic
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+3.
+ Terminal
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Mode of transportation
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+1.
+ Air
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+2.
+ Rail
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+3.
+ Road
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+4.
+ Sea
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+<cell multicolumn="1" alignment="center" valignment="top" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+5.
+ Intermodal
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Time horizon
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+1.
+ Operational
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+2.
+ Tactical
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+3.
+ Strategical
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Approach
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Usage
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+1.
+ Automation system
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="left" valignment="top" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+2.
+ Decision support system
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Control
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+1.
+ Centralized
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+2.
+ Distributed
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+MAS Structure
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+1.
+ Static
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="left" valignment="top" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+2.
+ Dynamic
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Agent attitude
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+1.
+ Benevolent
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+2.
+ Selfish
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Agent architecture
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+1.
+ Reactive
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+2.
+ Deliberative
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+3.
+ Hybrid
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Results
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Maturity
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+1.
+ Conceptual proposal
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+2.
+ Simulation experiment
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset space ~
+\end_inset
+
+2.1.
+ artificial data
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset space ~
+\end_inset
+
+2.1.1.
+ limited/partial
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset space ~
+\end_inset
+
+2.1.2.
+ full scale
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset space ~
+\end_inset
+
+2.2.
+ real data
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset space ~
+\end_inset
+
+2.2.1.
+ limited/partial
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset space ~
+\end_inset
+
+2.2.2.
+ full scale
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+3.
+ Field experiment
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset space ~
+\end_inset
+
+3.1.
+ limited/partial
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset space ~
+\end_inset
+
+3.2.
+ full scale
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+4.
+ Deployed system
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Evaluation comparison
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+1.
+ None
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+2.
+ Qualitative
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" bottomline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+3.
+ Quantitative
+\end_layout
+
+\end_inset
+</cell>
+</row>
+</lyxtabular>
 
 \end_inset
 
@@ -1391,8 +2553,15 @@ status collapsed
 \begin_inset Caption
 
 \begin_layout Plain Layout
-Summary of transportation logistics evaluation framework.
+Summary of transportation logistics evaluation framework
 \end_layout
+
+\end_inset
+
+
+\begin_inset CommandInset label
+LatexCommand label
+name "tab:transport-logistics-eval-framework"
 
 \end_inset
 
@@ -1409,30 +2578,6 @@ Summary of transportation logistics evaluation framework.
 \end_layout
 
 \begin_layout Standard
-\begin_inset Note Note
-status open
-
-\begin_layout Plain Layout
-Snipped from float: Figure > Original images from 
-\begin_inset CommandInset citation
-LatexCommand cite
-key "davidsson2005aab"
-
-\end_inset
-
-
-\begin_inset CommandInset label
-LatexCommand label
-name "fig:evaluation-framework-summary"
-
-\end_inset
-
-
-\end_layout
-
-\end_inset
-
-
 \begin_inset Float table
 wide false
 sideways false

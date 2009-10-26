@@ -1,5 +1,5 @@
 #!/usr/bin/env python
-'''The fare module, contains the Fare and FareFactory classes'''
+'''DOCSTRING'''
 
 import ConfigParser
 import os.path
@@ -7,8 +7,8 @@ from random import expovariate
 from agent import Agent
 
 config = ConfigParser.SafeConfigParser()
-config.read(os.path.join('agents','conf','agents','defaults.ini'))
-config.read(os.path.join('agents','conf','agents','overrides.ini'))
+config.read(os.path.join('agents', 'defaults.ini'))
+config.read(os.path.join('agents', 'overrides.ini'))
 
 # dev config values
 TRACING = config.getboolean('dev', 'tracing')
@@ -28,70 +28,80 @@ if TRACING:
 else:
     from SimPy.Simulation import *
 
-
 class Fare(Agent):
-    '''
-    Fares are Agents (which are SimPy processes).
+    '''DOCSTRING'''
 
-    TODO: explain this more.
-    '''
     # TODO [hipri] Monitor the time between when the fare was requested and
     # when the Fare was dropped off.  ylab should be ...
-    waitMon=Monitor('All Fares total wait time')
+    waitMon = Monitor('All Fares total wait time')
     def __init__(self, name):
         '''DOCSTRING'''
         Agent.__init__(self, name)
         # Fare maintains its own SimEvent, but Taxi uses it (look for
         # fareBeingDriven.doneSignal.signal(self.name) in the Taxi's
-        # cooperate() and compete() methods.)
+        # cooperate() method.)
         self.doneSignal = SimEvent()
+        #self.loc['dest'] = self.mkcoords()
+        self.loc['dest'] = self.map.get_location()
+        # This list is used with the Taxi's compete() method.  All Taxis that
+        # are competing for this Fare get dropped here temporarily.
+        self.competeQ = []
+	# This variable is set after a Taxi interrupts all other competitors,
+	# and the Fare is basically out of the game.  All competition for this
+	# Fare is OVER.
+	self.pickedUp=False
+        print '%.4f Fare %s activated' % (self.ts['activation'], self.name)
+        print '.. Fare %s location: %s' % (self.name, self.loc)
 
     def run(self):
         '''DOCSTRING'''
         self.ts['mkreq'] = now()
-
-        # request Taxi [add self to waitingFares queue]
         yield put, self, Agent.waitingFares, [self]
+        # TODO [hipri] Should this be yield and then self.ts?  Maybe better, I
+        # should just drop self.ts['pickup'] altogether.
         self.ts['pickup'] = now()
-
-        # TODO get the name of the Taxi that picked up this Fare.  Add to the
-        # final report for this Fare.
-        #
-        # Also, if this is a compete simulation, it would be nice (but maybe
-        # not easy) to collect the identifiers for all Taxis that are
-        # competing for a given Fare.
-
-        # picked up [received signal]
         yield waitevent, self, self.doneSignal
-        self.ts['dropoff'] = now()
 
-        # dropped off [received signal]
+#	# TESTING
+#	#
+#	# There is a BUG with interrupted Taxis going back and picking up the
+#	# same Fare on their next time thru the queue.  Potentially the fix is
+#	# to have the Fare mark itself as no longer eligible, and have the
+#	# Taxi poll state before adding itself to that Fare's (closed)
+#	# competeQ.
+#	print ".. %.4f setting %s.pickedUp=True in fare.py ..." % (now(), self.name)
+#	self.pickedUp=True
+
+        self.ts['dropoff'] = now()
         whichTaxi = self.doneSignal.signalparam
-        print '%.4f\t(f) %s was taken by %s' % (now(), self.name, whichTaxi)
+        # TODO [hipri] This is being reported out of order.  It shows up in
+        # the simulation output after the Taxi is on to the next Fare.
+        # Regardless, the Fare is the right "place" to report drop off time.
+        # I'll probably remove the other print statements in Taxi.py anyway.
+        # They are there for development, not for the final product.
+        print 'Time %s Fare %s taken by Taxi %s' % (now(), self.name,
+                whichTaxi)
 
         # WAIT MONITOR
         #Fare.waitMon.observe((self.ts['dropoff'] - self.ts['mkreq']), now())
         Fare.waitMon.observe(now() - self.ts['mkreq'])
 
-        print "%s -- I'm outta here!" % self.name
-
-
 class FareFactory(Process):
-    '''DOCSTRING'''
     def generate(self):
         '''DOCSTRING'''
         # TODO instead of saying 'while True:', I may want to pass in (via the
         # config) a specific number of Fares to be created.
         global numFaresCreated
         while True:
-            f = Fare(name="Fare-"+str(numFaresCreated))
+            # TODO [very lopri] f = Fare(name='Fare-%s' % numFaresCreated)?
+            f = Fare(name=numFaresCreated)
             activate(f, f.run())
             numFaresCreated+=1
             t = expovariate(1.0/MEAN_FARE_GENERATION_RATE)
             yield hold, self, t
 
-
 if __name__ == '__main__':
     # TODO try FareFactory too
     f = Fare('Filip')
     f.run()
+
