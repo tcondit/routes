@@ -1,0 +1,2352 @@
+#LyX 1.6.1 created this file. For more info see http://www.lyx.org/
+\lyxformat 345
+\begin_document
+\begin_header
+\textclass report
+\use_default_options false
+\language english
+\inputencoding latin9
+\font_roman default
+\font_sans default
+\font_typewriter lmtt
+\font_default_family default
+\font_sc false
+\font_osf false
+\font_sf_scale 100
+\font_tt_scale 100
+
+\graphics default
+\paperfontsize default
+\spacing single
+\use_hyperref false
+\papersize default
+\use_geometry false
+\use_amsmath 0
+\use_esint 0
+\cite_engine basic
+\use_bibtopic false
+\paperorientation portrait
+\secnumdepth 3
+\tocdepth 3
+\paragraph_separation indent
+\defskip medskip
+\quotes_language english
+\papercolumns 1
+\papersides 2
+\paperpagestyle default
+\tracking_changes false
+\output_changes false
+\author "" 
+\author "" 
+\end_header
+
+\begin_body
+
+\begin_layout Chapter
+\paragraph_spacing double
+Related work
+\end_layout
+
+\begin_layout Section
+\paragraph_spacing double
+Introduction
+\end_layout
+
+\begin_layout Standard
+\paragraph_spacing double
+In this section we examine features found in other multiagent systems to
+ see how they contrast with my system.
+ The focus in the applied literature is on traffic and road network simulations.
+ We review two papers that describe centralized versus distributed simulation
+ systems
+\begin_inset CommandInset citation
+LatexCommand cite
+key "france2003mso,10.1109/HICSS.2001.926331"
+
+\end_inset
+
+.
+ One of them includes an implemented and installed system, while the other
+ is evaluted using a mathematical formula describing variable levels of
+ traffic congestion.
+ Even excluding the fact that one is applied and the other more theoretical,
+ their approaches are different enough to make a useful comparison.
+ Then we investigate an uncertainty management framework for relationships
+ between agents in a multiagent sytem
+\begin_inset CommandInset citation
+LatexCommand cite
+key "wu2003umf"
+
+\end_inset
+
+.
+ This paper uses the Belief-Desire-Intention (BDI) agent model to formulate
+ a response to received inputs.
+ Finally, we look at a recent review of MASs used for transport logistics
+\begin_inset CommandInset citation
+LatexCommand cite
+key "davidsson2005aab"
+
+\end_inset
+
+, and identify where my software would be classified according to this scheme.
+\end_layout
+
+\begin_layout Section
+\paragraph_spacing double
+Centralized and distributed multiagent traffic systems
+\end_layout
+
+\begin_layout Standard
+\paragraph_spacing double
+Here we investigate multiagent decision support systems for traffic management.
+\end_layout
+
+\begin_layout Standard
+\paragraph_spacing double
+Hern
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+'{a}
+\end_layout
+
+\end_inset
+
+ndez et al.
+\begin_inset CommandInset citation
+LatexCommand cite
+key "10.1109/HICSS.2001.926331"
+
+\end_inset
+
+ describes a pair of closely related intelligent traffic management system
+ (ITMS).
+ The TRYS
+\begin_inset Foot
+status open
+
+\begin_layout Plain Layout
+The acronym is not expanded in this paper.
+\end_layout
+
+\end_inset
+
+ system is implemented and in use in Barcelona, Spain.
+ TRYSA
+\begin_inset Formula $_{\text{2}}$
+\end_inset
+
+
+\begin_inset Foot
+status open
+
+\begin_layout Plain Layout
+TRYS Autonomous Agents
+\end_layout
+
+\end_inset
+
+ is developed only to the prototype level at time of publication, but was
+ validated with the same data as the first system.
+ Both systems partition a highly congested local traffic network into a
+ series of overlapping problem areas, which are monitored by traffic control
+ agents.
+ These agents collect data via vehicle detectors and telemetered sensors
+ (
+\begin_inset Quotes eld
+\end_inset
+
+loop detectors
+\begin_inset Quotes erd
+\end_inset
+
+).
+ The raw data is used to generate traffic control plans, but they are advisory
+ only.
+ A human operator makes the final decision on how the plans are used.
+\end_layout
+
+\begin_layout Standard
+\paragraph_spacing double
+These systems are fundamentally different from the approach I have taken
+ for several reasons.
+ The first, and most important difference is that these are not simulations.
+ Second, they are open systems in the sense that the outputs are 
+\begin_inset Quotes eld
+\end_inset
+
+processed
+\begin_inset Quotes erd
+\end_inset
+
+ by a traffic engineer, as opposed to a closed and terminal system, where
+ the final result is the end of the simulation, rather than inputs to an
+ 
+\begin_inset Quotes eld
+\end_inset
+
+offline
+\begin_inset Quotes erd
+\end_inset
+
+ system.
+ Finally, the focus here is on the traffic network exclusively, with zero
+ representation of the users of the network, i.e.
+ drivers and passengers.
+ Regardless, there are some interesting contrasts.
+\end_layout
+
+\begin_layout Standard
+\paragraph_spacing double
+TRYS is a centralized multiagent system.
+ It operates on inputs from more than 300 telemetered sensors and feed data
+ to the local traffic control center.
+ The goal of this system is to provide alternatives for traffic light coordinati
+on to traffic engineers.
+ It is more coordinated than autonomous.
+ The agents have to take their neighbor's state into account when designing
+ a traffic control plan.
+ Imagine a series of traffic lights that are not coordinated with each other
+ in some way.
+ The individual agents would still generate plans based on the inputs they
+ are receiving.
+ You might reasonably expect there to be some kind of emergent or spontaneous
+ coordination, but it would most likely not be globally consistent.
+ Therefore, the local control plans generated by the first-level agents
+ are sent to a special coordinator agent responsible for integrating local
+ control proposals into a coherent global signal plan for the whole traffic
+ network.
+ The coordinator resolves any conflicts between the local control proposals
+ then sends the globally consistent local signal plans back to the traffic
+ agents.
+\begin_inset Note Comment
+status open
+
+\begin_layout Plain Layout
+And also to the traffic engineer?
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\paragraph_spacing double
+An interesting feature of this system is the way in which the agents decide
+ on which traffic control plans to forward to the coordinator.
+ The agents are provided with data about the traffic congestion (
+\begin_inset Quotes eld
+\end_inset
+
+demand knowledge
+\begin_inset Quotes erd
+\end_inset
+
+) and some expectation of how different actions will affect the flow of
+ traffic (
+\begin_inset Quotes eld
+\end_inset
+
+expected redistribution
+\begin_inset Quotes erd
+\end_inset
+
+).
+ Given these pieces of information, they run a macrosimulation to decide
+ if there will be an adequate decrease in the excess flow.
+ They forward the plan to the coordinator if appropriate, or reject it otherwise.
+\end_layout
+
+\begin_layout Standard
+\paragraph_spacing double
+TRYSA
+\begin_inset Formula $_{\text{2}}$
+\end_inset
+
+ is a reformulation of TRYS using autonomous agents.
+ Whereas TRYS uses a more linear form of communication between the traffic
+ control agents and the coordinator, agents in TRYSA
+\begin_inset Formula $_{\text{2}}$
+\end_inset
+
+ communicate with one another directly, eliminating 
+\begin_inset Foot
+status open
+
+\begin_layout Plain Layout
+I wanted to use the word 
+\begin_inset Quotes eld
+\end_inset
+
+obviating
+\begin_inset Quotes erd
+\end_inset
+
+ here, but that makes you sound like a pompous ass.
+\end_layout
+
+\end_inset
+
+the need for a coordinator agent.
+ See figure 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:TRYS-and-TRYSA2"
+
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+\paragraph_spacing double
+The partitioning of the road network into problem areas is slightly different
+ from that in TRYS, but problem detection, diagnosis and selection of control
+ plans are similar.
+ Each traffic control agent in TRYSA
+\begin_inset Formula $_{\text{2}}$
+\end_inset
+
+ maintains its own set of alternative traffic control plans, along with
+ expected reductions in local traffic excesses associated with each of the
+ plans.
+ This is called the plan's local
+\emph on
+ utility
+\emph default
+.
+\end_layout
+
+\begin_layout Standard
+\paragraph_spacing double
+This is where things get interesting in TRYSA
+\begin_inset Formula $_{\text{2}}$
+\end_inset
+
+.
+ The autonomous agents use a strategy called structural cooperation 
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+CITE THIS? Hernandez p2, cite 6
+\end_layout
+
+\end_inset
+
+, whereby they take their own utility and the effects of their acquaintances'
+ control plans on their own utiltiy into consideration when deciding what
+ to do.
+ In short, the agents are no longer fully autonomous.
+\end_layout
+
+\begin_layout Standard
+\paragraph_spacing double
+The paper describes the situation and the response to it this way:
+\begin_inset VSpace defskip
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Box Frameless
+position "t"
+hor_pos "c"
+has_inner_box 1
+inner_pos "t"
+use_parbox 0
+width "90col%"
+special "none"
+height "1in"
+height_special "totalheight"
+status open
+
+\begin_layout Plain Layout
+There is a conflict of interest respecting the way in which local signal
+ plans are adapted.
+ The essential idea is that the more autonomous an agent is (i.e.
+ the less its local utility can be influenced by others), the more weight
+ will have its opinion respecting which local plans to modify and how to
+ adapt them.
+ Still, sometimes the resulting basic coordination does not lead to globally
+ optimal control plans, so the system designer can issue rights or prohibitions
+ for some agents to use control devices in certain ways.
+ By this, he modifies the degree of autonomy of some agents, 
+\emph on
+biasing
+\emph default
+ the outcome of coordination (i.e.
+ the resulting global signal plan) in a desired direction.
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset VSpace 0.3in
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\paragraph_spacing double
+The agents choose local signal plans, but they still need to coordinate
+ with one another to settle on a globally consistent signal plan.
+ This is similar to the task of the coordinator agent in TRYS.
+ To do this the agents use a distributed constraint optimization protocol
+ 
+\begin_inset Foot
+status open
+
+\begin_layout Plain Layout
+The original basis for my work, although it did not make it into the final
+ product.
+\end_layout
+
+\end_inset
+
+ that implements weak commitment search.
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+CITE THIS? Hernandez p6, cite 11
+\end_layout
+
+\end_inset
+
+ 
+\begin_inset Note Comment
+status open
+
+\begin_layout Plain Layout
+This is referenced in Hernandez, but not in this paper.
+ I should probably dig up the reference anyway.
+\end_layout
+
+\end_inset
+
+ This is three-stage process.
+ In stage 1 the local control agents repeatedly exchange utility information
+ to find sets of globally compatible alternative signal plans.
+ Stage 2 starts when one of the agents detects the completion of stage 1.
+ This agent computes approximate probilities that each of the chosen sets
+ of local signal plans would be enacted, and from that attempts to maximize
+ the product of the local agent utilities.
+ In other words, lower quality plans are dropped from consideration.
+ In stage 3 a set of local signal plans are selected by lottery, and the
+ results are shared with all agents.
+ This concludes the work of the autonomous agents in TRYSA
+\begin_inset Formula $_{\text{2}}$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+\paragraph_spacing double
+At this stage in both systems the selected control plans are ready for review
+ by the traffic engineer.
+\end_layout
+
+\begin_layout Standard
+\paragraph_spacing double
+There are several ways in which these systems differ from mine: they are
+ decision support systems, whereas mine are simulations; they are traffic
+ network-oriented, whereas mine are agent-oriented; one of them is in production
+ use and the other is a prototype, whereas mine is fully implemented but
+ on a smaller scale.
+ On the other hand, this paper provides something that was hard to come
+ by: a look at similar systems implemented on both a centralized and distributed
+ paradigms.
+ That and the fact that it was a multiagent traffic management study, made
+ it a useful choice.
+\end_layout
+
+\begin_layout Standard
+\paragraph_spacing double
+One superficial similarity of TRYS and TRYSA
+\begin_inset Formula $_{\text{2}}$
+\end_inset
+
+ with my system is in the representation of the physical structure of the
+ traffic network.
+ It uses a declarative description of the network as a graph with nodes
+ and links together with abstraction functions associated to components,
+ described here as 
+\begin_inset Quotes eld
+\end_inset
+
+static information about the topological structure of the problem area
+\begin_inset Quotes erd
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+Next we look at another multiagent system for optimizing an urban traffic
+ network.
+\end_layout
+
+\begin_layout Standard
+\paragraph_spacing double
+\begin_inset Float figure
+wide false
+sideways false
+status collapsed
+
+\begin_layout Plain Layout
+\begin_inset Graphics
+	filename figures/TRYS.png
+	scale 60
+
+\end_inset
+
+
+\begin_inset Graphics
+	filename figures/TRYSA2.png
+	scale 60
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption
+
+\begin_layout Plain Layout
+Centralized (TRYS) and decentralized coordination (TRYSA
+\begin_inset Formula $_{\text{2}}$
+\end_inset
+
+).
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\paragraph_spacing double
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+Snipped from float: Figure > Original images from 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "10.1109/HICSS.2001.926331"
+
+\end_inset
+
+.
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:TRYS-and-TRYSA2"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+This paper
+\begin_inset CommandInset citation
+LatexCommand cite
+key "france2003mso"
+
+\end_inset
+
+ is similar in many ways to the previous one.
+ It is another centralized multiagent system for traffic management that
+ uses local traffic agents and one or more coordinator agents.
+ But this paper uses traffic intersections as the problem area, rather than
+ larger regions, and builds a hierarchical structure involving other types
+ of coordinating agents as well.
+\end_layout
+
+\begin_layout Standard
+\paragraph_spacing double
+The first goal of this system is to design a traffic network that operates
+ in real-time and takes into account that traffic lights essentially operate
+ in an infinite loop, or as a non-finite process.
+ The second is to handle dynamically occuring events such as traffic accidents
+ or roadway congestion in a coordinated fashion.
+ With agents at each intersection operating autonomously, neighboring intersecti
+ons will be unaware of traffic events, leading to detrimental traffic flow,
+ e.g., allowing traffic to continue toward a blocked intersection in the case
+ of an accident.
+ 
+\begin_inset Note Comment
+status open
+
+\begin_layout Plain Layout
+Does this sentence 
+\begin_inset Quotes eld
+\end_inset
+
+With agents at each intersection ..
+\begin_inset Quotes erd
+\end_inset
+
+ break the flow?
+\end_layout
+
+\end_inset
+
+ The final goal is to balance local and global concerns with respect to
+ traffic movement.
+ Local agents will typically have many alternative plans available, but
+ several of them are incompatible with the global goals of traffic management.
+ The task is to quickly figure out which ones to drop from consideration.
+ This was addressed in Hern
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+'{a}
+\end_layout
+
+\end_inset
+
+ndez, but real-time performance data was not provided.
+\end_layout
+
+\begin_layout Standard
+\paragraph_spacing double
+The Local Traffic Agents (LTA) and the Coordinator Traffic Agent (CTA) behave
+ almost identically to the analogous agents in TRYS (see figure 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:LTAs-and-CTA"
+
+\end_inset
+
+).
+ But this is a more general system that was not designed for a specific
+ traffic network.
+ It may be used on larger roadways where multiple CTAs are needed.
+ In this case, a Global Traffic Agent (GTA) is added to the hierarchy, and
+ all CTAs report to it.
+ The LTAs do not communicate with each other, but only with their assigned
+ CTAs.
+ Likewise, if a traffic network is large enough that a GTA is needed, it
+ is subdivided into regions controlled by a single CTA, with a top-level
+ GTA linking the CTAs together.
+ The final piece of the agent hierarchy is the Information Traffic Agent
+ (ITA).
+ As the name suggests, the ITA stores and distributes all information detailing
+ the state of each intersection.
+ Each LTA and CTA communicate directly with the ITA, but it does not process
+ any data.
+ Its only purpose it to store traffic data and provide immediate feedback
+ to the other agents.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status collapsed
+
+\begin_layout Plain Layout
+\begin_inset Graphics
+	filename figures/LTAs-and-CTA-smaller.PNG
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption
+
+\begin_layout Plain Layout
+Layout of Local and Coordinator Traffic Agents.
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\paragraph_spacing double
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+Snipped from float: Figure > Original image from 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "france2003mso"
+
+\end_inset
+
+.
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:LTAs-and-CTA"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+When deciding on a traffic light pattern, most communication takes place
+ between the LTAs and the CTAs, with the ITAs providing stored data as necessary.
+ In order for the CTA to calculate a global optimum for a given intersection,
+ it must collect data from all neighbors of that intersection's LTA.
+ The ITA provides data about traffic levels, congestion, accidents, etc.
+ at each of the intersections requested by the CTA.
+ The CTA calculates a traffic light pattern and compares it to that proposed
+ by the LTA.
+\begin_inset Note Comment
+status open
+
+\begin_layout Plain Layout
+Do I need something here about the LTAs generating their own proposed traffic
+ light pattern for review by the CTA?
+\end_layout
+
+\end_inset
+
+ If there is a significant difference between them, a balance between the
+ local and global optimums must be reached, and communicated to the LTA
+\begin_inset Foot
+status open
+
+\begin_layout Plain Layout
+The authors do not describe how they negotiate this balance.
+\end_layout
+
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+\paragraph_spacing double
+Traffic sensors provide data to the ITAs.
+ Collected data includes the current state of each traffic light, the direction
+ of traffic movement, e.g.
+ North heading North or West, or South going East, and the time remaining
+ for the light in its current state.
+ The LTAs include an expert system that uses this data to calculate a locally
+ optimal light pattern, without regard to other intersections.
+ Following this the LTA sends a message to the CTA, which may adjust the
+ LTA's light pattern, based on the recommendation of its own expert system,
+ to accomodate the needs of the global network.
+\end_layout
+
+\begin_layout Standard
+\paragraph_spacing double
+The communication protocols described earlier are also used by the CTAs
+ to send real-time updates of events occuring within the system.
+ The events described in this paper are traffic accidents and roadway congestion.
+ Most events affect only a small number of LTAs, and only directly affected
+ agents are notified of the events.
+\end_layout
+
+\begin_layout Standard
+\paragraph_spacing double
+An agent is considered affected by a traffic accident if the accident occurs
+ at a neighboring intersection, a connecting roadway, or within agent's
+ intersection.
+ When an LTA is notified by the CTA that it is affected by a traffic accident
+\begin_inset Foot
+status open
+
+\begin_layout Plain Layout
+The CTA receives the notification manually from a human operator.
+ In other words, this part of the application was not implemented at the
+ time of publication.
+\end_layout
+
+\end_inset
+
+, it overrides the state of the traffic light pattern provided by the CTA,
+ for the duration of the event.
+ Essentially, the agent regains its autonomy, and decides for itself what
+ action to take during the disruption.
+ Reading between the lines, it seems that the LTA recalculates its own local
+ traffic light pattern, and uses that until further notice from the CTA.
+ When the LTA is notified that the event has passed, the light returns to
+ standard operation.
+\end_layout
+
+\begin_layout Standard
+\paragraph_spacing double
+In the case of traffic congestion at a neighboring intersection, the CTA
+ will look for an alternate route to redirect incoming traffic.
+ If none is found, the soon-to-be affected LTA is sent the red signal, effective
+ly halting incoming traffic.
+ If an alternate is found, the CTA will send a message to the LTA that is
+ experiencing the congestion.
+ The LTA will again override the traffic light pattern, but this time it
+ is only for a single cycle of the traffic light pattern, after which it
+ reverts to the pattern provided by the CTA.
+ The CTA has the option to recall the pattern event, leaving the overridden
+ pattern active at the LTA.
+ This cycle could then be repeated by the CTA for as long as necessary,
+ based on updated sensor data.
+\end_layout
+
+\begin_layout Standard
+\paragraph_spacing double
+By way of comparison with my work, this system is traffic network-oriented
+ rather than agent-oriented.
+ It is also more hierarchical, with little in the way of true autonomy at
+ any level.
+ The LTAs are not allowed to communicate directly with one another.
+ In larger systems with multiple CTAs, they are not allowed to communicate
+ with one another either.
+ On the other hand, this is an applied approach at solving a specific problem,
+ rather than exploring the nature of agent-based simulations.
+ The first priority here is to find something that works, whereas my system
+ is geared toward exploration, with optimality a nice side-effect, but not
+ the primary goal.
+\end_layout
+
+\begin_layout Section
+\paragraph_spacing double
+Cooperative and competitive multiagent systems
+\end_layout
+
+\begin_layout Standard
+\paragraph_spacing double
+\begin_inset Note Comment
+status open
+
+\begin_layout Plain Layout
+The name of this subsection may be changed to 
+\begin_inset Quotes eld
+\end_inset
+
+Coordination and cooperation among software agents
+\begin_inset Quotes erd
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\paragraph_spacing double
+Here we investigate coordination, cooperation and competition among software
+ agents.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+\paragraph_spacing double
+using the belief-desire-intention agent model
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\paragraph_spacing double
+The Wu paper
+\begin_inset CommandInset citation
+LatexCommand cite
+key "wu2003umf"
+
+\end_inset
+
+ develops a system for identifying agent uncertainty in relation to other
+ agents in a MAS.
+ They build upon the existing agent model BDI (belief-desire-intention),
+ adding a new attribute, KB (knowledge base), and attribute properties 
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+TODO: call these state modifiers?
+\end_layout
+
+\end_inset
+
+public, private and protected.
+ This enhanced model is intended for use within a decision support system.
+ It gives individual agents a better understanding of their position relative
+ to other agents.
+ This should allow the agents to make better informed decisions.
+ BDI is described elsewhere.
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+TODO: need a citation!
+\end_layout
+
+\end_inset
+
+ It is included here as part of the overall definition of the uncertainty
+ management framework.
+\end_layout
+
+\begin_layout Standard
+\paragraph_spacing double
+
+\emph on
+Belief 
+\emph default
+is the information available to an agent about the state of the environment.
+ It is a frequently updated attribute described by the function
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula \[
+\wp(Belief)\times P\to\wp(Belief)\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\paragraph_spacing double
+where 
+\begin_inset Formula $P$
+\end_inset
+
+ is the agent's current precept and current beliefs.
+\end_layout
+
+\begin_layout Standard
+
+\emph on
+Desire 
+\emph default
+is the set of options an agent can use to achieve its intentions.
+ It is derived from the agent's belief and intentions and is described as
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula \[
+\wp(Belief)\times\wp(Intentions)\to\wp(Desire)\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\paragraph_spacing double
+The agent's 
+\emph on
+intention 
+\emph default
+is simply what it wants to do or accomplish
+\begin_inset Foot
+status open
+
+\begin_layout Plain Layout
+This paper does not include a precise definiton of intention.
+\end_layout
+
+\end_inset
+
+.
+ The new piece, the 
+\emph on
+knowledge base
+\emph default
+, expands on the concept of the agent's intention.
+ It is a database of related information on a particular subject that describes
+ how to do a certain task.
+\end_layout
+
+\begin_layout Standard
+\paragraph_spacing double
+The four attributes in the extended BDI agent model are not sufficient to
+ model an agent's relationships with its cohorts.
+ The authors add three state modifiers -- public, private and protected
+ -- to each of these attributes.
+ Public properties are visible to all, while private properties are visible
+ only to the agent.
+ A protected attribute, on the other hand, is one where its probability
+ distribution is visible to others.
+\end_layout
+
+\begin_layout Standard
+\paragraph_spacing double
+Now we can describe the uncertainty management framework with respect to
+ cooperation, coordination, and competition, and again, it starts with another
+ set of definitions.
+ A 
+\emph on
+cooperating agent 
+\emph default
+in this system is defined one that reveals its beliefs, desires, intentions
+ and knowledge base to others.
+ In addition, all cooperating agents must have the same goal.
+ 
+\emph on
+Coordination 
+\emph default
+is defined as revealing an agent's intentions and knowledge base to others,
+ but the agents have differing goals.
+ In 
+\emph on
+loose competition 
+\emph default
+an agent's goal is revealed, but not his knowledge base.
+ In 
+\emph on
+strict competition 
+\emph default
+an agent reveals neither his goal or knowledge base.
+ In either of the latter cases, the agent's beliefs and desires may be public,
+ private or protected (this is a function of the how much uncertainty exists
+ in the system) and agents may have the same or different goals as others.
+\end_layout
+
+\begin_layout Standard
+\paragraph_spacing double
+Taken together, the attributes plus properties lead to a series of actionable
+ decision-making states.
+ The variable attributes are beliefs and desires.
+ The intentions may be public or private for any of these agent interactions,
+ but it does not affect the decision making classification.
+ In every case, the agent's KB is private.
+\end_layout
+
+\begin_layout Standard
+\paragraph_spacing double
+With 
+\emph on
+decision making under certainty
+\emph default
+, between any pair of agents, both agents beliefs and desires are public
+ and readable by the other.
+ In 
+\emph on
+decision making under risk
+\emph default
+, both agents' beliefs and desires are protected, so their exact state is
+ not known, but their probability distributions are available, which should
+ allow the agents to make some reasonable predictions about each other's
+ expected actions.
+ Finally, with 
+\emph on
+decision making under uncertainty
+\emph default
+, neither agent knows anything about the other agent's beliefs or desires.
+ Data collection is entirely speculative.
+ See figure 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:uncertainty-management"
+
+\end_inset
+
+ for a summary.
+\end_layout
+
+\begin_layout Standard
+\paragraph_spacing double
+By way of comparison, in my cooperative simulations, the Taxis communicate
+ with the Fares soon after the initial pickup request is made.
+ This is similar in practice to decision making under certainty, as both
+ kinds of agents (or maybe more accurately, the agents with different goals)
+ are communicating openly with one another.
+ The Fare receives an acknowledgment before pickup, and the other Taxis
+ are notified that a particular Fare is no longer eligible.
+\end_layout
+
+\begin_layout Standard
+\paragraph_spacing double
+In my competitive simulations, the Taxis make decisions under something
+ approximating risk in the Wu model.
+ Whereas their system allows agents to share probability data with one another,
+ in my system there are only a few decisions that a Taxi is likely to make,
+ and they are made in private.
+ When any two or more agents (Taxis) compete for a Fare, there will be exactly
+ one winner, and all other competitors will lose that Fare.
+ But until a Taxi announces publicly that he has reached the Fare first,
+ all movement is private.
+ Note also that the Fares do not communicate with one another, but only
+ because it adds nothing to the simulation as designed.
+ There are certainly enhancements where communication between potential
+ Fares would raise their attractiveness to Taxis, thereby increasing their
+ fitness for pickup, resulting in better (faster) responses from the Taxis.
+\end_layout
+
+\begin_layout Standard
+\paragraph_spacing double
+One additional note: although I have no plans currently to include it in
+ this paper, I have run some Taxi 
+\begin_inset Quotes eld
+\end_inset
+
+team
+\begin_inset Quotes erd
+\end_inset
+
+ simulations with the current system.
+ The Taxis in these simulations behave similarly to agents making decisions
+ under risk.
+ For any two agents, there are two possible scenarios: they are cooperating,
+ meaning they are on the same 
+\begin_inset Quotes eld
+\end_inset
+
+team
+\begin_inset Quotes erd
+\end_inset
+
+, or they are coordinating, meaning they are on different teams.
+ Both scenarios assume a SimType of cooperative.
+ A SimType of competitive does not make much sense here, since the Taxis
+ would be competing with their teammates and with the Taxis on the other
+ team or teams.
+ The whole program would have to be modified to make a useful team competition.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status collapsed
+
+\begin_layout Plain Layout
+\begin_inset Graphics
+	filename figures/uncertainty-management.png
+	scale 70
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption
+
+\begin_layout Plain Layout
+Modeling agents' interactions using BDI & three types of decision making.
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\paragraph_spacing double
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+Snipped from float: Figure > Original image from 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "wu2003umf"
+
+\end_inset
+
+.
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:uncertainty-management"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\begin_inset Note Comment
+status open
+
+\begin_layout Plain Layout
+TODO: 
+\begin_inset Quotes eld
+\end_inset
+
+Agent-based approaches to transport logistics
+\begin_inset Quotes erd
+\end_inset
+
+ paper summary goes here
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\paragraph_spacing double
+The last paper in this series is a review of agent-based approaches to transport
+ation and traffic management.
+ The authors have developed a classification system that is used to organize
+ the large number of papers in the review.
+ While the focus is primarily on logistics, I classify my work as it fits
+ into their system.
+\end_layout
+
+\begin_layout Standard
+\paragraph_spacing double
+The article defines the concepts of logistics in some depth.
+ Here they are talking about transport logistics, or the movement of goods
+ from one place to another, often through multiple means, for example rail
+ to ship to rail.
+ The most succint definition of logistics that I found is 
+\begin_inset Quotes eld
+\end_inset
+
+Logistics means having the right thing, at the right place, at the right
+ time.
+\begin_inset Quotes erd
+\end_inset
+
+
+\begin_inset Foot
+status open
+
+\begin_layout Plain Layout
+http://www.logisticsworld.com/logistics.htm
+\end_layout
+
+\end_inset
+
+ My system is neither a traffic management nor a logistics flow model, unless
+ you consider the Fares as product to be moved from place to place.
+ Nevertheless, there are parallels and the classification is enlightening.
+\end_layout
+
+\begin_layout Standard
+\paragraph_spacing double
+The evaluation framework consists of several pieces.
+ The full list is shown in figure 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:evaluation-framework-summary"
+
+\end_inset
+
+.
+ Most of them will be clear from the context, but I will expand on some
+ of them.
+ Under 
+\emph on
+Approach
+\emph default
+
+\begin_inset Formula $\to$
+\end_inset
+
+
+\emph on
+Usage
+\emph default
+ are the categories Automation System and Decision support system (DSS).
+ This is a recurring theme in multiagent systems, at least where logistics
+ and traffic management systems are concerned.
+ This is the first time I've seen the term automation system used to describe
+ the alternative to DSS.
+ It is defined as 
+\begin_inset Quotes eld
+\end_inset
+
+having a self-acting mechanism that performs a required act at a predetermined
+ time or in response to certain conditions.
+\begin_inset Quotes erd
+\end_inset
+
+ That's a reasonable, if general, description of my system.
+ 
+\emph on
+Approach
+\begin_inset Formula $\to$
+\end_inset
+
+MAS structure
+\emph default
+ corresponds to the interactions of the agents, whether it is static, meaning
+ the agents have the same roles throughout the simulation, or dynamic, where
+ roles may change over time.
+ 
+\emph on
+Approach
+\begin_inset Formula $\to$
+\end_inset
+
+Agent attitude
+\emph default
+ splits the agent interactions into two categories.
+ All agents are classified as either benevolent (cooperative) or selfish
+ (competitive).
+ They do not make the distinction between cooperative and coordinative agents.
+ In any event, my system includes both cooperative and competitive agents.
+\end_layout
+
+\begin_layout Standard
+\paragraph_spacing double
+\begin_inset Note Comment
+status collapsed
+
+\begin_layout Plain Layout
+Drop this paragraph?
+\end_layout
+
+\end_inset
+
+The article mentions Multi Agent Based Simulations (MABS), a term that simply
+ means that the agents in the simulation may have different roles, e.g.
+ a company, a truck, a customer, etc.
+ It doesn't strike me as a particularly novel idea.
+ We've seen this earlier with the LTAs and CTAs in the France paper, but
+ this is the first time I've seen a unique term used to describe agents
+ this way.
+\end_layout
+
+\begin_layout Standard
+\paragraph_spacing double
+The Taxis and Fares system is ...
+ 
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+PICK UP HERE
+\end_layout
+
+\end_inset
+
+ in table 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "tab:classifying-taxis-and-fares-sim"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status collapsed
+
+\begin_layout Plain Layout
+\begin_inset Graphics
+	filename figures/tranport-logistics-combined.PNG
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption
+
+\begin_layout Plain Layout
+Summary of transportation logistics evaluation framework.
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+Snipped from float: Figure > Original images from 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "davidsson2005aab"
+
+\end_inset
+
+
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:evaluation-framework-summary"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\begin_inset Float table
+wide false
+sideways false
+status collapsed
+
+\begin_layout Plain Layout
+\begin_inset Tabular
+<lyxtabular version="3" rows="11" columns="8">
+<features booktabs="true">
+<column alignment="center" valignment="top" width="0.8in">
+<column alignment="center" valignment="top" width="0.8in">
+<column alignment="center" valignment="top" width="0.5in">
+<column alignment="center" valignment="top" width="0.5in">
+<column alignment="center" valignment="top" width="0.5in">
+<column alignment="center" valignment="top" width="0.5in">
+<column alignment="center" valignment="top" width="0.5in">
+<column alignment="center" valignment="top" width="0.5in">
+<row>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Coop/
+\end_layout
+
+\begin_layout Plain Layout
+FIFO
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Coop/
+\end_layout
+
+\begin_layout Plain Layout
+CF
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Coop/
+\end_layout
+
+\begin_layout Plain Layout
+MM
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Comp/
+\end_layout
+
+\begin_layout Plain Layout
+FIFO
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Comp/
+\end_layout
+
+\begin_layout Plain Layout
+CF
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Comp/
+\end_layout
+
+\begin_layout Plain Layout
+MM
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Problem Description
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Domain
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Traffic
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Traffic
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Traffic
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Traffic
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Traffic
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Traffic
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Mode of transportation
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Road
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Road
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Road
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Road
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Road
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Road
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Time horizon
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Opera-tional
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Opera-tional
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Opera-tional
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Opera-tional
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Opera-tional
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Opera-tional
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Approach
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Usage
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Auto-mation system
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Auto-mation system
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Auto-mation system
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Auto-mation system
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Auto-mation system
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Auto-mation system
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Control type
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+TODO
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+TODO
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+TODO
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+TODO
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+TODO
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+TODO
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+MAS structure
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Static
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Static
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Static
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Static
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Static
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Static
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Agent attitude
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Benevo-lent
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Benevo-lent
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Benevo-lent
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Selfish
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Selfish
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Selfish
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Agent architecture
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+TODO
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+TODO
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+TODO
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+TODO
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+TODO
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+TODO
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Results
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Maturity
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+2.2.1
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+2.2.1
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+2.2.1
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+2.2.1
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+2.2.1
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+2.2.1
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Evaluation comparison
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+TODO
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+TODO
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+TODO
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+TODO
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+TODO
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+TODO
+\end_layout
+
+\end_inset
+</cell>
+</row>
+</lyxtabular>
+
+\end_inset
+
+
+\begin_inset Caption
+
+\begin_layout Plain Layout
+Classifying the Taxis and Fares simulation
+\end_layout
+
+\end_inset
+
+
+\begin_inset CommandInset label
+LatexCommand label
+name "tab:classifying-taxis-and-fares-sim"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\paragraph_spacing double
+\begin_inset Note Comment
+status open
+
+\begin_layout Plain Layout
+\paragraph_spacing double
+Modi - ADOPT: Asynchronous Distributed Constraint Optimization with Quality
+ Guarantees
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\paragraph_spacing double
+\begin_inset Note Comment
+status open
+
+\begin_layout Plain Layout
+\paragraph_spacing double
+Mailler - Solving Distributed Constraint Optimization Problems Using Cooperative
+ Mediation
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_body
+\end_document

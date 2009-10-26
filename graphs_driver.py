@@ -2,7 +2,7 @@
 
 # Note: Made this change to permit moving getFips.py to the top level
 # directory along with rename to graphs_driver.py.
-import graphs.tigerutils as tigerutils
+import agents.tigerutils as tigerutils
 
 def run():
     # [DONE] choose the FIPS county file
@@ -38,11 +38,38 @@ def run():
     query.chooseGraphArea()
 
     # TESTING
-    print 'The point is',query.getPoint()
+    gp1=query.get_point()
+    print 'The start query.get_point() is',gp1
+    start_frlong,start_frlat,tolong,tolat=gp1[2:] # skip id and tlid
 
-#    # [TODO] plot the chosen area
-#    mg=tigerutils.MakeGraph()
-#    mg.makeGraph()
+    gp2=query.get_point()
+    print 'The end query.get_point() is',gp2
+    frlong,frlat,end_tolong,end_tolat=gp2[2:] # skip id and tlid
+
+    # [TODO] plot the chosen area
+    mg=tigerutils.MakeGraph()
+    mg.makeGraph()
+
+    # This is not useful.  These two points are adjacent to one another.
+    #
+    # mg.shortest_path: [(-149171250, 64285006), (-149169441, 64289333)]
+    # -- and --
+    # sqlite> SELECT * FROM tiger_01 WHERE frlong='-149171250' AND frlat='64285006';
+    # 627|1|1006|191177659|||||||||||-149171250|64285006|-149169441|64289333
+    # 628|1|1006|191177626|||||||||||-149171250|64285006|-149174638|64285261
+    # 
+    # The second row is on the "other side" of the same point.  In other
+    # words:
+    # (-149169441,64289333)->(-149171250,64285006)->(-149174638,64285261)
+    # -- and --
+    # (-149174638,64285261)->(-149171250,64285006)->(-149169441,64289333)
+    #
+    #print "mg.shortest_path:", mg.shortest_path((frlong,frlat),(tolong,tolat))
+    print("mg.shortest_path:",
+		    mg.shortest_path((start_frlong,start_frlat),(end_tolong,end_tolat)))
+
+    print("calling connected_components")
+    print mg.get_connected()
 
 if __name__ == '__main__':
     run()

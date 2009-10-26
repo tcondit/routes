@@ -1,0 +1,769 @@
+#LyX 1.6.1 created this file. For more info see http://www.lyx.org/
+\lyxformat 345
+\begin_document
+\begin_header
+\textclass report
+\use_default_options false
+\language english
+\inputencoding latin9
+\font_roman default
+\font_sans default
+\font_typewriter lmtt
+\font_default_family default
+\font_sc false
+\font_osf false
+\font_sf_scale 100
+\font_tt_scale 100
+
+\graphics default
+\paperfontsize default
+\spacing double
+\use_hyperref false
+\papersize default
+\use_geometry false
+\use_amsmath 0
+\use_esint 0
+\cite_engine basic
+\use_bibtopic false
+\paperorientation portrait
+\secnumdepth 2
+\tocdepth 2
+\paragraph_separation indent
+\defskip medskip
+\quotes_language english
+\papercolumns 1
+\papersides 1
+\paperpagestyle default
+\tracking_changes false
+\output_changes false
+\author "" 
+\author "" 
+\end_header
+
+\begin_body
+
+\begin_layout Chapter
+\paragraph_spacing double
+Implementation
+\end_layout
+
+\begin_layout Section
+Grids and Graphs
+\end_layout
+
+\begin_layout Standard
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+TODO Add something in here about Python duck-typing in the grid and graph
+ classes.
+ They are considered something like equivalent because they have the same
+ set of methods.
+ There's no need to mess around with interfaces or extending the same base
+ class.
+ (Use that too.
+ That's good.)
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\paragraph_spacing double
+[LIMERICK 1] There once was a man from Ghent
+\end_layout
+
+\begin_layout Enumerate
+\paragraph_spacing double
+data prep - grid
+\end_layout
+
+\begin_layout Enumerate
+\paragraph_spacing double
+data prep - graphs
+\end_layout
+
+\begin_deeper
+\begin_layout Enumerate
+\paragraph_spacing double
+get FIPS
+\end_layout
+
+\begin_layout Enumerate
+\paragraph_spacing double
+process lat/lon data
+\end_layout
+
+\begin_layout Enumerate
+\paragraph_spacing double
+make graph
+\end_layout
+
+\begin_deeper
+\begin_layout Enumerate
+\paragraph_spacing double
+describe algorithm for connecting nodes
+\end_layout
+
+\end_deeper
+\begin_layout Enumerate
+\paragraph_spacing double
+little bit of graph theory
+\end_layout
+
+\begin_deeper
+\begin_layout Enumerate
+\paragraph_spacing double
+streets and roads are [ 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+ldots
+\end_layout
+
+\end_inset
+
+ ]
+\end_layout
+
+\begin_layout Enumerate
+\paragraph_spacing double
+intersections are [ 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+ldots
+\end_layout
+
+\end_inset
+
+ ]
+\end_layout
+
+\begin_layout Enumerate
+\paragraph_spacing double
+slightly fuzzy math (but well within tolerance of size of intersection).
+ IOW, if lat/lon data is good to 6 decimal places, that equates to a length
+ of, say, 3 feet.
+ But an intersection is at least 20 feet across, so the accuracy is good
+ enough to correctly locate each [ node or vertex ] intersection as equating
+ to a geographical (street level) intersection.
+\end_layout
+
+\end_deeper
+\begin_layout Enumerate
+\paragraph_spacing double
+generating plots
+\end_layout
+
+\end_deeper
+\begin_layout Section
+SimPy Resource Types: Resources, Levels and Stores
+\end_layout
+
+\begin_layout Standard
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+Where does this belong? Above subsection 
+\begin_inset Quotes eld
+\end_inset
+
+Fares
+\begin_inset Quotes erd
+\end_inset
+
+? Break it out into it's own section? What is the right heading title?
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\paragraph_spacing double
+There are three types of resources in SimPy that are available for working
+ with the actors in your simulation: Resources, Levels and Stores.
+ You may use one or more of them in a simulation, but any individual piece
+ is modelled using only one.
+\end_layout
+
+\begin_layout Standard
+\paragraph_spacing double
+A Resource is useful if you have multiple identical tasks that are modelled
+ as SimPy objects, and one or more required elements.
+ The example most often given here is waiting in line at a bank.
+ The tellers are the required elements (a SimPy Resource), and the customers
+ waiting to perform some task (also a Resource) wait in a shared line for
+ a teller to become available.
+ The waiting customers are stored in a wait queue, while the customers who
+ are at the teller stations are stored in an active queue.
+ I originally wrote my program to use Resources, but later rewrote it because
+ ...
+ 
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+WHY??
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\paragraph_spacing double
+The second resource type is the Level.
+ It is used when you want to model something of a more 
+\begin_inset Quotes eld
+\end_inset
+
+continuous
+\begin_inset Quotes erd
+\end_inset
+
+ nature.
+ Instead of having discrete units, the simulation usually tracks the volume
+ or weight of some resource, like water in a bathtub for example.
+ This type of resource is described using a scalar value, and is useful
+ for simulations where you're concerned with the supply of something, like
+ gasoline in a gas station.
+ A key consideration is that you don't need to model the resource as an
+ object with behavior and state.
+\end_layout
+
+\begin_layout Standard
+\paragraph_spacing double
+The last resource type is the Store.
+ Stores model the production and consumption of individual items, but a
+ key difference is that Stores do maintain object state.
+ This makes it a good choice for modeling Agents.
+ Stores insert or remove any Python type.
+ In particular, they may use SimPy Process objects.
+ They also provide put and get queues, and make nice systems with which
+ to model Master/Slave relationships, like a Taxi/Fare simulation for example.
+\end_layout
+
+\begin_layout Standard
+\paragraph_spacing double
+The waitingFares queue is a SimPy Store.
+ It is an attribute of the Agent class, which is itself a SimPy Process
+ object.
+ As the name suggests, it holds references to Fare objects.
+ Fares add themselves to the queue, and Taxis remove the Fares from it.
+ To ensure that there is only one waitingFares queue, it is a static (class)
+ attribute that is shared by all Agent types.
+ Putting Fares into the queue is simple enough.
+ In the Fare's 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+texttt{run()}
+\end_layout
+
+\end_inset
+
+ method, 
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+P/U HERE
+\end_layout
+
+\end_inset
+
+ 
+\begin_inset Foot
+status open
+
+\begin_layout Plain Layout
+\paragraph_spacing double
+One of the difficulties that came up during data collection for analysis
+ was accounting for Fares that are left in the waitingFares queue at the
+ end of the simulation.
+ This is covered in the results section.
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Section
+The Agents
+\end_layout
+
+\begin_layout Standard
+\paragraph_spacing double
+Taxis and Fares are subclasses of a common Agent class.
+ The Agent class sets a mapping type to either grid or graph and randomly
+ generates the Agent's initial location on the grid or graph, respectively.
+ The Agent also defines a queue to hold waiting Fares.
+ It is a class attribute that holds only Fares, but it is used by both Agent
+ types.
+ The Taxi queries this list when it decides what to do next.
+ Exactly what the Taxi is looking for is dependent on which negotiation
+ protocol (FIFO, closestFare or mixedMode) and which simulation type (competitiv
+e or cooperative) are running.
+\end_layout
+
+\begin_layout Standard
+\paragraph_spacing double
+The Agent also subclasses SimPy's Process class, which provides a means
+ for SimPy to manipulate the Agents during discrete-event simulation.
+ Process objects must provide a method called the Process Execution Method
+ (PEM) that is invoked by the simulation toolkit to activate the object.
+ When the PEM exits, the Process object is destroyed.
+ The PEM is where the simulated object's behaviors are defined.
+\end_layout
+
+\begin_layout Subsection
+Fares
+\end_layout
+
+\begin_layout Standard
+\paragraph_spacing double
+The lifecycle of a Fare is relatively simple.
+ It begins when the Fare is created, and ends when it is dropped off at
+ its destination by a Taxi, or the simulation ends, whichever comes first.
+ Fares are created throughout the simulation.
+ Their generation rate is configurable; it is the inverse of an exponential
+ distribution (see meanFareGenerationRate in 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "sec:The-agents-default.ini"
+
+\end_inset
+
+).
+ The Fare uses the same PEM for all simulations.
+ It collects timestamped event data starting with the initial request for
+ pickup; then again when it is picked up; and finally when it is dropped
+ off.
+\end_layout
+
+\begin_layout Subsection
+Taxis
+\end_layout
+
+\begin_layout Standard
+\paragraph_spacing double
+The Taxi class is more complex than the Fares, as it defines multiple SimPy
+ PEMs corresponding to the different negotiation protocols and simulation
+ types.
+ Leaving the NPs and simtypes aside for now, the lifecycle of the Taxis
+ is complementary to that of the Fares.
+ Taxis are created at the beginning of the simulation, and persist until
+ the simulation ends.
+ They normally pick up several Fares over the course of a simulation, but
+ only one at a time.
+ They do the kind of things you'd expect: wait for a request for pickup;
+ either negotiate or compete to pick up the Fare; pick up the Fare; drive
+ to the requested destination; update the location of both Agents; notify
+ the Fare when the destination is reached; and then start the whole cycle
+ over again.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Note Comment
+status open
+
+\begin_layout Plain Layout
+TODO Add something about possible enhancements (maybe in the results section?)
+ about picking up multiple Fares at more than one stop during a Taxi run.
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\paragraph_spacing double
+The details of the cooperating Taxis is mostly independent of which negotiation
+ protocol is used.
+ What matters is that at some point the Taxi identifies a Fare for pickup.
+ The Taxi takes a reference to the Fare, and removes it from the waitingFares
+ queue.
+ Note, this is before the Taxi has 
+\begin_inset Quotes eld
+\end_inset
+
+driven
+\begin_inset Quotes erd
+\end_inset
+
+ to the Fare.
+ This scheme does not work with the competing Taxis, which handle Fare pickups
+ differently.
+\end_layout
+
+\begin_layout Standard
+\paragraph_spacing double
+Competing Taxis have a different set of issues.
+ Again leaving aside details about the NPs, eventually a Taxi will identify
+ a Fare for which he would like to compete.
+ Taxis identify themselves as competing for a specific target Fare by entering
+ a compete queue that is maintained by the system on behalf of a Fare.
+ Taxis are eligible to enter one compete queue at a time, 
+\begin_inset Foot
+status open
+
+\begin_layout Plain Layout
+In other words, a Taxi may not compete for more than one Fare at a time.
+\end_layout
+
+\end_inset
+
+ and may enter a compete queue at any time after the Fare's initial request
+ for pickup, until the Fare is 
+\begin_inset Quotes eld
+\end_inset
+
+won
+\begin_inset Quotes erd
+\end_inset
+
+ or claimed by a Taxi.
+ The winning Taxi announces his arrival to the other competitors, who then
+ renege (exit) from the compete queue and look for another Fare for which
+ to compete.
+ Meanwhile, the winning Taxi drives to the Fare's destination.
+\end_layout
+
+\begin_layout Standard
+\paragraph_spacing double
+Taxis have only partial knowledge of their world.
+ This is most noticeable during competition.
+ The negotiation protocols largely dictate which Taxis receive pickup requests
+ from the Fares.
+ In addition, Taxis are essentially blind to the number and location of
+ their competitors, and stay that way the whole time.
+ A winning Taxi sends a broadcast to announce he's won, but he does not
+ know who receives it.
+ Likewise, the receiving Taxis don't know who else has received it, or even
+ who sent it.
+ All they know is that they did or did not win the Fare.
+\end_layout
+
+\begin_layout Standard
+\paragraph_spacing double
+Other interesting things occur as a result of the autonomous agent's incomplete
+ system knowledge.
+ An earlier version of the program had an additional signal event when the
+ Fare received an acknowledgment of pending pickup from the Taxi.
+ This only made sense with cooperative simulations due to the way the Taxis
+ process pickup requests, so I left it out.
+ While a Taxi is en-route with a Fare, it may receive requests for pickup,
+ but may not act on them.
+ So while a Taxi may be the first one available for hire, he may not necessarily
+ be the first one to reach the Fare, since another Taxi may be closer to
+ the Fare, but currently ineligible to respond.
+ If the second Taxi drops off his Fare and reaches the Fare first, the first
+ Taxi's acknowledgment would be considered an error, based on his limited
+ knowledge of the other Agents.
+\end_layout
+
+\begin_layout Section
+Negotiation Protocols and Simulation Types
+\end_layout
+
+\begin_layout Standard
+\paragraph_spacing double
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+TODO Add something about the NPs being SimPy filter functions, and how they
+ behave.
+\end_layout
+
+\end_inset
+
+
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+TODO Add a big leading chunk about ...
+\end_layout
+
+\end_inset
+
+There are three negotiation protocols (NPs, my phrase).
+ They are similar in concept, but with different implementations, for the
+ cooperative and competitive simulations.
+ The combination of negotiation protocol and simType identifies the major
+ characteristics of a simulation.
+ The combinations are
+\end_layout
+
+\begin_layout Itemize
+FIFO/cooperative & FIFO/competitive
+\end_layout
+
+\begin_layout Itemize
+closestFare/cooperative & closestFare/competitive
+\end_layout
+
+\begin_layout Itemize
+mixedMode/cooperative & mixedMode/competitive
+\end_layout
+
+\begin_layout Standard
+\paragraph_spacing double
+Any simulation uses exactly one of them.
+ It is specified in the agent configuration file 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "sec:The-agents-default.ini"
+
+\end_inset
+
+.
+ The NPs control how the Fares broadcast their pickup requests, and how
+ the Taxis decide who will make the pickup.
+ 
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+This sounds like intro material.
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsection
+FIFO
+\end_layout
+
+\begin_layout Standard
+\paragraph_spacing double
+The simplest NP is FIFO, or first-in, first-out, for cooperative simulations.
+ As Fares enter the simulation and broadcast pickup requests, they are pushed
+ onto the waitingFares queue.
+ Taxis pop Fares off the queue in the order in which they become available
+ to accept requests, typically after dropping off their current Fare.
+ 
+\begin_inset Foot
+status open
+
+\begin_layout Plain Layout
+At the start of the simulation there are generally more Taxis than Fares,
+ so some Taxis wind up waiting around for something to do while the system
+ generates work for all.
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\paragraph_spacing double
+Because it is so simple, FIFO turns out to be a good baseline for comparison
+ with other simulations.
+ On the other hand, it is inefficient.
+ The distances that the Taxis drive to make pickups is not taken into considerat
+ion at all.
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+This sounds like conclusion material.
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\paragraph_spacing double
+FIFO for competitions is similar, but here the Taxis queue up (in a separate
+ competeQ) to try and pick up the Fare.
+ This simulation may behave inefficiently in another way, since most of
+ the Taxis will be going after the same Fares.
+ 
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+COME BACK TO THIS.
+ During data collection and analysis, find out if my assertion is true and
+ update this section based on reality.
+\end_layout
+
+\end_inset
+
+ When one gets there, the losing Taxis start over and go after the next
+ Fare in the waitingFares queue.
+\begin_inset Foot
+status open
+
+\begin_layout Plain Layout
+I talk about a possible future enhancement using Gato, the graph animation
+ toolbox in the conclusion.
+ This is one of the simulations I'd most like to see animated in real time.
+\begin_inset CommandInset label
+LatexCommand label
+name "fn:Gato-footnote"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsection
+closestFare
+\end_layout
+
+\begin_layout Standard
+\paragraph_spacing double
+Next up is closestFare.
+ The name pretty much sums it up for the cooperative simulations.
+ Each Taxi queries the list of waiting Fares, and finds the geographically
+ closest available Fare that has not already been acknowledged by another
+ Taxi.
+ Unless the waiting Fares queue is empty, the Taxi should always get a Fare
+ in the cooperative simulation.
+ Distance is a configurable setting.
+ It is measured either 
+\begin_inset Quotes eld
+\end_inset
+
+as the crow flies
+\begin_inset Quotes erd
+\end_inset
+
+, or by surface street distance.
+ See distanceCalculation in 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "sec:The-agents-default.ini"
+
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+\paragraph_spacing double
+The competitive closestFare simulation is similar, except for once again
+ the Taxis have no knowledge of one another, and only one of them will pick
+ up any given Fare.
+ So the chosen Fare must be the one that is closest to them, and they must
+ be closest to the Fare relative to the other Taxis as well.
+ The first Taxi to reach the Fare makes the pickup and the rest renege out
+ of the compete queue to try again.
+\end_layout
+
+\begin_layout Subsection
+mixedMode
+\end_layout
+
+\begin_layout Standard
+\paragraph_spacing double
+mixedMode simulations are more complex.
+ Fares broadcast their pickup requests to widening areas until a Taxi either
+ acknowledges them in the cooperative simulation, or arrives to pick them
+ up in the competitive simulations.
+ There are three configurable ratios: taxiRangeLow, taxiRangeMedium, and
+ taxiRangeHigh.
+ Their starting values are 0.25, 0.5 and 1.0, representing the time the Fare
+ has been waiting for a pickup.
+\end_layout
+
+\begin_layout Standard
+\paragraph_spacing double
+An eligible Taxi uses a combination of the Fare's time in the waitingFares
+ buffer plus their distance from the Taxi to determine which Fares to inspect.
+ If there are any Fares in the buffer, the one with the lowest score (cost)
+ is returned to the caller.
+\end_layout
+
+\begin_layout Standard
+\paragraph_spacing double
+If the list is empty, in other words, if there are no Fares which meet the
+ time and space (distance) requirements of this Taxi, the Taxi goes into
+ a getQ, and stays there until at least one suitable Fare comes along.
+ There don't seem to be any restrictions from SimPy on when a Taxi can get
+ out of the queue.
+ A Taxi will stay in the getQ until a Fare is close enough for him to pick
+ up.
+\end_layout
+
+\begin_layout Standard
+\paragraph_spacing double
+For the cooperative simulations, the Taxi will have acknowledge the Fare
+ and make the pickup.
+ For mixedMode competitive, all Fares that receive the same Fare data attempt
+ to make the pickup.
+ Taxis will enter the queue at different times.
+ It's possible, based on their relative locations, that a Taxi that entered
+ the getQ after other Taxis are already en-route to the Fare may be the
+ one to make the pickup.
+\end_layout
+
+\begin_layout Section
+Cooperative and Competitive Simulations
+\end_layout
+
+\begin_layout Standard
+\paragraph_spacing double
+[LIMERICK 2] Who had a penis so long it bent
+\end_layout
+
+\begin_layout Standard
+\paragraph_spacing double
+[LIMERICK 3] It was so much trouble
+\end_layout
+
+\begin_layout Section
+Config parser
+\end_layout
+
+\begin_layout Standard
+\paragraph_spacing double
+[LIMERICK 4] That he kept it double
+\end_layout
+
+\begin_layout Section
+Some other section
+\end_layout
+
+\begin_layout Standard
+\paragraph_spacing double
+[LIMERICK 5] And instead of coming he went.
+\end_layout
+
+\end_body
+\end_document

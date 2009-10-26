@@ -1,0 +1,2668 @@
+#LyX 1.6.1 created this file. For more info see http://www.lyx.org/
+\lyxformat 345
+\begin_document
+\begin_header
+\textclass report
+\begin_preamble
+\usepackage{hyperref}
+\end_preamble
+\use_default_options false
+\language english
+\inputencoding auto
+\font_roman default
+\font_sans default
+\font_typewriter lmtt
+\font_default_family default
+\font_sc false
+\font_osf false
+\font_sf_scale 100
+\font_tt_scale 100
+
+\graphics default
+\paperfontsize 12
+\spacing single
+\use_hyperref false
+\papersize default
+\use_geometry false
+\use_amsmath 1
+\use_esint 1
+\cite_engine basic
+\use_bibtopic false
+\paperorientation portrait
+\secnumdepth 3
+\tocdepth 3
+\paragraph_separation indent
+\defskip medskip
+\quotes_language english
+\papercolumns 1
+\papersides 2
+\paperpagestyle headings
+\tracking_changes false
+\output_changes false
+\author "" 
+\author "" 
+\end_header
+
+\begin_body
+
+\begin_layout Title
+Routes: A multiagent Taxi simulation
+\end_layout
+
+\begin_layout Author
+Tim Condit
+\end_layout
+
+\begin_layout Date
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+today
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+pagenumbering{roman}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Note Comment
+status open
+
+\begin_layout Plain Layout
+TODO: fix the page numbering
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset CommandInset toc
+LatexCommand tableofcontents
+
+\end_inset
+
+
+\begin_inset FloatList figure
+
+\end_inset
+
+
+\begin_inset FloatList table
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Note Comment
+status open
+
+\begin_layout Plain Layout
+Wondering WTF this is? See section 
+\begin_inset Quotes eld
+\end_inset
+
+Abbreviation of author name in text
+\begin_inset Quotes erd
+\end_inset
+
+ in http://wiki.lyx.org/BibTeX/Tips
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Note Comment
+status open
+
+\begin_layout Plain Layout
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+defcitealias{davidsson2005aab}{Davidsson}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Note Comment
+status open
+
+\begin_layout Plain Layout
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+defcitealias{france2003mso}{France}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Note Comment
+status open
+
+\begin_layout Plain Layout
+TODO: Hernandez is spelled with a'.
+ See related work for how to do this.
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Note Comment
+status open
+
+\begin_layout Plain Layout
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+defcitealias{10.1109/HICSS.2001.926331}{Hernandez}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Note Comment
+status open
+
+\begin_layout Plain Layout
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+defcitealias{wu2003umf}{Wu}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\begin_inset Newpage clearpage
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+pagenumbering{arabic}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Abstract
+Lorem ipsum dolor sit amet, consectetuer adipiscing elit.
+ Pellentesque dignissim.
+ Praesent tortor.
+ In fringilla feugiat nisi.
+ Fusce a elit.
+ Maecenas placerat facilisis magna.
+ Mauris dolor nisi, consequat quis, adipiscing et, consequat semper, odio.
+ In eget lacus.
+ Pellentesque mauris.
+ Sed vestibulum quam ac mauris.
+ Donec vehicula risus.
+ Maecenas vitae arcu quis tellus fringilla porttitor.
+ Donec enim nulla, ornare sit amet, lacinia id, bibendum scelerisque, sapien.
+\end_layout
+
+\begin_layout Abstract
+Duis ut sapien.
+ Proin sit amet magna et est pharetra vestibulum.
+ Pellentesque sed diam et erat sollicitudin pharetra.
+ Suspendisse potenti.
+ Sed fringilla sagittis urna.
+ Morbi ullamcorper aliquet leo.
+ Donec elit nunc, rutrum at, ultrices at, pretium a, est.
+ Etiam non dolor non enim malesuada condimentum.
+ Curabitur vitae sapien.
+ Nulla neque.
+\end_layout
+
+\begin_layout Abstract
+Donec odio nibh, varius in, dictum nec, egestas in, nisl.
+ Mauris varius mi non nunc.
+ Praesent porta enim in nibh.
+ Donec ac mi varius ante malesuada dignissim.
+ Nunc aliquet tortor ac lectus.
+ Sed pede.
+ Donec lobortis, tellus vel vehicula tristique, lectus diam cursus sapien,
+ id ultricies odio metus sed ipsum.
+ Fusce sapien mauris, vehicula non, placerat at, rhoncus sed, sem.
+ Duis ullamcorper molestie mauris.
+ Sed eu ipsum nec eros luctus elementum.
+ Suspendisse ultrices sollicitudin nunc.
+\end_layout
+
+\begin_layout Itemize
+software agents
+\end_layout
+
+\begin_layout Itemize
+Taxis, Fares
+\end_layout
+
+\begin_layout Itemize
+cooperative, competitive
+\end_layout
+
+\begin_layout Itemize
+simulations
+\end_layout
+
+\begin_layout Itemize
+grids & graphs
+\end_layout
+
+\begin_layout Itemize
+extremely configurable
+\end_layout
+
+\begin_layout Itemize
+Software agents, 
+\end_layout
+
+\begin_layout Itemize
+Groups of software agents, working cooperatively or in competition to solve
+ a specific class of problems, 
+\end_layout
+
+\begin_layout Itemize
+In this thesis we describe a simulation of two kinds of dependent agents.
+ The goal of the taxis is to deliver as many fares as efficiently as possible,
+ while the goal of the fares is to get to their destination as quickly as
+ possible.
+ The simulation is extensively configurable, and there are multiple different
+ operating modes: grid or graph 
+\begin_inset Note Comment
+status open
+
+\begin_layout Plain Layout
+environment? area? playing field? competition range?
+\end_layout
+
+\end_inset
+
+; cooperative or competitive simulation types; FIFO, closestfare and mixedmode
+ negotiation protocols.
+\end_layout
+
+\begin_layout Itemize
+The original motivation was to develop something along the lines of a distribute
+d constraint optimization protocol.
+ The results, while not optimal in many cases, still show 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+ldots
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Itemize
+In developing this simulation, we recognized the need to be able to experiment
+ with different configurations in real-time.
+ To this end, a wide range of variables are exposed to the user, along with
+ an interactive utility that takes care of required preparation to run both
+ grid and graph simulations.
+\begin_inset Note Comment
+status open
+
+\begin_layout Plain Layout
+Note that when running graph simulations, the RT files are cached for future
+ use, if so desired.
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Newpage clearpage
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset CommandInset include
+LatexCommand include
+filename "condit_thesis_chapter_introduction.lyx"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset CommandInset include
+LatexCommand include
+filename "condit_thesis_chapter_relatedwork.lyx"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset CommandInset include
+LatexCommand include
+filename "condit_thesis_chapter_implementation.lyx"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset CommandInset include
+LatexCommand include
+filename "condit_thesis_chapter_results.lyx"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset CommandInset include
+LatexCommand include
+filename "condit_thesis_chapter_conclusion.lyx"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Newpage clearpage
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset CommandInset bibtex
+LatexCommand bibtex
+bibfiles "agents"
+options "plain"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Note Comment
+status open
+
+\begin_layout Plain Layout
+I got the bibliography working with some help from http://wiki.lyx.org/Examples/Si
+mpleUseOfBibTeX.
+ Very nice.
+ My references are in agents.bib.
+ By the way, the citations seem to be sorted by first author's last name.
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Note Comment
+status open
+
+\begin_layout Plain Layout
+The references (obviously) must be present in the .bib file, but in order
+ to have them show up you must cite them in the text.
+ [That's brilliant.
+ It means I can drop in all sort of stuff, and only include the ones that
+ turn out to be useful when I'm writing.
+ Software that works with the user.
+ What a concept.]
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Chapter
+\start_of_appendix
+List of open source software
+\end_layout
+
+\begin_layout Standard
+This list includes only software that I used directly.
+ About half of them had additional dependencies which are also installed,
+ but not listed.
+\end_layout
+
+\begin_layout Itemize
+Python 
+\begin_inset Flex URL
+status collapsed
+
+\begin_layout Plain Layout
+
+http://www.python.org/
+\end_layout
+
+\end_inset
+
+
+\begin_inset CommandInset label
+LatexCommand label
+name "ite:[http://www.python.org/||Python]"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Quotation
+Python is a dynamic object-oriented programming language that can be used
+ for many kinds of software development.
+ It offers strong support for integration with other languages and tools,
+ comes with extensive standard libraries, and can be learned in a few days.
+ Many Python programmers report substantial productivity gains and feel
+ the language encourages the development of higher quality, more maintainable
+ code.
+\end_layout
+
+\begin_layout Itemize
+SimPy 
+\begin_inset Flex URL
+status collapsed
+
+\begin_layout Plain Layout
+
+http://simpy.sourceforge.net/
+\end_layout
+
+\end_inset
+
+
+\begin_inset CommandInset label
+LatexCommand label
+name "ite:[http://simpy.sourceforge.net/||SimPy]"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Quotation
+SimPy is an object-oriented, process-based discrete-event simulation language
+ based on standard Python.
+ It provides the modeler with components of a simulation model including
+ processes, for active components like customers, messages, and vehicles,
+ and resources, for passive components that form limited capacity congestion
+ points like servers, checkout counters, and tunnels.
+ It also provides monitor variables to aid in gathering statistics.
+ Random variates are provided by the standard Python random module.
+\end_layout
+
+\begin_layout Itemize
+NetworkX 
+\begin_inset Flex URL
+status collapsed
+
+\begin_layout Plain Layout
+
+https://networkx.lanl.gov/wiki/
+\end_layout
+
+\end_inset
+
+
+\begin_inset CommandInset label
+LatexCommand label
+name "ite:[https://networkx.lanl.gov/wiki/||NetworkX]"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Quotation
+NetworkX is a Python package for the creation, manipulation, and study of
+ the structure, dynamics, and functions of complex networks.
+\end_layout
+
+\begin_layout Itemize
+Matplotlib/PyLab 
+\begin_inset Flex URL
+status collapsed
+
+\begin_layout Plain Layout
+
+http://matplotlib.sourceforge.net/
+\end_layout
+
+\end_inset
+
+
+\begin_inset CommandInset label
+LatexCommand label
+name "ite:[http://matplotlib.sourceforge.net/||Matplotlib/PyLab]"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Quotation
+matplotlib is a python 2D plotting library which produces publication quality
+ figures in a variety of hardcopy formats and interactive environments across
+ platforms.
+ matplotlib can be used in python scripts, the python and ipython shell
+ (ala matlab or mathematica), web application servers, and six graphical
+ user interface toolkits.
+\end_layout
+
+\begin_layout Itemize
+SQLite 
+\begin_inset Flex URL
+status collapsed
+
+\begin_layout Plain Layout
+
+http://www.sqlite.org/
+\end_layout
+
+\end_inset
+
+
+\begin_inset CommandInset label
+LatexCommand label
+name "ite:[http://www.sqlite.org/||SQLite]"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Quotation
+SQLite is a software library that implements a self-contained, serverless,
+ zero-configuration, transactional SQL database engine.
+ SQLite is the most widely deployed SQL database engine in the world.
+\end_layout
+
+\begin_layout Itemize
+MySQL 
+\begin_inset Flex URL
+status collapsed
+
+\begin_layout Plain Layout
+
+http://www.mysql.com/
+\end_layout
+
+\end_inset
+
+
+\begin_inset CommandInset label
+LatexCommand label
+name "ite:[http://www.mysql.com/||MySQL]"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Quotation
+The MySQL software delivers a very fast, multi-threaded, multi-user, and
+ robust SQL database server.
+ It is intended for mission-critical, heavy-load production systems as well
+ as for embedding into mass-deployed software.
+\end_layout
+
+\begin_layout Itemize
+SQLAlchemy 
+\begin_inset Flex URL
+status collapsed
+
+\begin_layout Plain Layout
+
+http://www.sqlalchemy.org/
+\end_layout
+
+\end_inset
+
+
+\begin_inset CommandInset label
+LatexCommand label
+name "ite:[http://www.sqlalchemy.org/||SQLAlchemy]"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Quotation
+SQLAlchemy is the Python SQL toolkit and Object Relational Mapper that gives
+ application developers the full power and flexibility of SQL.
+ It provides a full suite of well known enterprise-level persistence patterns,
+ designed for efficient and high-performing database access, adapted into
+ a simple and Pythonic domain language.
+\end_layout
+
+\begin_layout Itemize
+TeX 
+\begin_inset Flex URL
+status collapsed
+
+\begin_layout Plain Layout
+
+http://www.ctan.org/
+\end_layout
+
+\end_inset
+
+
+\begin_inset CommandInset label
+LatexCommand label
+name "ite:[http://www.ctan.org/||TeX]"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Quotation
+TeX (= tau epsilon chi, and pronounced similar to 
+\begin_inset Quotes eld
+\end_inset
+
+blecch
+\begin_inset Quotes erd
+\end_inset
+
+, not to the state known for 
+\begin_inset Quotes els
+\end_inset
+
+Tex-Mex
+\begin_inset Quotes ers
+\end_inset
+
+ chili) is a computer language designed for use in typesetting; in particular,
+ for typesetting math and other technical (from greek 
+\begin_inset Quotes eld
+\end_inset
+
+techne
+\begin_inset Quotes erd
+\end_inset
+
+ = art/craft, the stem of 
+\begin_inset Quotes els
+\end_inset
+
+technology
+\begin_inset Quotes ers
+\end_inset
+
+) material.
+\end_layout
+
+\begin_layout Itemize
+LaTeX2e 
+\begin_inset Flex URL
+status collapsed
+
+\begin_layout Plain Layout
+
+http://www.latex-project.org/
+\end_layout
+
+\end_inset
+
+
+\begin_inset CommandInset label
+LatexCommand label
+name "ite:[http://www.latex-project.org/||LaTeX2e]"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Quotation
+LaTeX is a high-quality typesetting system; it includes features designed
+ for the production of technical and scientific documentation.
+ LaTeX is the de facto standard for the communication and publication of
+ scientific documents.
+\end_layout
+
+\begin_layout Itemize
+LyX 
+\begin_inset Flex URL
+status collapsed
+
+\begin_layout Plain Layout
+
+http://www.lyx.org/
+\end_layout
+
+\end_inset
+
+
+\begin_inset CommandInset label
+LatexCommand label
+name "ite:[http://www.lyx.org/||LyX]"
+
+\end_inset
+
+ (you're reading it now!)
+\end_layout
+
+\begin_layout Quotation
+LyX is a document processor that encourages an approach to writing based
+ on the structure of your documents (WYSIWYM) and not simply their appearance
+ (WYSIWYG).
+\end_layout
+
+\begin_layout Itemize
+Mercurial 
+\begin_inset Flex URL
+status collapsed
+
+\begin_layout Plain Layout
+
+http://www.selenic.com/mercurial/wiki/
+\end_layout
+
+\end_inset
+
+
+\begin_inset CommandInset label
+LatexCommand label
+name "ite:[http://www.selenic.com/mercurial/wiki/||Mercurial]"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Quotation
+A fast, lightweight Source Control Management system designed for efficient
+ handling of very large distributed projects.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Newpage clearpage
+\end_inset
+
+
+\end_layout
+
+\begin_layout Chapter
+\paragraph_spacing double
+Using TIGER/Line
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+textsuperscript{
+\backslash
+scriptsize{
+\backslash
+copyright}}
+\end_layout
+
+\end_inset
+
+ data
+\end_layout
+
+\begin_layout Standard
+\paragraph_spacing double
+\begin_inset Box Framed
+position "t"
+hor_pos "c"
+has_inner_box 0
+inner_pos "t"
+use_parbox 0
+width "100col%"
+special "none"
+height "1in"
+height_special "totalheight"
+status open
+
+\begin_layout Plain Layout
+Note: This section only applies if you are planning on using the geographical
+ graphs for your simulations.
+ It's more work, but you get more realistic simulations.
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\paragraph_spacing double
+The U.S.
+ Census Bureau provides free access to the raw geographic data that is used
+ for the simulations.
+ It is called TIGER
+\begin_inset Foot
+status open
+
+\begin_layout Plain Layout
+This is an acronym for Topologically Integrated Geographic Encoding and
+ Referencing.
+ Looks like a backronym 
+\begin_inset Flex URL
+status collapsed
+
+\begin_layout Plain Layout
+
+http://en.wikipedia.org/wiki/Backronym
+\end_layout
+
+\end_inset
+
+ to me.
+\end_layout
+
+\end_inset
+
+.
+ The Census Bureau provides data only -- there are no GIS or mapping tools
+ available with TIGER.
+ On the other hand, the data they provide is exhaustive.
+ There is much more detail here than is needed to generate geographical
+ graphs 
+\begin_inset Foot
+status open
+
+\begin_layout Plain Layout
+geographs?
+\end_layout
+
+\end_inset
+
+.
+ Several tools were developed as part of this project to extract the necessary
+ pieces and transform the data into a form suitable for importing into an
+ SQL database.
+\end_layout
+
+\begin_layout Section
+\paragraph_spacing double
+Getting the datasets
+\end_layout
+
+\begin_layout Standard
+\paragraph_spacing double
+The first thing to decide is how much data you want, and from what region.
+ This is U.S.
+ Census bureau data, so it covers the United States of America, and four
+ U.S.
+ Island Areas: American Samoa, Guam, Northern Mariana Islands, and U.S.
+ Virgin Islands.
+\end_layout
+
+\begin_layout Standard
+\paragraph_spacing double
+For all practical purposes, you have two choices: county (or county equivalent)
+ or state.
+ The geographic data is grouped by state, and within each state, by county.
+ The simplest way to get started is to download a single county.
+ If you have a specific county in mind, you can find the name of the file
+ by looking here: TIGER/Line Metadata (ASCII) 
+\begin_inset Flex URL
+status collapsed
+
+\begin_layout Plain Layout
+
+http://www.census.gov/geo/tigerline/app_a03.txt
+\end_layout
+
+\end_inset
+
+
+\begin_inset CommandInset label
+LatexCommand label
+name "TIGER/Line Metadata (ASCII)"
+
+\end_inset
+
+.
+ This is the 2006 Second Edition TIGER/Line Metadata in ASCII text format.
+ Similar documentation can be found here: 
+\begin_inset Flex URL
+status collapsed
+
+\begin_layout Plain Layout
+
+http://www.census.gov/geo/www/tiger/tiger2006se/a6seapa.txt
+\end_layout
+
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+\paragraph_spacing double
+If you want to download all the files for a state, or even all the states,
+ you will need to automate the download step.
+ My recommendation is that you download wget for Windows 
+\begin_inset Flex URL
+status collapsed
+
+\begin_layout Plain Layout
+
+http://users.ugent.be/~bpuype/wget/
+\end_layout
+
+\end_inset
+
+, and use that.
+ That's what is used for the examples.
+\end_layout
+
+\begin_layout Standard
+\paragraph_spacing double
+Here is the most direct and efficient way of downloading the TIGER files
+ that I have found.
+ This command says to fetch the files recursively for the state of Michigan
+\begin_inset Foot
+status open
+
+\begin_layout Plain Layout
+Michigan's FIPS 
+\begin_inset Flex URL
+status collapsed
+
+\begin_layout Plain Layout
+
+http://www.itl.nist.gov/fipspubs/fip5-2.htm
+\end_layout
+
+\end_inset
+
+ (federal information processing standard) state code is 26.
+\end_layout
+
+\end_inset
+
+, but only to a depth of level 1.
+ If you do not use these options, all you get is a deeply nested index.html.
+\end_layout
+
+\begin_layout Standard
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+begin{verbatim}
+\end_layout
+
+\begin_layout Plain Layout
+
+C:
+\backslash
+Source
+\backslash
+TIGER>wget --recursive --level=1
+\end_layout
+
+\begin_layout Plain Layout
+
+  http://www2.census.gov/geo/tiger/tiger2006se/MI
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+C:
+\backslash
+Source
+\backslash
+TIGER>ls www2.census.gov
+\backslash
+geo
+\backslash
+tiger
+\backslash
+tiger2006se
+\backslash
+MI
+\end_layout
+
+\begin_layout Plain Layout
+
+COUNTS26.TXT index.html index.html@C=D;O=A
+\end_layout
+
+\begin_layout Plain Layout
+
+index.html@C=M;O=A index.html@C=N;O=D index.html@C=S;O=A
+\end_layout
+
+\begin_layout Plain Layout
+
+TGR26001.ZIP TGR26003.ZIP TGR26005.ZIP TGR26007.ZIP
+\end_layout
+
+\begin_layout Plain Layout
+
+TGR26009.ZIP TGR26011.ZIP TGR26013.ZIP TGR26015.ZIP
+\end_layout
+
+\begin_layout Plain Layout
+
+TGR26017.ZIP TGR26019.ZIP TGR26021.ZIP TGR26023.ZIP
+\end_layout
+
+\begin_layout Plain Layout
+
+TGR26025.ZIP TGR26027.ZIP TGR26029.ZIP TGR26031.ZIP
+\end_layout
+
+\begin_layout Plain Layout
+
+TGR26033.ZIP TGR26035.ZIP TGR26037.ZIP TGR26039.ZIP
+\end_layout
+
+\begin_layout Plain Layout
+
+TGR26041.ZIP TGR26043.ZIP TGR26045.ZIP TGR26047.ZIP
+\end_layout
+
+\begin_layout Plain Layout
+
+TGR26049.ZIP TGR26051.ZIP TGR26053.ZIP TGR26055.ZIP
+\end_layout
+
+\begin_layout Plain Layout
+
+TGR26057.ZIP TGR26059.ZIP TGR26061.ZIP TGR26063.ZIP
+\end_layout
+
+\begin_layout Plain Layout
+
+TGR26065.ZIP TGR26067.ZIP TGR26069.ZIP TGR26071.ZIP
+\end_layout
+
+\begin_layout Plain Layout
+
+TGR26073.ZIP TGR26075.ZIP TGR26077.ZIP TGR26079.ZIP
+\end_layout
+
+\begin_layout Plain Layout
+
+TGR26081.ZIP TGR26083.ZIP TGR26085.ZIP TGR26087.ZIP
+\end_layout
+
+\begin_layout Plain Layout
+
+TGR26089.ZIP TGR26091.ZIP TGR26093.ZIP TGR26095.ZIP
+\end_layout
+
+\begin_layout Plain Layout
+
+TGR26097.ZIP TGR26099.ZIP TGR26101.ZIP TGR26103.ZIP
+\end_layout
+
+\begin_layout Plain Layout
+
+TGR26105.ZIP TGR26107.ZIP TGR26109.ZIP TGR26111.ZIP
+\end_layout
+
+\begin_layout Plain Layout
+
+TGR26113.ZIP TGR26115.ZIP TGR26117.ZIP TGR26119.ZIP
+\end_layout
+
+\begin_layout Plain Layout
+
+TGR26121.ZIP TGR26123.ZIP TGR26125.ZIP TGR26127.ZIP
+\end_layout
+
+\begin_layout Plain Layout
+
+TGR26129.ZIP TGR26131.ZIP TGR26133.ZIP TGR26135.ZIP
+\end_layout
+
+\begin_layout Plain Layout
+
+TGR26137.ZIP TGR26139.ZIP TGR26141.ZIP TGR26143.ZIP
+\end_layout
+
+\begin_layout Plain Layout
+
+TGR26145.ZIP TGR26147.ZIP TGR26149.ZIP TGR26151.ZIP
+\end_layout
+
+\begin_layout Plain Layout
+
+TGR26153.ZIP TGR26155.ZIP TGR26157.ZIP TGR26159.ZIP
+\end_layout
+
+\begin_layout Plain Layout
+
+TGR26161.ZIP TGR26163.ZIP TGR26165.ZIP
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{verbatim}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\paragraph_spacing double
+The numbered ZIP files starting with 'TGR26" contain county data.
+ It turns out that Michigan has more counties than many other states.
+ So it may not be a completely representative sample.
+ Regardless, you will definitely want to use a download tool if you are
+ planning on using multiple counties or states.
+\end_layout
+
+\begin_layout Section
+\paragraph_spacing double
+Looking at the raw TIGER data
+\end_layout
+
+\begin_layout Standard
+\paragraph_spacing double
+It may be instructive to look at the files, from the large to the small.
+ Starting with the collection of files that make up a state, we look at
+ the files that describe a county, and then look at the details that describe
+ a road segment somewhere within that county.
+\end_layout
+
+\begin_layout Standard
+\paragraph_spacing double
+The state and county files are numbered in a specific way.
+ Each state is identified by two digits, and each county of the state is
+ identified by the last three digits.
+ Michigan, for example, is state number 26.
+ So all Michigan TIGER files start with TGR26, followed by the three-digit
+ county code.
+ The county codes are not contiguous for some reason.
+ They tend to be mostly odd numbers.
+\end_layout
+
+\begin_layout Standard
+\paragraph_spacing double
+Working inward, here are the contents of a typical uncompressed county file
+ called TGR26001.
+ According to 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "TIGER/Line Metadata (ASCII)"
+
+\end_inset
+
+, this represents Alcona County, MI:
+\end_layout
+
+\begin_layout Standard
+\begin_inset Note Comment
+status open
+
+\begin_layout Plain Layout
+TODO add cxref to the TIGER txt doc above
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+begin{verbatim}
+\end_layout
+
+\begin_layout Plain Layout
+
+>ls TGR26001
+\end_layout
+
+\begin_layout Plain Layout
+
+TGR26001.MET TGR26001.RT5 TGR26001.RTA TGR26001.RTI
+\end_layout
+
+\begin_layout Plain Layout
+
+TGR26001.RTS TGR26001.RT1 TGR26001.RT6 TGR26001.RTC
+\end_layout
+
+\begin_layout Plain Layout
+
+TGR26001.RTM TGR26001.RTT TGR26001.RT2 TGR26001.RT7
+\end_layout
+
+\begin_layout Plain Layout
+
+TGR26001.RTE TGR26001.RTP TGR26001.RTZ TGR26001.RT4
+\end_layout
+
+\begin_layout Plain Layout
+
+TGR26001.RT8 TGR26001.RTH TGR26001.RTR
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{verbatim}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\paragraph_spacing double
+Each county zip file contains a number of RT
+\begin_inset Foot
+status open
+
+\begin_layout Plain Layout
+record type
+\end_layout
+
+\end_inset
+
+ files.
+ These files contain a variety of different landmarks, roads, bodies of
+ water, etc.
+ There is documentation at the TIGER site that describes them all TIGER/Line
+ Data Dictionary 
+\begin_inset Flex URL
+status collapsed
+
+\begin_layout Plain Layout
+
+http://www.census.gov/geo/www/tiger/tiger2006se/a6sech6.txt
+\end_layout
+
+\end_inset
+
+.
+ However, the agents simulation, only use data from the RT1 and RT2 files.
+\end_layout
+
+\begin_layout Standard
+\paragraph_spacing double
+\begin_inset Note Comment
+status open
+
+\begin_layout Plain Layout
+The RT1 and RT2 records would be nice to have in a figure, but I can't fscking
+ figure it out yet.
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\paragraph_spacing double
+Here are sample records from RT1 and RT2.
+\end_layout
+
+\begin_layout Description
+RT1 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+begin{verbatim}
+\end_layout
+
+\begin_layout Plain Layout
+
+>head -1 TGR26001
+\backslash
+TGR26001.RT1
+\end_layout
+
+\begin_layout Plain Layout
+
+10906 135884517 K Wissmiller Rd A41 3169 3499 3168
+\end_layout
+
+\begin_layout Plain Layout
+
+352410114874548745 26260010013482034820 98060098060010051012
+\end_layout
+
+\begin_layout Plain Layout
+
+-83395134+44569328 -83381740+44569307
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{verbatim}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Description
+RT2 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+begin{verbatim}
+\end_layout
+
+\begin_layout Plain Layout
+
+>head -1 TGR26001
+\backslash
+TGR26001.RT2
+\end_layout
+
+\begin_layout Plain Layout
+
+20906 135884517 1 -83391780+44569334 +000000000
+\end_layout
+
+\begin_layout Plain Layout
+
++00000000+000000000+00000000+000000000+00000000
+\end_layout
+
+\begin_layout Plain Layout
+
++000000000+00000000+000000000+00000000+000000000
+\end_layout
+
+\begin_layout Plain Layout
+
++00000000+000000000+00000000+000000000+00000000
+\end_layout
+
+\begin_layout Plain Layout
+
++000000000+00000000
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{verbatim}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\paragraph_spacing double
+These records are a small part of the data that describes one section of
+ road somewhere in Michigan.
+ The basic unit in the RT1 and RT2 records are these line segments.
+ The endpoints of the road and the section of road itself, translate naturally
+ into the nodes and edge of a simple graph.
+ It may not be readily apparent, but the latitude and longitude for both
+ ends of the road segment are in there.
+ Those are two
+\begin_inset CommandInset citation
+LatexCommand cite
+key "colu92"
+
+\end_inset
+
+ of the crucial pieces of the geograph puzzle.
+\end_layout
+
+\begin_layout Standard
+\paragraph_spacing double
+The next step is to prepare the data for importing into an SQL database.
+ Several tools were written specifically for this purpose.
+ We will look at them next.
+ 
+\end_layout
+
+\begin_layout Section
+\paragraph_spacing double
+Munging the raw data
+\end_layout
+
+\begin_layout Standard
+\paragraph_spacing double
+\begin_inset Note Comment
+status open
+
+\begin_layout Plain Layout
+Notes
+\end_layout
+
+\begin_layout Plain Layout
+(1) The relevant rtf documentation (hg/tags/graphs_0.6/etc/ documentation/
+ tools-for-working-with-TIGER-data.rtf) is out of date.
+ It refers to an old shell script and a bunch of utilities that were developed
+ separately, before everything was unified into the tigerutils module.
+ TODO: figure out where to write the documentation for this section such
+ that it can be reused in multiple places.
+\end_layout
+
+\begin_layout Plain Layout
+(2) This whole section (
+\begin_inset Quotes eld
+\end_inset
+
+Munging the raw data
+\begin_inset Quotes erd
+\end_inset
+
+) should be written from a tutorial point of view.
+ In other words, describe how to use the tools, and let the API speak for
+ itself.
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\paragraph_spacing double
+A number of tools were written to extract the data, and transform it into
+ usable latitude and longitude coordinates, along with a large number of
+ other descriptive pieces.
+ Other tools were written to create the databases and import the data into
+ a database.
+ Here's a quick summary of the tools:
+\end_layout
+
+\begin_layout Standard
+\paragraph_spacing double
+\begin_inset Note Comment
+status open
+
+\begin_layout Plain Layout
+PICK UP RIGHT HERE
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\paragraph_spacing double
+Lorem ipsum dolor sit amet, consectetuer adipiscing elit.
+ Pellentesque dignissim.
+ Praesent tortor.
+ In fringilla feugiat nisi.
+ Fusce a elit.
+ Maecenas placerat facilisis magna.
+ Mauris dolor nisi, consequat quis, adipiscing et, consequat semper, odio.
+ In eget lacus.
+ Pellentesque mauris.
+ Sed vestibulum quam ac mauris.
+ Donec vehicula risus.
+ Maecenas vitae arcu quis tellus fringilla porttitor.
+ Donec enim nulla, ornare sit amet, lacinia id, bibendum scelerisque, sapien.
+\end_layout
+
+\begin_layout Section
+\paragraph_spacing double
+Populating the database
+\end_layout
+
+\begin_layout Standard
+\paragraph_spacing double
+\begin_inset Note Comment
+status open
+
+\begin_layout Plain Layout
+This section 
+\begin_inset Quotes eld
+\end_inset
+
+Populating the database
+\begin_inset Quotes erd
+\end_inset
+
+ depends on the previous section 
+\begin_inset Quotes eld
+\end_inset
+
+Munging the raw data
+\begin_inset Quotes erd
+\end_inset
+
+.
+ TODO: start there.
+ Figure it out, then repeat the same steps with this content.
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\paragraph_spacing double
+Lorem ipsum dolor sit amet, consectetuer adipiscing elit.
+ Pellentesque dignissim.
+ Praesent tortor.
+ In fringilla feugiat nisi.
+ Fusce a elit.
+ Maecenas placerat facilisis magna.
+ Mauris dolor nisi, consequat quis, adipiscing et, consequat semper, odio.
+ In eget lacus.
+ Pellentesque mauris.
+ Sed vestibulum quam ac mauris.
+ Donec vehicula risus.
+ Maecenas vitae arcu quis tellus fringilla porttitor.
+ Donec enim nulla, ornare sit amet, lacinia id, bibendum scelerisque, sapien.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Newpage clearpage
+\end_inset
+
+
+\end_layout
+
+\begin_layout Chapter
+Annotated config files
+\end_layout
+
+\begin_layout Standard
+All configuration for the simulation is done through ini-style configuration
+ files 
+\begin_inset Flex URL
+status collapsed
+
+\begin_layout Plain Layout
+
+http://en.wikipedia.org/wiki/INI_file
+\end_layout
+
+\end_inset
+
+.
+ The agents use 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+
+\backslash
+
+\end_layout
+
+\end_inset
+
+conf/agents/defaults.ini and conf/agents/overrides.ini.
+ Similarly, the graphs use conf/graphs/defaults.ini and conf/graphs/overrides.ini.
+ Both defaults.ini define default settings for the simulations.
+ Nothing should be changed here.
+ All changes should be made in the appropriate overrides.ini.
+\end_layout
+
+\begin_layout Section
+The agents default.ini
+\begin_inset CommandInset label
+LatexCommand label
+name "sec:The-agents-default.ini"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+The agents configuration includes the sections 
+\emph on
+runtime
+\emph default
+ and 
+\emph on
+dev
+\emph default
+.
+\end_layout
+
+\begin_layout Description
+[runtime]
+\end_layout
+
+\begin_layout Description
+useGUI 
+\emph on
+Type: Boolean.
+
+\emph default
+ Specifies whether or not to produce graphical results.
+ This is a top-level option.
+ If it is False, 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+ldots
+\end_layout
+
+\end_inset
+
+ is ignored.
+ 
+\emph on
+Default: False.
+
+\emph default
+ 
+\begin_inset Note Comment
+status open
+
+\begin_layout Plain Layout
+TODO: what is ignored?
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Description
+mapType 
+\emph on
+Type: String.
+
+\emph default
+ Valid values are grid or graph.
+ If grid, the simulation area is a square grid bounded by GRID_MIN and GRID_MAX.
+ If graph, 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+TIGER/Line
+\backslash
+textsuperscript{
+\backslash
+tiny{
+\backslash
+copyright}}
+\end_layout
+
+\end_inset
+
+ data is chosen by the user and the graph is populated dynamically.
+ 
+\emph on
+Default: grid.
+\end_layout
+
+\begin_layout Description
+verbose 
+\emph on
+Type: Boolean.
+
+\emph default
+ How much data do you want to see at run time? Note, if verbose is False,
+ prettyPrint is ignored.
+ 
+\emph on
+Default: False.
+\end_layout
+
+\begin_layout Description
+prettyPrint 
+\emph on
+Type: Boolean.
+
+\emph default
+ Flag to set printing options.
+ Note, this option is ignored if verbose is False.
+ Valid values are True or False.
+ 
+\emph on
+Default: False.
+\end_layout
+
+\begin_layout Description
+numTaxis 
+\emph on
+Type: Integer.
+
+\emph default
+ This is the TOTAL number of Taxis that this simulation will use.
+ They are all created at the start of the simulation.
+ NOTE: setting this value to 0 will cause the program to crash with an IndexErro
+r.
+ Valid values are positive integers (1 and up).
+ 
+\emph on
+Default: 5.
+\end_layout
+
+\begin_layout Description
+numFares 
+\emph on
+Type: Integer.
+
+\emph default
+ This is the number of Fares that are generated at the START of the simulation,
+ before the simulation is activated.
+ Other Fares will be created when the simulation runs, at an average rate
+ specified below (meanFareGenerationRate).
+ If you want all Fares to be created after the simulation has started, just
+ set this value to 0.
+ Valid values are non-negative integers (0 and up).
+ 
+\emph on
+Default: 5.
+\end_layout
+
+\begin_layout Description
+meanFareGenerationRate 
+\emph on
+Type: Integer.
+
+\emph default
+ This is the average rate at which Fares will be created after the simulation
+ is running.
+ If the mean is 0, no Fares will be created.
+ If the mean is very low, Fares will be created very rapidly.
+ Conversely, if the mean is high (say, over 30 or so), Fares will be created
+ relatively slowly.
+ Valid values are non-negative integers (0 and up).
+ 
+\emph on
+Default: 7.
+\end_layout
+
+\begin_layout Description
+storeCapacity 
+\emph on
+Type: Integer.
+
+\emph default
+ The Store is a SimPy Resource that holds (in this case) Fares waiting for
+ pickup.
+ If a Taxi is unable to find an eligible Fare from the queue of waiting
+ Fares, it winds up in here until an eligible Fare comes along.
+ Valid values are non-negative integers.
+ 
+\emph on
+Default: 40.
+\end_layout
+
+\begin_layout Description
+simulationTime 
+\emph on
+Type: Integer.
+
+\emph default
+ Valid values are non-negative integers (0 and up).
+ 
+\emph on
+Default: 100.
+\end_layout
+
+\begin_layout Description
+gridMin 
+\emph on
+Type: Integer.
+
+\emph default
+ Minimum grid size, in other words, the origin.
+ Valid values are non-negative integers (0 and up), although anything other
+ than 0 currently doesn't make much sense.
+ 
+\emph on
+Default: 0.
+\end_layout
+
+\begin_layout Description
+gridMax 
+\emph on
+Type: Integer.
+
+\emph default
+ Maximum grid size, in other words, the (x,y) at the upper right hand corner.
+ Valid values are gridMin or higher.
+ 
+\emph on
+Default: 100.
+\end_layout
+
+\begin_layout Description
+taxiRangeLow 
+\emph on
+Type: Float.
+
+\emph default
+ When running in mixedmode, the Taxi uses this value to determine if the
+ Fares have been in the queue only long enough to send local broadcasts.
+ Valid values are (0.0 to taxiRangeMedium) 
+\emph on
+Default: 0.25.
+\end_layout
+
+\begin_layout Description
+taxiRangeMedium 
+\emph on
+Type: Float.
+
+\emph default
+ When running in mixedmode, the Taxi uses this value to determine if the
+ Fares have been in the queue long enough to send regional broadcasts.
+ Valid values are (taxiRangeLow to taxiRangeMedium).
+ 
+\emph on
+Default: 0.50.
+\end_layout
+
+\begin_layout Description
+taxiRangeHigh 
+\emph on
+Type: Float.
+
+\emph default
+ When running in mixedmode, the Taxi uses this value to determine if the
+ Fares have been in the queue long enough to send global broadcasts.
+ Valid values are (taxiRangeMedium to 1.00).
+ 
+\emph on
+Default: 1.00.
+\end_layout
+
+\begin_layout Description
+simType 
+\emph on
+Type: String.
+
+\emph default
+ Specifies which general type of simulation to run.
+ Paired with negotiationProtocol to describe the simulation class.
+ Valid values are cooperate and compete.
+ 
+\emph on
+Default: cooperate.
+\end_layout
+
+\begin_layout Description
+negotiationProtocol 
+\emph on
+Type: String.
+
+\emph default
+ Specifies which general type of negotiation and queueing protocol to run.
+ Paired with simType to describe the simulation class.
+ FIFO is first-in, first-out.
+ closestfare means favor the closest Fare by distance when deciding what
+ to do next.
+ mixedmode takes distance to Fare and time Fares have been in the wait queue
+ into account when deciding what to do.
+ Valid values are FIFO, closestfare, and mixedmode.
+ 
+\emph on
+Default: FIFO.
+\end_layout
+
+\begin_layout Description
+distanceCalculation 
+\emph on
+Type: String.
+
+\emph default
+ Specifies whether to use a straight line (hypotenuse) or surface driving
+ distance when calculating distances.
+ This setting will probably have a bigger impact on performance when doing
+ graph simulations.
+ Valid values are drivingDistance or straightLine (hypotenuse).
+ 
+\emph on
+Default: straightLine.
+\end_layout
+
+\begin_layout Description
+randomSeed 
+\emph on
+Type: Integer.
+
+\emph default
+ The value used to seed the random number generator.
+ We use this to generate consistent results.
+ If the seed is used correctly, we can run a simulation and get the same
+ results repeatedly.
+ 
+\emph on
+Default: 0.
+\end_layout
+
+\begin_layout Description
+\begin_inset VSpace defskip
+\end_inset
+
+
+\end_layout
+
+\begin_layout Description
+[dev]
+\end_layout
+
+\begin_layout Description
+tracing 
+\emph on
+Type: Boolean.
+
+\emph default
+ Run simulation with SimPy's tracing enabled? 
+\emph on
+Default: False.
+\end_layout
+
+\begin_layout Description
+debug 
+\emph on
+Type: Boolean.
+
+\emph default
+ If True, prints a bunch of extra information to standard output.
+ 
+\emph on
+Default: False.
+\end_layout
+
+\begin_layout Description
+setTrace 
+\emph on
+Type: Boolean.
+
+\emph default
+ Debugging aid, for development only.
+ Use this to set something like breakpoints in the code.
+ 
+\emph on
+Default: False.
+\end_layout
+
+\begin_layout Section
+The graphs default.ini
+\begin_inset CommandInset label
+LatexCommand label
+name "sec:The-graphs-default.ini"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Note Comment
+status open
+
+\begin_layout Plain Layout
+TODO: figure out how to center this box.
+ Maybe use a minipage instead.
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Note Comment
+status open
+
+\begin_layout Plain Layout
+Three tries, three fails:
+\end_layout
+
+\begin_layout Plain Layout
+(1) The framebox makes the cxrefs, but does not put the text in the box.
+ It just runs off the right side of the page.
+\end_layout
+
+\begin_layout Plain Layout
+(2) The LyX Framed region looks great, but the cxrefs and copyright don't
+ work.
+\end_layout
+
+\begin_layout Plain Layout
+(3) The minipage doesn't allow a framebox.
+ In fact, if I add the framebox it looks a lot like fail no.
+ 1.
+\end_layout
+
+\begin_layout Plain Layout
+If it comes down to it, I'll use the Framed and forget about the cxrefs
+ and copyright.
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+framebox[1in]{Note: This section only applies if you are using the TIGER/Line
+\backslash
+textsuperscript{
+\backslash
+tiny{
+\backslash
+copyright}} Census data to generate geographic graphs for your simulations.
+ In that case, you should have already installed a database (SQLite 
+\backslash
+ref{ite:[http://www.sqlite.org/||SQLite]} or MySQL  
+\backslash
+ref{ite:[http://www.mysql.com/||MySQL]}), SQLAlchemy 
+\backslash
+ref{ite:[http://www.sqlalchemy.org/||SQLAlchemy]}, and NetworkX 
+\backslash
+ref{ite:[https://networkx.lanl.gov/wiki/||NetworkX]}.}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Note Comment
+status open
+
+\begin_layout Plain Layout
+The cross-ref link works, but it looks strange (red box) in Adobe Reader.
+ Is that how it's supposed to look?
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Box Framed
+position "t"
+hor_pos "c"
+has_inner_box 0
+inner_pos "t"
+use_parbox 0
+width "100col%"
+special "none"
+height "1in"
+height_special "totalheight"
+status open
+
+\begin_layout Plain Layout
+Note: This section only applies if you are using the TIGER/Line
+\backslash
+textsuperscript{
+\backslash
+tiny{
+\backslash
+copyright}} Census data to generate geographic graphs for your simulations.
+ In that case, you should have already installed a database (SQLite 
+\backslash
+ref{ite:[http://www.sqlite.org/||SQLite]} or MySQL  
+\backslash
+ref{ite:[http://www.mysql.com/||MySQL]}), SQLAlchemy 
+\backslash
+ref{ite:[http://www.sqlalchemy.org/||SQLAlchemy]}, and NetworkX 
+\backslash
+ref{ite:[https://networkx.lanl.gov/wiki/||NetworkX]}.
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+begin{minipage}[2]{4in}{Note: This section only applies if you are using
+ the TIGER/Line
+\backslash
+textsuperscript{
+\backslash
+tiny{
+\backslash
+copyright}} Census data to generate geographic graphs for your simulations.
+ In that case, you should have already installed a database (SQLite 
+\backslash
+ref{ite:[http://www.sqlite.org/||SQLite]} or MySQL  
+\backslash
+ref{ite:[http://www.mysql.com/||MySQL]}), SQLAlchemy 
+\backslash
+ref{ite:[http://www.sqlalchemy.org/||SQLAlchemy]}, and NetworkX 
+\backslash
+ref{ite:[https://networkx.lanl.gov/wiki/||NetworkX]}.}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{minipage}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+The graphs configuration includes sections 
+\emph on
+dataprep
+\emph default
+ and 
+\emph on
+dev
+\emph default
+.
+\end_layout
+
+\begin_layout Description
+[dataprep]
+\end_layout
+
+\begin_layout Description
+fetchCommand 
+\emph on
+Type: String (OS path + string option).
+
+\emph default
+ This is the path to a download tool plus any options needed to download
+ files nonrecursively.
+ The graphs package includes wget.exe and I recommend using it, but you can
+ use a different download tool.
+ If it's not on your PATH, you will have to specify its location.
+ This option is used with tigerStates when a single state and county are
+ chosen.
+ Valid value is the path to a download utility.
+ The default path is relative to the location of the config file in the
+ hg (Mercurial) working directory.
+ 
+\emph on
+Default: wget.exe.
+\end_layout
+
+\begin_layout Description
+zipCommand 
+\emph on
+Type: String (OS path + string option).
+
+\emph default
+ The path to a zip utility plus the decompress option that extractTiger
+ 
+\begin_inset Note Comment
+status open
+
+\begin_layout Plain Layout
+Deprecation warning: whatever extractTiger was, it's gone now.
+\end_layout
+
+\end_inset
+
+ can use to decompress the record type files from tigerRoot 
+\begin_inset Note Comment
+status open
+
+\begin_layout Plain Layout
+Deprecation warning: whatever tigerRoot was, it's gone now.
+\end_layout
+
+\end_inset
+
+.
+ The graphs package includes 7z.exe and I recommend using it, but you can
+ use a different zip tool.
+ If it's not on your PATH, you will have to specify its location.
+ Valid value is the path to a zip utility.
+ The default path is relative to the location of the config file in the
+ hg (Mercurial) working directory.
+ 
+\emph on
+Default: 7z.exe x.
+\end_layout
+
+\begin_layout Description
+fipsMetadataUrl 
+\emph on
+Type: String (URL).
+
+\emph default
+ This is the URL for Appendix A of the TIGER/Line Technical Documentation.
+ It contains the associated FIPS codes for states and counties in ASCII
+ text format.
+ This file is used for generating the TIGER state and county chooser.
+ In most cases, this value should not be changed.
+ 
+\emph on
+Default: http://www.census.gov/geo/tigerline/app_a03.txt.
+\end_layout
+
+\begin_layout Description
+fipsZipfileRoot 
+\emph on
+Type: String (URL).
+
+\emph default
+ This is the URL of the root of the TIGER/Line ZIP files.
+ It contains a list of stateCode folders, each of which contains a series
+ of countyCode ZIP files.
+ This URL is intended to be used with a stateCode and countyCode to identify
+ a specific file to download.
+ 
+\emph on
+Default: http://www2.census.gov/geo/tiger/tiger2006se/.
+\end_layout
+
+\begin_deeper
+\begin_layout Standard
+NB: This URL MUST contain a trailing slash!
+\end_layout
+
+\end_deeper
+\begin_layout Description
+excludePuertoRico 
+\emph on
+Type: Boolean.
+
+\emph default
+ There are several graves, accents, and other things in county names in
+ Puerto Rico that may cause problems when it comes time to parse the strings
+ for import into the database.
+ Set this value to True to strip it out from consideration when generating
+ the set of states and counties for either random sets or for populating
+ the chooser.
+ 
+\emph on
+Default: False.
+\end_layout
+
+\begin_layout Description
+tigerSandbox 
+\emph on
+Type: String (OS path).
+
+\emph default
+ Base of the location where data and image files are stored.
+ This may be a temporary location.
+ Valid values are OS paths.
+ This config option MUST be set in agents
+\backslash
+conf
+\backslash
+graphs
+\backslash
+overrides.ini.
+ 
+\emph on
+Default: None.
+\end_layout
+
+\begin_layout Description
+\begin_inset VSpace defskip
+\end_inset
+
+
+\end_layout
+
+\begin_layout Description
+[dev]
+\end_layout
+
+\begin_layout Description
+debug 
+\emph on
+Type: Boolean.
+
+\emph default
+ If True, prints a bunch of extra information to standard output.
+ 
+\emph on
+Default: False.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Newpage clearpage
+\end_inset
+
+
+\end_layout
+
+\begin_layout Chapter
+\paragraph_spacing double
+Source code
+\end_layout
+
+\begin_layout Standard
+\paragraph_spacing double
+\begin_inset Note Comment
+status open
+
+\begin_layout Plain Layout
+Notes
+\end_layout
+
+\begin_layout Plain Layout
+(1) Maybe instead of a plain listing of the source code, instead I should
+ make it available for download and include an ePyDoc listing of the tigerutils
+ API instead.
+ That should be the focus in the TIGER/Line data appendix anyway.
+\end_layout
+
+\begin_layout Plain Layout
+(2) Sphinx looks comprehensive and fabulous, but too much to learn.
+ 
+\end_layout
+
+\begin_layout Plain Layout
+http://sphinx.pocoo.org/index.html
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\paragraph_spacing double
+\begin_inset Note Comment
+status open
+
+\begin_layout Plain Layout
+Question: rename this appendix to 
+\begin_inset Quotes eld
+\end_inset
+
+The tigerutils module
+\begin_inset Quotes erd
+\end_inset
+
+ and focus on the API? It makes sense.
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\paragraph_spacing double
+Lorem ipsum dolor sit amet, consectetuer adipiscing elit.
+ Pellentesque dignissim.
+ Praesent tortor.
+ In fringilla feugiat nisi.
+ Fusce a elit.
+ Maecenas placerat facilisis magna.
+ Mauris dolor nisi, consequat quis, adipiscing et, consequat semper, odio.
+ In eget lacus.
+ Pellentesque mauris.
+ Sed vestibulum quam ac mauris.
+ Donec vehicula risus.
+ Maecenas vitae arcu quis tellus fringilla porttitor.
+ Donec enim nulla, ornare sit amet, lacinia id, bibendum scelerisque, sapien.
+\end_layout
+
+\begin_layout Standard
+\paragraph_spacing double
+Duis ut sapien.
+ Proin sit amet magna et est pharetra vestibulum.
+ Pellentesque sed diam et erat sollicitudin pharetra.
+ Suspendisse potenti.
+ Sed fringilla sagittis urna.
+ Morbi ullamcorper aliquet leo.
+ Donec elit nunc, rutrum at, ultrices at, pretium a, est.
+ Etiam non dolor non enim malesuada condimentum.
+ Curabitur vitae sapien.
+ Nulla neque.
+\end_layout
+
+\begin_layout Standard
+\paragraph_spacing double
+Donec odio nibh, varius in, dictum nec, egestas in, nisl.
+ Mauris varius mi non nunc.
+ Praesent porta enim in nibh.
+ Donec ac mi varius ante malesuada dignissim.
+ Nunc aliquet tortor ac lectus.
+ Sed pede.
+ Donec lobortis, tellus vel vehicula tristique, lectus diam cursus sapien,
+ id ultricies odio metus sed ipsum.
+ Fusce sapien mauris, vehicula non, placerat at, rhoncus sed, sem.
+ Duis ullamcorper molestie mauris.
+ Sed eu ipsum nec eros luctus elementum.
+ Suspendisse ultrices sollicitudin nunc.
+\end_layout
+
+\begin_layout Standard
+\paragraph_spacing double
+\begin_inset Newpage clearpage
+\end_inset
+
+
+\end_layout
+
+\begin_layout Chapter
+\paragraph_spacing double
+Transcript of interactive session
+\end_layout
+
+\begin_layout Standard
+\paragraph_spacing double
+\begin_inset Note Comment
+status open
+
+\begin_layout Plain Layout
+This is borderline gratuitous.
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\paragraph_spacing double
+Lorem ipsum dolor sit amet, consectetuer adipiscing elit.
+ Pellentesque dignissim.
+ Praesent tortor.
+ In fringilla feugiat nisi.
+ Fusce a elit.
+ Maecenas placerat facilisis magna.
+ Mauris dolor nisi, consequat quis, adipiscing et, consequat semper, odio.
+ In eget lacus.
+ Pellentesque mauris.
+ Sed vestibulum quam ac mauris.
+ Donec vehicula risus.
+ Maecenas vitae arcu quis tellus fringilla porttitor.
+ Donec enim nulla, ornare sit amet, lacinia id, bibendum scelerisque, sapien.
+\end_layout
+
+\begin_layout Standard
+\paragraph_spacing double
+Duis ut sapien.
+ Proin sit amet magna et est pharetra vestibulum.
+ Pellentesque sed diam et erat sollicitudin pharetra.
+ Suspendisse potenti.
+ Sed fringilla sagittis urna.
+ Morbi ullamcorper aliquet leo.
+ Donec elit nunc, rutrum at, ultrices at, pretium a, est.
+ Etiam non dolor non enim malesuada condimentum.
+ Curabitur vitae sapien.
+ Nulla neque.
+\end_layout
+
+\begin_layout Standard
+\paragraph_spacing double
+Donec odio nibh, varius in, dictum nec, egestas in, nisl.
+ Mauris varius mi non nunc.
+ Praesent porta enim in nibh.
+ Donec ac mi varius ante malesuada dignissim.
+ Nunc aliquet tortor ac lectus.
+ Sed pede.
+ Donec lobortis, tellus vel vehicula tristique, lectus diam cursus sapien,
+ id ultricies odio metus sed ipsum.
+ Fusce sapien mauris, vehicula non, placerat at, rhoncus sed, sem.
+ Duis ullamcorper molestie mauris.
+ Sed eu ipsum nec eros luctus elementum.
+ Suspendisse ultrices sollicitudin nunc.
+\end_layout
+
+\end_body
+\end_document

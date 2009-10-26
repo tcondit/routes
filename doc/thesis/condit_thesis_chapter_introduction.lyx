@@ -1,0 +1,288 @@
+#LyX 1.5.6 created this file. For more info see http://www.lyx.org/
+\lyxformat 276
+\begin_document
+\begin_header
+\textclass report
+\language english
+\inputencoding latin9
+\font_roman default
+\font_sans default
+\font_typewriter lmtt
+\font_default_family default
+\font_sc false
+\font_osf false
+\font_sf_scale 100
+\font_tt_scale 100
+\graphics default
+\paperfontsize default
+\spacing double
+\papersize default
+\use_geometry false
+\use_amsmath 0
+\use_esint 0
+\cite_engine basic
+\use_bibtopic false
+\paperorientation portrait
+\secnumdepth 3
+\tocdepth 3
+\paragraph_separation indent
+\defskip medskip
+\quotes_language english
+\papercolumns 1
+\papersides 2
+\paperpagestyle default
+\tracking_changes false
+\output_changes false
+\author "" 
+\author "" 
+\end_header
+
+\begin_body
+
+\begin_layout Chapter
+\paragraph_spacing double
+Introduction
+\end_layout
+
+\begin_layout Standard
+\paragraph_spacing double
+\begin_inset Note Comment
+status open
+
+\begin_layout Standard
+Is there supposed to be a t in 
+\backslash
+citetalias?
+\begin_inset ERT
+status open
+
+\begin_layout Standard
+
+
+\backslash
+citetalias{davidsson2005aab}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Routes is a simulation of a taxi service.
+ 
+\end_layout
+
+\begin_layout Standard
+\paragraph_spacing double
+THIS IS A TEST.
+\begin_inset LatexCommand cite
+key "barth1999smp"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\paragraph_spacing double
+THIS IS A TEST.
+\begin_inset LatexCommand cite
+key "davidsson2005aab"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\paragraph_spacing double
+THIS IS A TEST.
+\begin_inset LatexCommand cite
+key "france2003mso"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\paragraph_spacing double
+THIS IS A TEST.
+\begin_inset LatexCommand cite
+key "10.1109/HICSS.2001.926331"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\paragraph_spacing double
+THIS IS A TEST.
+\begin_inset LatexCommand cite
+key "horn2002fsa"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\paragraph_spacing double
+THIS IS A TEST.
+\begin_inset LatexCommand cite
+key "roozemond2000act"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\paragraph_spacing double
+THIS IS A TEST.
+\begin_inset LatexCommand cite
+key "wu2003umf"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\paragraph_spacing double
+Lorem ipsum dolor sit amet, consectetuer adipiscing elit.
+ Pellentesque dignissim.
+ Praesent tortor.
+ In fringilla feugiat nisi.
+ Fusce a elit.
+ Maecenas placerat facilisis magna.
+ Mauris dolor nisi, consequat quis, adipiscing et, consequat semper, odio.
+ In eget lacus.
+ Pellentesque mauris.
+ Sed vestibulum quam ac mauris.
+ Donec vehicula risus.
+ Maecenas vitae arcu quis tellus fringilla porttitor.
+ Donec enim nulla, ornare sit amet, lacinia id, bibendum scelerisque, sapien.
+\end_layout
+
+\begin_layout Standard
+\paragraph_spacing double
+Duis ut sapien.
+ Proin sit amet magna et est pharetra vestibulum.
+ Pellentesque sed diam et erat sollicitudin pharetra.
+ Suspendisse potenti.
+ Sed fringilla sagittis urna.
+ Morbi ullamcorper aliquet leo.
+ Donec elit nunc, rutrum at, ultrices at, pretium a, est.
+ Etiam non dolor non enim malesuada condimentum.
+ Curabitur vitae sapien.
+ Nulla neque.
+\end_layout
+
+\begin_layout Standard
+\paragraph_spacing double
+Donec odio nibh, varius in, dictum nec, egestas in, nisl.
+ Mauris varius mi non nunc.
+ Praesent porta enim in nibh.
+ Donec ac mi varius ante malesuada dignissim.
+ Nunc aliquet tortor ac lectus.
+ Sed pede.
+ Donec lobortis, tellus vel vehicula tristique, lectus diam cursus sapien,
+ id ultricies odio metus sed ipsum.
+ Fusce sapien mauris, vehicula non, placerat at, rhoncus sed, sem.
+ Duis ullamcorper molestie mauris.
+ Sed eu ipsum nec eros luctus elementum.
+ Suspendisse ultrices sollicitudin nunc.
+\end_layout
+
+\begin_layout Standard
+\paragraph_spacing double
+TEST introduction.
+\end_layout
+
+\begin_layout Itemize
+\paragraph_spacing double
+The study and development of software agents as a separate discipline is
+ becoming more common.
+ As the
+\end_layout
+
+\begin_layout Itemize
+\paragraph_spacing double
+There are a wide variety of ways in which agents may be configured to 
+\end_layout
+
+\begin_layout Itemize
+\paragraph_spacing double
+in which the interoperating of autonomous agents may benefit each other
+ (for a given value system) and their
+\end_layout
+
+\begin_layout Itemize
+\paragraph_spacing double
+\begin_inset Note Comment
+status open
+
+\begin_layout Standard
+TODO: Use 
+\begin_inset Quotes eld
+\end_inset
+
+What is intelligent agents
+\begin_inset Quotes erd
+\end_inset
+
+ from the Roozemond paper to 
+\begin_inset Quotes eld
+\end_inset
+
+set the stage
+\begin_inset Quotes erd
+\end_inset
+
+, so to speak.
+ It's very good.
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Itemize
+\paragraph_spacing double
+\begin_inset Note Comment
+status open
+
+\begin_layout Standard
+cite: http://en.wikipedia.org/wiki/Multi-agent_system, accessed 1/11/2009
+\end_layout
+
+\begin_layout Itemize
+Autonomy: the agents are at least partially autonomous
+\end_layout
+
+\begin_layout Itemize
+Local views: no agent has a full global view of the system, or the system
+ is too complex for an agent to make practical use of such knowledge
+\end_layout
+
+\begin_layout Itemize
+Decentralization: there is no one controlling agent (or the system is effectivel
+y reduced to a monolithic system)
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_body
+\end_document
