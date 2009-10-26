@@ -1,1 +1,1 @@
-hg pull https://timc@bitbucket.org/timc/unified/
+hg pull -u https://timc@bitbucket.org/timc/unified/
