@@ -1,4 +1,4 @@
-#LyX 1.6.3 created this file. For more info see http://www.lyx.org/
+#LyX 1.6.4 created this file. For more info see http://www.lyx.org/
 \lyxformat 345
 \begin_document
 \begin_header
@@ -1219,8 +1219,8 @@ Approach
 Usage
 \emph default
  are the categories Automation System and Decision support system (DSS).
- This is a recurring theme in multiagent systems, at least where logistics
- and traffic management systems are concerned.
+ This is a recurring theme in multiagent logistics and traffic management
+ systems.
  This is the first time I've seen the term automation system used to describe
  the alternative to DSS.
  It is defined as 
@@ -1273,33 +1273,24 @@ Drop this paragraph?
 The article mentions Multi Agent Based Simulations (MABS), a term that simply
  means that the agents in the simulation may have different roles, e.g.
  a company, a truck, a customer, etc.
- It doesn't strike me as a particularly novel idea.
- We've seen this earlier with the LTAs and CTAs in the France paper, but
- this is the first time I've seen a unique term used to describe agents
- this way.
+ We've seen similar examples of this with the LTAs and CTAs in the France
+ paper.
+ My agents are designed similarly.
+ But this is the first term I've found to describe agent partitioning based
+ on role.
 \end_layout
 
 \begin_layout Standard
-\paragraph_spacing double
-The Taxis and Fares system is ...
- 
-\begin_inset Note Note
-status open
-
-\begin_layout Plain Layout
-PICK UP HERE
-\end_layout
-
-\end_inset
-
- in table 
+The Taxis and Fares system is described according to the Davidsson classificatio
+n scheme in table 
 \begin_inset CommandInset ref
 LatexCommand ref
 reference "tab:classifying-taxis-and-fares-sim"
 
 \end_inset
 
-
+.
+ All six simulation types are listed - three cooperative, and three competitive.
 \end_layout
 
 \begin_layout Standard
@@ -2581,7 +2572,7 @@ name "tab:transport-logistics-eval-framework"
 \begin_inset Float table
 wide false
 sideways false
-status collapsed
+status open
 
 \begin_layout Plain Layout
 \begin_inset Tabular
@@ -3012,7 +3003,7 @@ Control type
 \begin_inset Text
 
 \begin_layout Plain Layout
-TODO
+Distributed
 \end_layout
 
 \end_inset
@@ -3021,7 +3012,7 @@ TODO
 \begin_inset Text
 
 \begin_layout Plain Layout
-TODO
+Distributed
 \end_layout
 
 \end_inset
@@ -3030,7 +3021,7 @@ TODO
 \begin_inset Text
 
 \begin_layout Plain Layout
-TODO
+Distributed
 \end_layout
 
 \end_inset
@@ -3039,7 +3030,7 @@ TODO
 \begin_inset Text
 
 \begin_layout Plain Layout
-TODO
+Distributed
 \end_layout
 
 \end_inset
@@ -3048,7 +3039,7 @@ TODO
 \begin_inset Text
 
 \begin_layout Plain Layout
-TODO
+Distributed
 \end_layout
 
 \end_inset
@@ -3057,7 +3048,7 @@ TODO
 \begin_inset Text
 
 \begin_layout Plain Layout
-TODO
+Distributed
 \end_layout
 
 \end_inset
@@ -3234,7 +3225,7 @@ Agent architecture
 \begin_inset Text
 
 \begin_layout Plain Layout
-TODO
+Reactive
 \end_layout
 
 \end_inset
@@ -3243,7 +3234,7 @@ TODO
 \begin_inset Text
 
 \begin_layout Plain Layout
-TODO
+Reactive
 \end_layout
 
 \end_inset
@@ -3252,7 +3243,7 @@ TODO
 \begin_inset Text
 
 \begin_layout Plain Layout
-TODO
+Reactive
 \end_layout
 
 \end_inset
@@ -3261,7 +3252,7 @@ TODO
 \begin_inset Text
 
 \begin_layout Plain Layout
-TODO
+Reactive
 \end_layout
 
 \end_inset
@@ -3270,7 +3261,7 @@ TODO
 \begin_inset Text
 
 \begin_layout Plain Layout
-TODO
+Reactive
 \end_layout
 
 \end_inset
@@ -3279,7 +3270,7 @@ TODO
 \begin_inset Text
 
 \begin_layout Plain Layout
-TODO
+Reactive
 \end_layout
 
 \end_inset
@@ -3382,7 +3373,7 @@ Evaluation comparison
 \begin_inset Text
 
 \begin_layout Plain Layout
-TODO
+Qualitative
 \end_layout
 
 \end_inset
@@ -3391,7 +3382,7 @@ TODO
 \begin_inset Text
 
 \begin_layout Plain Layout
-TODO
+Qualitative
 \end_layout
 
 \end_inset
@@ -3400,7 +3391,7 @@ TODO
 \begin_inset Text
 
 \begin_layout Plain Layout
-TODO
+Qualitative
 \end_layout
 
 \end_inset
@@ -3409,7 +3400,7 @@ TODO
 \begin_inset Text
 
 \begin_layout Plain Layout
-TODO
+Qualitative
 \end_layout
 
 \end_inset
@@ -3418,7 +3409,7 @@ TODO
 \begin_inset Text
 
 \begin_layout Plain Layout
-TODO
+Qualitative
 \end_layout
 
 \end_inset
@@ -3427,7 +3418,7 @@ TODO
 \begin_inset Text
 
 \begin_layout Plain Layout
-TODO
+Qualitative
 \end_layout
 
 \end_inset
