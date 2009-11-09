@@ -1,4 +1,4 @@
-#LyX 1.6.1 created this file. For more info see http://www.lyx.org/
+#LyX 1.6.4 created this file. For more info see http://www.lyx.org/
 \lyxformat 345
 \begin_document
 \begin_header
@@ -119,6 +119,7 @@ Also this:
 status collapsed
 
 \begin_layout Plain Layout
+
 http://gato.sourceforge.net/
 \end_layout
 
@@ -133,6 +134,42 @@ reference "fn:Gato-footnote"
 \end_inset
 
  for a (tiny) bit of background.
+\end_layout
+
+\begin_layout Itemize
+graph animation (maybe GaTo)
+\end_layout
+
+\begin_layout Itemize
+web-based configuration, graph setup and interaction to replace cmdline
+ UI
+\end_layout
+
+\begin_layout Itemize
+Taxis can make multiple pickups during the same run (if going same general
+ direction - could raise some interesting optimization issues)
+\end_layout
+
+\begin_layout Itemize
+\begin_inset Quotes eld
+\end_inset
+
+hints
+\begin_inset Quotes erd
+\end_inset
+
+ about locations of other Taxis - I'm thinking mainly of competitors here
+\end_layout
+
+\begin_layout Itemize
+some sort of notification scheme whereby the competing Taxis report that
+ they are en-route to a pickup.
+ I had this, or something like it, but took it out.
+\end_layout
+
+\begin_layout Itemize
+more realistic graphs, including different speed limits, highways, and traffic
+ congestion/detours.
 \end_layout
 
 \end_body

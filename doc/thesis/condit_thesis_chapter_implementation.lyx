@@ -799,21 +799,68 @@ Cooperative and Competitive Simulations
 \end_layout
 
 \begin_layout Section
-Config parser
+Runtime Configuration
 \end_layout
 
 \begin_layout Standard
 \paragraph_spacing double
-[LIMERICK 4] That he kept it double
+To allow for maximum runtime flexibility, the program defines two sets of
+ standard configuration options, one for the agents, and another for graphs,
+ if they are used.
+ Users of the program may override these values on a per-option basis.
+ Both files are in Windows INI-file format.
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+TODO: link to INI-file doc'n?
+\end_layout
+
+\end_inset
+
+ They are parsed and processed by the program to control the behavior of
+ the simulations.
+ Descriptions of the configuration files are here: 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "sec:The-agents-default.ini"
+
+\end_inset
+
+ and 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "sec:The-graphs-default.ini"
+
+\end_inset
+
+.
 \end_layout
 
 \begin_layout Section
-Some other section
+The Interactive Environment
 \end_layout
 
 \begin_layout Standard
 \paragraph_spacing double
 [LIMERICK 5] And instead of coming he went.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+This section will describe the command-line UI.
+ I don't know whether to demo the program here, or just focus on the mechanical
+ parts (e.g., userInput(), the file caching, etc.), and show it in use somewhere
+ else.
+ It probably makes sense to demo the program in the results section.
+\end_layout
+
+\end_inset
+
+
 \end_layout
 
 \end_body
