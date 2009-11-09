@@ -17,7 +17,7 @@
 
 \graphics default
 \paperfontsize default
-\spacing single
+\spacing double
 \use_hyperref false
 \papersize default
 \use_geometry false
@@ -1289,15 +1289,21 @@ reference "tab:classifying-taxis-and-fares-sim"
 
 \end_inset
 
+
+\begin_layout Standard
 .
- All six simulation types are listed - three cooperative, and three competitive.
+ All six simulation types are listed.
+ Most of the data in the table is identical across all my simulations.
+ This is maybe not surprising, since they are all part of the same system.
+ The only difference is between the cooperative and competitive NPs: the
+ cooperative simtypes are described as benevolent, and competitive as selfish.
 \end_layout
 
 \begin_layout Standard
 \begin_inset Float table
 wide false
 sideways false
-status open
+status collapsed
 
 \begin_layout Plain Layout
 \begin_inset Tabular
@@ -2572,7 +2578,7 @@ name "tab:transport-logistics-eval-framework"
 \begin_inset Float table
 wide false
 sideways false
-status open
+status collapsed
 
 \begin_layout Plain Layout
 \begin_inset Tabular
