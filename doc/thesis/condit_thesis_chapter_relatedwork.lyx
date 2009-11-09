@@ -1281,6 +1281,7 @@ The article mentions Multi Agent Based Simulations (MABS), a term that simply
 \end_layout
 
 \begin_layout Standard
+\paragraph_spacing double
 The Taxis and Fares system is described according to the Davidsson classificatio
 n scheme in table 
 \begin_inset CommandInset ref

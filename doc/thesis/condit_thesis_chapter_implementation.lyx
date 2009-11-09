@@ -1,4 +1,4 @@
-#LyX 1.6.3 created this file. For more info see http://www.lyx.org/
+#LyX 1.6.4 created this file. For more info see http://www.lyx.org/
 \lyxformat 345
 \begin_document
 \begin_header
@@ -17,7 +17,7 @@
 
 \graphics default
 \paperfontsize default
-\spacing double
+\spacing single
 \use_hyperref false
 \papersize default
 \use_geometry false
@@ -174,35 +174,23 @@ SimPy Resource Types: Resources, Levels and Stores
 
 \begin_layout Standard
 \paragraph_spacing double
-There are three types of resources in SimPy that are available for working
- with the actors in your simulation: Resources, Levels and Stores.
- You may use one or more of them in a simulation, but any individual piece
- is modeled using only one.
+The three types of SimPy resources available for working with the actors
+ in a simulation are Resources, Levels and Stores.
+ Depending on the complexity of the simulation, you may use one or more
+ of them , but any individual piece is modeled using only one.
+ I briefly describe them here, and then explain how they are used in Routes.
 \end_layout
 
 \begin_layout Standard
 \paragraph_spacing double
-A Resource is useful if you have multiple identical tasks that are modeled
- as SimPy objects, and one or more required elements.
+The first type, a Resource, is useful if you have multiple identical tasks
+ that are modeled as SimPy objects, and one or more required elements.
  The example most often given here is waiting in line at a bank.
  The tellers are the required elements (a SimPy Resource), and the customers
  waiting to perform some task (also a Resource) wait in a shared line for
  a teller to become available.
  The waiting customers are stored in a wait queue, while the customers who
  are at the teller stations are stored in an active queue.
- I originally wrote my program to use Resources, but later rewrote it because
- ...
- 
-\begin_inset Note Note
-status open
-
-\begin_layout Plain Layout
-WHY??
-\end_layout
-
-\end_inset
-
-
 \end_layout
 
 \begin_layout Standard
@@ -219,9 +207,9 @@ continuous
  nature.
  Instead of having discrete units, the simulation usually tracks the volume
  or weight of some resource, like water in a bathtub for example.
- This type of resource is described using a scalar value, and is useful
- for simulations where you're concerned with the supply of something, like
- gasoline in a gas station.
+ This type of resource is useful for simulations where you're concerned
+ with the supply of something, e.g., fuel in an airplane.
+ The available quantity of the resource is described using a scalar value.
  A key consideration is that you don't need to model the resource as an
  object with behavior and state.
 \end_layout
@@ -233,10 +221,12 @@ The last resource type is the Store.
  key difference is that Stores do maintain object state.
  This makes it a good choice for modeling Agents.
  Stores insert or remove any Python type, but most simulations will probably
- use SimPy Process objects.
+ store SimPy Process objects.
  These are the main active elements in SimPy simulations.
  Stores also provide put and get queues, and are well suited to modeling
- Master/Slave relationships, like this Taxi/Fare simulation.
+ Master/Slave relationships, like my Taxi/Fare simulation.
+ I originally wrote my program using Resources, but later rewrote it to
+ use Stores instead.
 \end_layout
 
 \begin_layout Standard
@@ -254,10 +244,24 @@ status open
 
 \begin_layout Plain Layout
 \paragraph_spacing double
-One of the difficulties that came up during data collection for analysis
- was accounting for Fares that are left in the waitingFares queue at the
- end of the simulation.
- This is covered in the results section.
+To keep things manageable, the waitingFares queue is centralized store.
+ I did lot of work with ADOPT, a novel approach to distributed constraint
+ optimization (DCOP), but eventually dropped it as too complex to implement
+ in a reasonable amount of time.
+ Regardless, this is not a fully decentralized system.
+ 
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+TODO: Link to article.
+ (Include in bibliography? I didn't use it in the paper, so maybe not, but
+ it's convenient to store it there.)
+\end_layout
+
+\end_inset
+
+
 \end_layout
 
 \end_inset
@@ -343,12 +347,12 @@ texttt{yield}
 \end_inset
 
  statement, which all Process objects use to turn PEMs into Python generators.
- This allows the method to be paused and resume later without losing its
+ This allows the method to be paused and later resumed without losing its
  current state.
- All Process objects must have a PEM with at least one yield statement.
  Here it is putting itself onto the waitingFares queue by first putting
  itself into a one-element list ([self]), and then putting the contents
  of that list onto the waitingFares queue.
+ All Process objects must have a PEM with at least one yield statement.
 \end_layout
 
 \begin_layout Section
@@ -360,13 +364,14 @@ The Agents
 Taxis and Fares are subclasses of a common Agent class.
  The Agent class sets a mapping type to either grid or graph and randomly
  generates the Agent's initial location on the grid or graph, respectively.
- The Agent also defines a queue to hold waiting Fares.
+ As mentioned previously, the Agent also maintains a queue that holds waiting
+ Fares.
  It is a class attribute that holds only Fares, but it is used by both Agent
  types.
- The Taxi queries this list when it decides what to do next.
- Exactly what the Taxi is looking for is dependent on which negotiation
- protocol (FIFO, closestFare or mixedMode) and which simulation type (competitiv
-e or cooperative) are running.
+ The Taxi queries this list when deciding what to do next.
+ Exactly what the Taxi is looking for is dependent on which simulation type
+ (competitive or cooperative) and which negotiation protocol (FIFO, closestFare
+ or mixedMode) are being used.
 \end_layout
 
 \begin_layout Standard
@@ -389,8 +394,8 @@ The lifecycle of a Fare is relatively simple.
  It begins when the Fare is created, and ends when it is dropped off at
  its destination by a Taxi, or the simulation ends, whichever comes first.
  Fares are created throughout the simulation.
- Their generation rate is configurable; it is the inverse of an exponential
- distribution (see meanFareGenerationRate 
+ Their generation rate is configurable; it is currently configured as the
+ inverse of an exponential distribution (see meanFareGenerationRate 
 \begin_inset CommandInset ref
 LatexCommand vpageref
 reference "sec:The-agents-default.ini"
@@ -402,6 +407,7 @@ reference "sec:The-agents-default.ini"
  It collects timestamped event data starting with the initial request for
  pickup; then again when it is picked up; and finally when it is dropped
  off.
+ Depending on the NP, other events may be logged as well.
 \end_layout
 
 \begin_layout Subsection
@@ -413,8 +419,8 @@ Taxis
 The Taxi class is more complex than the Fares, as it defines multiple SimPy
  PEMs corresponding to the different negotiation protocols and simulation
  types.
- Leaving the NPs and simtypes aside for now, the lifecycle of the Taxis
- is complementary to that of the Fares.
+ Superficially, that is leaving the NPs and simtypes aside for now, the
+ lifecycle of the Taxis is complementary to that of the Fares.
  Taxis are created at the beginning of the simulation, and persist until
  the simulation ends.
  They normally pick up several Fares over the course of a simulation, but
@@ -487,6 +493,8 @@ won
 \end_inset
 
  or claimed by a Taxi.
+ A Taxi wins a Fare by being the first one to the Fare's current location,
+ that is, the location from which the request for pickup was made.
  The winning Taxi announces his arrival to the other competitors, who then
  renege (exit) from the compete queue and look for another Fare for which
  to compete.
@@ -514,8 +522,8 @@ Other interesting things occur as a result of the autonomous agent's incomplete
  system knowledge.
  An earlier version of the program had an additional signal event when the
  Fare received an acknowledgment of pending pickup from the Taxi.
- This only made sense with cooperative simulations due to the way the Taxis
- process pickup requests, so I left it out.
+ This only makes sense with cooperative simulations due to the way the Taxis
+ process pickup requests.
  While a Taxi is en-route with a Fare, it may receive requests for pickup,
  but may not act on them.
  So while a Taxi may be the first one available for hire, he may not necessarily
@@ -524,6 +532,7 @@ Other interesting things occur as a result of the autonomous agent's incomplete
  If the second Taxi drops off his Fare and reaches the Fare first, the first
  Taxi's acknowledgment would be considered an error, based on his limited
  knowledge of the other Agents.
+ Therefore, I decided to leave it out.
 \end_layout
 
 \begin_layout Section
