@@ -1,5 +1,5 @@
 # getFips.py
-import graphs.tigerutils as tigerutils
+import agents.tigerutils as tigerutils
 
 def run():
     # [DONE] choose the FIPS county file

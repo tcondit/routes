@@ -834,7 +834,7 @@ class LoadDatabase(object):
                         frlat=d['frlat'],tolong=d['tolong'],
                         tolat=d['tolat'])
 
-                    session.save(rt1obj)
+                    session.add(rt1obj)
                 session.commit()
 
             elif rtfile.endswith('RT2m'):
@@ -1215,7 +1215,7 @@ class MakeGraph(object):
         self.uniqlist=[]
         # TODO name the graph according to the county code and zipcode if
         # used.  The generated graphic should be named the same way.
-        self.G=networkx.XGraph(name="please work ...")
+        self.G=networkx.Graph(name="please work ...")
         self.G.pos={}
 
 #       for k,v in self.f.tuptotup(zipcode).items():
@@ -1244,7 +1244,7 @@ class MakeGraph(object):
 #           print "self.G.neighbors(fr) => %s" % self.G.neighbors(fr)
 #           print "self.G.neighbors(to) => %s" % self.G.neighbors(to)
 #           print
-        self.G.info()
+        networkx.info(self.G)
         # colors: b=blue, w=white, m=magenta, c=cyan, r=red, ...
         networkx.draw_networkx_nodes(self.G,self.G.pos,node_size=2,
             node_color='c')
