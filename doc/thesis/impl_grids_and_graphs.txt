@@ -1,0 +1,52 @@
+
+for condit_thesis_chapter_implementation.lyx: Grids and Graphs
+------------------------------------------------------------------------------
+
+The grids and graphs are the simulation's "playing field."  They were
+originally designed as subclasses of a common Area class, but this was an
+unnecessary addition.  Python is a good choice for what is informally referred
+to as duck-typing.
+
+From Wikipedia:
+
+    "... duck typing is a style of dynamic typing in which an object's current
+    set of methods and properties determines the valid semantics, rather than
+    its inheritance from a particular class or implementation of a specific
+    interface." [cite: http://en.wikipedia.org/wiki/Duck_typing]
+
+
+The Grid and Graph classes implement a common set of methods, similar to the
+way you might use a Java interface.  But whereas Java dictates the methods and
+their signatures, in Python the method is used if it's present, and the
+calling code is responsible for dealing with exceptions raised if the method
+is not present.  You get many of the benefits of inheritance without having to
+depend on a superclass or fulfill an interface (or abstract method) contract.
+
+The methods are get_distance(), get_point(), get_location(), update_location()
+and a semi-private method __get_vertex().  The names of the methods should
+give a good idea what they do.  The implementations differ between the Grid
+and Graph classes, but the inputs and outputs are of the same type.  This is
+not a requirement of duck typing, but it does make things simpler for the
+caller.
+
+The bulk of the work to set up a Graph is done in the __init__() method, which
+superficially resembles a constructor, but is really nothing of the sort.
+It's a convenient place to put initialization code after the object is
+created.  The interactive environment is started here.  This is where the
+chosen county data is fetched and processed, and the database loaded.
+Finally, the graphs are generated using the excellent NetworkX graph library.
+The user is given the option to create and view a plot of the graph here as
+well.
+
+By contrast, the Grid's __init__() method is empty.
+
+
+[NOTE TO SELF: what to do with this paragraph?  Just take it up in future
+work?  The future work might be to convert this to a weighted graph.] The
+simulation does not currently account for the fact that the lengths of the
+edges are variable.  The main metric here is number of hops.  So if you have
+two paths of equal length but the first one has one hop and the second one has
+two, the second one will take twice as long to traverse, regardless of the
+fact that the distance traveled is identical.  I mention this again in the
+future work section of the conclusion.
+
