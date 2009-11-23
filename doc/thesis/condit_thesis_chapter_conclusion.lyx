@@ -164,12 +164,16 @@ hints
 \begin_layout Itemize
 some sort of notification scheme whereby the competing Taxis report that
  they are en-route to a pickup.
- I had this, or something like it, but took it out.
+ (I had something like this in my program, but took it out.)
 \end_layout
 
 \begin_layout Itemize
 more realistic graphs, including different speed limits, highways, and traffic
  congestion/detours.
+\end_layout
+
+\begin_layout Itemize
+pass in configuration options via a web page, overriding config.ini
 \end_layout
 
 \end_body

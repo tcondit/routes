@@ -1,0 +1,72 @@
+
+for condit_thesis_chapter_implementation.lyx: Grids and Graphs
+------------------------------------------------------------------------------
+
+[NOTE TO SELF: this is introductory material.  This page should be
+repurposed.]
+
+
+A simulation takes place in either a grid or graph environment.  I describe
+both types.
+
+For the purposes of the simulation, ...
+
+Agents traverse the graph going about ...
+
+
+Grids
+-----
+
+Grids are very simple, with a unit-length edge between vertices, arranged in a
+regular pattern.  They resemble nothing so much as a sheet of graph paper.
+The exterior dimensions are configurable; by default they are a square of
+length 100.  Grids are used when consistency is desired.
+
+There is not much to say about them.  They are not modeled on any particular
+place, and exist mainly to make it simpler to get started using the program,
+and for some kinds of runtime debugging.  Set mapType=grid in
+agents/conf/agents/overrides.ini to use them.
+
+
+Graphs
+------
+
+Graphs are generated from geographic data from the U.S. Census Bureau.  They
+are undirected planar multigraphs, but without loops.  This may not be a
+complete description, but it's pretty close.
+
+[NOTE TO SELF: don't get into the interactive side of things here.]  When
+running a graph simulation, the user chooses a particular state and county.
+The program then fetches the Census data, and builds a graph of the chosen
+county, which is loaded into a database and used to run the simulation.  The
+details of how the data is processed and stored in the database are described
+in [section implementation: Grids and Graphs] and [appendix: munging the FIPS
+data].
+
+One nice feature (in my opinion) is data caching.  If the same county is
+chosen for a second simulation, cached data is used, rather than wasting
+bandwidth and time fetching it again.  The preferred database is sqlite.  It's
+not as fast as others, but in combination with the data caching, it makes it
+very easy to store a graph for later use.
+
+Any of the vertices of the graph may be starting points for the Agents.  
+
+The simulation does not currently account for the fact that the lengths of the
+edges are variable.  The main metric here is number of hops.  So if you have
+two paths of equal length but the first one has one hop and the second one has
+two, the second one will take twice as long to traverse, regardless of the
+fact that the distance traveled is identical.  I mention this again in the
+future work section of the conclusion.  [NOTE TO SELF: the future work might
+be to convert this to a weighted graph.]
+
+[skip? There are safeguards in place to ensure that the Agents cannot start
+halfway between two vertices.]
+
+
+
+In order to run a graph-based simulation, you must have either cached some
+FIPS data, or 
+
+Set mapType=graph in agents/conf/agents/overrides.ini to use them.
+
+

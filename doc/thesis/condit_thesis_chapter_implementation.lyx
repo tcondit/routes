@@ -177,14 +177,14 @@ SimPy Resource Types: Resources, Levels and Stores
 The three types of SimPy resources available for working with the actors
  in a simulation are Resources, Levels and Stores.
  Depending on the complexity of the simulation, you may use one or more
- of them , but any individual piece is modeled using only one.
- I briefly describe them here, and then explain how they are used in Routes.
+ of them, but any individual piece is modeled using only one.
+ I describe them here, and then explain how they are used in Routes.
 \end_layout
 
 \begin_layout Standard
 \paragraph_spacing double
 The first type, a Resource, is useful if you have multiple identical tasks
- that are modeled as SimPy objects, and one or more required elements.
+ that are modeled as SimPy objects, and require one or more discrete elements.
  The example most often given here is waiting in line at a bank.
  The tellers are the required elements (a SimPy Resource), and the customers
  waiting to perform some task (also a Resource) wait in a shared line for
@@ -196,22 +196,13 @@ The first type, a Resource, is useful if you have multiple identical tasks
 \begin_layout Standard
 \paragraph_spacing double
 The second resource type is the Level.
- It is used when you want to model something of a more 
-\begin_inset Quotes eld
-\end_inset
-
-continuous
-\begin_inset Quotes erd
-\end_inset
-
- nature.
- Instead of having discrete units, the simulation usually tracks the volume
- or weight of some resource, like water in a bathtub for example.
- This type of resource is useful for simulations where you're concerned
- with the supply of something, e.g., fuel in an airplane.
+ It is used when you want to model something of a more continuous nature.
+ This type is useful for simulations where you're concerned with the supply
+ of something, e.g., fuel in an airplane.
  The available quantity of the resource is described using a scalar value.
- A key consideration is that you don't need to model the resource as an
- object with behavior and state.
+ However, Levels do not maintain object state.
+ If you need to model the resource as an object with behavior and state,
+ then a Level may not be the right choice.
 \end_layout
 
 \begin_layout Standard
@@ -225,8 +216,8 @@ The last resource type is the Store.
  These are the main active elements in SimPy simulations.
  Stores also provide put and get queues, and are well suited to modeling
  Master/Slave relationships, like my Taxi/Fare simulation.
- I originally wrote my program using Resources, but later rewrote it to
- use Stores instead.
+ (I originally wrote my program using Resources, but later rewrote it to
+ use Stores instead.)
 \end_layout
 
 \begin_layout Standard
@@ -561,7 +552,7 @@ TODO Add a big leading chunk about ...
 
 \end_inset
 
-There are three negotiation protocols (NPs, my phrase).
+There are three negotiation protocols or NPs (my phrase).
  They are similar in concept, but with different implementations, for the
  cooperative and competitive simulations.
  The combination of negotiation protocol and simType identifies the major

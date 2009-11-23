@@ -1,0 +1,4 @@
+
+for condit_thesis_chapter_implementation.lyx: The Interactive Environment
+------------------------------------------------------------------------------
+
