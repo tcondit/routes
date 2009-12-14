@@ -31,6 +31,10 @@ Graphs are generated from geographic data from the U.S. Census Bureau.  They
 are undirected planar multigraphs, but without loops.  This may not be a
 complete description, but it's pretty close.
 
+To run a graph-based simulation, you first need some FIPS data [TODO define
+acronym?].  
+
+
 [NOTE TO SELF: don't get into the interactive side of things here.]  When
 running a graph simulation, the user chooses a particular state and county.
 The program then fetches the Census data, and builds a graph of the chosen
@@ -42,17 +46,13 @@ data].
 One nice feature (in my opinion) is data caching.  If the same county is
 chosen for a second simulation, cached data is used, rather than wasting
 bandwidth and time fetching it again.  The preferred database is sqlite.  It's
-not as fast as others, but in combination with the data caching, it makes it
-very easy to store a graph for reuse.
+not as fast as others, but it's easy to use and highly portable.  In
+combination with the data caching, it is very easy to store a graph for reuse.
 
-Any of the vertices of the graph may be starting points for the Agents.  [NOTE
-TO SELF: skip? There are safeguards in place to ensure that the Agents cannot
-start halfway between two vertices.]
+Any of the vertices of the graph may be starting points for the Agents.  There
+are safeguards in place to ensure that the Agents cannot start halfway between
+two vertices.
 
-
-
-In order to run a graph-based simulation, you must have either cached some
-FIPS data, or 
 
 Set mapType=graph in agents/conf/agents/overrides.ini to use them.
 

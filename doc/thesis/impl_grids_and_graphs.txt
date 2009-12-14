@@ -20,14 +20,15 @@ way you might use a Java interface.  But whereas Java dictates the methods and
 their signatures, in Python the method is used if it's present, and the
 calling code is responsible for dealing with exceptions raised if the method
 is not present.  You get many of the benefits of inheritance without having to
-depend on a superclass or fulfill an interface (or abstract method) contract.
+depend on a superclass, or fulfill an interface's (or abstract method's)
+contract.
 
-The methods are get_distance(), get_point(), get_location(), update_location()
-and a semi-private method __get_vertex().  The names of the methods should
-give a good idea what they do.  The implementations differ between the Grid
-and Graph classes, but the inputs and outputs are of the same type.  This is
-not a requirement of duck typing, but it does make things simpler for the
-caller.
+The common methods are get_distance(), get_point(), get_location(),
+update_location() and a semi-private method, __get_vertex().  The names of the
+methods should give a good idea what they do.  The implementations differ
+between the Grid and Graph classes, but the inputs and outputs are of the same
+type.  This is not a requirement of duck typing, but it does make things
+simpler for the caller.
 
 The bulk of the work to set up a Graph is done in the __init__() method, which
 superficially resembles a constructor, but is really nothing of the sort.
@@ -38,11 +39,14 @@ Finally, the graphs are generated using the excellent NetworkX graph library.
 The user is given the option to create and view a plot of the graph here as
 well.
 
-By contrast, the Grid's __init__() method is empty.
+The details of collecting and processing the Census data are in [appendix:
+munging the FIPS data].  It was a big job, and a major distraction, but it's
+nice to have realistic graphs on which to run the simulations.
 
+Note, Grid's __init__() method is empty.
 
 [NOTE TO SELF: what to do with this paragraph?  Just take it up in future
-work?  The future work might be to convert this to a weighted graph.] The
+work?  The future work might be to convert this to a weighted graph.]  The
 simulation does not currently account for the fact that the lengths of the
 edges are variable.  The main metric here is number of hops.  So if you have
 two paths of equal length but the first one has one hop and the second one has
