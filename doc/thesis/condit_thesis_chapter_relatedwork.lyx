@@ -1,4 +1,4 @@
-#LyX 1.6.4 created this file. For more info see http://www.lyx.org/
+#LyX 1.6.7 created this file. For more info see http://www.lyx.org/
 \lyxformat 345
 \begin_document
 \begin_header
@@ -2577,16 +2577,16 @@ name "tab:transport-logistics-eval-framework"
 \begin_inset Float table
 wide false
 sideways false
-status collapsed
+status open
 
 \begin_layout Plain Layout
 \begin_inset Tabular
 <lyxtabular version="3" rows="11" columns="8">
 <features booktabs="true">
-<column alignment="center" valignment="top" width="0.8in">
-<column alignment="center" valignment="top" width="0.8in">
-<column alignment="center" valignment="top" width="0.5in">
-<column alignment="center" valignment="top" width="0.5in">
+<column alignment="center" valignment="top" width="0.7in">
+<column alignment="center" valignment="top" width="0.9in">
+<column alignment="center" valignment="top" width="0.6in">
+<column alignment="center" valignment="top" width="0.6in">
 <column alignment="center" valignment="top" width="0.5in">
 <column alignment="center" valignment="top" width="0.5in">
 <column alignment="center" valignment="top" width="0.5in">
@@ -2614,7 +2614,7 @@ status collapsed
 \begin_inset Text
 
 \begin_layout Plain Layout
-Coop/
+Coopera-tive/
 \end_layout
 
 \begin_layout Plain Layout
@@ -2627,7 +2627,7 @@ FIFO
 \begin_inset Text
 
 \begin_layout Plain Layout
-Coop/
+Coopera-tive/
 \end_layout
 
 \begin_layout Plain Layout
@@ -2640,7 +2640,7 @@ CF
 \begin_inset Text
 
 \begin_layout Plain Layout
-Coop/
+Coopera-tive/
 \end_layout
 
 \begin_layout Plain Layout
@@ -2653,7 +2653,7 @@ MM
 \begin_inset Text
 
 \begin_layout Plain Layout
-Comp/
+Competi-tive/
 \end_layout
 
 \begin_layout Plain Layout
@@ -2666,7 +2666,7 @@ FIFO
 \begin_inset Text
 
 \begin_layout Plain Layout
-Comp/
+Competi-tive/
 \end_layout
 
 \begin_layout Plain Layout
@@ -2679,7 +2679,7 @@ CF
 \begin_inset Text
 
 \begin_layout Plain Layout
-Comp/
+Competi-tive/
 \end_layout
 
 \begin_layout Plain Layout
@@ -2934,7 +2934,7 @@ Usage
 \begin_inset Text
 
 \begin_layout Plain Layout
-Auto-mation system
+Automa-tion system
 \end_layout
 
 \end_inset
@@ -2943,7 +2943,7 @@ Auto-mation system
 \begin_inset Text
 
 \begin_layout Plain Layout
-Auto-mation system
+Automa-tion system
 \end_layout
 
 \end_inset
@@ -2952,7 +2952,7 @@ Auto-mation system
 \begin_inset Text
 
 \begin_layout Plain Layout
-Auto-mation system
+Automa-tion system
 \end_layout
 
 \end_inset
@@ -2961,7 +2961,7 @@ Auto-mation system
 \begin_inset Text
 
 \begin_layout Plain Layout
-Auto-mation system
+Automa-tion system
 \end_layout
 
 \end_inset
@@ -2970,7 +2970,7 @@ Auto-mation system
 \begin_inset Text
 
 \begin_layout Plain Layout
-Auto-mation system
+Automa-tion system
 \end_layout
 
 \end_inset
@@ -2979,7 +2979,7 @@ Auto-mation system
 \begin_inset Text
 
 \begin_layout Plain Layout
-Auto-mation system
+Automa-tion system
 \end_layout
 
 \end_inset
@@ -3008,7 +3008,7 @@ Control type
 \begin_inset Text
 
 \begin_layout Plain Layout
-Distributed
+Distri-buted
 \end_layout
 
 \end_inset
@@ -3017,7 +3017,7 @@ Distributed
 \begin_inset Text
 
 \begin_layout Plain Layout
-Distributed
+Distri-buted
 \end_layout
 
 \end_inset
@@ -3026,7 +3026,7 @@ Distributed
 \begin_inset Text
 
 \begin_layout Plain Layout
-Distributed
+Distri-buted
 \end_layout
 
 \end_inset
@@ -3035,7 +3035,7 @@ Distributed
 \begin_inset Text
 
 \begin_layout Plain Layout
-Distributed
+Distri-buted
 \end_layout
 
 \end_inset
@@ -3044,7 +3044,7 @@ Distributed
 \begin_inset Text
 
 \begin_layout Plain Layout
-Distributed
+Distri-buted
 \end_layout
 
 \end_inset
@@ -3053,7 +3053,7 @@ Distributed
 \begin_inset Text
 
 \begin_layout Plain Layout
-Distributed
+Distri-buted
 \end_layout
 
 \end_inset
@@ -3156,7 +3156,7 @@ Agent attitude
 \begin_inset Text
 
 \begin_layout Plain Layout
-Benevo-lent
+Benevolent
 \end_layout
 
 \end_inset
@@ -3165,7 +3165,7 @@ Benevo-lent
 \begin_inset Text
 
 \begin_layout Plain Layout
-Benevo-lent
+Benevolent
 \end_layout
 
 \end_inset
@@ -3174,7 +3174,7 @@ Benevo-lent
 \begin_inset Text
 
 \begin_layout Plain Layout
-Benevo-lent
+Benevolent
 \end_layout
 
 \end_inset
@@ -3378,7 +3378,7 @@ Evaluation comparison
 \begin_inset Text
 
 \begin_layout Plain Layout
-Qualitative
+Qualita-tive
 \end_layout
 
 \end_inset
@@ -3387,7 +3387,7 @@ Qualitative
 \begin_inset Text
 
 \begin_layout Plain Layout
-Qualitative
+Qualita-tive
 \end_layout
 
 \end_inset
@@ -3396,7 +3396,7 @@ Qualitative
 \begin_inset Text
 
 \begin_layout Plain Layout
-Qualitative
+Qualita-tive
 \end_layout
 
 \end_inset
@@ -3405,7 +3405,7 @@ Qualitative
 \begin_inset Text
 
 \begin_layout Plain Layout
-Qualitative
+Qualita-tive
 \end_layout
 
 \end_inset
@@ -3414,7 +3414,7 @@ Qualitative
 \begin_inset Text
 
 \begin_layout Plain Layout
-Qualitative
+Qualita-tive
 \end_layout
 
 \end_inset
@@ -3423,7 +3423,7 @@ Qualitative
 \begin_inset Text
 
 \begin_layout Plain Layout
-Qualitative
+Qualita-tive
 \end_layout
 
 \end_inset
