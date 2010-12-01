@@ -54,11 +54,10 @@ Introduction
 
 \begin_layout Standard
 \paragraph_spacing double
-In this section we examine features found in other multiagent systems to
+In this section I examine features found in other multiagent systems to
  see how they contrast with my system.
  The focus in the applied literature is on traffic and road network simulations.
- We review two papers that describe centralized versus distributed simulation
- systems
+ Two of the papers describe centralized versus distributed simulation systems
 \begin_inset CommandInset citation
 LatexCommand cite
 key "france2003mso,10.1109/HICSS.2001.926331"
@@ -67,12 +66,12 @@ key "france2003mso,10.1109/HICSS.2001.926331"
 
 .
  One of them includes an implemented and installed system, while the other
- is evaluted using a mathematical formula describing variable levels of
+ is evaluated using a mathematical formula describing variable levels of
  traffic congestion.
  Aside from the fact that one is applied and the other more theoretical,
  their approaches are different enough to make a useful comparison.
- Then we investigate an uncertainty management framework for relationships
- between agents in a multiagent sytem
+ Then I investigate an uncertainty management framework for understanding
+ relationships between agents in a multiagent sytem
 \begin_inset CommandInset citation
 LatexCommand cite
 key "wu2003umf"
@@ -82,14 +81,16 @@ key "wu2003umf"
 .
  This paper uses the Belief-Desire-Intention (BDI) agent model to formulate
  a response to received inputs.
- Finally, we look at a recent review of MASs used for transport logistics
+ The last paper is a review of multi-agent systems (MAS) used for transport
+ logistics
 \begin_inset CommandInset citation
 LatexCommand cite
 key "davidsson2005aab"
 
 \end_inset
 
-, and identify where my software would be classified according to this scheme.
+.
+ My software is classified according to this scheme.
 \end_layout
 
 \begin_layout Section
@@ -99,7 +100,7 @@ Centralized and distributed multiagent traffic systems
 
 \begin_layout Standard
 \paragraph_spacing double
-Here we investigate multiagent decision support systems for traffic management.
+Reviewing decision support systems (DSS) for use in traffic management.
 \end_layout
 
 \begin_layout Subsection
