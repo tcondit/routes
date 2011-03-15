@@ -39,7 +39,7 @@ Note 1: The first time a new county is chosen, the file will be
 
 Note 2: The smallest data file may be Denali county, Alaska: state
     code 02, county code 068.  Some of the ZIP codes in this
-    county are too small to use for the map, with only have 3 or 4
+    county are too small to use for the map, with only 3 or 4
     disconnected nodes, but it's convenient for doing a quick
     check that everything works end-to-end.
 """
