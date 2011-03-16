@@ -53,7 +53,7 @@ class Agent(Process):
 
         self.ts = {}    # timestamps
         self.ts['activation'] = now()
-        print('%.4f\tactivated: [(Agent %s), (location %s)]' %
+        print('%.2f\tactivated: [(Agent %s), (location %s)]' %
             (self.ts['activation'], self.name, self.loc))
 
 if __name__ == '__main__':

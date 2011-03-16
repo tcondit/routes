@@ -67,7 +67,7 @@ class Fare(Agent):
 
         # dropped off [received signal]
         whichTaxi = self.doneSignal.signalparam
-        print '%.4f\t(f) %s was taken by %s' % (now(), self.name, whichTaxi)
+        print '%.2f\t(f) %s was taken by %s' % (now(), self.name, whichTaxi)
 
         # WAIT MONITOR
         #Fare.waitMon.observe((self.ts['dropoff'] - self.ts['mkreq']), now())
