@@ -793,7 +793,7 @@ class LoadDatabase(object):
 
         # Create a Session object.  In SQLAlchemy terms, this is the ORM's
         # "handle" to the database.
-        G.Session=sessionmaker(bind=G.engine,autoflush=True,transactional=True)
+        G.Session=sessionmaker(bind=G.engine,autoflush=True,autocommit=False)
 
         for rtfile in os.listdir(G.mungedPath):
             if DEBUG:
@@ -1273,11 +1273,11 @@ class MakeGraph(object):
         point2[0],point2[1]=int(point2[0]),int(point2[1])
         point1=tuple(point1)
         point2=tuple(point2)
-        return networkx.path.shortest_path(self.G,point1,point2)
+        return networkx.shortest_path(self.G,point1,point2)
 
     def get_connected(self):
         '''DOCSTRING'''
-        return networkx.component.connected_components(self.G)[0]
+        return networkx.connected_components(self.G)[0]
 
 
 #

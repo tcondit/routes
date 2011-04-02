@@ -19,7 +19,7 @@ def model_cooperate_FIFO():
     NP = 'FIFO'
 
     for j in range(1,5):
-        f=Fare(name=-j)
+        f=Fare(name="-j")
         activate(f, f.run())
 
     for i in range(5):
@@ -37,7 +37,7 @@ def model_cooperate_closestfare():
     NP = 'closestfare'
 
     for j in range(1,5):
-        f=Fare(name=-j)
+        f=Fare(name="-j")
         activate(f, f.run())
 
     for i in range(5):
@@ -55,7 +55,7 @@ def model_cooperate_mixedmode():
     NP = 'mixedmode'
 
     for j in range(1,5):
-        f=Fare(name=-j)
+        f=Fare(name="-j")
         activate(f, f.run())
 
     for i in range(5):
@@ -75,7 +75,7 @@ def model_compete_FIFO():
     NP = 'FIFO'
 
     for j in range(1,5):
-        f=Fare(name=-j)
+        f=Fare(name="-j")
         activate(f, f.run())
 
     for i in range(5):
@@ -93,7 +93,7 @@ def model_compete_closestfare():
     NP = 'closestfare'
 
     for j in range(1,5):
-        f=Fare(name=-j)
+        f=Fare(name="-j")
         activate(f, f.run())
 
     for i in range(5):
@@ -111,7 +111,7 @@ def model_compete_mixedmode():
     NP = 'mixedmode'
 
     for j in range(1,5):
-        f=Fare(name=-j)
+        f=Fare(name="-j")
         activate(f, f.run())
 
     for i in range(5):
