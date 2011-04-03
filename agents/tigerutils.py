@@ -11,14 +11,12 @@ simulations.
 # * What else?
 # * Where does this belong?
 #
-#The data dictionary used to generate these schemas is here
-#[http://www.census.gov/geo/www/tiger/tiger2006se/a6sech6.txt]
+# The data dictionary used to generate these schemas is here
+# [http://www.census.gov/geo/www/tiger/tiger2006se/a6sech6.txt]
 #
 
 import ConfigParser
 import networkx
-#import networkx.component
-#import networkx.path
 import os, os.path
 import pylab
 import random, re
@@ -36,7 +34,7 @@ from sqlalchemy.sql import select
 # crude but necessary
 min_sqlver='0.4.0'
 if sqlalchemy.__version__ < min_sqlver:
-    print "SQLAlchemy v%s or later required." % min_sqlver
+    print("SQLAlchemy v%s or later required." % min_sqlver)
     sys.exit(0)
 
 # Locate and read the config files
@@ -59,8 +57,8 @@ TIGER_SANDBOX=config.get('dataprep','tigerSandbox')
 DEBUG=config.getboolean('dev','debug')
 
 if TIGER_SANDBOX=='None': # it's a config string, not the None value
-    print "Please specify where to store generated files by setting"
-    print "tigerSandbox in graphs\\overrides.ini"
+    print("Please specify where to store generated files by setting")
+    print("tigerSandbox in graphs\\overrides.ini")
     sys.exit(0)
 
 DATA_DIR=os.path.join(TIGER_SANDBOX,'data')
@@ -83,7 +81,7 @@ class G(object):
 class FipsMetadataParser(object):
     '''DOCSTRING'''
     def __init__(self):
-        print "\n====[ FipsMetadataParser ]===="
+        print("\n====[ FipsMetadataParser ]====")
 
         # FIPS dictionary: Key is state code, value is a list holding the
         # the state abbreviation, and a list of two-tuples of county code and
@@ -127,27 +125,27 @@ class FipsMetadataParser(object):
     # I should think about using this ...
     def greet(self):
         '''DOCSTRING'''
-        print "This is the FIPS county data download tool."
-        print
-        print "This utility will help you choose a county on which to run"
-        print "the simulation.  It will then download the data from the U.S."
-        print "Census bureau, and prepare it for import into a SQL database."
-        print "Then you can run NAME_HERE, a database creation and import"
-        print "tool to finish the data preparation steps."
-        print
-        print "Now we need to choose a state then county from a list, make a"
-        print "random selection (good for demomode), or quit."
-        print
+        print("This is the FIPS county data download tool.")
+        print()
+        print("This utility will help you choose a county on which to run")
+        print("the simulation.  It will then download the data from the U.S.")
+        print("Census bureau, and prepare it for import into a SQL database.")
+        print("Then you can run NAME_HERE, a database creation and import")
+        print("tool to finish the data preparation steps.")
+        print()
+        print("Now we need to choose a state then county from a list, make a")
+        print("random selection (good for demomode), or quit.")
+        print()
 
     def fetch(self,FIPS_METADATA_URL=None):
         '''DOCSTRING'''
         # Pass in a URL for the real deal, or use the file for debugging.
         if FIPS_METADATA_URL:
-            print 'Downloading and processing %s' % FIPS_METADATA_URL
+            print('Downloading and processing %s' % FIPS_METADATA_URL)
             self.fips=urllib.urlopen(FIPS_METADATA_URL)
         else:
             localFipsFile='AL_AK_AZ_FIPS.txt'
-            print 'Processing local file %s' % localFipsFile
+            print('Processing local file %s' % localFipsFile)
             self.fips=file(localFipsFile)
 
     def clean(self):
@@ -200,11 +198,9 @@ class FipsMetadataParser(object):
             # took me a while to figure this out!)
             self.next_state=SC.group()
             if not self.FIPS_D.get(self.next_state):
-                self.FIPS_D[self.next_state]=([SN.group(),[(CC.group(),
-                        CN.group().strip())]])
+                self.FIPS_D[self.next_state]=([SN.group(),[(CC.group(),CN.group().strip())]])
             else:
-                self.FIPS_D[self.next_state][1].append((CC.group(),
-                        CN.group().strip()))
+                self.FIPS_D[self.next_state][1].append((CC.group(),CN.group().strip()))
 #        What to do here?  Should I return this to the caller, or keep it for
 #        private use only?
 #        return self.FIPS_D
@@ -216,8 +212,7 @@ class FipsMetadataParser(object):
         '''
         for line in self.eligible:
             # find state code and county code
-            iterator1, iterator2= \
-                self.p1.finditer(line), self.p2.finditer(line)
+            iterator1, iterator2 = self.p1.finditer(line), self.p2.finditer(line)
             for SC in iterator1:
                 pass
             for CC in iterator2:
@@ -294,14 +289,14 @@ class FipsMetadataParser(object):
         try:
             return random.choice(self.FIPS_L)
         except IndexError:
-            print "Nothing to choose from.  Have you run parseCodes?"
+            print("Nothing to choose from.  Have you run parseCodes?")
 
     def showAll(self):
         '''Show the contents of the FIPS data file in a batch.'''
         for key, value in self.FIPS_D.items():
-            print "(%s, %s)" % (key, value[0])
+            print("(%s, %s)" % (key, value[0]))
             for tup in value[1]:
-                print "    ", tup
+                print("   ", tup)
 
     # This method breaks the rules slightly, by printing to STDOUT.  I tend to
     # avoid that whenever possible, but in this case, it's purely read-only.
@@ -313,9 +308,9 @@ class FipsMetadataParser(object):
         count=0
         for state in states:
             if count==G.statesPerRow:
-                print
+                print()
                 count=0
-            print "  %s" % (state),
+            print("  %s" % (state)),
             count+=1
 
     # Like showStates, this method breaks the rules slightly, by printing to
@@ -330,18 +325,18 @@ class FipsMetadataParser(object):
                     print
                     count=0
                 out="%s %s" % (county[0], county[1])
-                print repr(out).ljust(32),
+                print(repr(out).ljust(32)),
                 count+=1
         except TypeError:  # bogus state
-            print "%s is an invalid state abbreviation." % (stateAbbr)
-            print "(How did you get here?)"
+            print("%s is an invalid state abbreviation." % (stateAbbr))
+            print("(How did you get here?)")
 
 
 class UserInput(object):
     '''DOCSTRING'''
     def __init__(self):
         '''DOCSTRING'''
-        print "\n====[ UserInput ]===="
+        print("\n====[ UserInput ]====")
 
     # TODO Maybe allow the user to pass in the range or exact values that are
     # accepted by the caller, and validate the input before returning it?
@@ -352,15 +347,13 @@ class UserInput(object):
             try:
                 int(userIn)
             except ValueError:
-                print "Please enter a digit"
+                print("Please enter a digit")
                 continue
-
             if not min<=len(userIn)<=max:
                 if min==max:
-                    print "Enter a %s-digit number" % (min)
+                    print("Enter a %s-digit number" % (min))
                 else:
-                    print "Please enter a %s- to %s-digit number" % \
-                            (min,max)
+                    print("Please enter a %s- to %s-digit number" % (min,max))
                 continue
             break
         return userIn
@@ -375,16 +368,16 @@ class UserInput(object):
         engineCode=None
         dbEngineNames=[(1,'SQLite'),(2,'MySQL')]
 
-        print "Enter the database engine: "
+        print("Enter the database engine: ")
         while True:
             engineCode=self.getDigit(1,1,"(1) SQLite (2) MySQL (3) quit: ")
             if engineCode=='1' or engineCode=='2':
                 G.dbEngineName=dbEngineNames[int(engineCode)-1][1]
                 if DEBUG:
-                    print '[DEBUG] G.dbEngineName: %s' % G.dbEngineName
+                    print('[DEBUG] G.dbEngineName: %s' % G.dbEngineName)
                 break
             elif engineCode=='3':
-                print "Exiting."
+                print("Exiting.")
                 sys.exit(0)
             else:
                 continue # this is redundant but explicit
@@ -397,7 +390,7 @@ class UserInput(object):
         elif G.dbEngineName=='SQLite':
             self.__SQLiteUri()
         else:
-            print "Something's broken in UserInput.getDbEngine()!"
+            print("Something's broken in UserInput.getDbEngine()!")
             sys.exit(0)
 
     def __MySQLCreds(self):
@@ -414,25 +407,22 @@ class UserInput(object):
         '''[private] DOCSTRING'''
         # Assemble the uri for SQLAlchemy.  Looks like
         #mysql://username:password@host/database_name
-        G.dbUri='mysql://%s:%s@%s/%s' % \
-            (G.dbUsername, G.dbPassword, G.dbHostname, G.dbName)
+        G.dbUri='mysql://%s:%s@%s/%s' % (G.dbUsername, G.dbPassword, G.dbHostname, G.dbName)
         if DEBUG:
-            print '[DEBUG] G.dbUri: %s' % G.dbUri
+            print('[DEBUG] G.dbUri: %s' % os.path.normpath(G.dbUri))
 
     def __SQLiteUri(self):
         '''[private] DOCSTRING'''
         G.dbName='TGR'+G.stateCountyCode+'.db'
-        # Assemble the uri for SQLAlchemy.  Looks like
-        # sqlite:///tgr53033.db.
-        G.sqlPath=DATA_DIR+'/'+G.stateAbbr+'/TGR'+ \
-            G.stateCountyCode+'/sql/'
+        # Assemble the uri for SQLAlchemy.  Looks like sqlite:///tgr53033.db.
+        G.sqlPath=DATA_DIR+'/'+G.stateAbbr+'/TGR'+G.stateCountyCode+'/sql/'
         if DEBUG:
-            print 'G.sqlPath: %s'%G.sqlPath
+            print('G.sqlPath: %s'%os.path.normpath(G.sqlPath))
         if not os.path.exists(G.sqlPath):
             os.mkdir(G.sqlPath)
         G.dbUri=G.dbEngineName.lower()+':///'+G.sqlPath+G.dbName
         if DEBUG:
-            print '[DEBUG] G.dbUri: %s' % G.dbUri
+            print('[DEBUG] G.dbUri: %s' % G.dbUri)
 
 
 class GetFips(object):
@@ -447,7 +437,7 @@ class GetFips(object):
 
     def __init__(self):
         '''DOCSTRING'''
-        print "\n====[ GetFips ]===="
+        print("\n====[ GetFips ]====")
         # Maybe we shouldn't go to all this trouble up front.  The user may
         # want to exit without running the program.  But doing it here is
         # simpler.
@@ -464,10 +454,10 @@ class GetFips(object):
         '''DOCSTRING'''
         # get the user's initial choice
         while True:
-            print 'See the list of states, make a random selection, or quit?'
+            print('See the list of states, make a random selection, or quit?')
             userIn=self.u.getDigit(1,1,"(1) list (2) random (3) quit: ")
             if userIn=='1':
-                print "Here are the states and territories you can choose from:"
+                print("Here are the states and territories you can choose from:")
                 # Print the list of states, G.statesPerRow to a row
                 states=self.fp.getStates()
                 states.sort()
@@ -476,7 +466,7 @@ class GetFips(object):
                     if count==G.statesPerRow:
                         print
                         count=0
-                    print "    %s %s" % (code,abbr),
+                    print("   %s %s" % (code,abbr)),
                     count+=1
                 print
 
@@ -486,10 +476,8 @@ class GetFips(object):
                     G.stateCode=self.u.getDigit(min=2,max=2,
                         msg="Enter the state code: ")
                     if self.fp.isState(G.stateCode):
-                        G.stateAbbr=self.fp.getStateAbbr(
-                            G.stateCode)[0].upper()
-                        print ("Here are the counties in %s you can choose from:" % \
-                                (G.stateAbbr))
+                        G.stateAbbr=self.fp.getStateAbbr(G.stateCode)[0].upper()
+                        print("Here are the counties in %s you can choose from:" % G.stateAbbr)
                         self.fp.showCounties(G.stateCode)
                         break
 
@@ -497,11 +485,9 @@ class GetFips(object):
                 while True:
                     print
                     # TODO am I even using this?  the syntax is outdated
-                    G.countyCode=self.u.getDigit(
-                        min=3,max=3,msg="Enter the county code: ")
+                    G.countyCode=self.u.getDigit(min=3,max=3,msg="Enter the county code: ")
                     if self.fp.isCounty(G.stateCode,G.countyCode):
-                       # we've got a valid FIPS code, time to fetch the ZIP
-                       # file
+                       # We've got a valid FIPS code. Now fetch the ZIP file
                        break
 
             elif userIn=='2':
@@ -509,11 +495,11 @@ class GetFips(object):
                 G.stateCode=randomCounty[:2]
                 G.stateAbbr=self.fp.getStateAbbr(G.stateCode)[0].upper()
                 G.countyCode=randomCounty[2:]
-                print "randomCounty: %s" % (randomCounty)
+                print("randomCounty: %s" % randomCounty)
                 break
 
             elif userIn=='3':
-                print "Exiting."
+                print("Exiting.")
                 sys.exit(0)
 
             else:
@@ -540,36 +526,33 @@ class GetFips(object):
                 G.stateCountyCode=G.stateCode+G.countyCode
                 zipFileName='TGR%s.ZIP' % (G.stateCountyCode)
                 zipFileUrl=FIPS_ZIPFILE_ROOT+G.stateAbbr+r'/'+zipFileName
-                G.srcPath=os.path.normpath(os.path.join(DATA_DIR, G.stateAbbr,
-                    'TGR'+G.stateCountyCode,'src'))
+                G.srcPath=os.path.normpath(os.path.join(DATA_DIR, G.stateAbbr, 'TGR'+G.stateCountyCode, 'src'))
                 if DEBUG:
-                    print '[DEBUG] G.srcPath: %s' % G.srcPath
-                print "Downloading %s from %s" % (zipFileName,
-                    FIPS_ZIPFILE_ROOT+G.stateAbbr)
+                    print('[DEBUG] G.srcPath: %s' % G.srcPath)
+                print("Downloading %s from %s" % (zipFileName, FIPS_ZIPFILE_ROOT+G.stateAbbr))
 
                 # Prepare for the little bundle of joy (county zip file)
                 if not os.path.exists(G.srcPath):
-                    print "Creating %s" % G.srcPath
+                    print("Creating %s" % G.srcPath)
                     os.makedirs(G.srcPath)
                 else:
-                    print "Found directory %s" % G.srcPath
+                    print("Found directory %s" % G.srcPath)
 
                 zipFilePath=G.srcPath+r'/'+zipFileName
                 if os.path.exists(zipFilePath):
-                   print "Found %s.  Skipping download." % zipFilePath
+                   print("Found %s.  Skipping download." % os.path.abspath(zipFilePath))
                 else:
                     # C:\Source\hg\graphs\bin>wget -O C:\Source\TIGER\sandbox\src
                     #    http://www2.census.gov/geo/tiger/tiger2006se/WA/TGR53033.ZIP
-                    cmd="%s --output-document=%s %s" % \
-                                (FETCH_COMMAND,zipFilePath,zipFileUrl)
+                    cmd="%s --output-document=%s %s" % (FETCH_COMMAND, zipFilePath, zipFileUrl)
                     status=os.system(cmd)
                     if DEBUG:
-                        print '[DEBUG] cmd: %s' % cmd
-                        print "Status: ", status
+                        print('[DEBUG] cmd: %s' % cmd)
+                        print("Status: ", status)
                 break
 
             elif confirm=='2':
-                print "Exiting."
+                print("Exiting.")
                 sys.exit(0)
 
 
@@ -585,16 +568,15 @@ class ProcessFipsFiles(object):
 
     def __init__(self):
         '''DOCSTRING'''
-        print "\n====[ ProcessFipsFiles ]===="
+        print("\n====[ ProcessFipsFiles ]====")
 
         # should look like G.srcPath
-        G.rawPath=os.path.normpath(os.path.join(DATA_DIR,G.stateAbbr,
-                'TGR'+G.stateCountyCode,'raw'))
+        G.rawPath=os.path.normpath(os.path.join(DATA_DIR,G.stateAbbr, 'TGR'+G.stateCountyCode,'raw'))
         if not os.path.exists(G.rawPath):
-            print "Creating %s" % G.rawPath
+            print("Creating %s" % G.rawPath)
             os.makedirs(G.rawPath)
         else:
-            print "Found %s" % G.rawPath
+            print("Found %s" % G.rawPath)
 
     def unzip(self):
         '''
@@ -611,30 +593,28 @@ class ProcessFipsFiles(object):
             #     unzipped files will be overwritten.  That's fine.
 #           if zipfile.is_zipfile(candidate_file):
             if candidate_file.upper().endswith('ZIP'):
-                cmd=ZIP_COMMAND+' '+os.path.join(G.srcPath,candidate_file)+ \
-                    ' -o'+G.srcPath+' -y'
+                cmd=ZIP_COMMAND + ' ' + os.path.join(G.srcPath,candidate_file) + ' -o' + G.srcPath + ' -y'
                 status=os.system(cmd)
                 if DEBUG:
-                    print '[DEBUG] cmd: %s' % cmd
-                    print "Status: ", status
+                    print('[DEBUG] cmd: %s' % cmd)
+                    print('Status: %s' % status),
             else:
                 if DEBUG:
-                    print '[DEBUG] Skipping %s (not a ZIP file)' % \
-                        candidate_file
+                    print('[DEBUG] Skipping %s (not a ZIP file)' % candidate_file)
 
     def export(self):
         '''Copy RT1 and RT2 files from G.srcPath to G.rawPath.'''
         for rtfile in os.listdir(G.srcPath):
             tmp=rtfile.upper()
             if DEBUG:
-                print '[DEBUG] checking %s for RT1 or RT2 extension' % tmp
+                print('[DEBUG] checking %s for RT1 or RT2 extension' % tmp)
             if tmp.endswith('RT1') or tmp.endswith('RT2'):
-                cmd=shutil.copy2(os.path.join(G.srcPath,tmp),G.rawPath)
+                cmd=shutil.copy2(os.path.join(G.srcPath,tmp), G.rawPath)
                 if DEBUG:
-                    print '[DEBUG] cmd: %s' % cmd
+                    print('[DEBUG] cmd: %s' % cmd)
             else:
                 if DEBUG:
-                    print '[DEBUG] Skipping %s' % rtfile
+                    print('[DEBUG] Skipping %s' % rtfile)
 
     def cleanup(self):
         '''
@@ -646,10 +626,10 @@ class ProcessFipsFiles(object):
             tmp=rtfile.upper()
             if tmp.endswith('ZIP'):
                 if DEBUG:
-                    print '[DEBUG] Skipping file %s' % tmp
+                    print('[DEBUG] Skipping file %s' % tmp)
             else:
                 if DEBUG:
-                    print '[DEBUG] Deleting file %s' % tmp
+                    print('[DEBUG] Deleting file %s' % tmp)
                 os.unlink(os.path.join(G.srcPath,tmp))
 
 
@@ -662,17 +642,16 @@ class RunMungers(object):
     import into a SQL database.
     '''
     def __init__(self):
-        print "\n====[ RunMungers ]===="
+        print("\n====[ RunMungers ]====")
 
         # should look like G.srcPath
-        G.mungedPath=os.path.normpath(os.path.join(DATA_DIR,G.stateAbbr,
-            'TGR'+G.stateCountyCode,'munged'))
+        G.mungedPath=os.path.normpath(os.path.join(DATA_DIR, G.stateAbbr, 'TGR' + G.stateCountyCode, 'munged'))
 
         if not os.path.exists(G.mungedPath):
-            print "Creating %s" % G.mungedPath
+            print("Creating %s" % G.mungedPath)
             os.makedirs(G.mungedPath)
         else:
-            print "Found %s" % G.mungedPath
+            print("Found %s" % G.mungedPath)
 
     def process(self):
         '''
@@ -685,7 +664,7 @@ class RunMungers(object):
         '''
         for rtfile in os.listdir(G.rawPath):
             # TODO move this print statement into MungeRTx()
-            #print "  Reading file %s" % rtfile
+            #print("  Reading file %s" % rtfile)
             before=os.path.join(G.rawPath,rtfile)
             after=os.path.join(G.mungedPath,rtfile)+'m'
             if rtfile.endswith('RT1'):
@@ -693,11 +672,11 @@ class RunMungers(object):
             elif rtfile.endswith('RT2'):
                 m=MungeRT2(before)
             else:
-                print "* Skipping unknown file %s" % rtfile
+                print("* Skipping unknown file %s" % rtfile)
                 continue
             recordset=m.munge(before) # a list
             outfile=open(after,'w')
-            print "Writing munged data to %s" % (after)
+            print("Writing munged data to %s" % after)
             for record in recordset:
                 outfile.write(record+'\n')
 
@@ -710,7 +689,7 @@ class CreateDatabase(object):
     '''
     def __init__(self):
         '''DOCSTRING'''
-        print "\n====[ CreateDatabase ]===="
+        print("\n====[ CreateDatabase ]====")
         G.engine=sqlalchemy.create_engine(G.dbUri,echo=False)
         meta=MetaData()
 
@@ -789,17 +768,17 @@ class LoadDatabase(object):
     '''DOCSTRING'''
     def __init__(self):
         '''DOCSTRING'''
-        print "\n====[ LoadDatabase ]===="
+        print("\n====[ LoadDatabase ]====")
 
         # Create a Session object.  In SQLAlchemy terms, this is the ORM's
         # "handle" to the database.
-        G.Session=sessionmaker(bind=G.engine,autoflush=True,transactional=True)
+        G.Session=sessionmaker(bind=G.engine,autoflush=True,autocommit=False)
 
         for rtfile in os.listdir(G.mungedPath):
             if DEBUG:
-                print '[DEBUG] rtfile: %s' % rtfile
+                print('[DEBUG] rtfile: %s' % rtfile)
             rtfilePath=os.path.join(G.mungedPath,rtfile)
-            print 'Reading munged data from %s' % rtfilePath
+            print('Reading munged data from %s' % rtfilePath)
 
             if rtfile.endswith('RT1m'):
                 session=G.Session()
@@ -807,7 +786,6 @@ class LoadDatabase(object):
                     'fename','fetype','fedirs','fraddl','toaddl',
                     'fraddr','toaddr','zipl','zipr',
                     'frlong','frlat','tolong','tolat' ]
-
                 f=file(rtfilePath)
                 for line in f:
                     # make a dictionary of parameter names to parameter values
@@ -833,7 +811,6 @@ class LoadDatabase(object):
                         zipr=d['zipr'],frlong=d['frlong'],
                         frlat=d['frlat'],tolong=d['tolong'],
                         tolat=d['tolat'])
-
                     session.add(rt1obj)
                 session.commit()
 
@@ -841,7 +818,7 @@ class LoadDatabase(object):
                 # load up RecordType2 objects
                 pass
             else:
-                print "Something's broken in LoadDatabase.__init__()!"
+                print("Something's broken in LoadDatabase.__init__()!")
 
 
 class RecordType1(object):
@@ -852,7 +829,7 @@ class RecordType1(object):
         frlong=0,frlat=0,tolong=0,tolat=0):
         '''DOCSTRING'''
 
-        #print "\n====[ RecordType1 ]===="
+        #print("\n====[ RecordType1 ]====")
         self.rt=rt
         self.version=version
         self.tlid=tlid
@@ -889,7 +866,7 @@ class RecordType2(object):
         long9,lat9,long10,lat10):
         '''DOCSTRING'''
 
-        #print "\n====[ RecordType2 ]===="
+        #print("\n====[ RecordType2 ]====")
         self.rtid=rtid
         self.version=version
         self.tlid=tlid
@@ -933,14 +910,14 @@ class MungeRT1(object):
     #def __init__(self,rawIn,mungedOut):
     def __init__(self,rawIn):
         '''DOCSTRING'''
-        print "\n====[ MungeRT1 ]===="
-        print 'Reading raw data from %s' % rawIn
+        print("\n====[ MungeRT1 ]====")
+        print('Reading raw data from %s' % rawIn)
 
     def munge(self,infile):
         '''DOCSTRING'''
         rtnum=1
         if not check_filename(infile,rtnum):
-            print "Error: invalid input %s" % os.path.basename(infile)
+            print("Error: invalid input %s" % os.path.basename(infile))
             sys.exit(1)
         else:
             dat = file(infile, 'r')
@@ -969,9 +946,8 @@ class MungeRT1(object):
 
             # It is an error if any of RT, VERSION, TLID, FRLONG, FRLAT,
             # TOLONG or TOLAT are not present.
-            if not check_required(
-                    (RT, VERSION, TLID, FRLONG, FRLAT, TOLONG, TOLAT)):
-                print "One of the required fields is missing!"
+            if not check_required((RT, VERSION, TLID, FRLONG, FRLAT, TOLONG, TOLAT)):
+                print("One of the required fields is missing!")
                 sys.exit(1)
 
             # TODO Ask the user what field separator they want (one space,
@@ -991,15 +967,15 @@ class MungeRT2(object):
     #def __init__(self,rawIn,mungedOut):
     def __init__(self,rawIn):
         '''DOCSTRING'''
-        print "\n====[ MungeRT2 ]===="
-        print 'Reading raw data from %s' % rawIn
+        print("\n====[ MungeRT2 ]====")
+        print('Reading raw data from %s' % rawIn)
 
 
     def munge(self,infile):
         '''DOCSTRING'''
         rtnum=2
         if not check_filename(infile,rtnum):
-            print "Error: invalid input %s" % os.path.basename(infile)
+            print("Error: invalid input %s" % os.path.basename(infile))
             sys.exit(1)
         else:
             dat = file(infile, 'r')
@@ -1037,7 +1013,7 @@ class MungeRT2(object):
             # are not present.
             #
             if not check_required((RT, VERSION, TLID, RTSQ, LONG1, LAT1)):
-                print "One of the required fields is missing!"
+                print("One of the required fields is missing!")
                 sys.exit(1)
 
             # TODO Ask the user what field separator they want (one space,
@@ -1063,7 +1039,7 @@ class QueryDatabase(object):
 
     def __init__(self):
         '''DOCSTRING'''
-        print "\n====[ QueryDatabase ]===="
+        print("\n====[ QueryDatabase ]====")
         self.session=G.Session()
 
     def getRecordCount(self):
@@ -1108,10 +1084,10 @@ class QueryDatabase(object):
             zipDict[zipStr]=zip[0]
 
         # the data is in zipList; present it to the user
-        print 'Here are the county ZIP codes.  Choose one of them'
-        print 'or (01 None) to use the whole county: '
+        print('Here are the county ZIP codes.  Choose one of them')
+        print('or (01 None) to use the whole county: ')
         for number, zip in zipList:
-            print '%02d %s' % (number, zip)
+            print('%02d %s' % (number, zip))
 
         self.u=UserInput()
         while True:
@@ -1126,8 +1102,8 @@ class QueryDatabase(object):
                 return G.zipCode # gotta return, why not return something? :)
             else:
                 # this is an error; exception thrown if we get here
-                print zipDict
-                print "DEBUG %d not in zipDict?" % zipDict[userIn]
+                print(zipDict)
+                print("DEBUG %d not in zipDict?" % zipDict[userIn])
 
     # TODO I'd like to collapse __rpZip() and __rpAll() and any others into a
     # single method that takes variable arguments.  The problem I'm running
@@ -1169,8 +1145,7 @@ class QueryDatabase(object):
             frlat=float(result['frlat'])
             tolong=float(result['tolong'])
             tolat=float(result['tolat'])
-            tuptotup[(frlong,frlat,tolong,tolat)]= \
-                [(frlong,frlat),(tolong,tolat)]
+            tuptotup[(frlong,frlat,tolong,tolat)] = [(frlong,frlat),(tolong,tolat)]
         return tuptotup
 
     # Here's an example in sqlite3
@@ -1207,7 +1182,7 @@ class MakeGraph(object):
     '''DOCSTRING'''
     def __init__(self):
         '''DOCSTRING'''
-        print "\n====[ MakeGraph ]===="
+        print("\n====[ MakeGraph ]====")
         self.q=QueryDatabase()
 
     def makeGraph(self):
@@ -1241,15 +1216,13 @@ class MakeGraph(object):
             self.G.add_edge(fr,to)
             self.G.pos[(fr,to)]=(fr,to)
             # TODO: if DEBUG?
-#           print "self.G.neighbors(fr) => %s" % self.G.neighbors(fr)
-#           print "self.G.neighbors(to) => %s" % self.G.neighbors(to)
+#           print("self.G.neighbors(fr) => %s" % self.G.neighbors(fr))
+#           print("self.G.neighbors(to) => %s" % self.G.neighbors(to))
 #           print
         networkx.info(self.G)
         # colors: b=blue, w=white, m=magenta, c=cyan, r=red, ...
-        networkx.draw_networkx_nodes(self.G,self.G.pos,node_size=2,
-            node_color='c')
-        networkx.draw_networkx_edges(self.G,self.G.pos,width=0.3,
-            edge_color='r')
+        networkx.draw_networkx_nodes(self.G, self.G.pos, node_size=2, node_color='c')
+        networkx.draw_networkx_edges(self.G, self.G.pos, width=0.3, edge_color='r')
         # Don't get cute here.  Just give me a file name.
         if G.zipCode is None:
             pngname="TGR%s.png" % G.stateCountyCode
@@ -1259,11 +1232,11 @@ class MakeGraph(object):
         # TODO Where to write the file to?  It's going to the working dir
         # right now.
         if not os.path.exists(IMAGES_DIR):
-            print 'Making images dir %s' % IMAGES_DIR
+            print('Making images dir %s' % IMAGES_DIR)
             os.mkdir(IMAGES_DIR)
-        print 'Writing %s ...' % os.path.join(IMAGES_DIR, pngname),
+        print('Writing %s ...' % os.path.join(IMAGES_DIR, pngname)),
         pylab.savefig(os.path.join(IMAGES_DIR, pngname))
-        print 'done\n'
+        print('done\n')
 
     def shortest_path(self,point1,point2):
         '''DOCSTRING'''
@@ -1273,11 +1246,11 @@ class MakeGraph(object):
         point2[0],point2[1]=int(point2[0]),int(point2[1])
         point1=tuple(point1)
         point2=tuple(point2)
-        return networkx.path.shortest_path(self.G,point1,point2)
+        return networkx.shortest_path(self.G,point1,point2)
 
     def get_connected(self):
         '''DOCSTRING'''
-        return networkx.component.connected_components(self.G)[0]
+        return networkx.connected_components(self.G)[0]
 
 
 #

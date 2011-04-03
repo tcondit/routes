@@ -46,22 +46,22 @@ def printHeader(verbose=False):
 
     # What kind of leading information would be useful?  Full path to
     # driver.py?  Timestamp?
-    print '---[ Useful information here ]---'
+    print('---[ Useful information here ]---')
 
     if verbose:
-        print 'Sorry, verbose is not working yet.'
+        print('Sorry, verbose is not working yet.')
     else:
-        print 'Runtime configuration settings:'
+        print('Runtime configuration settings:')
         for k, v in config.items('runtime'):
             # TODO Think about how to compare the values of two dicts here, so
             # I can simply flag those that are changed from one to the other.
-            print '  %s=%s' % (k, v)
-        print 'Development configuration settings:'
+            print('  %s=%s' % (k, v))
+        print('Development configuration settings:')
         for k, v in config.items('dev'):
             # TODO Think about how to compare the values of two dicts here, so
             # I can simply flag those that are changed from one to the other.
-            print '  %s=%s' % (k, v)
-    print '---[ No more useful information here ]---'
+            print('  %s=%s' % (k, v))
+    print('---[ No more useful information here ]---')
 
 
 def model():
@@ -98,7 +98,7 @@ def model():
         elif SIMTYPE == 'compete':
             activate(tx, tx.compete())
         else:
-            print "Error: can't set the simulation type"
+            print("Error: can't set the simulation type")
             import sys; sys.exit()
     #
     # Team 2 - Checker Cab
@@ -115,8 +115,8 @@ def model():
 #    activate(ff, fare)
 #    activate(ff, ff.generate(), datacollector=)
     simulate(until=SIMTIME)
-    print 'waitingFares', [x.name for x in Agent.waitingFares.theBuffer]
-#    print 'allMonitors: %s' % allMonitors
+    print('waitingFares', [x.name for x in Agent.waitingFares.theBuffer])
+#    print('allMonitors: %s' % allMonitors)
 
     # TODO this is the average wait time for all fares.  It's okay as a
     # starting point, but I want two things.  First, I want a breakdown of the
@@ -126,15 +126,14 @@ def model():
     # that is one of the statistics that I want to optimize.
     #
     # TODO [hipri?] figure out where to put this
-#    print '\nMean fare wait time %s, time average %s' % (G.fareMon.mean(),
-#            G.fareMon.timeAverage(now()))
+#    print('\nMean fare wait time %s, time average %s' % (G.fareMon.mean(), G.fareMon.timeAverage(now())))
 
     # TODO how to get this value from the agents/fare.py?
-#    print 'Total number of Fares created: %s' % agents.fare.numFaresCreated
-#    print 'Number of Fares created: %s' % (-1)
-#    print 'Number of Fares that have been serviced: %d' % (-1)
-#    print 'Number of Fares in waiting in buffer at end of simulation: %d' % (-1)
-#    print 'use asserts here!'
+#    print('Total number of Fares created: %s' % agents.fare.numFaresCreated)
+#    print('Number of Fares created: %s' % (-1))
+#    print('Number of Fares that have been serviced: %d' % (-1))
+#    print('Number of Fares in waiting in buffer at end of simulation: %d' % (-1))
+#    print('use asserts here!')
 
 def reportstats():
     '''
@@ -142,33 +141,33 @@ def reportstats():
     simulation run.
     '''
 #    print
-#    print 'WTF are these stats anyway?'
-#    print 'length of waiting Fares buffer at different times:', Agent.waitingFares.bufferMon
-#    print 'getQ:', Agent.waitingFares.getQMon
-#    print 'putQ:', Agent.waitingFares.putQMon
+#    print('WTF are these stats anyway?')
+#    print('length of waiting Fares buffer at different times:', Agent.waitingFares.bufferMon)
+#    print('getQ:', Agent.waitingFares.getQMon)
+#    print('putQ:', Agent.waitingFares.putQMon)
     print
-    #print 'Fare.waitMon:', Fare.waitMon
-    print 'Fare.waitMon.name:', Fare.waitMon.name
-    print 'Fare.waitMon.yseries:', Fare.waitMon.yseries()
-    print '  * yseries: Elapsed time between when the Fare made a request',
-    print 'for pickup, and when the Taxi dropped off the Fare'
-    print 'Fare.waitMon.tseries():', Fare.waitMon.tseries()
-    print '  * tseries: Recorded simtimes when the Taxis dropped off the Fares'
-    print 'Fare.waitMon.total:', Fare.waitMon.total()
-    print '  * total: The total of all times recorded tseries times.  Not',
-    print 'all that useful by itself, but used for calculating the mean.'
-    print 'Fare.waitMon.count:', Fare.waitMon.count()
-    print '  * count: The number of Fares that were picked up and dropped off.'
-    print 'Fare.waitMon.mean:', Fare.waitMon.mean()
-    print '  * mean: The mean of the values.  yseries/count'
-    print 'Fare.waitMon.var:', Fare.waitMon.var()
-    print '  * var: The variance of the values.  All I know for certain is',
-    print 'that the variance is the square of the standard deviation, which',
-    print 'is generally considered a more useful statistic.'
-    print 'Fare.waitMon.stdDeviation:', math.sqrt(Fare.waitMon.var())
-    print '  * stdDeviation: Not part of SimPy.Monitor, but easy to',
-    print "calculate.  It's the square root of the variance."
-    print 'Fare.waitMon.timeAverage:', Fare.waitMon.timeAverage()
+    #print('Fare.waitMon:', Fare.waitMon)
+    print('Fare.waitMon.name:', Fare.waitMon.name)
+    print('Fare.waitMon.yseries:', Fare.waitMon.yseries())
+    print('  * yseries: Elapsed time between when the Fare made a request'),
+    print('for pickup, and when the Taxi dropped off the Fare')
+    print('Fare.waitMon.tseries():', Fare.waitMon.tseries())
+    print('  * tseries: Recorded simtimes when the Taxis dropped off the Fares')
+    print('Fare.waitMon.total:', Fare.waitMon.total())
+    print('  * total: The total of all times recorded tseries times.  Not'),
+    print('all that useful by itself, but used for calculating the mean.')
+    print('Fare.waitMon.count:', Fare.waitMon.count())
+    print('  * count: The number of Fares that were picked up and dropped off.')
+    print('Fare.waitMon.mean:', Fare.waitMon.mean())
+    print('  * mean: The mean of the values.  yseries/count')
+    print('Fare.waitMon.var:', Fare.waitMon.var())
+    print('  * var: The variance of the values.  All I know for certain is'),
+    print('that the variance is the square of the standard deviation, which'),
+    print('is generally considered a more useful statistic.')
+    print('Fare.waitMon.stdDeviation:', math.sqrt(Fare.waitMon.var()))
+    print('  * stdDeviation: Not part of SimPy.Monitor, but easy to'),
+    print("calculate.  It's the square root of the variance.")
+    print('Fare.waitMon.timeAverage:', Fare.waitMon.timeAverage())
 
 def oooh_shiny():
     '''Make a histogram plot of Fare wait times.'''
@@ -181,24 +180,22 @@ def oooh_shiny():
     if USE_GUI:
         from SimPy.SimPlot import SimPlot
         # Include enough bins to make each bar 'histoWidth' time units wide.
-        histo = Fare.waitMon.histogram(low=0.0, high=SIMTIME,
-            nbins=SIMTIME/histoWidth)
+        histo = Fare.waitMon.histogram(low=0.0, high=SIMTIME, nbins=SIMTIME/histoWidth)
         #histo = Fare.waitMon.histogram(low=0.0, high=SIMTIME, nbins=20)
         plt = SimPlot()
         plt.plotHistogram(histo, xlab='Time', ylab='Number of waiting Fares',
             title='Time waiting for Taxi', color='red', width=2)
         plt.mainloop()
     else:
-#        print 'Got here'
+#        print('Got here')
         #Fare.waitMon.printHistogram(histo, xlab='Time', \
         #        ylab='Number of waiting Fares', \
         #        title='Time waiting for Taxi', color='red', width=2)
 #        Fare.waitMon.printHistogram(histo)
         #Fare.waitMon.setHistogram(low=0.0, high=SIMTIME, nbins=20)
-        Fare.waitMon.setHistogram(low=0.0, high=SIMTIME,
-            nbins=SIMTIME/histoWidth)
-        print Fare.waitMon.printHistogram(fmt='%6.4f')
-#    print Agent.waitingFares.theBuffer
+        Fare.waitMon.setHistogram(low=0.0, high=SIMTIME, nbins=SIMTIME/histoWidth)
+        print(Fare.waitMon.printHistogram(fmt='%6.2f'))
+#    print(Agent.waitingFares.theBuffer)
 
 if __name__ == '__main__':
     printHeader()

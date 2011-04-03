@@ -18,7 +18,7 @@ def update_location(point_a, point_b, time_delta):
     xdiff=abs(ax-bx)
     ydiff=abs(ay-by)
     multiplier=(time_delta*1.0)/(xdiff+ydiff)
-    print '[DEBUG] mult: %.4f' % multiplier
+    print '[DEBUG] mult: %.2f' % multiplier
 
     xdelta=round(multiplier*xdiff)
     ydelta=round(multiplier*ydiff)

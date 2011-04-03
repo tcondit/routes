@@ -3,6 +3,7 @@
 # Note: Made this change to permit moving getFips.py to the top level
 # directory along with rename to graphs_driver.py.
 import agents.tigerutils as tigerutils
+import os.path
 
 def run():
     # [DONE] choose the FIPS county file
@@ -26,6 +27,17 @@ def run():
     ui=tigerutils.UserInput()
     ui.getDbEngine()
 
+    # [] if data already loaded into db, skip this step
+    # NB: this fails hard if no db is already created.  Wrap it in a try or
+    # check for the existence of the file first.
+#    sqlPath = os.path.abspath(tigerutils.G.sqlPath)
+#    sqlFile = os.path.abspath(tigerutils.G.sqlPath+tigerutils.G.dbName)
+#    emptySQLiteDBSize = 2048
+#    if (os.path.getsize(sqlFile) > emptySQLiteDBSize):
+#        print("Save a few electrons.  Don't bother creating a new database.")
+#    print("sqlPath: %s" % sqlPath)
+#    print("sqlFile: %s" % sqlFile)
+
     # [RT1 DONE] create the database and add schema
     db=tigerutils.CreateDatabase()
 
@@ -39,11 +51,11 @@ def run():
 
     # TESTING
     gp1=query.get_point()
-    print 'The start query.get_point() is',gp1
+    print('The start query.get_point() is',gp1)
     start_frlong,start_frlat,tolong,tolat=gp1[2:] # skip id and tlid
 
     gp2=query.get_point()
-    print 'The end query.get_point() is',gp2
+    print('The end query.get_point() is',gp2)
     frlong,frlat,end_tolong,end_tolat=gp2[2:] # skip id and tlid
 
     # [TODO] plot the chosen area
@@ -64,12 +76,11 @@ def run():
     # -- and --
     # (-149174638,64285261)->(-149171250,64285006)->(-149169441,64289333)
     #
-    #print "mg.shortest_path:", mg.shortest_path((frlong,frlat),(tolong,tolat))
-    print("mg.shortest_path:",
-            mg.shortest_path((start_frlong,start_frlat),(end_tolong,end_tolat)))
+    #print("mg.shortest_path:", mg.shortest_path((frlong,frlat),(tolong,tolat)))
+    print("mg.shortest_path:", mg.shortest_path((start_frlong,start_frlat),(end_tolong,end_tolat)))
 
     print("calling connected_components")
-    print mg.get_connected()
+    print(mg.get_connected())
 
 if __name__ == '__main__':
     run()
