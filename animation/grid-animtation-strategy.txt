@@ -1,9 +1,0 @@
-grid animation strategy
-~~~~~~~~~~~~~~~~~~~~~~~~
-
-1. draw a 10x10 grid
-2. add an Agent somewhere on the grid, draw again
-3. move the Agent to an adjacent point, draw again
-4. repeat steps 2 and 3 100 times, save figures
-5. make movie
-
