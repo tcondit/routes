@@ -29,7 +29,7 @@ def model_cooperate_FIFO():
     ff = FareFactory()
     activate(ff, ff.generate())
     simulate(until=SIMTIME)
-    print 'waitingFares', [x.name for x in Agent.waitingFares.theBuffer]
+    print('waitingFares', [x.name for x in Agent.waitingFares.theBuffer])
 
 def model_cooperate_closestfare():
     initialize()
@@ -47,7 +47,7 @@ def model_cooperate_closestfare():
     ff = FareFactory()
     activate(ff, ff.generate())
     simulate(until=SIMTIME)
-    print 'waitingFares', [x.name for x in Agent.waitingFares.theBuffer]
+    print('waitingFares', [x.name for x in Agent.waitingFares.theBuffer])
 
 def model_cooperate_mixedmode():
     initialize()
@@ -65,7 +65,7 @@ def model_cooperate_mixedmode():
     ff = FareFactory()
     activate(ff, ff.generate())
     simulate(until=SIMTIME)
-    print 'waitingFares', [x.name for x in Agent.waitingFares.theBuffer]
+    print('waitingFares', [x.name for x in Agent.waitingFares.theBuffer])
 
 
 # The compete NPs
@@ -85,7 +85,7 @@ def model_compete_FIFO():
     ff = FareFactory()
     activate(ff, ff.generate())
     simulate(until=SIMTIME)
-    print 'waitingFares', [x.name for x in Agent.waitingFares.theBuffer]
+    print('waitingFares', [x.name for x in Agent.waitingFares.theBuffer])
 
 def model_compete_closestfare():
     initialize()
@@ -103,7 +103,7 @@ def model_compete_closestfare():
     ff = FareFactory()
     activate(ff, ff.generate())
     simulate(until=SIMTIME)
-    print 'waitingFares', [x.name for x in Agent.waitingFares.theBuffer]
+    print('waitingFares', [x.name for x in Agent.waitingFares.theBuffer])
 
 def model_compete_mixedmode():
     initialize()
@@ -121,7 +121,7 @@ def model_compete_mixedmode():
     ff = FareFactory()
     activate(ff, ff.generate())
     simulate(until=SIMTIME)
-    print 'waitingFares', [x.name for x in Agent.waitingFares.theBuffer]
+    print('waitingFares', [x.name for x in Agent.waitingFares.theBuffer])
 
 
 if __name__ == '__main__':

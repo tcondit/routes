@@ -44,8 +44,8 @@ Note 2: The smallest data file may be Denali county, Alaska: state
     check that everything works end-to-end.
 """
 
-        print greeting
-        print "Run the geographic simulation?"
+        print(greeting)
+        print("Run the geographic simulation?")
 
         ui=tigerutils.UserInput()
         while True:
@@ -53,7 +53,7 @@ Note 2: The smallest data file may be Denali county, Alaska: state
             if confirm=='1':
                 break
             elif confirm=='2':
-                print "Exiting."
+                print("Exiting.")
                 sys.exit(0)
             else:
                 continue # this is redundant but explicit
@@ -98,20 +98,20 @@ Note 2: The smallest data file may be Denali county, Alaska: state
         self.mkgraph=tigerutils.MakeGraph()
         self.mkgraph.makeGraph()
 
-        print """
+        print("""
 As a bonus, we have generated a plot of your chosen area.  It is stored in
 generated/images, but if you want, you can view it now.  Just close the window
 when you're done, and we'll continue.
-"""
-        print "View the generated image? "
+""")
+        print("View the generated image? ")
         ui=tigerutils.UserInput()
         while True:
             confirm=ui.getDigit(1,1,"(1) yes (2) no: ")
             if confirm=='1':
-                print "TODO show the image (low priority)"
+                print("TODO show the image (low priority)")
                 break
             elif confirm=='2':
-                print "Skip the image viewing, and continue with the demo"
+                print("Skip the image viewing, and continue with the demo")
                 break
             else:
                 continue # this is redundant but explicit
@@ -251,15 +251,15 @@ when you're done, and we'll continue.
 
 
 if __name__=='__main__':
-    print "graph.py"
+    print("graph.py")
     g=Graph()
 
-    print "trying g.get_location()..."
+    print("trying g.get_location()...")
     location=g.get_location()
     loc={}
     loc['curr']=(location[0],location[1])
     loc['dest']=(location[2],location[3])
-    print "loc['curr']=", loc['curr']
-    print "loc['dest']=", loc['dest']
+    print("loc['curr']=", loc['curr'])
+    print("loc['dest']=", loc['dest'])
 
-    print "bye"
+    print("bye")

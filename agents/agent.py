@@ -43,7 +43,7 @@ class Agent(Process):
     elif MAP_TYPE=='graph':
         map=Graph()
 
-    print "MAP_TYPE:%s" % MAP_TYPE
+    print("MAP_TYPE:%s" % MAP_TYPE)
 
     def __init__(self, name):
         Process.__init__(self, name)
@@ -53,9 +53,8 @@ class Agent(Process):
 
         self.ts = {}    # timestamps
         self.ts['activation'] = now()
-        print('%.4f\tactivated: [(Agent %s), (location %s)]' %
-            (self.ts['activation'], self.name, self.loc))
+        print('%.4f\tactivated: [(Agent %s), (location %s)]' % (self.ts['activation'], self.name, self.loc))
 
 if __name__ == '__main__':
     a=Agent('Smith')
-    print a.map.get_location()
+    print(a.map.get_location())

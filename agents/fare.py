@@ -67,13 +67,13 @@ class Fare(Agent):
 
         # dropped off [received signal]
         whichTaxi = self.doneSignal.signalparam
-        print '%.4f\t(f) %s was taken by %s' % (now(), self.name, whichTaxi)
+        print('%.4f\t(f) %s was taken by %s' % (now(), self.name, whichTaxi))
 
         # WAIT MONITOR
         #Fare.waitMon.observe((self.ts['dropoff'] - self.ts['mkreq']), now())
         Fare.waitMon.observe(now() - self.ts['mkreq'])
 
-        print "%s -- I'm outta here!" % self.name
+        print("%s -- I'm outta here!" % self.name)
 
 
 class FareFactory(Process):

@@ -110,7 +110,7 @@ class Grid(object):
         # self.loc['dest']=()
         #
         if xdiff+ydiff==0:
-            print 'This Taxi tied with another one but was interrupted!'
+            print('This Taxi tied with another one but was interrupted!')
             return (-1,-1)
 
         multiplier=(time_delta*1.0)/(xdiff+ydiff)

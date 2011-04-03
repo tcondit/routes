@@ -62,10 +62,8 @@ class Taxi(Agent):
             if len(Agent.waitingFares.theBuffer) > 0:
                 if DEBUG:
                     print
-                    print("%.4f %s is looking for an eligible Fare:" % (now(),
-                        self.name))
-                    print(".. waitingFares (pre) ", [x.name for x in
-                        Agent.waitingFares.theBuffer])
+                    print("%.4f %s is looking for an eligible Fare:" % (now(), self.name))
+                    print(".. waitingFares (pre) ", [x.name for x in Agent.waitingFares.theBuffer])
                 taxi_loc = self.loc['curr']
 
                 # Choose a Fare
@@ -78,46 +76,38 @@ class Taxi(Agent):
                 elif self.np == 'mixedmode':
                     yield get, self, Agent.waitingFares, mixedmode_cooperate
                 else:
-                    print "Something broke in the negotiation protocol!"
+                    print("Something broke in the negotiation protocol!")
                 if DEBUG:
-                    print(".. waitingFares (post)", [x.name for x in
-                        Agent.waitingFares.theBuffer])
+                    print(".. waitingFares (post)", [x.name for x in Agent.waitingFares.theBuffer])
                     assert len(self.got) == 1
                 # self.got is a list but we restrict it to a single element
                 # representing the Fare object that was selected by this Taxi
                 fareBeingDriven=self.got[0]
-                print("%.4f\t%s chose %s" % (now(), self.name,
-                    fareBeingDriven.name))
+                print("%.4f\t%s chose %s" % (now(), self.name, fareBeingDriven.name))
 
                 # Drive to Fare
-                drive_dist=self.map.get_distance(fareBeingDriven.loc['curr'],
-                    taxi_loc)
+                drive_dist=self.map.get_distance(fareBeingDriven.loc['curr'], taxi_loc)
 
                 if DEBUG:
-                    print("%.4f\t%s driving to %s" % (now(), self.name,
-                        fareBeingDriven.name))
+                    print("%.4f\t%s driving to %s" % (now(), self.name, fareBeingDriven.name))
                 yield hold, self, drive_dist
 
                 # Pick up Fare
                 self.loc=fareBeingDriven.loc     # tuple
                 if DEBUG:
-                    print("%.4f\t%s arrives to pick up %s" % (now(),
-                        self.name, fareBeingDriven.name))
+                    print("%.4f\t%s arrives to pick up %s" % (now(), self.name, fareBeingDriven.name))
 
                 # Drive to Fare's destination
-                drive_dist=self.map.get_distance(self.loc['dest'],
-                    self.loc['curr'])
+                drive_dist=self.map.get_distance(self.loc['dest'], self.loc['curr'])
 
                 # (minor hack) Collect the expected arrival time so that it
                 # can be reported accurately even if the simulation ends
                 # before arrival.
                 dropoffTime=now()+drive_dist
-                print "%s dropoffTime for %s: %.4f" % (self.name,
-                    fareBeingDriven.name, dropoffTime)
+                print("%s dropoffTime for %s: %.4f" % (self.name, fareBeingDriven.name, dropoffTime))
 
                 if DEBUG:
-                    print("%.4f\t%s driving to %s's destination" % (now(),
-                        self.name, fareBeingDriven.name))
+                    print("%.4f\t%s driving to %s's destination" % (now(), self.name, fareBeingDriven.name))
                 yield hold, self, drive_dist
 
                 # Drop off Fare
@@ -125,12 +115,10 @@ class Taxi(Agent):
                 self.loc['dest'] = ()
 
                 if DEBUG:
-                    print("%.4f\t%s dropping off %s" % (now(), self.name,
-                        fareBeingDriven.name))
+                    print("%.4f\t%s dropping off %s" % (now(), self.name, fareBeingDriven.name))
                 fareBeingDriven.doneSignal.signal(self.name)
             else:
-                print("%.4f\tINFO: %s: There are no eligible Fares for this Taxi." %
-                    (now(), self.name))
+                print("%.4f\tINFO: %s: There are no eligible Fares for this Taxi." % (now(), self.name))
 
                 # Throttle back the flood of messages.
                 #
@@ -194,8 +182,7 @@ class Taxi(Agent):
                     targetFare=self.closestfare_compete()
                     if DEBUG:
                         assert(numAgents==len(Agent.waitingFares.theBuffer))
-                        print("%s targetFare closestfare %s" % (self.name,
-                            targetFare.name))
+                        print("%s targetFare closestfare %s" % (self.name, targetFare.name))
                 elif self.np=='mixedmode':
                     numAgents=len(Agent.waitingFares.theBuffer)
                     targetFare=self.mixedmode_compete()
@@ -203,15 +190,13 @@ class Taxi(Agent):
                         assert(numAgents==len(Agent.waitingFares.theBuffer))
                     if targetFare:
                         if DEBUG:
-                            print("%s targetFare closestfare %s" % (self.name,
-                                targetFare.name))
+                            print("%s targetFare closestfare %s" % (self.name, targetFare.name))
                     else:
                         # Not a lot I can do here, since I don't have a Fare
                         # to compete for.  I should never get here, so this
                         # should be an Error.  For now I'll just throttle back
                         # the flood of messages and move on.
-                        print("%.4f\tINFO: There are no eligible Fares for %s" %
-                            (now(), self.name))
+                        print("%.4f\tINFO: There are no eligible Fares for %s" % (now(), self.name))
                         yield hold, self, 2
                         continue
                 # End choose a Fare
@@ -227,25 +212,21 @@ class Taxi(Agent):
                     # Taxi and Fare are at the same vertex!  drive_dist is 0!
                     drive_dist=0
                 else:
-#                    print('%.4f DEBUG: %s calling get_distance [1]' % (now(),
-#                        self.name))
-                    drive_dist=self.map.get_distance(self.loc['dest'],
-                        self.loc['curr'])
+#                    print('%.4f DEBUG: %s calling get_distance [1]' % (now(), self.name))
+                    drive_dist=self.map.get_distance(self.loc['dest'], self.loc['curr'])
 
                 # This cannot happen.  I need to figure out how to remove
                 # these Graph dead spots before they are added to the
                 # database.
                 if drive_dist is None: # no path from curr to dest
-                    print("INFO: no path from %s to %s" % (self.name,
-                        targetFare.name))
+                    print("INFO: no path from %s to %s" % (self.name, targetFare.name))
                     print("%.4f\t%s is back in service" % (now(), self.name))
                     self.loc['curr']=targetFare.loc['dest']
                     self.loc['dest']=()
                     continue
 
                 # Drive to Fare, try to get there first
-                print("%.4f\t%s competing for %s (drive time %s)" % (now(),
-                    self.name, targetFare.name, drive_dist))
+                print("%.4f\t%s competing for %s (drive time %s)" % (now(), self.name, targetFare.name, drive_dist))
                 yield hold, self, drive_dist
 
                 print("%.4f\t%s arrives at %s's location (drive time %.4f)" %
@@ -261,8 +242,7 @@ class Taxi(Agent):
                 self.loc['dest']=()
 
                 # TEMP DEBUG
-                print("%.4f\t%s trying to get %s" % (now(), self.name,
-                    targetFare.name))
+                print("%.4f\t%s trying to get %s" % (now(), self.name, targetFare.name))
 
                 # HACK HACK - choose a random small float wait time for
                 # reneging.  This is a bit of a hack to get around the fact
@@ -278,11 +258,9 @@ class Taxi(Agent):
 
                 # Got the Fare
                 if len(self.got)>0:
-                    print("%.4f\t%s picked up %s" % (now(), self.name,
-                        self.got[0].name))
+                    print("%.4f\t%s picked up %s" % (now(), self.name, self.got[0].name))
                     self.loc['dest']=targetFare.loc['dest']
-#                   print('%.4f DEBUG: %s calling get_distance [2]' % (now(),
-#                       self.name))
+#                   print('%.4f DEBUG: %s calling get_distance [2]' % (now(), self.name))
                     if self.loc['dest']==self.loc['curr']:
                         # TODO WTF!  Fare's destination is the same as it's
                         # current location???  I need to make sure they are
@@ -291,11 +269,9 @@ class Taxi(Agent):
                         # happen).  This will do in the meantime.
                         drive_dist=0
                     else:
-                        drive_dist=self.map.get_distance(self.loc['dest'],
-                            self.loc['curr'])
+                        drive_dist=self.map.get_distance(self.loc['dest'], self.loc['curr'])
                     if drive_dist is None: # no path from curr to dest
-                        print("INFO: no path from %s to %s" % (self.name,
-                            self.got[0].name))
+                        print("INFO: no path from %s to %s" % (self.name, self.got[0].name))
                         print("%.4f\t%s is back in service" % (now(), self.name))
 #                       self.loc['curr']=self.got[0].loc['dest']
 #                       self.loc['dest']=()
@@ -321,8 +297,7 @@ class Taxi(Agent):
                     self.loc['dest']=()
 
             else:
-                print("%.4f\tINFO: There are no eligible Fares for %s" %
-                    (now(), self.name))
+                print("%.4f\tINFO: There are no eligible Fares for %s" % (now(), self.name))
                 # Throttle back the flood of messages.
                 #
                 # NOTE: I'm using a simple 'yield hold <small-number>' here
@@ -352,11 +327,11 @@ class Taxi(Agent):
             not_a_magic_buffer=Agent.waitingFares.theBuffer
         if DEBUG:
             if buffer==Agent.waitingFares.theBuffer:
-                print 'the buffers are equal'
+                print('the buffers are equal')
             if buffer is Agent.waitingFares.theBuffer:
-                print 'the buffers are the same'
+                print('the buffers are the same')
         if not len(not_a_magic_buffer)>0:
-            print 'Buffer is empty!'
+            print('Buffer is empty!')
             return
         for fare in not_a_magic_buffer:
 
@@ -385,8 +360,7 @@ class Taxi(Agent):
                 d=self.map.get_distance(fare.loc['curr'], self.loc['curr'])
 
             if DEBUG:
-                print("Distance from %s to %s: %.4f" % (self.name, fare.name,
-                    d))
+                print("Distance from %s to %s: %.4f" % (self.name, fare.name, d))
             tmp.append((fare, d))
         tmp2=sorted(tmp, key=itemgetter(1))
         result=map(itemgetter(0), tmp2)[0]
@@ -440,18 +414,16 @@ class Taxi(Agent):
                 # I need to use as many words as it takes
                 # to_make_things_clear.  I can shorten them later, but not
                 # until things are simpler.
-                print "  %.4f\tFare %s broadcast stats:" % (now(), fare.name)
-                print "    range: %s (based on Fare's time in queue)" % broadcastRange
-                print "    time in queue: %.4f" % TIQ
-                print "    distance from Taxi: %.4f" % d
-                print("    Taxi's range: %.2f (= TAXI_RANGE_XXX * GRID_MAX)" %
-                    (taxiRange*GRID_MAX))
-                print "    weight: %.4f\t(= SIMTIME - TIQ)" % weight
-                print "    score: %.4f\t(= weight + distance)" % score
+                print("  %.4f\tFare %s broadcast stats:" % (now(), fare.name))
+                print("    range: %s (based on Fare's time in queue)" % broadcastRange)
+                print("    time in queue: %.4f" % TIQ)
+                print("    distance from Taxi: %.4f" % d)
+                print("    Taxi's range: %.2f (= TAXI_RANGE_XXX * GRID_MAX)" % (taxiRange*GRID_MAX))
+                print("    weight: %.4f\t(= SIMTIME - TIQ)" % weight)
+                print("    score: %.4f\t(= weight + distance)" % score)
             else:
                 print("  %.4f\t%s's broadcast stats: range: %s, time in queue: %.4f, Taxi's range: %.2f, distance from Taxi: %.4f, weight: %.4f, score: %.4f" %
-                    (now(), fare.name, broadcastRange, TIQ,
-                    taxiRange*GRID_MAX, d, weight, score))
+                        (now(), fare.name, broadcastRange, TIQ, taxiRange*GRID_MAX, d, weight, score))
 
         # start of mixedmode_compete()
         tmp = []
@@ -460,7 +432,7 @@ class Taxi(Agent):
         VERBOSE = config.getboolean('runtime', 'verbose')
         # I should never hit this, but it can't hurt to leave it in.
         if not len(Agent.waitingFares.theBuffer) > 0:
-            print 'Buffer is empty!'
+            print('Buffer is empty!')
             return
         for fare in not_a_magic_buffer:
             TIQ = (now() - fare.ts['mkreq'])
@@ -531,8 +503,7 @@ class Taxi(Agent):
                 broadcastRange = 'GLOBAL'
                 if VERBOSE: __printFareDetails(TAXI_RANGE_HI)
                 # NB: Taxi names are not available inside this function
-                print("%.4f pushing (%s, score %.4f) onto list" % (now(),
-                    fare.name, score))
+                print("%.4f pushing (%s, score %.4f) onto list" % (now(), fare.name, score))
                 tmp.append((fare, score))
 
             # Has the Fare been in the queue long enough to be a Regional?
@@ -547,20 +518,17 @@ class Taxi(Agent):
                 # Taxi, and Fare gets added to the queue.
                 if d <= (TAXI_RANGE_MID * GRID_MAX):
                 # NB: Taxi names are not available inside this function
-                    print("%.4f pushing (%s, score %.4f) onto list" % (now(),
-                        fare.name, score))
+                    print("%.4f pushing (%s, score %.4f) onto list" % (now(), fare.name, score))
                     tmp.append((fare, score))
                 else:
                     # Fare's been around long enough for it's broadcast to be
                     # Regional, but this Taxi is not in range.  Break out of
                     # the loop, and evaluate the next Fare.
                     if DEBUG:
-                        print '  %s:' % fare.name,
-                        print 'regional broadcast, but Fare is out of range:',
-                        print("(distance) %.1f > (range) %.1f" % (d,
-                            TAXI_RANGE_MID * GRID_MAX))
+                        print('  %s: regional broadcast, but Fare is out of range:' % fare.name),
+                        print("(distance) %.1f > (range) %.1f" % (d, TAXI_RANGE_MID * GRID_MAX))
                     if (d < (TAXI_RANGE_LOW * GRID_MAX)):
-                        print 'Regional broadcast is broken!'
+                        print('Regional broadcast is broken!')
                     continue
 
             # It's a local broadcast
@@ -570,19 +538,16 @@ class Taxi(Agent):
                 # The Fare has only been in the queue long enough to be a Local
                 if d <= (TAXI_RANGE_LOW  * GRID_MAX):
                     # NB: Taxi names are not available inside this function
-                    print("%.4f pushing (%s, score %.4f) onto list" % (now(),
-                        fare.name, score))
+                    print("%.4f pushing (%s, score %.4f) onto list" % (now(), fare.name, score))
                     tmp.append((fare, score))
                 else:
                     # Local broadcast, but this Taxi is not in range.  Break
                     # out of the loop, and evaluate the next Fare.
                     if DEBUG:
-                        print '  Fare %s:' % fare.name,
-                        print 'local broadcast, but Fare is out of range:',
-                        print("(distance) %.1f > (range) %.1f" % (d,
-                            TAXI_RANGE_LOW * GRID_MAX))
+                        print('  Fare %s: local broadcast, but Fare is out of range:' % fare.name),
+                        print("(distance) %.1f > (range) %.1f" % (d, TAXI_RANGE_LOW * GRID_MAX))
                     if (d < TAXI_RANGE_LOW * GRID_MAX):
-                        print 'Local broadcast is broken!'
+                        print('Local broadcast is broken!')
                     continue
 
         # If I hit the continue every time, it's easy to get here and have
@@ -590,10 +555,9 @@ class Taxi(Agent):
         # that if there's nothing here, the only thing left to do is return.
         if len(tmp) == 0:
             if DEBUG:
-                print "%.4f\tINFO:" % now(),
-                print 'There are no eligible Fares for this Taxi.  Entering getQ...'
-#               print ("%.4f\tINFO: There are no eligible Fares for %s" %
-#                   (now(), self.name))
+                print("%.4f\tINFO:" % now()),
+                print('There are no eligible Fares for this Taxi.  Entering getQ...')
+#                print("%.4f\tINFO: There are no eligible Fares for %s" % (now(), self.name))
             return
 
         tmp2 = sorted(tmp, key=itemgetter(1))
@@ -626,13 +590,13 @@ def closestfare_cooperate(buffer):
     '''
     tmp=[]
     if not len(Agent.waitingFares.theBuffer) > 0:
-        print 'Buffer is empty!'
+        print('Buffer is empty!')
         return
     if DEBUG:
         if buffer==Agent.waitingFares.theBuffer:
-            print 'the buffers are equal'
+            print('the buffers are equal')
         if buffer is Agent.waitingFares.theBuffer:
-            print 'the buffers are the same'
+            print('the buffers are the same')
     for fare in buffer:
         d=Agent.map.get_distance(fare.loc['curr'], taxi_loc)
         if DEBUG:
@@ -680,25 +644,23 @@ def mixedmode_cooperate(buffer):
             #
             # I need to use as many words as it takes to_make_things_clear.  I
             # can shorten them later, but not until things are simpler.
-            print "  %.4f\tFare %s broadcast stats:" % (now(), fare.name)
-            print "    range: %s (based on Fare's time in queue)" % broadcastRange
-            print "    time in queue: %.4f" % TIQ
-            print "    distance from Taxi: %.4f" % d
-            print("    Taxi's range: %.2f (= TAXI_RANGE_XXX * GRID_MAX)" %
-                (taxiRange*GRID_MAX))
-            print "    weight: %.4f\t(= SIMTIME - TIQ)" % weight
-            print "    score: %.4f\t(= weight + distance)" % score
+            print("  %.4f\tFare %s broadcast stats:" % (now(), fare.name))
+            print("    range: %s (based on Fare's time in queue)" % broadcastRange)
+            print("    time in queue: %.4f" % TIQ)
+            print("    distance from Taxi: %.4f" % d)
+            print("    Taxi's range: %.2f (= TAXI_RANGE_XXX * GRID_MAX)" % (taxiRange*GRID_MAX))
+            print("    weight: %.4f\t(= SIMTIME - TIQ)" % weight)
+            print("    score: %.4f\t(= weight + distance)" % score)
         else:
             print("  %.4f\tFare %s broadcast stats: range: %s, time in queue: %.4f, Taxi's range: %.2f, distance from Taxi: %.4f, weight: %.4f, score: %.4f" %
-                (now(), fare.name, broadcastRange, TIQ, taxiRange*GRID_MAX,
-                d, weight, score))
+                (now(), fare.name, broadcastRange, TIQ, taxiRange*GRID_MAX, d, weight, score))
 
     # start of mixedmode_cooperate()
     tmp = []
     VERBOSE = config.getboolean('runtime', 'verbose')
     # I should never hit this, but it can't hurt to leave it in.
     if not len(Agent.waitingFares.theBuffer) > 0:
-        print 'Buffer is empty!'
+        print('Buffer is empty!')
         return
     for fare in buffer:
         TIQ = (now() - fare.ts['mkreq'])
@@ -718,8 +680,7 @@ def mixedmode_cooperate(buffer):
             broadcastRange = 'GLOBAL'
             if VERBOSE: __printFareDetails(TAXI_RANGE_HI)
             # NB: Taxi names are not available inside this function
-            print("%.4f pushing (%s, score %.4f) onto list" % (now(),
-                fare.name, score))
+            print("%.4f pushing (%s, score %.4f) onto list" % (now(), fare.name, score))
             tmp.append((fare, score))
 
         # Has the Fare been in the queue long enough to be a Regional?
@@ -734,20 +695,17 @@ def mixedmode_cooperate(buffer):
             # and Fare gets added to the queue.
             if d <= (TAXI_RANGE_MID * GRID_MAX):
                 # NB: Taxi names are not available inside this function
-                print("%.4f pushing (%s, score %.4f) onto list" % (now(),
-                    fare.name, score))
+                print("%.4f pushing (%s, score %.4f) onto list" % (now(), fare.name, score))
                 tmp.append((fare, score))
             else:
                 # Fare's been around long enough for it's broadcast to be
                 # Regional, but this Taxi is not in range.  Break out of the
                 # loop, and evaluate the next Fare.
                 if DEBUG:
-                    print '  %s:' % fare.name,
-                    print 'regional broadcast, but Fare is out of range:',
-                    print("(distance) %.1f > (range) %.1f" % (d,
-                        TAXI_RANGE_MID * GRID_MAX))
+                    print('  %s: regional broadcast, but Fare is out of range:' % fare.name),
+                    print("(distance) %.1f > (range) %.1f" % (d, TAXI_RANGE_MID * GRID_MAX))
                 if (d < (TAXI_RANGE_LOW * GRID_MAX)):
-                    print 'Regional broadcast is broken!'
+                    print('Regional broadcast is broken!')
                 continue
 
         # It's a local broadcast
@@ -757,19 +715,16 @@ def mixedmode_cooperate(buffer):
             # The Fare has only been in the queue long enough to be a Local
             if d <= (TAXI_RANGE_LOW  * GRID_MAX):
                 # NB: Taxi names are not available inside this function
-                print("%.4f pushing (%s, score %.4f) onto list" % (now(),
-                    fare.name, score))
+                print("%.4f pushing (%s, score %.4f) onto list" % (now(), fare.name, score))
                 tmp.append((fare, score))
             else:
                 # Local broadcast, but this Taxi is not in range.  Break out
                 # of the loop, and evaluate the next Fare.
                 if DEBUG:
-                    print '  %s:' % fare.name,
-                    print 'local broadcast, but Fare is out of range:',
-                    print("(distance) %.1f > (range) %.1f" % (d,
-                        TAXI_RANGE_LOW * GRID_MAX))
+                    print('  %s: local broadcast, but Fare is out of range:' % fare.name),
+                    print("(distance) %.1f > (range) %.1f" % (d, TAXI_RANGE_LOW * GRID_MAX))
                 if (d < TAXI_RANGE_LOW * GRID_MAX):
-                    print 'Local broadcast is broken!'
+                    print('Local broadcast is broken!')
                 continue
 
     # If I hit the continue every time, it's easy to get here and have nothing
@@ -777,8 +732,8 @@ def mixedmode_cooperate(buffer):
     # nothing here, the only thing left to do is return.
     if len(tmp) == 0:
         if DEBUG:
-            print "%.4f\tINFO:" % now(),
-            print "There are no eligible Fares for this Taxi.  Entering getQ..."
+            print("%.4f\tINFO:" % now()),
+            print("There are no eligible Fares for this Taxi.  Entering getQ...")
         return
     tmp2 = sorted(tmp, key=itemgetter(1))
     result = map(itemgetter(0), tmp2)[0]
@@ -803,7 +758,7 @@ if __name__ == '__main__':
     t = Taxi('Terence', 'FIFO')
     #t.cooperate()
     t.compete()
-    print "updating negotiation protocol to 'closestfare' and running again"
+    print("updating negotiation protocol to 'closestfare' and running again")
     t.np = 'closestfare'
     #t.cooperate()
     t.compete()
