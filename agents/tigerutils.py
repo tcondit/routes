@@ -16,9 +16,7 @@ simulations.
 #
 
 import ConfigParser
-import networkx
-import os, os.path
-import pylab
+import os.path
 import random, re
 import shutil, sys
 import sqlalchemy # can I delete this?
@@ -46,6 +44,14 @@ config.read(os.path.join('agents','conf','graphs','overrides.ini'))
 #
 # Late note: I could move these into G().  It wouldn't be consistent with
 # agents, but it's something to consider.
+#
+# Late note 2: if I *do* move them into G(), they'd be accessible in
+# agents/graph.py and agents/grid.py, which would be helpful.  In the
+# meantime, I'll load the config files in agents/graph.py to get at the
+# IMAGES_DIR.
+#
+# Late note 3: maybe I should look at creating class G in agents/graph.py and
+# agents/grid.py instead.  Stay with the polymorphism theme.
 FETCH_COMMAND=os.path.join('agents','bin',config.get('dataprep','fetchCommand'))
 ZIP_COMMAND=os.path.join('agents','bin',config.get('dataprep','zipCommand'))
 FIPS_METADATA_URL=config.get('dataprep','fipsMetadataUrl')
@@ -1174,83 +1180,6 @@ class QueryDatabase(object):
             G.tiger01_Table.c.tolong,
             G.tiger01_Table.c.tolat
             ],G.tiger01_Table.c.id==randomRow)).fetchone()
-
-
-# BIG CAUTION: G in MakeGraph is a NetworkX Graph object.  G in the tigerutils
-# module is a global class for holding variables.
-class MakeGraph(object):
-    '''DOCSTRING'''
-    def __init__(self):
-        '''DOCSTRING'''
-        print("\n====[ MakeGraph ]====")
-        self.q=QueryDatabase()
-
-    def makeGraph(self):
-        '''DOCSTRING'''
-        self.uniqlist=[]
-        # TODO name the graph according to the county code and zipcode if
-        # used.  The generated graphic should be named the same way.
-        self.G=networkx.Graph(name="please work ...")
-        self.G.pos={}
-
-#       for k,v in self.f.tuptotup(zipcode).items():
-#       for k,v in self.f.tuptotup(G.zipCode).items():
-        for k,v in self.q.tuptotup().items():
-
-            # NOTE: it is an error (currently unhandled) if the zipcode is not
-            # found in the database
-            fr=(int(v[0][0]),int(v[0][1]))
-            to=(int(v[1][0]),int(v[1][1]))
-#           fr=(v[0][0],v[0][1])
-#           to=(v[1][0],v[1][1])
-
-            if fr not in self.uniqlist:
-                self.uniqlist.append(fr)
-                self.G.add_node(fr)
-                self.G.pos[fr]=fr
-            if to not in self.uniqlist:
-                self.uniqlist.append(to)
-                self.G.add_node(to)
-                self.G.pos[to]=to
-
-            self.G.add_edge(fr,to)
-            self.G.pos[(fr,to)]=(fr,to)
-            # TODO: if DEBUG?
-#           print("self.G.neighbors(fr) => %s" % self.G.neighbors(fr))
-#           print("self.G.neighbors(to) => %s" % self.G.neighbors(to))
-#           print
-        networkx.info(self.G)
-        # colors: b=blue, w=white, m=magenta, c=cyan, r=red, ...
-        networkx.draw_networkx_nodes(self.G, self.G.pos, node_size=2, node_color='c')
-        networkx.draw_networkx_edges(self.G, self.G.pos, width=0.3, edge_color='r')
-        # Don't get cute here.  Just give me a file name.
-        if G.zipCode is None:
-            pngname="TGR%s.png" % G.stateCountyCode
-        else:
-            pngname="TGR%s_ZIP%s.png" % (G.stateCountyCode, G.zipCode)
-
-        # TODO Where to write the file to?  It's going to the working dir
-        # right now.
-        if not os.path.exists(IMAGES_DIR):
-            print('Making images dir %s' % IMAGES_DIR)
-            os.mkdir(IMAGES_DIR)
-        print('Writing %s ...' % os.path.join(IMAGES_DIR, pngname)),
-        pylab.savefig(os.path.join(IMAGES_DIR, pngname))
-        print('done\n')
-
-    def shortest_path(self,point1,point2):
-        '''DOCSTRING'''
-        point1=list(point1)
-        point2=list(point2)
-        point1[0],point1[1]=int(point1[0]),int(point1[1])
-        point2[0],point2[1]=int(point2[0]),int(point2[1])
-        point1=tuple(point1)
-        point2=tuple(point2)
-        return networkx.shortest_path(self.G,point1,point2)
-
-    def get_connected(self):
-        '''DOCSTRING'''
-        return networkx.connected_components(self.G)[0]
 
 
 #

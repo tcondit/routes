@@ -44,29 +44,26 @@ class RecordType1(object):
     def __init__(self,rt=1,version=0,tlid=0,fedirp=None,fename=None,
     def __repr__(self):
 class RecordType2(object):
-    def __init__(self,rtid,version,tlid,rtsq,long1,lat1,long2,lat2,long3,lat3,
+    def __init__(self,rtid,version,tlid,rtsq,long1,lat1,long2,lat2,
     def __repr__(self):
 class MungeRT1(object):
-    #def __init__(self,rawIn,mungedOut):
     def __init__(self,rawIn):
     def munge(self,infile):
 class MungeRT2(object):
-    #def __init__(self,rawIn,mungedOut):
     def __init__(self,rawIn):
     def munge(self,infile):
 class QueryDatabase(object):
     def __init__(self):
+    def getRecordCount(self):
     def getZipCodes(self):
     def chooseGraphArea(self):
     def __rpZip(self,zip):
     def __rpAll(self):
     def tuptotup(self):
-class MakeGraph(object):
-    def __init__(self):
-    def makeGraph(self):
-    def shortestpath(self,point1,point2):
+    def get_point(self):
+
 def check_filename(filename,rt):
 def check_required(n):
 def decimal(field):
-#def decimal2(field):
+def decimal2(field):
 def field(n,wrap=False):

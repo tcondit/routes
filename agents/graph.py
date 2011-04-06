@@ -6,14 +6,26 @@ simulations.
 This module is activated if mapType is set to 'graph' in
 agents/conf/agent/defaults.ini or overrides.ini.  The graph
 simulations need additional preparation that the grid simulations
-do not.  The bulk of the work is done by the tigerutils module,
-and used by the graph module.
+do not.  Much of the work is done by the tigerutils module, and
+used by the graph module.
 '''
 
 # agents/Graph is polymorphic with agents/Grid
 
+import ConfigParser
+import networkx
+import os, os.path
+import pylab
 import sys
 import tigerutils
+
+# Locate and read the config files
+config=ConfigParser.SafeConfigParser()
+config.read(os.path.join('agents','conf','graphs','defaults.ini'))
+config.read(os.path.join('agents','conf','graphs','overrides.ini'))
+#
+TIGER_SANDBOX=config.get('dataprep','tigerSandbox')
+IMAGES_DIR=os.path.join(TIGER_SANDBOX,'images')
 
 
 class Graph(object):
@@ -94,9 +106,8 @@ Note 2: The smallest data file may be Denali county, Alaska: state
         self.query=tigerutils.QueryDatabase()
         self.query.chooseGraphArea()
 
-        # [DONE] plot the chosen area
-        self.mkgraph=tigerutils.MakeGraph()
-        self.mkgraph.makeGraph()
+        print("\n====[ MakeGraph ]====")
+        self.makeGraph()
 
         print("""
 As a bonus, we have generated a plot of your chosen area.  It is stored in
@@ -117,7 +128,6 @@ when you're done, and we'll continue.
                 continue # this is redundant but explicit
     # end __init__ (finally)
 
-
     def get_location(self):
         '''
         Returns a pair of points (vertices) representing a
@@ -129,13 +139,11 @@ when you're done, and we'll continue.
             point_b=self.get_point()
         return (point_a,point_b)
 
-
     def get_point(self):
         '''
         Generates a two-tuple representing an (x,y) location.
         '''
         return self.__get_vertex()
-
 
     def get_distance(self, here, there):
         '''
@@ -213,7 +221,6 @@ when you're done, and we'll continue.
         norm=lon_dist*coordinateNormalization+lat_dist*coordinateNormalization
         return norm
 
-
     def __get_vertex(self,connected=True):
         '''
         [private] Returns a single (x,y) coordinate point.
@@ -239,7 +246,6 @@ when you're done, and we'll continue.
             fr=(tmp[2:4])
         return fr
 
-
     # I'm no longer using this for the regular compete methods (thanks to a
     # suggestion from Dan Struthers).  If I go on to create courtesy_compete
     # methods, and rename the regular compete methods to cutthroat_compete,
@@ -248,6 +254,68 @@ when you're done, and we'll continue.
     def update_location(self):
         '''DOCSTRING'''
         pass
+
+    def makeGraph(self):
+        '''DOCSTRING'''
+        uniqlist=[]
+        # TODO name the graph according to the county code and zipcode if
+        # used.  The generated graphic should be named the same way.
+        self.graph=networkx.Graph(name="please work ...")
+        self.graph.pos={}
+
+        for k,v in self.query.tuptotup().items():
+
+            # NOTE: it is an error (currently unhandled) if the zipcode is not
+            # found in the database
+            fr=(int(v[0][0]),int(v[0][1]))
+            to=(int(v[1][0]),int(v[1][1]))
+
+            if fr not in uniqlist:
+                uniqlist.append(fr)
+                self.graph.add_node(fr)
+                self.graph.pos[fr]=fr
+            if to not in uniqlist:
+                uniqlist.append(to)
+                self.graph.add_node(to)
+                self.graph.pos[to]=to
+
+            self.graph.add_edge(fr,to)
+            self.graph.pos[(fr,to)]=(fr,to)
+            # TODO: if DEBUG?
+#           print("self.graph.neighbors(fr) => %s" % self.graph.neighbors(fr))
+#           print("self.graph.neighbors(to) => %s" % self.graph.neighbors(to))
+#           print
+        networkx.info(self.graph)
+        # colors: b=blue, w=white, m=magenta, c=cyan, r=red, ...
+        networkx.draw_networkx_nodes(self.graph, self.graph.pos, node_size=2, node_color='c')
+        networkx.draw_networkx_edges(self.graph, self.graph.pos, width=0.3, edge_color='r')
+        # Don't get cute here.  Just give me a file name.
+        g = tigerutils.G()
+        if g.zipCode is None:
+            pngname="TGR%s.png" % g.stateCountyCode
+        else:
+            pngname="TGR%s_ZIP%s.png" % (g.stateCountyCode, g.zipCode)
+
+        if not os.path.exists(IMAGES_DIR):
+            print('Making images dir %s' % IMAGES_DIR)
+            os.mkdir(IMAGES_DIR)
+        print('Writing %s ...' % os.path.join(IMAGES_DIR, pngname)),
+        pylab.savefig(os.path.join(IMAGES_DIR, pngname))
+        print('done\n')
+
+    def shortest_path(self,point1,point2):
+        '''DOCSTRING'''
+        point1=list(point1)
+        point2=list(point2)
+        point1[0],point1[1]=int(point1[0]),int(point1[1])
+        point2[0],point2[1]=int(point2[0]),int(point2[1])
+        point1=tuple(point1)
+        point2=tuple(point2)
+        return networkx.shortest_path(self.graph,point1,point2)
+
+    def get_connected(self):
+        '''DOCSTRING'''
+        return networkx.connected_components(self.graph)[0]
 
 
 if __name__=='__main__':
