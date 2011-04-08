@@ -28,7 +28,6 @@ class Grid(object):
     def __init__(self):
         pass
 
-
     def get_location(self):
         '''
         Returns a pair of points (vertices) representing a
@@ -36,13 +35,12 @@ class Grid(object):
         '''
         return (self.get_point(),self.get_point())
 
-
     def get_point(self, lo=GRID_MIN, hi=GRID_MAX, length=2):
-        '''
-        Generates a two-tuple representing an (x,y) location.
-        '''
-        return self.__get_vertex()
-
+        '''Returns a single (x,y) coordinate point.'''
+        tmp = []
+        for i in range(length):
+            tmp.append(random.randint(lo, hi))
+        return tuple(tmp)
 
     def get_distance(self, point_a, point_b):
         '''
@@ -61,16 +59,6 @@ class Grid(object):
             return abs(point_a[0]-point_b[0])+abs(point_a[1]-point_b[1])
         else:
             return None # error
-
-
-    # private method
-    def __get_vertex(self,lo=GRID_MIN,hi=GRID_MAX,length=2):
-        '''[private] Returns a single (x,y) coordinate point.'''
-        tmp = []
-        for i in range(length):
-            tmp.append(random.randint(lo, hi))
-        return tuple(tmp)
-
 
     # I'm no longer using this for the regular compete methods (thanks to a
     # suggestion from Dan Struthers).  If I go on to create courtesy_compete

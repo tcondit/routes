@@ -139,11 +139,30 @@ when you're done, and we'll continue.
             point_b=self.get_point()
         return (point_a,point_b)
 
-    def get_point(self):
+    def get_point(self, connected=True):
         '''
-        Generates a two-tuple representing an (x,y) location.
+        Returns a single (x,y) coordinate point.
+
+        Parameter connected specifies whether this vertex should
+        come from the first and largest list of nodes.  This is
+        important for the simulation to function properly, since
+        Agents located on unconnected vertices are unreachable.
         '''
-        return self.__get_vertex()
+        tmp=self.query.get_point()
+        if connected is True:
+            connected_vertices=self.get_connected()
+            # I'm not sure what's going on here ...
+            fr=(int(tmp[2]),int(tmp[3]))
+            while fr not in connected_vertices:
+                tmp=self.query.get_point()
+                # ... and here
+                fr=(int(tmp[2]),int(tmp[3]))
+        else:
+            # tmp[0:2] are id and tlid that the Agents don't need
+            # tmp[2:4] are (frlong,frlat)
+            # tmp[4:6] are (tolong,tolat) which are not needed here
+            fr=(tmp[2:4])
+        return fr
 
     def get_distance(self, point_a, point_b):
         '''
@@ -220,31 +239,6 @@ when you're done, and we'll continue.
                 currlat=lastlat=lat
         norm=lon_dist*coordinateNormalization+lat_dist*coordinateNormalization
         return norm
-
-    def __get_vertex(self,connected=True):
-        '''
-        [private] Returns a single (x,y) coordinate point.
-
-        Parameter connected specifies whether this vertex should
-        come from the first and largest list of nodes.  This is
-        important for the simulation to function properly, since
-        Agents located on unconnected vertices are unreachable.
-        '''
-        tmp=self.query.get_point()
-        if connected is True:
-            connected_vertices=self.get_connected()
-            # I'm not sure what's going on here ...
-            fr=(int(tmp[2]),int(tmp[3]))
-            while fr not in connected_vertices:
-                tmp=self.query.get_point()
-                # ... and here
-                fr=(int(tmp[2]),int(tmp[3]))
-        else:
-            # tmp[0:2] are id and tlid that the Agents don't need
-            # tmp[2:4] are (frlong,frlat)
-            # tmp[4:6] are (tolong,tolat) which are not needed here
-            fr=(tmp[2:4])
-        return fr
 
     # I'm no longer using this for the regular compete methods (thanks to a
     # suggestion from Dan Struthers).  If I go on to create courtesy_compete
