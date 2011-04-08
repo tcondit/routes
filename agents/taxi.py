@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 '''The taxi module'''
 
-from operator import itemgetter # itemgegger is new in Python 2.4
+from operator import itemgetter # itemgetter is new in Python 2.4
 from agent import Agent
 import ConfigParser
 import os.path
@@ -664,7 +664,47 @@ def mixedmode_cooperate(buffer):
         return
     for fare in buffer:
         TIQ = (now() - fare.ts['mkreq'])
-        d = Agent.map.get_distance(fare.loc['curr'], taxi_loc)
+
+        # Race condition?  Nope.  Taxi and Fare are at the same location
+        # (again), and I'm fixing it for at least the third time.  This needs
+        # a refactoring.
+        #
+#        print("DEBUG fare.loc['curr']: %s" % str(fare.loc['curr']))
+#        print("DEBUG taxi_loc: %s" % str(taxi_loc))
+        ###
+        # 340.99 pushing (Fare-99, score 414.31) onto list
+        #  Fare-101: local broadcast, but Fare is out of range: (distance) 121.7 > (range) 35.0
+        #340.99 pushing (Fare-102, score 443.31) onto list
+        #  Fare-103: local broadcast, but Fare is out of range: (distance) 75.5 > (range) 35.0
+        #340.99 pushing (Fare-104, score 475.22) onto list
+        #Traceback (most recent call last):
+        #  File "C:\Source\hg\unified-animations\agents_driverdriver.py", line 136, in <module>
+        #    model_cooperate_mixedmode(); print
+        #  File "C:\Source\hg\unified-animations\agents_driverdriver.py", line 67, in model_cooperate_mixedmode
+        #    simulate(until=SIMTIME)
+        #  File "C:\Program Files\Python26\lib\site-packages\simpy-2.0.1-py2.6.egg\SimPy\Globals.py", line 60, in simulate
+        #    return sim.simulate(until = until)
+        #  File "C:\Program Files\Python26\lib\site-packages\simpy-2.0.1-py2.6.egg\SimPy\Simulation.py", line 700, in simulate
+        #
+        #    dispatch[command](a)
+        #  File "C:\Program Files\Python26\lib\site-packages\simpy-2.0.1-py2.6.egg\SimPy\Simulation.py", line 863, in getfunc
+        #    a[0][2]._get(a)
+        #  File "C:\Program Files\Python26\lib\site-packages\simpy-2.0.1-py2.6.egg\SimPy\Lib.py", line 884, in _get
+        #    movCand = filtfunc(self.theBuffer)
+        #  File "C:\Source\hg\unified-animations\agents\taxi.py", line 667, in mixedmode_cooperate
+        #    d = Agent.map.get_distance(fare.loc['curr'], taxi_loc)
+        #  File "C:\Source\hg\unified-animations\agents\graph.py", line 212, in get_distance
+        #    for lon,lat in self.shortest_path(here,there):
+        #TypeError: 'int' object is not iterable
+
+        if taxi_loc==fare.loc['curr']:
+            # Taxi and Fare are at the same vertex!  Short circuit the whole
+            # deal and just take the Fare.
+            print("Taxi and Fare are at the same vertex!")
+            d = 0
+        else:
+            d = Agent.map.get_distance(fare.loc['curr'], taxi_loc)
+
         # TODO [eventually] put the weight and scoring routines into a config
         # file.  Major TK.
         weight = SIMTIME - TIQ
