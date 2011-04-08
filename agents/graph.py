@@ -145,7 +145,7 @@ when you're done, and we'll continue.
         '''
         return self.__get_vertex()
 
-    def get_distance(self, here, there):
+    def get_distance(self, point_a, point_b):
         '''
         Given a pair of coordinates, return the driving distance
         between them.
@@ -209,7 +209,7 @@ when you're done, and we'll continue.
         #TypeError: 'float' object is not iterable
         #
         lon_dist=lat_dist=0
-        for lon,lat in self.shortest_path(here,there):
+        for lon,lat in self.shortest_path(point_a,point_b):
             try:
                 lastlon=currlon
                 lastlat=currlat
@@ -303,15 +303,15 @@ when you're done, and we'll continue.
         pylab.savefig(os.path.join(IMAGES_DIR, pngname))
         print('done\n')
 
-    def shortest_path(self,point1,point2):
+    def shortest_path(self,point_a,point_b):
         '''DOCSTRING'''
-        point1=list(point1)
-        point2=list(point2)
-        point1[0],point1[1]=int(point1[0]),int(point1[1])
-        point2[0],point2[1]=int(point2[0]),int(point2[1])
-        point1=tuple(point1)
-        point2=tuple(point2)
-        return networkx.shortest_path(self.graph,point1,point2)
+        point_a=list(point_a)
+        point_b=list(point_b)
+        point_a[0],point_a[1]=int(point_a[0]),int(point_a[1])
+        point_b[0],point_b[1]=int(point_b[0]),int(point_b[1])
+        point_a=tuple(point_a)
+        point_b=tuple(point_b)
+        return networkx.shortest_path(self.graph,point_a,point_b)
 
     def get_connected(self):
         '''DOCSTRING'''
