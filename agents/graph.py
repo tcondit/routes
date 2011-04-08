@@ -209,7 +209,7 @@ when you're done, and we'll continue.
         #TypeError: 'float' object is not iterable
         #
         lon_dist=lat_dist=0
-        for lon,lat in self.mkgraph.shortest_path(here,there):
+        for lon,lat in self.shortest_path(here,there):
             try:
                 lastlon=currlon
                 lastlat=currlat
@@ -232,7 +232,7 @@ when you're done, and we'll continue.
         '''
         tmp=self.query.get_point()
         if connected is True:
-            connected_vertices=self.mkgraph.get_connected()
+            connected_vertices=self.get_connected()
             # I'm not sure what's going on here ...
             fr=(int(tmp[2]),int(tmp[3]))
             while fr not in connected_vertices:
