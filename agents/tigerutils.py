@@ -772,6 +772,10 @@ class CreateDatabase(object):
 
 class LoadDatabase(object):
     '''DOCSTRING'''
+    # TODO (someday?) It would be great to have the option to reuse existing
+    # databases.  The databases are already named by county.  It shouldn't be
+    # hard to bypass the RTx munging if the file is already there.  If it's
+    # corrupted somehow, just delete the file and start over.
     def __init__(self):
         '''DOCSTRING'''
         print("\n====[ LoadDatabase ]====")
