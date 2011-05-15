@@ -7,56 +7,85 @@ collection of Agents, rather than individuals.  To that end, I need to observe
 more events (state changes).
 
 
-The optimizations
-==================
-I'm going for four optimizations to start:
-1. Taxi utilization (time) // maximize
-    a. MAX time HIRED (per Taxi?)
-        i. total time HIRED / length of simulation
-        ii. same for one Taxi as for all Taxis (I think)
-        iii. total time HIRED: observe span between each pickup and dropoff
-    b. maybe also a ratio of IDLE to HIRED (all Taxis)
-2. Taxi distances traveled (fuel, maintenance)  // minimize
-    a. MIN, MAX average distances as a function of number of Fares delivered
-    (per Taxi? all Taxis?)
-
-3. Fares throughput (number of Fares serviced)  // maximize
-    a. as a function of total number of Fares in the system?
-
-4. Fare wait times  // minimize
-
-
-I should be able to optimize for two at a time.  It's not an optimization to
-maximize or minimize for just one.  On the other hand, optimizing for three or
-four might not be possible.
-
-
-To find optimizations, I need observations (sounds like a tautology but it's
-not).  Which combination of observations below will produce the optimizations
-above?
-
-And what simtype + NP combo is best for each of the following combinations?
-- 1,2
-- 1,4
-- 3,2
-- 3,4
-
-
-
 The signal events
 ==================
 Fares
 ------
-* ENTER when they enter the simulation
-* EXIT  when they exit the simulation
+* ENTER         when they enter the simulation
+* EXIT          when they exit the simulation
 
 Taxis
 ------
-* IDLE          when he's sitting idle              (FOR_HIRE?)
-* GOING_TO_FARE when he's going to pickup a Fare    (GOING_TO_PICKUP?)
-* HIRED         when he's got a Fare                (IN_TRANSIT?, GOING_TO_DEST?)
+* IDLE          when he's sitting idle
+* GOING_TO_FARE when he's going to pickup a Fare
+* HIRED         when he's got a Fare
 
 Note, there's no ENTER or EXIT here
+
+
+The optimizations
+==================
+I'm going for four optimizations to start.  They are intended to be
+"cumulative" in nature, so that no. 2 is influenced by no. 1, no. 3 is
+influenced by nos. 1&2, etc.  As far as possible, data collection should be
+kept within the Taxis.
+
+1. Utilization (time)
+    A. Taxis earn their living by working, rather than sitting idle.  Each
+       Taxi (all Taxis) should maximize HIRED time.
+    B. To calculate utilization for a single Taxi, we need to know his HIRED
+       time and the length of the simulation.  To calculate utilization for
+       all Taxis, we need to know each of their HIRED times and the length of
+       the simulation.
+    C.  To calculate total HIRED time for a single Taxi,
+To calculate total HIRED time for all Taxis,
+
+2. Distances traveled (fuel, maintenance)
+    A. Generally, the less distance traveled, the more money saved.  Each Taxi
+       should minimize distances traveled, while simultaneously maximizing
+       utilization.
+    B. To calculate distances traveled for a single Taxi, we need the total of
+       each leg of his travels.  This may be hard to get.  To calculate
+       distances traveled for all Taxis, we need the total of each leg of all
+       their travels.
+
+3. Number of Fares serviced
+    A. The goal of a Taxi service is to take Fares where they wish to go.
+       This goal should be maximized.
+    B. This value is a single integer, but it may also help to look at the
+       ratio of active Fares to total Fares.
+
+       This tells us how efficiently the Taxis are operating, given a set of
+       constraints.  Say a Taxi is looking for his next Fare.  In general,
+       given the pseudo-random distribution of the incoming Fares, he'll drive
+       less (and therefore optimize for distances traveled) if there are twice
+       as many Fares to choose from.  It's easier to appear to optimize with
+       more resources.  But it's not really optimizing at all.
+    C. In my simulation, a Taxi may prefer a single long Fare rather than
+       several short ones.  In real life, however, Taxis tend to prefer the
+       short Fares because (a) they stay close to their home base, which
+       reduces return times, and (b) Fares pay a "start the meter" fee up
+       front.  This is something that can be exploited, or at least listed as
+       a possible future enhancement.
+    D. To calculate the number of Fares serviced by a single Taxi, we need a
+       Fare dropped-off counter.  To calculate the number of Fares serviced by
+       all Taxis, we need a count of how many Fares each Taxi dropped off.
+    E. To calculate the ratio of active Fares to total Fares, we need to
+       number of active Fares and the total number of Fares that have entered
+       the simulation to that point in the simulation.  This assumes that we
+       can gather rolling totals, which will need to be verified.
+    F. Does it make more sense to report on the rolling total of waiting Fares
+       instead?  Or I could report on number of Fares in the system with in
+       transit Fares stacked on top of waiting Fares in a two-color graph
+       (that would be impressive).
+
+4. Fare wait times
+    A. A well-run Taxi service should pick up and drop off customers quickly
+       and efficiently.  Taxis should minimize Fare wait times, which is the
+       time waiting to be picked up.
+    B. Wait times are the only thing that's recorded from the Fare's point of
+       view.  To get this data, I need the Fare's ENTER time and the Taxi's
+       HIRED time.
 
 
 Signal event calculations
@@ -80,6 +109,14 @@ Combo
 ------
 * delta(HIRED, ENTER) = ...
 * Fare wait times = delta(HIRED - ENTER)
+
+
+
+
+
+
+
+
 
 
 Other signaling possibilities (gotta keep 'em separated!)
