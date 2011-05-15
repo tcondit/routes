@@ -1,23 +1,29 @@
 
-Simulations should provide enough information to find optimizations.
-Generally, this is at the system level.  In other words, the collected
-information pertains to a collection of Agents, rather than individuals.  To
-that end, I need to observe more events (state changes).
+Summary
+========
+Simulations should provide enough information to find optimizations.  This is
+generally at the system level: the collected information pertains to a
+collection of Agents, rather than individuals.  To that end, I need to observe
+more events (state changes).
 
-These are the optimizations I'm going for:
-1. MAX Taxi utilization
+
+The optimizations
+==================
+I'm going for four optimizations to start:
+1. Taxi utilization (time) // maximize
     a. MAX time HIRED (per Taxi?)
         i. total time HIRED / length of simulation
         ii. same for one Taxi as for all Taxis (I think)
         iii. total time HIRED: observe span between each pickup and dropoff
     b. maybe also a ratio of IDLE to HIRED (all Taxis)
-2. MIN Taxi distances traveled (fuel, maintenance)
-    a. MIN, MAX average distances as a function of number of Fares delivered (
-    ...
+2. Taxi distances traveled (fuel, maintenance)  // minimize
+    a. MIN, MAX average distances as a function of number of Fares delivered
+    (per Taxi? all Taxis?)
 
-3. MAX Fares throughput (number of Fares serviced)
+3. Fares throughput (number of Fares serviced)  // maximize
+    a. as a function of total number of Fares in the system?
 
-4. MIN Fare wait times
+4. Fare wait times  // minimize
 
 
 I should be able to optimize for two at a time.  It's not an optimization to
@@ -37,35 +43,60 @@ And what simtype + NP combo is best for each of the following combinations?
 
 
 
-Agents
--------
-* Activation?  Not necessary.  Taxis are active for the whole simulation.
-  Fares can observe their own activations.
-* 
-
+The signal events
+==================
 Fares
 ------
-* When they enter the simulation (ENTER)
-* When they broadcast a request for pickup
-    * global for FIFO and closestFare (BCAST or BROADCAST)
+* ENTER when they enter the simulation
+* EXIT  when they exit the simulation
+
+Taxis
+------
+* IDLE          when he's sitting idle              (FOR_HIRE?)
+* GOING_TO_FARE when he's going to pickup a Fare    (GOING_TO_PICKUP?)
+* HIRED         when he's got a Fare                (IN_TRANSIT?, GOING_TO_DEST?)
+
+Note, there's no ENTER or EXIT here
+
+
+Signal event calculations
+==============================
+Fares
+------
+* ENTER = now()
+* EXIT = now()
+* delta(ENTER, EXIT) = (EXIT - ENTER)
+* Fare throughput = count(EXIT)/count(ENTER)
+    * should be able to get this for small timespans
+
+Taxis
+------
+* total(IDLE) = sim_len - (GOING_TO_FARE+HIRED)
+* total(DISTANCE_TRAVELED) = ...
+* utilization (time) = sim_len - HIRED
+* distances traveled (units) = total(...)
+
+Combo
+------
+* delta(HIRED, ENTER) = ...
+* Fare wait times = delta(HIRED - ENTER)
+
+
+Other signaling possibilities (gotta keep 'em separated!)
+==========================================================
+Fares
+------
+* BROADCAST     when they broadcast a request for pickup
+    * global for FIFO and closestFare (BROADCAST)
     * mixedmode could include local, regional and global broadcasts (LCAST,
       RCAST, GCAST)?
     * If I skip the mixedmode broadcasts, I may as well skip the BROADCASTs
       altogether.  The first one for non-mixedmode is right at ENTER, so it's
       redundant to store more data.
-* If/when they're picked up (PICKED_UP)
-    * NO: taxis do this, and it's called PICK_UP (not PICKED_UP)
-* If/when they're dropped off (DROPPED_OFF)
-    * this is effectively the end for that Fare, so this could be called EXIT
-    * NO: taxis do this, and it's called DROP_OFF (not DROPPED_OFF or EXIT)
 
 Taxis
 ------
-* Activation?  Not necessary.  Taxis are active for the whole simulation.
-* When he's sitting idle (IDLE or FOR_HIRE)
-* When he's on his way to a Fare
-    * cooperate: straightforward (GOING_TO_FARE)
-    * compete: if I try and track competing time, including reneging, things
-      get complicated (COMPETING, (RENEGED, LOST_FARE))?
-* When he's got a Fare (IN_TRANSIT or HIRED)
+* LOST_FARE     when he's lost the Fare (compete only) (RENEGED?)
+    * For now, compete simtypes will simply go from GOING_TO_FARE back to IDLE
+      when they lose a Fare.  Maybe later it'll make sense to consider this.
 
