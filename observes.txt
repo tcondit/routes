@@ -33,9 +33,9 @@ kept within the Taxis.
 1. Utilization (time)
     A. Taxis earn their living by working, rather than sitting idle.  Each
        Taxi (all Taxis) should maximize HIRED time.
-    B. To calculate utilization for a single Taxi, we need to know his HIRED
+    B. To calculate utilization for a single Taxi, I need to know his HIRED
        time and the length of the simulation.  To calculate utilization for
-       all Taxis, we need to know each of their HIRED times and the length of
+       all Taxis, I need to know each of their HIRED times and the length of
        the simulation.
     C. The HIRED time for a single Fare is drive_dist.  Need to sum that for
        all Fares for a given Taxi, and then sum the total for all Taxis.  NB:
@@ -51,8 +51,11 @@ kept within the Taxis.
        compete simtypes.  To calculate distances traveled for all Taxis, we
        need the total of each leg of all their travels.
     C. To calculate the total of each leg of a Taxi's travels I need ... TODO
+       . . .
+       Since this is a cumulative value, I may need a static (class) attribute
+       in agents\taxi.py.
 
-3. Number of Fares serviced
+3. Number of Fares served
     A. The goal of a Taxi service is to take Fares where they wish to go.
        This goal should be maximized.
     B. This value is a single integer, but it may also help to look at the
@@ -69,10 +72,12 @@ kept within the Taxis.
        reduces return times, and (b) Fares pay a "start the meter" fee up
        front.  This is something that can be exploited, or at least listed as
        a possible future enhancement.
-    D. To calculate the number of Fares serviced by a single Taxi, we need a
-       Fare dropped-off counter.  To calculate the number of Fares serviced by
-       all Taxis, we need a count of how many Fares each Taxi dropped off.
-    E. To calculate the ratio of active Fares to total Fares, we need to
+    D. To calculate the number of Fares served by a single Taxi, I need a Fare
+       dropped-off counter.  To calculate the number of Fares served by all
+       Taxis, I need a count of how many Fares each Taxi dropped off.  Since
+       this is a cumulative value, I may need a static (class) attribute in
+       agents\taxi.py.
+    E. To calculate the ratio of active Fares to total Fares, I need to
        number of active Fares and the total number of Fares that have entered
        the simulation to that point in the simulation.  This assumes that we
        can gather rolling totals, which will need to be verified.

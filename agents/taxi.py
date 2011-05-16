@@ -38,7 +38,10 @@ taxi_loc = ()
 
 class Taxi(Agent):
     '''Taxis are Agents (which are SimPy processes).'''
-    hiredMon = Monitor('All Taxis total HIRED time')
+    hiredMon = Monitor('All Taxis total utilization time')
+    travelMon = Monitor('All Taxis total distance traveled')
+    fareMon = Monitor('All Taxis total number of Fares served')
+    fareCount = 0
 
     def __init__(self, name, np): # negotiation protocol
         '''DOCSTRING'''
@@ -90,6 +93,8 @@ class Taxi(Agent):
                 # self.got is a list but we restrict it to a single element
                 # representing the Fare object that was selected by this Taxi
                 fareBeingDriven=self.got[0]
+                Taxi.fareCount += 1
+                Taxi.fareMon.observe(Taxi.fareCount)
                 print("%.2f\t%s chose %s" % (now(), self.name, fareBeingDriven.name))
 
                 # 2: Drive to Fare (transition to GOING_TO_FARE)
@@ -291,6 +296,8 @@ class Taxi(Agent):
 
                     # BUGBUG this was missing from compete() !!
                     targetFare.doneSignal.signal(self.name)
+                    Taxi.fareCount += 1
+                    Taxi.fareMon.observe(Taxi.fareCount)
 
                     print("%.2f\t%s is back in service" % (now(), self.name))
                     self.loc['curr']=targetFare.loc['dest']
