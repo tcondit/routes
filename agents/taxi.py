@@ -220,6 +220,7 @@ class Taxi(Agent):
                 else:
 #                    print('%.2f DEBUG: %s calling get_distance [1]' % (now(), self.name))
                     drive_dist=self.map.get_distance(self.loc['dest'], self.loc['curr'])
+                    Taxi.hiredMon.observe(drive_dist)
 
                 # This cannot happen.  I need to figure out how to remove
                 # these Graph dead spots before they are added to the
