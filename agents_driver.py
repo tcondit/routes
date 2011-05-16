@@ -31,8 +31,6 @@ if TRACING:
 else:
     from SimPy.Simulation import *
 
-mon = Monitor('All fares wait time')
-
 def printHeader(verbose=False):
     '''
     Print all the configuration data for this specific simulation
@@ -40,9 +38,6 @@ def printHeader(verbose=False):
 
     Useful for ensuring we're comparing apples to apples.
     '''
-
-    # TODO [later] Flag items that are changed from the default, or
-    # (conversely, but basically equivalently), flag default items.
 
     # What kind of leading information would be useful?  Full path to
     # driver.py?  Timestamp?
@@ -78,7 +73,6 @@ def model():
     '''
     initialize()
     random.seed(SEED)
-#    random.seed(333777)
 
 #    # Create Fares prior to starting the simulation.  Now a TK.
 #    for j in range(1,NUM_FARES):
@@ -116,36 +110,12 @@ def model():
 #    activate(ff, ff.generate(), datacollector=)
     simulate(until=SIMTIME)
     print('waitingFares', [x.name for x in Agent.waitingFares.theBuffer])
-#    print('allMonitors: %s' % allMonitors)
-
-    # TODO this is the average wait time for all fares.  It's okay as a
-    # starting point, but I want two things.  First, I want a breakdown of the
-    # two times fareRequest to pickup, and pickup to dropoff.  Second, I want
-    # to break it down either by Fare, or, if that turns out to not offer
-    # anything interesting, AT LEAST I want to get at the variance, because
-    # that is one of the statistics that I want to optimize.
-    #
-    # TODO [hipri?] figure out where to put this
-#    print('\nMean fare wait time %s, time average %s' % (G.fareMon.mean(), G.fareMon.timeAverage(now())))
-
-    # TODO how to get this value from the agents/fare.py?
-#    print('Total number of Fares created: %s' % agents.fare.numFaresCreated)
-#    print('Number of Fares created: %s' % (-1))
-#    print('Number of Fares that have been serviced: %d' % (-1))
-#    print('Number of Fares in waiting in buffer at end of simulation: %d' % (-1))
-#    print('use asserts here!')
 
 def reportstats():
     '''
     A summary report of various statistics for the current
     simulation run.
     '''
-#    print
-#    print('WTF are these stats anyway?')
-#    print('length of waiting Fares buffer at different times:', Agent.waitingFares.bufferMon)
-#    print('getQ:', Agent.waitingFares.getQMon)
-#    print('putQ:', Agent.waitingFares.putQMon)
-    print
     #print('Fare.waitMon:', Fare.waitMon)
     print('Fare.waitMon.name:', Fare.waitMon.name)
     print('Fare.waitMon.yseries:', Fare.waitMon.yseries())
@@ -172,10 +142,6 @@ def reportstats():
 def oooh_shiny():
     '''Make a histogram plot of Fare wait times.'''
 
-    # TODO [hipri] Add this into the main proggy.  Use config switch 'useGUI'
-    # to decide whether to use SimPlot/plotHistogram, or just printHistogram.
-    # There is no reason to leave that important data out, even though I don't
-    # always want to incur the cost/hassle of producing a GUI.
     histoWidth=10
     if USE_GUI:
         from SimPy.SimPlot import SimPlot
@@ -187,15 +153,14 @@ def oooh_shiny():
 #               title='Time waiting for Taxi', color='red', width=2)
         plt.mainloop()
     else:
-#        print('Got here')
         #Fare.waitMon.printHistogram(histo, xlab='Time', \
         #        ylab='Number of waiting Fares', \
         #        title='Time waiting for Taxi', color='red', width=2)
-#        Fare.waitMon.printHistogram(histo)
+        #Fare.waitMon.printHistogram(histo)
         #Fare.waitMon.setHistogram(low=0.0, high=SIMTIME, nbins=20)
         Fare.waitMon.setHistogram(low=0.0, high=SIMTIME, nbins=SIMTIME/histoWidth)
         print(Fare.waitMon.printHistogram(fmt='%6.2f'))
-#    print(Agent.waitingFares.theBuffer)
+    #print(Agent.waitingFares.theBuffer)
 
 if __name__ == '__main__':
     printHeader()

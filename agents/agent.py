@@ -32,9 +32,6 @@ class Agent(Process):
     # apparently won't be static).
     waiting=[]
     waitingFares=Store(capacity=STORECAP, initialBuffered=waiting)
-    # I think this Monitor is used for ...
-#    waitingFares = Store(capacity=STORECAP, initialBuffered=waiting,
-#            monitored=True, monitorType=Monitor)
 
     # These are class attributes so that the SimPy filter functions
     # closestfare_cooperate and mixedmode_cooperate in Taxi.py can use them
