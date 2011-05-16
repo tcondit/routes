@@ -38,6 +38,8 @@ taxi_loc = ()
 
 class Taxi(Agent):
     '''Taxis are Agents (which are SimPy processes).'''
+    hiredMon = Monitor('All Taxis total HIRED time')
+
     def __init__(self, name, np): # negotiation protocol
         '''DOCSTRING'''
         Agent.__init__(self, name)
@@ -66,7 +68,12 @@ class Taxi(Agent):
                     print(".. waitingFares (pre) ", [x.name for x in Agent.waitingFares.theBuffer])
                 taxi_loc = self.loc['curr']
 
-                # Choose a Fare
+                # 1: Choose a Fare (no representation in observes.txt?)
+                #
+                # When yield is called in a cooperate simtype, the Fare is
+                # removed from the wait queue, and essentially "reserved for
+                # pickup" by this Taxi.  The Taxi is GOING_TO_FARE (see
+                # observes.txt), and both are unavailable.
                 if self.np == 'FIFO':
                     yield get, self, Agent.waitingFares, 1
                 elif self.np == 'closestfare':
@@ -85,35 +92,34 @@ class Taxi(Agent):
                 fareBeingDriven=self.got[0]
                 print("%.2f\t%s chose %s" % (now(), self.name, fareBeingDriven.name))
 
-                # Drive to Fare
+                # 2: Drive to Fare (transition to GOING_TO_FARE)
                 drive_dist=self.map.get_distance(fareBeingDriven.loc['curr'], taxi_loc)
-
                 if DEBUG:
                     print("%.2f\t%s driving to %s" % (now(), self.name, fareBeingDriven.name))
                 yield hold, self, drive_dist
 
-                # Pick up Fare
+                # 3: Pick up Fare (transition to HIRED)
                 self.loc=fareBeingDriven.loc     # tuple
                 if DEBUG:
                     print("%.2f\t%s arrives to pick up %s" % (now(), self.name, fareBeingDriven.name))
 
-                # Drive to Fare's destination
+                # 4: Drive to Fare's destination (HIRED)
                 drive_dist=self.map.get_distance(self.loc['dest'], self.loc['curr'])
+                Taxi.hiredMon.observe(drive_dist)
 
+                # 5: Drop Fare at destination (transition to IDLE)
+                #
                 # (minor hack) Collect the expected arrival time so that it
                 # can be reported accurately even if the simulation ends
                 # before arrival.
                 dropoffTime=now()+drive_dist
                 print("%s dropoffTime for %s: %.2f" % (self.name, fareBeingDriven.name, dropoffTime))
-
                 if DEBUG:
                     print("%.2f\t%s driving to %s's destination" % (now(), self.name, fareBeingDriven.name))
                 yield hold, self, drive_dist
-
                 # Drop off Fare
                 self.loc['curr'] = fareBeingDriven.loc['dest']
                 self.loc['dest'] = ()
-
                 if DEBUG:
                     print("%.2f\t%s dropping off %s" % (now(), self.name, fareBeingDriven.name))
                 fareBeingDriven.doneSignal.signal(self.name)

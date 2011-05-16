@@ -37,30 +37,32 @@ kept within the Taxis.
        time and the length of the simulation.  To calculate utilization for
        all Taxis, we need to know each of their HIRED times and the length of
        the simulation.
-    C.  To calculate total HIRED time for a single Taxi,
-To calculate total HIRED time for all Taxis,
+    C. The HIRED time for a single Fare is drive_dist.  Need to sum that for
+       all Fares for a given Taxi, and then sum the total for all Taxis.  NB:
+       drive_dist is a time.  To convert (back) to distance, I'll need to dig
+       into get_distance() in agents\graph.py.
 
 2. Distances traveled (fuel, maintenance)
     A. Generally, the less distance traveled, the more money saved.  Each Taxi
-       should minimize distances traveled, while simultaneously maximizing
-       utilization.
-    B. To calculate distances traveled for a single Taxi, we need the total of
-       each leg of his travels.  This may be hard to get.  To calculate
-       distances traveled for all Taxis, we need the total of each leg of all
-       their travels.
+       should minimize distances traveled (GOING_TO_FARE), while maximizing
+       utilization (HIRED).
+    B. To calculate distances traveled for a single Taxi, I need the total of
+       each leg of his travels.  This may be hard to get, particularly for the
+       compete simtypes.  To calculate distances traveled for all Taxis, we
+       need the total of each leg of all their travels.
+    C. To calculate the total of each leg of a Taxi's travels I need ... TODO
 
 3. Number of Fares serviced
     A. The goal of a Taxi service is to take Fares where they wish to go.
        This goal should be maximized.
     B. This value is a single integer, but it may also help to look at the
-       ratio of active Fares to total Fares.
-
-       This tells us how efficiently the Taxis are operating, given a set of
-       constraints.  Say a Taxi is looking for his next Fare.  In general,
-       given the pseudo-random distribution of the incoming Fares, he'll drive
-       less (and therefore optimize for distances traveled) if there are twice
-       as many Fares to choose from.  It's easier to appear to optimize with
-       more resources.  But it's not really optimizing at all.
+       ratio of active Fares to total Fares.  This tells us how efficiently
+       the Taxis are operating, given a set of constraints.  Say a Taxi is
+       looking for his next Fare.  In general, given the pseudo-random
+       distribution of the incoming Fares, he'll drive less (and therefore
+       optimize for distances traveled) if there are twice as many Fares to
+       choose from.  It's easier to appear to optimize with more resources.
+       But it's not really optimizing at all.
     C. In my simulation, a Taxi may prefer a single long Fare rather than
        several short ones.  In real life, however, Taxis tend to prefer the
        short Fares because (a) they stay close to their home base, which
