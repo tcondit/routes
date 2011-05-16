@@ -37,7 +37,7 @@ class Fare(Agent):
     '''
     # TODO [hipri] Monitor the time between when the fare was requested and
     # when the Fare was dropped off.  ylab should be ...
-    waitMon=Monitor('All Fares total wait time')
+    waitMon=Monitor('All Fares total wait time', tlab='simulation steps', ylab='Fare wait times')
     def __init__(self, name):
         '''DOCSTRING'''
         Agent.__init__(self, name)

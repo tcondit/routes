@@ -38,9 +38,9 @@ taxi_loc = ()
 
 class Taxi(Agent):
     '''Taxis are Agents (which are SimPy processes).'''
-    hiredMon = Monitor('All Taxis total utilization time')
-    travelMon = Monitor('All Taxis total distance traveled')
-    fareMon = Monitor('All Taxis total number of Fares served')
+    hiredMon = Monitor('All Taxis total utilization time', tlab='simulation steps', ylab='in-service times')
+    travelMon = Monitor('All Taxis total distance traveled', tlab='simulation steps', ylab='distance')
+    fareMon = Monitor('All Taxis total number of Fares served', tlab='simulation steps', ylab='current Fares served')
     fareCount = 0
 
     def __init__(self, name, np): # negotiation protocol
