@@ -145,8 +145,9 @@ def oooh_shiny():
         # Include enough bins to make each bar 'histoWidth' time units wide.
         #histo = Fare.waitMon.histogram(low=0.0, high=SIMTIME, nbins=SIMTIME/histoWidth)
         plt = SimPlot()
+        plt.plotStep(Fare.waitMon, width=2, color="blue")
 #        plt.plotStep(Taxi.hiredMon, width=2, color="blue")
-        plt.plotStep(Taxi.fareMon, width=2, color="blue")
+#        plt.plotStep(Taxi.fareMon, width=2, color="blue")
 #        plt.plotHistogram(histo, xlab='Time', ylab='Number of waiting Fares',
 #               title='Time waiting for Taxi', color='red', width=2)
         plt.mainloop()
