@@ -1,8 +1,9 @@
-#LyX 1.5.6 created this file. For more info see http://www.lyx.org/
-\lyxformat 276
+#LyX 1.6.10 created this file. For more info see http://www.lyx.org/
+\lyxformat 345
 \begin_document
 \begin_header
 \textclass report
+\use_default_options false
 \language english
 \inputencoding latin9
 \font_roman default
@@ -13,9 +14,11 @@
 \font_osf false
 \font_sf_scale 100
 \font_tt_scale 100
+
 \graphics default
 \paperfontsize default
 \spacing double
+\use_hyperref false
 \papersize default
 \use_geometry false
 \use_amsmath 0
@@ -49,14 +52,14 @@ Introduction
 \begin_inset Note Comment
 status open
 
-\begin_layout Standard
+\begin_layout Plain Layout
 Is there supposed to be a t in 
 \backslash
 citetalias?
 \begin_inset ERT
 status open
 
-\begin_layout Standard
+\begin_layout Plain Layout
 
 
 \backslash
@@ -79,80 +82,124 @@ Routes is a simulation of a taxi service.
 \end_layout
 
 \begin_layout Standard
-\paragraph_spacing double
-THIS IS A TEST.
-\begin_inset LatexCommand cite
-key "barth1999smp"
+Taxi services have operated the same way for many years.
+ Wherever they operate, it is common to get a ride by flagging down a taxi
+ from the side of the road.
+ Most taxi companies also have dispatchers who will arrange pickup at a
+ later time.
+\begin_inset Foot
+status open
+
+\begin_layout Plain Layout
+A notable exception is New York City, where a fare cannot be prearranged.
+ Only for-hire vehicles such as livery cars or limousines may prearrange
+ pickup.
+\begin_inset CommandInset href
+LatexCommand href
+name "Understanding the For-Hire Vehicle Industry"
+target "http://www.nyc.gov/html/tlc/downloads/pdf/fhv_base_fact_sheet.pdf"
+
+\end_inset
+
+
+\begin_inset CommandInset href
+LatexCommand href
+name "How can I pre-arrange a trip in a Yellow Cab?"
+target "http://www.nyc.gov/html/tlc/html/passenger/faq_pass.shtml#14"
 
 \end_inset
 
 
 \end_layout
 
-\begin_layout Standard
-\paragraph_spacing double
-THIS IS A TEST.
-\begin_inset LatexCommand cite
-key "davidsson2005aab"
+\end_inset
+
+ Taxi services are subject to extensive regulation, and are in some ways
+ similar to a public utility.
+\begin_inset Foot
+status open
+
+\begin_layout Plain Layout
+This site documents legal actions and taxi regulations all over the world:
+\begin_inset CommandInset href
+LatexCommand href
+name "Regulation of Taxicabs"
+target "http://www.taxi-library.org/regulation.htm"
 
 \end_inset
 
 
 \end_layout
 
-\begin_layout Standard
-\paragraph_spacing double
-THIS IS A TEST.
-\begin_inset LatexCommand cite
-key "france2003mso"
-
 \end_inset
 
-
+ For example, the rates charged by municipal taxi services are often set
+ by the city or county in which the taxis operate.
+ This means that among other things, they cannot compete on price, since
+ they are all forced to charge the same rates for the same trips.
 \end_layout
 
 \begin_layout Standard
-\paragraph_spacing double
-THIS IS A TEST.
-\begin_inset LatexCommand cite
-key "10.1109/HICSS.2001.926331"
-
-\end_inset
-
-
+The simulations presented in this paper have none of these restrictions.
+ They are closer to a loose confederation of independent drivers than to
+ a highly regulated municipal utility.
+ They are missing a couple key features of terrestrial taxis.
+ First, they cannot be flagged down for a pickup.
+ If they are not on their way to pick up a Fare, or driving the Fare to
+ it's destination, they are not moving.
+ Second, they do not have a dispatcher.
+ This is a key component.
+ They operate in a distributed fashion, with the Fare initiating contact
+ with the Taxis directly, and - in the cooperative simulations anyway -
+ the Taxis communicating amongst themselves about which one will pick up
+ a given Fare.
 \end_layout
 
 \begin_layout Standard
-\paragraph_spacing double
-THIS IS A TEST.
-\begin_inset LatexCommand cite
-key "horn2002fsa"
+They ask and try to answer the following questions:
+\end_layout
 
-\end_inset
+\begin_layout Itemize
+Is a distributed Taxi system technically feasible, at least conceptually?
+ How would it work?
+\end_layout
 
+\begin_layout Itemize
+How would the dynamic change when Agents (Fares and Taxis) communicate with
+ each other directly?
+\end_layout
 
+\begin_layout Itemize
+Would a Fare be willing to wait a little longer for a better price? (This
+ implies that the now hidden cost of driving to a Fare is explicitly included
+ in the cost of the fare, since without the cost of making the pickup there
+ is no chance to earn the revenue of the trip.)
+\end_layout
+
+\begin_layout Itemize
+What would happen if both the Taxi and the Fare had to be satisfied that
+ the trip was worthwhile? And what if as a result of these constraints,
+ some Fares get no service?
+\end_layout
+
+\begin_layout Itemize
+What would happen if Taxis had to compete for Fares with their fellows?
+ Would this improve service for all? Or would a cooperative model work better
+ at the team or organization level?
+\end_layout
+
+\begin_layout Itemize
+What would happen if two teams of Taxis competed with each other? In other
+ words, the Taxis of two teams A and B would coordinate Fare pickup amongst
+ themselves, but they’d be competing with the other team, and will lose
+ some of the Fares.
+ Would the results be much different at the system level than what happens
+ when it’s “every man for himself”?
 \end_layout
 
 \begin_layout Standard
-\paragraph_spacing double
-THIS IS A TEST.
-\begin_inset LatexCommand cite
-key "roozemond2000act"
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Standard
-\paragraph_spacing double
-THIS IS A TEST.
-\begin_inset LatexCommand cite
-key "wu2003umf"
-
-\end_inset
-
-
+The other thing this paper is doing is exploring the use of autonomous agents.
+ [Rewrite that.] 
 \end_layout
 
 \begin_layout Standard
@@ -202,27 +249,22 @@ Donec odio nibh, varius in, dictum nec, egestas in, nisl.
  Suspendisse ultrices sollicitudin nunc.
 \end_layout
 
-\begin_layout Standard
-\paragraph_spacing double
-TEST introduction.
-\end_layout
-
 \begin_layout Itemize
 \paragraph_spacing double
 The study and development of software agents as a separate discipline is
  becoming more common.
- As the
+ As the ...
 \end_layout
 
 \begin_layout Itemize
 \paragraph_spacing double
-There are a wide variety of ways in which agents may be configured to 
+There are a wide variety of ways in which agents may be configured to ...
 \end_layout
 
 \begin_layout Itemize
 \paragraph_spacing double
 in which the interoperating of autonomous agents may benefit each other
- (for a given value system) and their
+ (for a given value system) and their ...
 \end_layout
 
 \begin_layout Itemize
@@ -230,7 +272,7 @@ in which the interoperating of autonomous agents may benefit each other
 \begin_inset Note Comment
 status open
 
-\begin_layout Standard
+\begin_layout Plain Layout
 TODO: Use 
 \begin_inset Quotes eld
 \end_inset
@@ -261,7 +303,7 @@ set the stage
 \begin_inset Note Comment
 status open
 
-\begin_layout Standard
+\begin_layout Plain Layout
 cite: http://en.wikipedia.org/wiki/Multi-agent_system, accessed 1/11/2009
 \end_layout
 
