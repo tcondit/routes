@@ -40,8 +40,15 @@ class Taxi(Agent):
     '''Taxis are Agents (which are SimPy processes).'''
     hiredMon = Monitor('All Taxis total utilization time', tlab='simulation steps', ylab='in-service times')
     travelMon = Monitor('All Taxis total distance traveled', tlab='simulation steps', ylab='distance')
+
     fareMon = Monitor('All Taxis total number of Fares served', tlab='simulation steps', ylab='current Fares served')
     fareCount = 0
+
+    wonFareMon = Monitor('Competing Taxis total number of Fares won', tlab='simulation steps', ylab='Fares won')
+    wonFareCount = 0
+
+    lostFareMon = Monitor('Competing Taxis total number of Fares lost', tlab='simulation steps', ylab='Fares lost')
+    lostFareCount = 0
 
     def __init__(self, name, np): # negotiation protocol
         '''DOCSTRING'''
@@ -99,6 +106,7 @@ class Taxi(Agent):
 
                 # 2: Drive to Fare (transition to GOING_TO_FARE)
                 drive_dist=self.map.get_distance(fareBeingDriven.loc['curr'], taxi_loc)
+                Taxi.travelMon.observe(drive_dist)
                 if DEBUG:
                     print("%.2f\t%s driving to %s" % (now(), self.name, fareBeingDriven.name))
                 yield hold, self, drive_dist
@@ -111,6 +119,7 @@ class Taxi(Agent):
                 # 4: Drive to Fare's destination (HIRED)
                 drive_dist=self.map.get_distance(self.loc['dest'], self.loc['curr'])
                 Taxi.hiredMon.observe(drive_dist)
+                Taxi.travelMon.observe(drive_dist)
 
                 # 5: Drop Fare at destination (transition to IDLE)
                 #
@@ -226,6 +235,9 @@ class Taxi(Agent):
 #                    print('%.2f DEBUG: %s calling get_distance [1]' % (now(), self.name))
                     drive_dist=self.map.get_distance(self.loc['dest'], self.loc['curr'])
                     Taxi.hiredMon.observe(drive_dist)
+                    # Total distance traveled with compete() may be hard to
+                    # get.  Go for number of lost Fares instead.
+                    #Taxi.travelMon.observe(drive_dist)
 
                 # This cannot happen.  I need to figure out how to remove
                 # these Graph dead spots before they are added to the
@@ -272,6 +284,8 @@ class Taxi(Agent):
                 if len(self.got)>0:
                     print("%.2f\t%s picked up %s" % (now(), self.name, self.got[0].name))
                     self.loc['dest']=targetFare.loc['dest']
+                    Taxi.wonFareCount+=1
+                    Taxi.wonFareMon.observe(Taxi.wonFareCount)
 #                   print('%.2f DEBUG: %s calling get_distance [2]' % (now(), self.name))
                     if self.loc['dest']==self.loc['curr']:
                         # TODO WTF!  Fare's destination is the same as it's
@@ -309,6 +323,8 @@ class Taxi(Agent):
                     print("%.2f\t%s lost %s" % (now(), self.name, targetFare.name))
                     print("%.2f\t%s back in service" % (now(), self.name))
                     self.loc['dest']=()
+                    Taxi.lostFareCount+=1
+                    Taxi.lostFareMon.observe(Taxi.lostFareCount)
 
             else:
                 print("%.2f\tINFO: There are no eligible Fares for %s" % (now(), self.name))

@@ -9,6 +9,13 @@ from agents.fare import Fare, FareFactory
 from agents.taxi import Taxi
 from agents.agent import Agent
 
+from Tkinter import *
+#from Tkinter import Frame, Tk
+from Canvas import Line, CanvasText, Rectangle
+from tkMessageBox import *
+from tkSimpleDialog import askinteger, askstring, askfloat
+from tkFileDialog import *
+
 config=ConfigParser.SafeConfigParser()
 config.read(os.path.join('agents','conf','agents','defaults.ini'))
 config.read(os.path.join('agents','conf','agents','overrides.ini'))
@@ -144,15 +151,56 @@ def oooh_shiny():
         from SimPy.SimPlot import SimPlot
         # Include enough bins to make each bar 'histoWidth' time units wide.
         #histo = Fare.waitMon.histogram(low=0.0, high=SIMTIME, nbins=SIMTIME/histoWidth)
+        root = Tk()
         plt = SimPlot()
-        #plt.plotBars(Fare.waitMon, color="blue")
-        #plt.plotHistogram(Fare.waitMon, color="blue")
-        #plt.plotLine(Fare.waitMon, color="blue")
-        #plt.plotScatter(Fare.waitMon, color="blue")
-        #plt.plotStep(Fare.waitMon, color="blue")
+        waitBars = plt.makeBars(Fare.waitMon, color="blue")
+        waitHisto = plt.makeHistogram(Fare.waitMon, color="red")
+        waitLine = plt.makeLine(Fare.waitMon, color="green")
+        #waitScatter = plt.makeScatter(Fare.waitMon, color="pink")
+        waitStep = plt.makeStep(Fare.waitMon, color="black")
 
-        plt.plotBars(Taxi.hiredMon, color="blue")
+        hiredBars = plt.makeBars(Taxi.hiredMon, color="red")
+        hiredHisto = plt.makeHistogram(Taxi.hiredMon, color="green")
+        hiredLine = plt.makeLine(Taxi.hiredMon, color="black")
+        #hiredScatter = plt.makeScatter(Taxi.hiredMon, color="pink")
+        hiredStep = plt.makeStep(Taxi.hiredMon, color="blue")
+
+        wonFareBars = plt.makeBars(Taxi.wonFareMon, color="red")
+        wonFareHisto = plt.makeHistogram(Taxi.wonFareMon, color="green")
+        wonFareLine = plt.makeLine(Taxi.wonFareMon, color="black")
+        #wonFareScatter = plt.makeScatter(Taxi.wonFareMon, color="pink")
+        wonFareStep = plt.makeStep(Taxi.wonFareMon, color="blue")
+
+        lostFareBars = plt.makeBars(Taxi.lostFareMon, color="red")
+        lostFareHisto = plt.makeHistogram(Taxi.lostFareMon, color="green")
+        lostFareLine = plt.makeLine(Taxi.lostFareMon, color="black")
+        #lostFareScatter = plt.makeScatter(Taxi.lostFareMon, color="pink")
+        lostFareStep = plt.makeStep(Taxi.lostFareMon, color="blue")
+
+        #graphObject = plt.makeGraphObjects([waitBars, hiredHisto])
+        #graphObject = plt.makeGraphObjects([waitLine, hiredStep])
+        #graphObject = plt.makeGraphObjects([waitBars, hiredHisto])
+        #graphObject = plt.makeGraphObjects([waitLine, hiredStep])
+
+# +     graphObject = plt.makeGraphObjects([waitBars, hiredBars])
+        #graphObject = plt.makeGraphObjects([waitLine, hiredLine])
+        #graphObject = plt.makeGraphObjects([waitLine, hiredLine, lostFareLine])
+# +     graphObject = plt.makeGraphObjects([hiredLine, lostFareLine])
+        graphObject = plt.makeGraphObjects([wonFareLine, lostFareLine])
+
+
 #        plt.plotBars(Taxi.fareMon, color="blue")
+
+        frame = Frame(root)
+
+        graph = plt.makeGraphBase(frame, 500, 300, title = 'Plot 2: 1 makeBars call',
+                xtitle = 'time', ytitle = 'pulse [volt]')
+        # Set side - by - side plots
+        graph.pack(side = LEFT, fill = BOTH, expand = YES)
+        graph.draw(graphObject, 'minimal', 'automatic')
+        frame.pack()
+
+
 
 #        plt.plotHistogram(histo, xlab='Time', ylab='Number of waiting Fares',
 #               title='Time waiting for Taxi', color='red', width=2)
