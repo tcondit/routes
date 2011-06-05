@@ -198,55 +198,40 @@ What would happen if two teams of Taxis competed with each other? In other
 \end_layout
 
 \begin_layout Standard
-The other thing this paper is doing is exploring the use of autonomous agents.
- [Rewrite that.] 
+But mostly this is a paper that explores the use of autonomous agents.
+ The Agents are Taxis and Fares, but in another context they may have been
+ viruses and antibodies, or cowboys and indians.
+ Both may draw attention away from the simulations, in different directions:
+ viruses and antibodies may be too complex, and cowboys and indians may
+ be too simple.
+ Taxi services in the real world do not have many competitive freedoms.
+ The main goal of all the regulation seems to be about providing a reliable
+ service with predictable prices.
+ Those are fine goals, but the simulations in this paper step outside those
+ boundaries, and explore what would happen if things were allowed to evolve
+ differently.
+\end_layout
+
+\begin_layout Standard
+The higher priority for this paper was flexibility in designing the negotiation
+ protocols and simulations.
+ Taxis and Fares are not the only choice of autonomous agents to study,
+ but they served the purpose well.
+\begin_inset Note Comment
+status open
+
+\begin_layout Plain Layout
+This sounds like it belongs in the conclusion.
+\end_layout
+
+\end_inset
+
+
 \end_layout
 
 \begin_layout Standard
 \paragraph_spacing double
-Lorem ipsum dolor sit amet, consectetuer adipiscing elit.
- Pellentesque dignissim.
- Praesent tortor.
- In fringilla feugiat nisi.
- Fusce a elit.
- Maecenas placerat facilisis magna.
- Mauris dolor nisi, consequat quis, adipiscing et, consequat semper, odio.
- In eget lacus.
- Pellentesque mauris.
- Sed vestibulum quam ac mauris.
- Donec vehicula risus.
- Maecenas vitae arcu quis tellus fringilla porttitor.
- Donec enim nulla, ornare sit amet, lacinia id, bibendum scelerisque, sapien.
-\end_layout
-
-\begin_layout Standard
-\paragraph_spacing double
-Duis ut sapien.
- Proin sit amet magna et est pharetra vestibulum.
- Pellentesque sed diam et erat sollicitudin pharetra.
- Suspendisse potenti.
- Sed fringilla sagittis urna.
- Morbi ullamcorper aliquet leo.
- Donec elit nunc, rutrum at, ultrices at, pretium a, est.
- Etiam non dolor non enim malesuada condimentum.
- Curabitur vitae sapien.
- Nulla neque.
-\end_layout
-
-\begin_layout Standard
-\paragraph_spacing double
-Donec odio nibh, varius in, dictum nec, egestas in, nisl.
- Mauris varius mi non nunc.
- Praesent porta enim in nibh.
- Donec ac mi varius ante malesuada dignissim.
- Nunc aliquet tortor ac lectus.
- Sed pede.
- Donec lobortis, tellus vel vehicula tristique, lectus diam cursus sapien,
- id ultricies odio metus sed ipsum.
- Fusce sapien mauris, vehicula non, placerat at, rhoncus sed, sem.
- Duis ullamcorper molestie mauris.
- Sed eu ipsum nec eros luctus elementum.
- Suspendisse ultrices sollicitudin nunc.
+Some other stuff (of questionable value) below.
 \end_layout
 
 \begin_layout Itemize
