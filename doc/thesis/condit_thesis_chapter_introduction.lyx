@@ -199,7 +199,69 @@ What would happen if two teams of Taxis competed with each other? In other
 
 \begin_layout Standard
 But mostly this is a paper that explores the use of autonomous agents.
- The Agents are Taxis and Fares, but in another context they may have been
+ They are characterized this way in 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "roozemond2000act"
+
+\end_inset
+
+, in a section called 
+\begin_inset Quotes eld
+\end_inset
+
+What are intelligent agents?
+\begin_inset Quotes erd
+\end_inset
+
+:
+\end_layout
+
+\begin_layout Standard
+\begin_inset Box Frameless
+position "t"
+hor_pos "c"
+has_inner_box 1
+inner_pos "t"
+use_parbox 0
+width "90col%"
+special "none"
+height "1in"
+height_special "totalheight"
+status open
+
+\begin_layout Plain Layout
+Multi-Agent Systems can be characterised by the interaction of many agents
+ trying to solve a variety of problems in a cooperative fashion.
+ Besides AI, intelligent agents should have some additional attributes to
+ solve problems by itself in real-time; understand information; have goals
+ and intentions; draw distinctions between situations; generalise; synthesise
+ new concepts and / or ideas; model the world they operate in and plan and
+ predict consequences of actions and evaluate alternatives.
+ The problem solving component of an intelligent agent can be a rule-based
+ system but can also be a neural network or a fuzzy expert system.
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+The Agents in this series of simulations meet most of these criteria.
+ In half the simulations the Agents work together in a cooperative fashion
+ - in the other half, they are competitive; they are able to solve problems
+ by themselves in real-time; they understand Fare requests for pickup (informati
+on); they have goals and intentions; and they draw distinctions between
+ situations to determine whether to reserve (or compete for) a particular
+ Fare.
+ They don't do much generalizing or synthesizing of new concepts, but they
+ do model the world in which they operate, and predict the consequences
+ of their actions and act accordingly.
+\end_layout
+
+\begin_layout Standard
+The Agents are Taxis and Fares, but in another context they may have been
  viruses and antibodies, or cowboys and indians.
  Both may draw attention away from the simulations, in different directions:
  viruses and antibodies may be too complex, and cowboys and indians may
@@ -216,7 +278,7 @@ But mostly this is a paper that explores the use of autonomous agents.
 The higher priority for this paper was flexibility in designing the negotiation
  protocols and simulations.
  Taxis and Fares are not the only choice of autonomous agents to study,
- but they served the purpose well.
+ but they serve the purpose well.
 \begin_inset Note Comment
 status open
 
@@ -227,6 +289,75 @@ This sounds like it belongs in the conclusion.
 \end_inset
 
 
+\end_layout
+
+\begin_layout Standard
+The rest of the paper consists of the following sections:
+\end_layout
+
+\begin_layout Itemize
+RELATED WORK is a review of the literature.
+ Research on taxis as autonomous agents is scarce, but there are traffic
+ and road network simulations that come at the issue from a different direction.
+ Instead of looking at a system of mobile agents, stationary agents at traffic
+ lights provide information for improving the flow of traffic or routing
+ around accidents and congestion.
+ The Belief-Desire-Intention model of intelligent agents is reviewed, and
+ the Routes agents are categorized within a framework for organizing classes
+ of multi-agent systems for transport logistics.
+ (This is not directly related, unless people are considered goods to transport,
+ but it clarifies a few things about the agents nevertheless.)
+\end_layout
+
+\begin_layout Itemize
+IMPLEMENTATION describes the Taxis and Fares in greater details.
+ It explains the grids and graphs that make up the Agent's world, and the
+ network traversal algorithms that calculate routes around the different
+ regions.
+ It expands on the negotiation protocols and simulation types.
+ Finally it describes the simulation software that drives the whole process,
+ the extensive run-time configuration options, and the interactive environment
+ within which the simulations are executed.
+\end_layout
+
+\begin_layout Itemize
+RESULTS tells the story of the simulations.
+ Individual Agents have autonomy during runtime, but from a simulation point
+ of view, the agents are part of larger system.
+ Several simulations are run and their data plotted and reported here.
+\end_layout
+
+\begin_layout Itemize
+CONCLUSION brings things to a close, and enumerates a number of possible
+ future enhancements.
+ There are a number of ways this program could be expanded upon, and the
+ source code will be freely available upon acceptance of this report.
+\end_layout
+
+\begin_layout Itemize
+APPENDIX A: USING TIGER/LINE DATA describes how raw data from the U.S.
+ Census Bureau, representing roads throughout the United States and it's
+ territories, is converted in real-time into line segments, and how those
+ line segments are knit together to make network graphs upon which the simulatio
+ns are run.
+\end_layout
+
+\begin_layout Itemize
+APPENDIX B: ANNOTATED CONFIG FILES enumerates the large collection of both
+ agent and graph data that can be customized at run-time, including full
+ annotations about each setting.
+\end_layout
+
+\begin_layout Itemize
+APPENDIX C: LIST OF OPEN SOURCE SOFTWARE ...
+\end_layout
+
+\begin_layout Itemize
+APPENDIX D: SOURCE CODE ...
+\end_layout
+
+\begin_layout Itemize
+APPENDIX E: TRANSCRIPT OF INTERACTIVE SESSION ...
 \end_layout
 
 \begin_layout Standard
