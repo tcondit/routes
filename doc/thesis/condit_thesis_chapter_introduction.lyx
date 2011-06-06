@@ -218,6 +218,14 @@ What are intelligent agents?
 \end_layout
 
 \begin_layout Standard
+\begin_inset VSpace defskip
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\paragraph_spacing single
 \begin_inset Box Frameless
 position "t"
 hor_pos "c"
@@ -242,6 +250,13 @@ Multi-Agent Systems can be characterised by the interaction of many agents
  system but can also be a neural network or a fuzzy expert system.
 \end_layout
 
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset VSpace 0.3in
 \end_inset
 
 
